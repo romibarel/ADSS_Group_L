@@ -1,4 +1,8 @@
 package Logic;
 
-public class ShiftRepo {
+import java.util.List;
+
+public class ShiftRepo
+{
+	private List<Shift> shifts;
 }

@@ -1,4 +1,9 @@
 package Logic;
 
-public class WorkersRepo {
+import java.util.List;
+
+public class WorkersRepo
+{
+	private List<Worker> workers;
+
 }
