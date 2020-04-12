@@ -1,4 +1,4 @@
-package Logic;
+
 
 import java.util.Date;
 import java.util.HashMap;
@@ -6,9 +6,10 @@ import java.util.HashMap;
 public class Shift
 {
 	private Date date;
-	private boolean hours; // 1 for morning 0 for evening
+	private boolean morning;
 	private int manager_id;
 	private HashMap<String,Integer> workers; // key= name , value= worker id
+	private String branch;
 
 	/*-------------------- Getters and Setters ---------------------------------*/
 	public Date getDate()
@@ -23,12 +24,12 @@ public class Shift
 
 	public boolean isHours()
 	{
-		return hours;
+		return morning;
 	}
 
-	public void setHours(boolean hours)
+	public void setHours(boolean morning)
 	{
-		this.hours = hours;
+		this.morning = morning;
 	}
 
 	public int getManager_id()

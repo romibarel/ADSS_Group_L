@@ -1,10 +1,8 @@
-package Logic;
 
 import java.util.Date;
 
 public class Worker
 {
-
 	private String name;
 	private int id;
 	private int bank_account_number;
@@ -14,6 +12,12 @@ public class Worker
 	private int sick_days;
 	private Date start_date;
 	private String role;
+	private String branch;
+
+	public Worker()
+	{
+
+	}
 
 	/*-------------------- Getters and Setters ---------------------------------*/
 
