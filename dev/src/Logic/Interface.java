@@ -1,4 +1,9 @@
-package Logic;
 
-public class Interface {
+public class Interface
+{
+	public Interface()
+	{
+
+	}
+
 }
