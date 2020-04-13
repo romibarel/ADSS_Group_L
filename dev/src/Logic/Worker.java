@@ -13,9 +13,8 @@ public class Worker
 	private int sick_days;
 	private Date start_date;
 	private String role;
-	private String branch;
 
-	public Worker(int id,String name, String role, String branch, Date start_date,int bank_account_number,int salary, int pension, int vacation_days, int sick_days)
+	public Worker(int id,String name, String role, Date start_date,int bank_account_number,int salary, int pension, int vacation_days, int sick_days)
 	{
 		this.id=id;
 		this.name=name;
@@ -26,10 +25,9 @@ public class Worker
 		this.sick_days=sick_days;
 		this.start_date=start_date;
 		this.role=role;
-		this.branch=branch;
 	}
 
-	public static Result check_parameters(String name, String role, String branch, String start_date,String bank_account_number,String salary, String pension, String vacation_days, String sick_days)
+	public static Result check_parameters(String name, String role, String start_date,String bank_account_number,String salary, String pension, String vacation_days, String sick_days)
 	{
 		int temp;
 
@@ -38,9 +36,6 @@ public class Worker
 
 		//check role
 		if (role==null || role.isEmpty()) return new Result(false,"role can't be empty");
-
-		//check branch
-		if (branch==null || branch.isEmpty()) return new Result(false,"branch can't be empty");
 
 		//check bank account number
 		try { temp=Integer.parseInt(bank_account_number); }
@@ -83,15 +78,6 @@ public class Worker
 
 	/*-------------------- Getters and Setters ---------------------------------*/
 
-	public String getBranch()
-	{
-		return branch;
-	}
-
-	public void setBranch(String branch)
-	{
-		this.branch = branch;
-	}
 
 	public String getName()
 	{

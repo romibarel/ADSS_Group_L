@@ -21,7 +21,7 @@ public class ShiftRepo
 		return false;
 	}
 
-	public static Result add_shift(String date,boolean morning,String manager_id,List<Integer> workers,String branch)
+	public static Result add_shift(String date,boolean morning,String manager_id,List<Integer> workers)
 	{
 		return null;
 	}
@@ -34,12 +34,8 @@ public class ShiftRepo
 		return null;
 	}
 
-	public static List<Shift> get_shift_by_branch(String branch)
-	{
-		return null;
-	}
 
-	public static Shift get_shift(Date date, String branch, boolean morning)
+	public static Shift get_shift(Date date, boolean morning)
 	{
 		return null;
 	}

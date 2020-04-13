@@ -11,18 +11,16 @@ public class Shift
 	private boolean morning;
 	private int manager_id;
 	private List<Integer> workers;
-	private String branch;
 
-	public Shift(Date date,boolean morning, int manager_id,List<Integer> workers,String branch)
+	public Shift(Date date,boolean morning, int manager_id,List<Integer> workers)
 	{
 		this.date=date;
 		this.morning=morning;
 		this.manager_id=manager_id;
 		this.workers=workers;
-		this.branch=branch;
 	}
 
-	public static Result check_parameters(String branch, String manager_id, String date,String morning, String workers)
+	public static Result check_parameters(String manager_id, String date,String morning, String workers)
 	{
 		//TODO implement later
 		return null;
@@ -37,16 +35,6 @@ public class Shift
 	public void setMorning(boolean morning)
 	{
 		this.morning = morning;
-	}
-
-	public String getBranch()
-	{
-		return branch;
-	}
-
-	public void setBranch(String branch)
-	{
-		this.branch = branch;
 	}
 
 	public Date getDate()
