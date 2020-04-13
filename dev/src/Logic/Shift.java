@@ -1,5 +1,7 @@
 package Logic;
 
+import CLI.PresentShift;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,19 +14,51 @@ public class Shift
 	private int manager_id;
 	private List<Integer> workers;
 
-	public Shift(Date date,boolean morning, int manager_id,List<Integer> workers)
+	public Shift(PresentShift shift,Date date)
 	{
 		this.date=date;
-		this.morning=morning;
-		this.manager_id=manager_id;
-		this.workers=workers;
+		this.morning=shift.isMorning();
+		this.manager_id=shift.getManager_id();
+		this.workers=shift.getWorkers();
 	}
 
-	public static Result check_parameters(String manager_id, String date,String morning, String workers)
+	public static Result check_parameters(PresentShift shift)
 	{
-		//TODO implement later
-		return null;
+		//check date
+		Date shift_date=null;
+		try
+		{
+			shift_date=new SimpleDateFormat("dd/MM/yyyy").parse(shift.getDate());
+			Date current_date=new Date(); //get current Date
+			if (shift_date.before(current_date))
+				return new Result(false,"shift date is in the past");
+			if (ShiftRepo.is_shift_scheduled(shift_date,shift.isMorning()))
+				return new Result(false,"a shift is already scheduled for this date");
+		} catch (Exception e) {	return new Result(false,"invalid date"); }
+
+		//check manager_id
+		if (WorkersRepo.get_by_id(shift.getManager_id())==null)
+			return new Result(false,"manager doest exist");
+		if (!Worker.is_manager(shift.getManager_id()))
+			return new Result(false,"wrong manager id");
+		if (!ConstrainsRepo.is_available(shift.getManager_id(),shift_date.toString(),shift.isMorning()))
+			return new Result(false, "manager has constraint for that shift");
+
+		//check workers
+		if (shift.getWorkers()!=null)
+		{
+			for (Integer worker_id : shift.getWorkers())
+			{
+				if (WorkersRepo.get_by_id(worker_id) == null)
+					return new Result(false, "worker number " + worker_id + " doesnt exist");
+				if (!ConstrainsRepo.is_available(worker_id, shift_date.toString(), shift.isMorning()))
+					return new Result(false, "worker number " + worker_id + " has constraint for that shift");
+			}
+		}
+		return new Result(true,"success");
 	}
+
+
 	/*-------------------- Getters and Setters ---------------------------------*/
 
 	public boolean isMorning()

@@ -1,5 +1,7 @@
 package Logic;
 
+import CLI.PresentWorker;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,56 +17,45 @@ public class Worker
 	private Date start_date;
 	private String role;
 
-	public Worker(int id,String name, String role, Date start_date,int bank_account_number,int salary, int pension, int vacation_days, int sick_days)
+	public Worker(PresentWorker worker,int id,Date start_date)
 	{
 		this.id=id;
-		this.name=name;
-		this.bank_account_number=bank_account_number;
-		this.salary=salary;
-		this.pension=pension;
-		this.vacation_days=vacation_days;
-		this.sick_days=sick_days;
+		this.name=worker.getName();
+		this.bank_account_number=worker.getBank_account_number();
+		this.salary=worker.getSalary();
+		this.pension=worker.getPension();
+		this.vacation_days=worker.getVacation_days();
+		this.sick_days=worker.getSick_days();
 		this.start_date=start_date;
-		this.role=role;
+		this.role=worker.getRole();
 	}
 
-	public static Result check_parameters(String name, String role, String start_date,String bank_account_number,String salary, String pension, String vacation_days, String sick_days)
+	public static Result check_parameters(PresentWorker worker)
 	{
-		int temp;
 
 		//check name
-		if (name==null || name.isEmpty()) return new Result(false,"name can't be empty");
+		if (worker.getName()==null || worker.getName().isEmpty()) return new Result(false,"name can't be empty");
 
 		//check role
-		if (role==null || role.isEmpty()) return new Result(false,"role can't be empty");
+		if (worker.getRole()==null || worker.getRole().isEmpty()) return new Result(false,"role can't be empty");
 
 		//check bank account number
-		try { temp=Integer.parseInt(bank_account_number); }
-		catch (Exception e) { return new Result(false, "invalid bank account number"); }
-		if (temp<0) return new Result(false, "invalid bank account number");
+		if (worker.getBank_account_number()<0) return new Result(false, "invalid bank account number");
 
 		//check salary
-		try { temp=Integer.parseInt(salary);	}
-		catch (Exception e) { return new Result(false, "invalid salary");	}
-		if (temp<0) return new Result(false, "salary is lower than 0");
+		if (worker.getSalary()<0) return new Result(false, "salary is lower than 0");
 
 		//check pension
-		try { temp=Integer.parseInt(pension); }
-		catch (Exception e) { return new Result(false, "invalid pension"); }
-		if (temp<0)	return new Result(false, "pension is lower than 0");
+		if (worker.getPension()<0)	return new Result(false, "pension is lower than 0");
 
 		//check vacation days
-		try { temp=Integer.parseInt(vacation_days); }
-		catch (Exception e) { return new Result(false, "invalid vacation days"); }
-		if (temp<0)	return new Result(false, "vacation days is lower than 0");
+		if (worker.getVacation_days()<0)	return new Result(false, "vacation days is lower than 0");
 
 		//check sick days
-		try { temp=Integer.parseInt(sick_days); }
-		catch (Exception e) { return new Result(false, "invalid sick days"); }
-		if (temp<0)	return new Result(false, "sick days is lower than 0");
+		if (worker.getSick_days()<0)	return new Result(false, "sick days is lower than 0");
 
 		//check start date
-		try	{ new SimpleDateFormat("dd/MM/yyyy").parse(start_date); }
+		try	{ new SimpleDateFormat("dd/MM/yyyy").parse(worker.getStart_date()); }
 		catch (Exception e)	{ return new Result(false,"invalid start date"); }
 
 		return new Result(true,"success");
