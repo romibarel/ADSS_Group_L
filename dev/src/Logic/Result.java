@@ -1,3 +1,5 @@
+package Logic;
+
 public class Result
 {
 	public boolean success;
