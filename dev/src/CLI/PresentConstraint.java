@@ -1,13 +1,14 @@
-package Logic;
+package CLI;
 
-public class Constraint {
 
+
+public class PresentConstraint {
     private String date;
     private boolean morning;
     private int id;
     private String reason;
 
-    public Constraint(String date, boolean morning, int id, String reason) {
+    public PresentConstraint(String date, boolean morning, int id, String reason) {
         this.date = date;
         this.morning = morning;
         this.id = id;
@@ -46,5 +47,13 @@ public class Constraint {
         this.reason = reason;
     }
 
-
+    @Override
+    public String toString() {
+        return "PresentConstraint{" +
+                "date=" + date  +
+                ", morning=" + morning +
+                ", id=" + id +
+                ", reason=" + reason  +
+                '}';
+    }
 }
