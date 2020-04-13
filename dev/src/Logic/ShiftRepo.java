@@ -1,12 +1,27 @@
 package Logic;
 
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ShiftRepo
 {
-	private List<Shift> shifts;
+	private static List<Shift> shifts=new LinkedList<>();
 
-	public static Result add_shift(Shift shift)
+	// checks if a worker is scheduled for any shift
+	public static boolean is_scheduled(int worker_id)
+	{
+		for (int i=0;i<shifts.size();i++)
+		{
+			if (shifts.get(i).getWorkers().contains(worker_id))
+				return true;
+			if (shifts.get(i).getManager_id()==worker_id)
+				return true;
+		}
+		return false;
+	}
+
+	public static Result add_shift(String date,boolean morning,String manager_id,List<Integer> workers,String branch)
 	{
 		return null;
 	}
@@ -14,7 +29,7 @@ public class ShiftRepo
 	{
 		return null;
 	}
-	public static Result delete_shift(Shift shift)
+	public static Result delete_shift(String date, boolean morning)
 	{
 		return null;
 	}
@@ -24,7 +39,7 @@ public class ShiftRepo
 		return null;
 	}
 
-	public static Shift get_shift(String date,String branch, boolean morning)
+	public static Shift get_shift(Date date, String branch, boolean morning)
 	{
 		return null;
 	}

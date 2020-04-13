@@ -2,7 +2,13 @@ package Logic;
 
 public class Result
 {
-	public String action;
 	public boolean success;
 	public String msg;
+
+	public Result(boolean success,String msg)
+	{
+		this.msg=msg;
+		this.success=success;
+	}
+
 }
