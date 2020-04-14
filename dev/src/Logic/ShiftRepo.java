@@ -24,6 +24,7 @@ public class ShiftRepo
 		return false;
 	}
 
+	//checks if there a shift scheduled in a certain date
 	public static boolean is_shift_scheduled(Date date,boolean morning)
 	{
 		for (Shift shift: shifts)
@@ -36,17 +37,11 @@ public class ShiftRepo
 
 	public static Result add_shift(PresentShift shift)
 	{
-		//check parameters validity
 		Result result=Shift.check_parameters(shift);
 		if (result.success)
 		{
-			try
-			{
-				Date date=new SimpleDateFormat("dd/MM/yyyy").parse(shift.getDate()); //date is verified so no catch
-				Shift new_shift=new Shift(shift,date);
-				shifts.add(new_shift);
-			}
-			catch (Exception ignored) { }
+			Shift new_shift=new Shift(shift);
+			shifts.add(new_shift);
 		}
 		return result;
 	}

@@ -14,18 +14,21 @@ public class Shift
 	private int manager_id;
 	private List<Integer> workers;
 
-	public Shift(PresentShift shift,Date date)
+	public Shift(PresentShift shift)
 	{
-		this.date=date;
 		this.morning=shift.isMorning();
 		this.manager_id=shift.getManager_id();
 		this.workers=shift.getWorkers();
+		try
+		{
+			this.date=new SimpleDateFormat("dd/MM/yyyy").parse(shift.getDate()); //date is validated so no catch
+		} catch (Exception ignored) {}
 	}
 
 	public static Result check_parameters(PresentShift shift)
 	{
 		//check date
-		Date shift_date=null;
+		Date shift_date;
 		try
 		{
 			shift_date=new SimpleDateFormat("dd/MM/yyyy").parse(shift.getDate());

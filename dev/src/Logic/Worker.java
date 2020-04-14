@@ -17,7 +17,7 @@ public class Worker
 	private Date start_date;
 	private String role;
 
-	public Worker(PresentWorker worker,int id,Date start_date)
+	public Worker(int id,PresentWorker worker)
 	{
 		this.id=id;
 		this.name=worker.getName();
@@ -26,8 +26,11 @@ public class Worker
 		this.pension=worker.getPension();
 		this.vacation_days=worker.getVacation_days();
 		this.sick_days=worker.getSick_days();
-		this.start_date=start_date;
 		this.role=worker.getRole();
+		try
+		{
+			this.start_date=new SimpleDateFormat("dd/MM/yyyy").parse(worker.getStart_date()); //date is validated so no catch
+		} catch (Exception ignored){}
 	}
 
 	public static Result check_parameters(PresentWorker worker)

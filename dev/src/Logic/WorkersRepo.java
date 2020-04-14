@@ -10,19 +10,16 @@ import java.util.List;
 public class WorkersRepo
 {
 	private static List<Worker> workers= new LinkedList<>();
+	private static int next_id=0;
 
 	public static Result add_worker(PresentWorker worker)
 	{
 		Result result= Worker.check_parameters(worker);
 		if (result.success)
 		{
-			try
-			{
-				Date startDate=new SimpleDateFormat("dd/MM/yyyy").parse(worker.getStart_date()); //date verified so no catch
-				Worker new_worker=new Worker(worker,workers.size(),startDate);
-				workers.add(new_worker);
-			}
-			catch (Exception ignored) {}
+			Worker new_worker=new Worker(next_id,worker);
+			next_id++;
+			workers.add(new_worker);
 		}
 		return result;
 	}
