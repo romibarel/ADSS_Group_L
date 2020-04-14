@@ -44,12 +44,7 @@ public class WorkersRepo
 		result=Worker.check_parameters(worker);
 		if (result.success)
 		{
-			Date date=null;
-			try
-			{
-				date=new SimpleDateFormat("dd/MM/yyyy").parse(worker.getStart_date()); //date is verified so no catch
-			} catch (Exception ignored) {}
-			worker_to_edit.setStart_date(date);
+			worker_to_edit.setStart_date(worker.getStart_date());
 			worker_to_edit.setBank_account_number(worker.getBank_account_number());
 			worker_to_edit.setName(worker.getName());
 			worker_to_edit.setPension(worker.getPension());
@@ -68,7 +63,7 @@ public class WorkersRepo
 		for (Worker worker : workers)
 		{
 			if (!worker.getRole().equals(role)) continue;
-			if (!ConstrainsRepo.is_available(worker.getId(),date.toString(),morning)) continue;
+			if (!ConstrainsRepo.is_available(worker.getId(),date,morning)) continue;
 			return_list.add(worker);
 		}
 		return return_list;
@@ -82,6 +77,12 @@ public class WorkersRepo
 				return worker;
 		}
 		return null;
+	}
+
+	//for the tests
+	public static List<Worker> getWorkers()
+	{
+		return workers;
 	}
 
 }

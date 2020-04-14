@@ -52,14 +52,9 @@ public class ShiftRepo
 		result=Shift.check_parameters(shift);
 		if (result.success)
 		{
-			Date shift_date=null;
-			try
-			{
-				shift_date=new SimpleDateFormat("dd/MM/yyyy").parse(shift.getDate()); // date is verified so no catch
-			} catch (Exception ignored) {}
-			Shift shift_to_edit=get_shift(shift_date,shift.isMorning());
+			Shift shift_to_edit=get_shift(shift.getDate(),shift.isMorning());
 			if (shift_to_edit==null) return new Result(false,"shift doesnt exist");
-			shift_to_edit.setDate(shift_date);
+			shift_to_edit.setDate(shift.getDate());
 			shift_to_edit.setManager_id(shift.getManager_id());
 			shift_to_edit.setMorning(shift.isMorning());
 			shift_to_edit.setWorkers(shift.getWorkers());
@@ -86,6 +81,11 @@ public class ShiftRepo
 		return null;
 	}
 
+	//for the tests
+	public static List<Shift> get_shifts()
+	{
+		return shifts;
+	}
 
 
 

@@ -27,10 +27,7 @@ public class Worker
 		this.vacation_days=worker.getVacation_days();
 		this.sick_days=worker.getSick_days();
 		this.role=worker.getRole();
-		try
-		{
-			this.start_date=new SimpleDateFormat("dd/MM/yyyy").parse(worker.getStart_date()); //date is validated so no catch
-		} catch (Exception ignored){}
+		this.start_date=worker.getStart_date();
 	}
 
 	public static Result check_parameters(PresentWorker worker)
@@ -57,17 +54,16 @@ public class Worker
 		//check sick days
 		if (worker.getSick_days()<0)	return new Result(false, "sick days is lower than 0");
 
-		//check start date
-		try	{ new SimpleDateFormat("dd/MM/yyyy").parse(worker.getStart_date()); }
-		catch (Exception e)	{ return new Result(false,"invalid start date"); }
+		//check start_date
+		if (worker.getStart_date()==null) return new Result(false, "invalid start date");
 
 		return new Result(true,"success");
 	}
 
-	public static boolean is_manager(int id)
+	//TODO change it later
+	public boolean is_manager()
 	{
-		//TODO - implement later
-		return true;
+		return role.equals("manager");
 	}
 
 
