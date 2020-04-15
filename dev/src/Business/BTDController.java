@@ -1,15 +1,31 @@
 package Business;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class BTDController {
+    private static BTDController btd = null;
+    private static BTIController bti;
     private List<Driver> drivers;
     private DeliveryArchive archive ;
-    private List<Truck> trucks;
-    private List<Location> locations;
     private Sections sections;
+    private List<Location> locations;
+    private List<Truck> trucks;
     private List<Delivery> deliveries;
+
+    private BTDController(LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
+        this.bti = BTIController.getBTI(null, drivers, sections, locations, trucks);
+        this.drivers = drivers;
+        this.sections = sections;
+        this.trucks = trucks;
+    }
+
+    public static BTDController getBTD(LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
+        if (btd == null)
+            btd = new BTDController(drivers, sections, locations, trucks);
+        return btd;
+    }
 
     public List<Driver> getDrivers() {
         return drivers;
