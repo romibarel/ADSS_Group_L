@@ -7,16 +7,17 @@ import java.util.List;
 
 public class Delivery {
     private Date date;
-    private Time departureTime;
+    private Date departureTime;
     private int truckNum;
     private String driver;
     private Location source;
     private HashMap<DeliverDoc, Location> docLoc;
+    private boolean approved;
 
-    public Delivery(Date date, Time time, Truck truck, Driver driver, Location source, List<Location> locations, List<DeliverDoc> docs){
+    public Delivery(Date date, Date time, Truck truck, Driver driver, Location source, List<Location> destinations, List<DeliverDoc> docs){
         //need to check if date and time are acceptable dont know how
         if (!driver.getLicenses().contains(truck.getType)){
-            alert();
+            throw new IllegalArgumentException("Unlicensed driver");
         }
         else {
             this.date = date;
