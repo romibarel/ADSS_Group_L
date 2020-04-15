@@ -1,26 +1,27 @@
 package CLI;
 
+import java.util.Date;
 import java.util.List;
 
 public class PresentShift {
 
-    private String date;
+    private Date date;
     private boolean morning;
     private int manager_id;
     private List<Integer> workers;
 
-    public PresentShift(String date, boolean morning, int manager_id, List<Integer> workers) {
+    public PresentShift(Date date, boolean morning, int manager_id, List<Integer> workers) {
         this.date = date;
         this.morning = morning;
         this.manager_id = manager_id;
         this.workers = workers;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

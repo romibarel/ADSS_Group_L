@@ -1,24 +1,28 @@
 package Logic;
 
+import java.util.Date;
+
 public class Constraint {
 
-    private String date;
+    private Date date;
     private boolean morning;
     private int id;
     private String reason;
+    private int cid;
 
-    public Constraint(String date, boolean morning, int id, String reason) {
+    public Constraint(Date date, boolean morning, int id, String reason,int cid) {
         this.date = date;
         this.morning = morning;
         this.id = id;
         this.reason = reason;
+        this.cid=cid;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -46,5 +50,11 @@ public class Constraint {
         this.reason = reason;
     }
 
+    public int getCid() {
+        return cid;
+    }
 
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
 }

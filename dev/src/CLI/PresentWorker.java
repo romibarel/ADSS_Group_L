@@ -1,6 +1,8 @@
 package CLI;
 
 
+import java.util.Date;
+
 public class PresentWorker {
     private String name;
     private int id;
@@ -9,10 +11,10 @@ public class PresentWorker {
     private int pension;
     private int vacation_days;
     private int sick_days;
-    private String start_date;
+    private Date start_date;
     private String role;
 
-    public PresentWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, String start_date, String role) {
+    public PresentWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, Date start_date, String role) {
         this.name = name;
         this.id = id;
         this.bank_account_number = bank_account_number;
@@ -80,11 +82,11 @@ public class PresentWorker {
         this.sick_days = sick_days;
     }
 
-    public String getStart_date() {
+    public Date getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(String start_date) {
+    public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 

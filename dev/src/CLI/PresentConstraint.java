@@ -1,25 +1,28 @@
 package CLI;
 
 
+import java.util.Date;
 
 public class PresentConstraint {
-    private String date;
+    private Date date;
     private boolean morning;
     private int id;
     private String reason;
+    private int cid;
 
-    public PresentConstraint(String date, boolean morning, int id, String reason) {
+    public PresentConstraint(Date date, boolean morning, int id, String reason, int cid) {
         this.date = date;
         this.morning = morning;
         this.id = id;
         this.reason = reason;
+        this.cid=cid;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -45,6 +48,14 @@ public class PresentConstraint {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 
     @Override
