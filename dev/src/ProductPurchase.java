@@ -10,3 +10,4 @@ public class ProductPurchase {
     private Date expirationDate;
     private int location;
 }
+
