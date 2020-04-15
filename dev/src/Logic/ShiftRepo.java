@@ -1,49 +1,91 @@
 package Logic;
 
+import CLI.PresentShift;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ShiftRepo
 {
-	private static List<Shift> shifts=new LinkedList<>();
+	private static List<Logic.Shift> shifts=new LinkedList<>();
 
 	// checks if a worker is scheduled for any shift
-	public static boolean is_scheduled(int worker_id)
+	public static boolean is_worker_scheduled(int worker_id)
 	{
-		for (int i=0;i<shifts.size();i++)
+		for (Shift shift:shifts)
 		{
-			if (shifts.get(i).getWorkers().contains(worker_id))
+			if (shift.getWorkers().contains(worker_id))
 				return true;
-			if (shifts.get(i).getManager_id()==worker_id)
+			if (shift.getManager_id()==worker_id)
 				return true;
 		}
 		return false;
 	}
 
-	public static Result add_shift(String date,boolean morning,String manager_id,List<Integer> workers,String branch)
+	//checks if there a shift scheduled in a certain date
+	public static boolean is_shift_scheduled(Date date,boolean morning)
 	{
-		return null;
+		for (Shift shift: shifts)
+		{
+			if (shift.getDate().equals(date) && shift.isMorning()==morning)
+				return true;
+		}
+		return false;
 	}
-	public static Result edit_shift(Shift shift)
+
+	public static Result add_shift(PresentShift shift)
 	{
-		return null;
+		Result result=Shift.check_parameters(shift);
+		if (result.success)
+		{
+			Shift new_shift=new Shift(shift);
+			shifts.add(new_shift);
+		}
+		return result;
 	}
-	public static Result delete_shift(String date, boolean morning)
+
+	public static Result edit_shift(PresentShift shift,Date previous_date,boolean previous_morning)
 	{
+		Result result;
+		Shift shift_to_edit=get_shift(previous_date,previous_morning);
+		if (shift_to_edit==null) return new Result(false,"shift doesnt exist");
+		result=Shift.check_parameters(shift);
+		if (result.success)
+		{
+			shift_to_edit.setDate(shift.getDate());
+			shift_to_edit.setManager_id(shift.getManager_id());
+			shift_to_edit.setMorning(shift.isMorning());
+			shift_to_edit.setWorkers(shift.getWorkers());
+		}
+		return result;
+	}
+
+	public static Result delete_shift(Date date, boolean morning)
+	{
+		Shift shift= get_shift(date,morning);
+		if (shift==null)
+			return new Result(false,"shift doesnt exist");
+		shifts.remove(shift);
+		return new Result(true,"success");
+	}
+
+	public static Shift get_shift(Date date, boolean morning)
+	{
+		for (Shift shift:shifts)
+		{
+			if (shift.getDate().equals(date) && shift.isMorning()==morning)
+				return shift;
+		}
 		return null;
 	}
 
-	public static List<Shift> get_shift_by_branch(String branch)
+	//for the tests
+	public static List<Shift> get_shifts()
 	{
-		return null;
+		return shifts;
 	}
-
-	public static Shift get_shift(Date date, String branch, boolean morning)
-	{
-		return null;
-	}
-
 
 
 

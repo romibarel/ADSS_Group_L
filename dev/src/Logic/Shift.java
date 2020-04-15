@@ -1,8 +1,11 @@
 package Logic;
 
+import CLI.PresentShift;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Shift
@@ -11,22 +14,49 @@ public class Shift
 	private boolean morning;
 	private int manager_id;
 	private List<Integer> workers;
-	private String branch;
 
-	public Shift(Date date,boolean morning, int manager_id,List<Integer> workers,String branch)
+	public Shift(PresentShift shift)
 	{
-		this.date=date;
-		this.morning=morning;
-		this.manager_id=manager_id;
-		this.workers=workers;
-		this.branch=branch;
+		this.morning=shift.isMorning();
+		this.manager_id=shift.getManager_id();
+		this.workers=shift.getWorkers();
+		this.date=shift.getDate();
 	}
 
-	public static Result check_parameters(String branch, String manager_id, String date,String morning, String workers)
+	public static Result check_parameters(PresentShift shift)
 	{
-		//TODO implement later
-		return null;
+		//check date
+		if (shift.getDate()==null)
+			return new Result(false,"invalid date");
+		Date current_date=new Date(); //get current Date
+		if (shift.getDate().before(current_date))
+			return new Result(false,"shift date is in the past");
+		if (ShiftRepo.is_shift_scheduled(shift.getDate(),shift.isMorning()))
+			return new Result(false,"a shift is already scheduled for this date");
+
+		//check manager_id
+		if (WorkersRepo.get_by_id(shift.getManager_id())==null)
+			return new Result(false,"manager doest exist");
+		if (!WorkersRepo.get_by_id(shift.getManager_id()).is_manager())
+			return new Result(false,"wrong manager id");
+		if (!ConstrainsRepo.is_available(shift.getManager_id(),shift.getDate(),shift.isMorning()))
+			return new Result(false, "manager has constraint for that shift");
+
+		//check workers
+		if (shift.getWorkers()!=null)
+		{
+			for (Integer worker_id : shift.getWorkers())
+			{
+				if (WorkersRepo.get_by_id(worker_id) == null)
+					return new Result(false, "worker number " + worker_id + " doesnt exist");
+				if (!ConstrainsRepo.is_available(worker_id, shift.getDate(), shift.isMorning()))
+					return new Result(false, "worker number " + worker_id + " has constraint for that shift");
+			}
+		}
+		return new Result(true,"success");
 	}
+
+
 	/*-------------------- Getters and Setters ---------------------------------*/
 
 	public boolean isMorning()
@@ -37,16 +67,6 @@ public class Shift
 	public void setMorning(boolean morning)
 	{
 		this.morning = morning;
-	}
-
-	public String getBranch()
-	{
-		return branch;
-	}
-
-	public void setBranch(String branch)
-	{
-		this.branch = branch;
 	}
 
 	public Date getDate()
@@ -71,6 +91,7 @@ public class Shift
 
 	public List<Integer> getWorkers()
 	{
+		if (workers==null) return new LinkedList<>();
 		return workers;
 	}
 
