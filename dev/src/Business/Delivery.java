@@ -15,7 +15,7 @@ public class Delivery {
 
     public Delivery(Date date, Time time, Truck truck, Driver driver, Location source, List<Location> locations, List<DeliverDoc> docs){
         //need to check if date and time are acceptable dont know how
-        if (!driver.getLicenses().contains(truck.getType)){
+        if (!driver.getLicenses().contains(truck.getType())){
             alert();
         }
         else {
@@ -27,7 +27,7 @@ public class Delivery {
             docLoc = new HashMap<>();
             for (DeliverDoc doc : docs) {
                 for (Location location : locations) {
-                    if (doc.getDestination().equals(location.getAddress())) {
+                    if (doc.getDestination().equals(location.getAddress())) { //todo what is it get destination?? there are couple of them..
                         docLoc.put(doc, location);
                     }
                 }
@@ -35,6 +35,9 @@ public class Delivery {
         }
     }
 
+    private void alert() {
+
+    }
 
 
     public Date getDate() {

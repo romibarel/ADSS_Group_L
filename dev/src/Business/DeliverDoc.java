@@ -45,4 +45,7 @@ public class DeliverDoc {
         this.approved = approved;
     }
 
+    public Object getDestination() {
+        return null;//todo
+    }
 }

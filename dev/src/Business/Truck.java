@@ -6,6 +6,13 @@ public class Truck {
     private int weighNeto;
     private int maxWeight;
 
+    private String type;//todo add to url
+    private int currentLoad = 0;//todo
+
+    public
+
+    //the driver will check if he can use the truck?
+
     public int getTruckNum() {
         return truckNum;
     }
@@ -38,5 +45,19 @@ public class Truck {
         this.maxWeight = maxWeight;
     }
 
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getCurrentLoad() {
+        return currentLoad;
+    }
+
+    public void setCurrentLoad(int currentLoad) {
+        this.currentLoad = currentLoad;
+    }
 }
