@@ -7,9 +7,8 @@ public class Truck {
     private int maxWeight;
 
     private String type;//todo add to url
-    private int currentLoad = 0;//todo
+    private int currentLoad = 0;//todo is it neccessery
 
-    public
 
     //the driver will check if he can use the truck?
 
