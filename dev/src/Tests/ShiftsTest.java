@@ -18,13 +18,12 @@ public class ShiftsTest
 {
 	PresentWorker w;
 	PresentShift s;
-	static int added_workers=0;
 
 	@BeforeEach
 	public void before_tests() throws ParseException
 	{
 		Date date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
-		w=new PresentWorker("avi cohen",1,12,1234,11,5,5,date,"manager");
+		w=new PresentWorker("avi cohen",0,12,1234,11,5,5,date,"manager");
 
 		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
 		s=new PresentShift(date2,true,0,null);
@@ -63,10 +62,9 @@ public class ShiftsTest
 		PresentShift s2=new PresentShift(date2,true,0,null);
 
 		WorkersRepo.add_worker(w);
-		added_workers++;
-		s.setManager_id(added_workers-1);
+		s.setManager_id(0);
 		ShiftRepo.add_shift(s);
-		s2.setManager_id(added_workers-1);
+		s2.setManager_id(0);
 		ShiftRepo.add_shift(s2);
 		assertEquals(2,ShiftRepo.get_shifts().size()); //2 shifts were added
 	}
@@ -83,8 +81,7 @@ public class ShiftsTest
 	{
 		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("16/05/2020");
 		WorkersRepo.add_worker(w);
-		added_workers++;
-		s.setManager_id(added_workers-1);
+		s.setManager_id(0);
 		s.setDate(date2);
 		ShiftRepo.add_shift(s);
 		assertTrue(ShiftRepo.delete_shift(date2,s.isMorning()).success);
@@ -98,10 +95,9 @@ public class ShiftsTest
 		PresentShift s2=new PresentShift(date2,true,0,null);
 
 		WorkersRepo.add_worker(w);
-		added_workers++;
-		s.setManager_id(added_workers-1);
+		s.setManager_id(0);
 		ShiftRepo.add_shift(s);
-		s2.setManager_id(added_workers-1);
+		s2.setManager_id(0);
 		ShiftRepo.add_shift(s2);
 		assertEquals(date2,ShiftRepo.get_shift(date2,true).getDate());
 

@@ -10,15 +10,14 @@ import java.util.List;
 public class WorkersRepo
 {
 	private static List<Worker> workers= new LinkedList<>();
-	private static int next_id=0;
 
 	public static Result add_worker(PresentWorker worker)
 	{
+		if (get_by_id(worker.getId())!=null) return new Result(false,"there is already a worker with that id");
 		Result result= Worker.check_parameters(worker);
 		if (result.success)
 		{
-			Worker new_worker=new Worker(next_id,worker);
-			next_id++;
+			Worker new_worker=new Worker(worker);
 			workers.add(new_worker);
 		}
 		return result;
@@ -55,7 +54,6 @@ public class WorkersRepo
 		}
 		return result;
 	}
-
 	// return the available workers in specific date and role
 	public static List<Worker> get_by_role(String role,Date date,boolean morning)
 	{

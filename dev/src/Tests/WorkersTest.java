@@ -18,13 +18,12 @@ public class WorkersTest
 {
 	PresentWorker w;
 	PresentShift s;
-	static int added_workers=0;
 
 	@BeforeEach
 	public void before_tests() throws ParseException
 	{
 		Date date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
-		w=new PresentWorker("avi cohen",1,12,1234,11,5,5,date,"manager");
+		w=new PresentWorker("avi cohen",0,12,1234,11,5,5,date,"manager");
 
 		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
 		s=new PresentShift(date2,true,0,null);
@@ -42,16 +41,15 @@ public class WorkersTest
 	{
 		Date date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
 		PresentWorker w1=new PresentWorker("avi cohen",1,12,1234,11,5,5,date,"manager");
-		PresentWorker w2=new PresentWorker("avi levi",1,12,1234,11,5,5,date,"manager");
-		PresentWorker w3=new PresentWorker("avi bitter",1,12,1234,11,5,5,date,"cashier");
-		PresentWorker w4=new PresentWorker("shimon levi",1,12,1234,11,5,5,date,"cashier");
-		PresentWorker w5=new PresentWorker("shimon cohen",1,12,1234,11,5,5,date,"driver");
+		PresentWorker w2=new PresentWorker("avi levi",2,12,1234,11,5,5,date,"manager");
+		PresentWorker w3=new PresentWorker("avi bitter",3,12,1234,11,5,5,date,"cashier");
+		PresentWorker w4=new PresentWorker("shimon levi",4,12,1234,11,5,5,date,"cashier");
+		PresentWorker w5=new PresentWorker("shimon cohen",5,12,1234,11,5,5,date,"driver");
 		WorkersRepo.add_worker(w1);
 		WorkersRepo.add_worker(w2);
 		WorkersRepo.add_worker(w3);
 		WorkersRepo.add_worker(w4);
 		WorkersRepo.add_worker(w5);
-		added_workers=added_workers+5;
 
 		//no constraint were added so all managers should be returned
 		assertEquals(2,WorkersRepo.get_by_role("manager",date,true).size());
@@ -69,8 +67,7 @@ public class WorkersTest
 	public void test_get_worker_by_id()
 	{
 		WorkersRepo.add_worker(w);
-		added_workers++;
-		assertEquals("avi cohen",WorkersRepo.get_by_id(added_workers-1).getName());
+		assertEquals("avi cohen",WorkersRepo.get_by_id(0).getName());
 	}
 
 	@Test
@@ -86,10 +83,9 @@ public class WorkersTest
 	{
 		Date date4=new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2026");
 		WorkersRepo.add_worker(w);
-		added_workers++;
-		PresentWorker w2=new PresentWorker("avi bitter",added_workers-1,12,13,14,15,16,date4,"cashier"); //w2 has same id as w
-		assertTrue(WorkersRepo.edit_worker(w2).success);
-
+		PresentWorker w2=new PresentWorker("avi bitter",0,12,13,14,15,16,date4,"cashier"); //w2 has same id as w
+		WorkersRepo.edit_worker(w2);
+		assertEquals("avi bitter",WorkersRepo.get_by_id(0).getName());
 	}
 
 	@Test
@@ -97,18 +93,15 @@ public class WorkersTest
 	{
 		assertFalse(WorkersRepo.delete_worker(123456).success); //worker doest exist
 		WorkersRepo.add_worker(w);
-		added_workers++;
-		s.setManager_id(added_workers-1); //assign w to be the manager in s
+		s.setManager_id(0); //assign w to be the manager in s
 		ShiftRepo.add_shift(s);
-		assertFalse(WorkersRepo.delete_worker(added_workers-1).success); // worker is scheduled for shift
-		assertEquals(1,WorkersRepo.getWorkers().size()); // only 1 worker was added
+		assertFalse(WorkersRepo.delete_worker(0).success); // worker is scheduled for shift
 	}
 
 	@Test void test_good_delete_worker()
 	{
 		WorkersRepo.add_worker(w);
-		added_workers++;
-		WorkersRepo.delete_worker(added_workers-1);
+		WorkersRepo.delete_worker(0);
 		assertTrue(WorkersRepo.getWorkers().isEmpty());
 	}
 
@@ -116,7 +109,6 @@ public class WorkersTest
 	public void test_good_add_worker()
 	{
 		WorkersRepo.add_worker(w);
-		added_workers++;
 		assertEquals(1, WorkersRepo.getWorkers().size());
 	}
 

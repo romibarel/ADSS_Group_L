@@ -46,14 +46,14 @@ public class ShiftRepo
 		return result;
 	}
 
-	public static Result edit_shift(PresentShift shift)
+	public static Result edit_shift(PresentShift shift,Date previous_date,boolean previous_morning)
 	{
 		Result result;
+		Shift shift_to_edit=get_shift(previous_date,previous_morning);
+		if (shift_to_edit==null) return new Result(false,"shift doesnt exist");
 		result=Shift.check_parameters(shift);
 		if (result.success)
 		{
-			Shift shift_to_edit=get_shift(shift.getDate(),shift.isMorning());
-			if (shift_to_edit==null) return new Result(false,"shift doesnt exist");
 			shift_to_edit.setDate(shift.getDate());
 			shift_to_edit.setManager_id(shift.getManager_id());
 			shift_to_edit.setMorning(shift.isMorning());

@@ -17,9 +17,9 @@ public class Worker
 	private Date start_date;
 	private String role;
 
-	public Worker(int id,PresentWorker worker)
+	public Worker(PresentWorker worker)
 	{
-		this.id=id;
+		this.id=worker.getId();
 		this.name=worker.getName();
 		this.bank_account_number=worker.getBank_account_number();
 		this.salary=worker.getSalary();
