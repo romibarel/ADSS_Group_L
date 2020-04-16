@@ -73,10 +73,14 @@ public class Category {
     }
 
     public void removeProduct(int barcode){
+        Product toRemove = null;
         for (Product p:productList) {
             if (p.getBarCode()==(barcode)){
-                productList.remove(p);
+                toRemove = p;
             }
+        }
+        if (toRemove!=null) { //found item that need to remove
+            productList.remove(toRemove);
         }
     }
 

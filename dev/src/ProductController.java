@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class ProductController {
+    public static final String DEFAULT = "Default category";
+    public static final int DEFAULT_MIN_AMOUNT = Integer.MAX_VALUE;
 
     private List<Category> categories;
     private Map<Integer , DataSaleProduct> saleData; //<barCode , DataSaleProduct>
@@ -8,7 +10,7 @@ public class ProductController {
     public ProductController(){
         saleData = new HashMap<>();
         this.categories = new ArrayList<>();
-        Category missingCategory = new Category("Products missing category");
+        Category missingCategory = new Category(DEFAULT);
         this.categories.add(missingCategory);
     }
 
@@ -100,7 +102,7 @@ public class ProductController {
                 ret.add(name);
             }
         }
-        return null; //the category doesn't exists
+        return ret;
     }
 
     public DataSaleProduct getDataSale(int barCode){
@@ -125,7 +127,7 @@ public class ProductController {
 
     public void connectProductToCategory(String categoryName, int barcode){
         Product p = null;
-        if (!this.categories.contains(categoryName)){ return;}//if category name doesn't exists -> doesn't do anything
+        if (getCategoryByName(categoryName)==null){ return;}//if category name doesn't exists -> doesn't do anything
         for (Category category: this.categories) { //remove from current category
             if (category.getProduct(barcode)!=null) {
                 p = category.getProduct(barcode);
@@ -134,7 +136,7 @@ public class ProductController {
         }
         if (p==null){return;} //if the product doesn't exists -> doesn't do anything
         for (Category category: this.categories) { //add to destination category
-            if (category.getName()==categoryName) {
+            if (category.getName().equals(categoryName)) {
                 category.appendProduct(p);
             }
         }
@@ -142,9 +144,9 @@ public class ProductController {
 
     public void purchaseProduct(int barCode, String productName, String supplier, int amount){
         if(searchProduct(barCode)==null) { //this product doesn't exists yet
-            Product p = new Product(barCode, productName, supplier, amount, 0, null);//initialize with min amount = 0 and next supply time = null
+            Product p = new Product(barCode, productName, supplier, amount, DEFAULT_MIN_AMOUNT, null);//initialize with min amount = 0 and next supply time = null
             for (Category category: this.categories){
-                if (category.getName().equals("Products missing category")){
+                if (category.getName().equals(DEFAULT)){
                     category.appendProduct(p);
                 }
             }
@@ -158,4 +160,13 @@ public class ProductController {
         searchProduct(barcode).setMinAmount(minimumAmount);
     }
 
+    public boolean sale(int barCode, int amount){
+        Product p = searchProduct(barCode);
+        if (p==null){return false;} //can't sale then no need to alert
+        p.setAmount(p.getAmount()-amount); //it's legal because we've checked before that there are at least @amount on shelf
+        if (p.getAmount()<=p.getMinAmount()){
+            return true;    //need to alert
+        }
+        return false;   //no need to alert
+    }
 }

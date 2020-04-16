@@ -14,7 +14,7 @@ public interface API_Buisness {
     void buyProduct(int barCode, String productName, String supplier,
                     double price,double discount,Date expirationDate,
                     int amount, Date date, int location);
-    void sellProduct(Date date, int barCode, int amount, Date expirationDate);
+    boolean sellProduct(Date date, int barCode, int amount, Date expirationDate); //return true if need to alert, otherwise false
     void connectProductToCategory(String categoryName, int barcode);
     void setMinimumAmount(int barcode, int minimumAmount);
     List<String> getListOfProductsNames ();

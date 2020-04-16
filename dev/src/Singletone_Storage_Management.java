@@ -84,8 +84,8 @@ class Singletone_Storage_Management implements API_Buisness{
     }
 
     @Override
-    public void sellProduct(Date date, int barCode, int amount, Date expirationDate) {
-        this.transactions.sellProduct(date, barCode, amount, expirationDate);
+    public boolean sellProduct(Date date, int barCode, int amount, Date expirationDate) {
+        return this.transactions.sellProduct(date, barCode, amount, expirationDate);
     }
 
     @Override

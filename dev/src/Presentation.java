@@ -176,7 +176,10 @@ public class Presentation {
             }
             System.out.print("  Type amount of the " + i + " item: ");
             int amount = Integer.parseInt(in.nextLine());
-            buisnessManager.sellProduct(today, barcode, amount, expirationDate);
+            boolean alert = buisnessManager.sellProduct(today, barcode, amount, expirationDate);
+            if (alert){ //alert to costumer that the product reached it's minimum amount limit
+                System.out.print("  Product "+barcode+" has reached under it's minimum amount!!!!!");
+            }
         }
         if (error) {
             //TODO: if need to do something if date is not in the format

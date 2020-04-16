@@ -4,6 +4,7 @@ public class LocationController {
     public static final int DEFECTS = 0;
     public static final int STORAGE = 1;
     public static final int SHELF = 2;
+    public static final int MINOR_STORAGE = 3;
 
     private Map<Integer , Map<Date , Map<Integer, Integer>>> productsLocation; // <barcode, <expirationDate, <location, quantity>
     private Map<Integer , String> locations; // <locationNumber , locationName>
