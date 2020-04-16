@@ -1,3 +1,5 @@
+package Tests;
+
 import CLI.PresentShift;
 import CLI.PresentWorker;
 import Logic.ConstrainsRepo;

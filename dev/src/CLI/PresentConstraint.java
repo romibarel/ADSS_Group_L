@@ -1,6 +1,9 @@
 package CLI;
 
 
+import Logic.Constraint;
+import Logic.Worker;
+
 import java.util.Date;
 
 public class PresentConstraint {
@@ -16,6 +19,17 @@ public class PresentConstraint {
         this.id = id;
         this.reason = reason;
         this.cid=cid;
+    }
+
+    public PresentConstraint() {
+    }
+
+    public PresentConstraint(Constraint c){
+        this.date = c.getDate();
+        this.morning = c.isMorning();
+        this.id = c.getId();
+        this.reason = c.getReason();
+        this.cid=c.getCid();
     }
 
     public Date getDate() {
@@ -60,11 +74,10 @@ public class PresentConstraint {
 
     @Override
     public String toString() {
-        return "PresentConstraint{" +
-                "date=" + date  +
-                ", morning=" + morning +
-                ", id=" + id +
-                ", reason=" + reason  +
-                '}';
+        return  "cid=" + cid  +
+                "\ndate=" + date  +
+                "\nmorning=" + morning +
+                "\nid=" + id +
+                "\nreason=" + reason;
     }
 }

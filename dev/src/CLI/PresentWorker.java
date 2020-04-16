@@ -1,6 +1,8 @@
 package CLI;
 
 
+import Logic.Worker;
+
 import java.util.Date;
 
 public class PresentWorker {
@@ -24,6 +26,21 @@ public class PresentWorker {
         this.sick_days = sick_days;
         this.start_date = start_date;
         this.role = role;
+    }
+
+    public PresentWorker() {
+    }
+
+    public PresentWorker(Worker worker) {
+        this.name = worker.getName();
+        this.id = worker.getId();
+        this.bank_account_number = worker.getBank_account_number();
+        this.salary = worker.getSalary();
+        this.pension = worker.getPension();
+        this.vacation_days = worker.getVacation_days();
+        this.sick_days = worker.getSick_days();
+        this.start_date = worker.getStart_date();
+        this.role = worker.getRole();
     }
 
     public String getName() {
@@ -100,16 +117,14 @@ public class PresentWorker {
 
     @Override
     public String toString() {
-        return "PresentWorker{" +
-                "name=" + name +
-                ", id=" + id +
-                ", bank_account_number=" + bank_account_number +
-                ", salary=" + salary +
-                ", pension=" + pension +
-                ", vacation_days=" + vacation_days +
-                ", sick_days=" + sick_days +
-                ", start_date=" + start_date  +
-                ", role=" + role +
-                '}';
+        return "name=" + name +
+                "\nid=" + id +
+                "\nbank_account_number=" + bank_account_number +
+                "\nsalary=" + salary +
+                "\npension=" + pension +
+                "\nvacation_days=" + vacation_days +
+                "\nsick_days=" + sick_days +
+                "\nstart_date=" + start_date  +
+                "\nrole=" + role;
     }
 }
