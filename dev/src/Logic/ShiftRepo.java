@@ -3,6 +3,7 @@ package Logic;
 import CLI.PresentShift;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,6 +80,26 @@ public class ShiftRepo
 				return shift;
 		}
 		return null;
+	}
+
+	//returns shifts of the current week;
+	public static List<Shift> get_week_shifts()
+	{
+		List<Shift> currentWeekShifts=new LinkedList<>();
+		Calendar calendar=Calendar.getInstance();
+		calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+		Date currentWeekStart=calendar.getTime();
+		calendar.add(Calendar.DATE,6);
+		Date currentWeekEnd=calendar.getTime();
+		for (Shift shift:shifts)
+		{
+			//inclusive first day of the week and last day of the week
+			if (!(shift.getDate().before(currentWeekStart) || shift.getDate().after(currentWeekEnd)))
+			{
+				currentWeekShifts.add(shift);
+			}
+		}
+		return currentWeekShifts;
 	}
 
 	//for the tests
