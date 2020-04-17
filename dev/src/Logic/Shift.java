@@ -23,7 +23,7 @@ public class Shift
 		this.date=shift.getDate();
 	}
 
-	public static Result check_parameters(PresentShift shift)
+	public static Result check_parameters(PresentShift shift,boolean check_date)
 	{
 		//check date
 		if (shift.getDate()==null)
@@ -31,8 +31,11 @@ public class Shift
 		Date current_date=new Date(); //get current Date
 		if (shift.getDate().before(current_date))
 			return new Result(false,"shift date is in the past");
-		if (ShiftRepo.is_shift_scheduled(shift.getDate(),shift.isMorning()))
-			return new Result(false,"a shift is already scheduled for this date");
+		if (check_date)
+		{
+			if (ShiftRepo.is_shift_scheduled(shift.getDate(),shift.isMorning()))
+				return new Result(false,"a shift is already scheduled for this date");
+		}
 
 		//check manager_id
 		if (WorkersRepo.get_by_id(shift.getManager_id())==null)
