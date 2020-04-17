@@ -16,6 +16,14 @@ public class ConstrainsRepo
 
 	}
 
+	public static Result check(PresentConstraint c){
+		if(WorkersRepo.get_by_id(c.getId())==null)
+			return new Result(false,"Employee does not exist in the system");
+		if(ShiftRepo.is_worker_scheduled_at(c.getId(),c.getDate(),c.isMorning()))
+			return new Result(false,"Employee is already scheduled in a shift at the samr date and time");
+		return new Result(true,"");
+	}
+
 	public static boolean is_available(int worker_id, Date date, boolean morning)
 	{
 		for(Constraint c: constraints){
@@ -49,16 +57,18 @@ public class ConstrainsRepo
 	}
 
 	public static Result addConstraint(PresentConstraint c){
-		if(WorkersRepo.get_by_id(c.getId())==null)
-			return new Result(false,"Employee does not exist in the system");
+		Result checking=check(c);
+		if(!checking.success)
+			return checking;
 		Constraint con=new Constraint(c.getDate(),c.isMorning(),c.getId(),c.getReason(), id);
 		constraints.add(con);
 		return new Result(true,"Constraint was added "+c.toString());
 	}
 
 	public static Result editConstraint(PresentConstraint c){
-		if(WorkersRepo.get_by_id(c.getId())==null)
-			return new Result(false,"Employee does not exist in the system");
+		Result checking=check(c);
+		if(!checking.success)
+			return checking;
 		for(Constraint con: constraints){
 			if(con.getCid()==c.getCid()){
 				con.setDate(c.getDate());

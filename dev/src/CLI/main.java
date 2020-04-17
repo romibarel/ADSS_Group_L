@@ -171,7 +171,7 @@ public class main {
                     id=Integer.parseInt(input.nextLine());
                     w=Interface.searchEmployee(id);
                     if(w==null){
-                        System.out.print("Employee not found, Exiting to main menu");
+                        System.out.println("Employee not found, Exiting to main menu");
                         return;
                     }
                     while(!finished){
@@ -253,7 +253,7 @@ public class main {
                     isMorning=Boolean.parseBoolean(input.nextLine());
                     s=Interface.searchShift(oldDate,isMorning);
                     if(s==null){
-                        System.out.print("Shift not found, Exiting to main menu");
+                        System.out.println("Shift not found, Exiting to main menu");
                         return;
                     }
                     while(!finished){
@@ -308,7 +308,7 @@ public class main {
                                 if(s.getWorkers().contains(id))
                                     s.getWorkers().remove(id);
                                 else
-                                    System.out.print("wrong id");
+                                    System.out.println("wrong id");
                                 break;
                             case 6:
                                 System.out.print("updating...");
@@ -364,7 +364,7 @@ public class main {
                     i=Integer.parseInt(input.nextLine());
                     if(i<1|| i>constraints.size())
                     {
-                        System.out.print("Error, Exiting to main menu");
+                        System.out.println("Error, Exiting to main menu");
                         return;
                     }
                     c=constraints.get(i-1);
@@ -428,7 +428,7 @@ public class main {
                     id = Integer.parseInt(input.nextLine());
                     w = Interface.searchEmployee(id);
                     if (w == null) {
-                        System.out.print("Employee not found, Exiting to main menu");
+                        System.out.println("Employee not found, Exiting to main menu");
                         return;
                     }
                     System.out.println("The employee you selected is\n"+w.toString());
@@ -528,7 +528,7 @@ public class main {
                     i=Integer.parseInt(input.nextLine());
                     if(i<1|| i>constraints.size())
                     {
-                        System.out.print("Error, Exiting to main menu");
+                        System.out.println("Error, Exiting to main menu");
                         return;
                     }
                     c=constraints.get(i-1);
