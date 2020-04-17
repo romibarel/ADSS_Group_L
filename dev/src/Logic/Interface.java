@@ -11,66 +11,73 @@ import java.util.List;
 
 public class Interface
 {
+
+	public static void initializeSystem(){
+		ConstrainsRepo.initConstrains();
+
+	}
+
+
 	public static String addEmployee(PresentWorker worker){
 		Result r=WorkersRepo.add_worker(worker);
 		if(r.success)
-			return "employee was added "+worker.toString();
+			return "employee was added:\n"+worker.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String addShift(PresentShift shift){
 		Result r=ShiftRepo.add_shift(shift);
 		if(r.success)
-			return "shift was added "+shift.toString();
+			return "shift was added:\n"+shift.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String addConstraint(PresentConstraint constraint){
 		Result r=ConstrainsRepo.addConstraint(constraint);
 		if(r.success)
-			return "Constraint was added "+constraint.toString();
+			return "Constraint was added:\n"+constraint.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String editEmployee(PresentWorker worker){
 		Result r=WorkersRepo.edit_worker(worker);
 		if(r.success)
-			return "employee was edited "+worker.toString();
+			return "employee was edited:\n"+worker.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String editShift(PresentShift shift, Date previous_date, boolean previous_morning){
 		Result r=ShiftRepo.edit_shift(shift, previous_date, previous_morning);
 		if(r.success)
-			return "shift was edited "+shift.toString();
+			return "shift was edited:\n"+shift.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String editConstraint(PresentConstraint constraint){
 		Result r=ConstrainsRepo.editConstraint(constraint);
 		if(r.success)
-			return "Constraint was edited "+constraint.toString();
+			return "Constraint was edited:\n"+constraint.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String deleteEmployee(PresentWorker worker){
 		Result r=WorkersRepo.delete_worker(worker.getId());
 		if(r.success)
-			return "employee was deleted "+worker.toString();
+			return "employee was deleted\n"+worker.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String deleteShift(PresentShift shift){
 		Result r=ShiftRepo.delete_shift(shift.getDate(),shift.isMorning());
 		if(r.success)
-			return "shift was deleted "+shift.toString();
+			return "shift was deleted\n"+shift.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String deleteConstraint(PresentConstraint constraint){
 		Result r=ConstrainsRepo.deleteConstraint(constraint);
 		if(r.success)
-			return "deleted was edited "+constraint.toString();
+			return "constraint was deleted\n"+constraint.toString();
 		return "The action have failed due to:\n "+r.msg;
 	}
 
@@ -89,7 +96,7 @@ public class Interface
 	}
 
 	public static List<PresentConstraint> searchConstraint(int id,Date date,  boolean morning){
-		List<Constraint> constraints=ConstrainsRepo.getConstraintsByWeek();
+		List<Constraint> constraints=ConstrainsRepo.getConstraint(id,date,morning);
 		List<PresentConstraint> presentConstraints=new LinkedList<>();
 		PresentConstraint con;
 		for (Constraint c: constraints) {
@@ -164,13 +171,13 @@ public class Interface
 		List<Worker> workers=WorkersRepo.get_by_role(role, date, morning);
 		String ret="";
 		if(workers.isEmpty())
-			return "No mangers to present for selected date ang hour";
+			return "No workers to present for selected role, date and hour";
 		int count=1;
 		for (Worker w: workers) {
 			worker=new PresentWorker(w);
 			if(count!=1)
 				ret+= "\n";
-			ret+=count+worker.toString();
+			ret+=count+".\n"+worker.toString();
 		}
 		return ret;
 	}

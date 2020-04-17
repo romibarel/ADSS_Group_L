@@ -10,11 +10,19 @@ public class main {
     private static Scanner input = new Scanner(System.in);
     public static void main (String[] args){
         int choice;
+        String init;
         List<Callback> calls=new LinkedList<>();
         initCalls(calls);
         initActions(calls);
 
         System.out.println("Welcome to Super-Li HR System");
+        System.out.println("Do you want to initialize the system with data?(y/n)");
+        init=input.nextLine();
+        if(init.equals("y")){
+            Interface.initializeSystem();
+            System.out.println("system's data loaded");
+        }
+
         while(!quit){
             System.out.println("The possible commands are:");
             for (Callback action: calls) {
@@ -89,11 +97,11 @@ public class main {
                     format.setLenient(false);
                     shift.setDate(format.parse(input.nextLine()));
                     System.out.print("is it a Morning shift? (true/false)");
-                    shift.setMorning(Boolean.getBoolean(input.nextLine()));
+                    shift.setMorning(Boolean.parseBoolean(input.nextLine()));
                     System.out.println("The available managers are:");
                     String ans = Interface.getWorkersByRole("manager", shift.getDate(), shift.isMorning());
                     System.out.println(ans);
-                    if (ans == "No mangers to present for selected date and hour") {
+                    if (ans.equals("No workers to present for selected role, date and hour")) {
                         System.out.println("Shifts need at least one manger, cannot continue exiting back to main menu");
                         return;
                     }
@@ -106,7 +114,10 @@ public class main {
                         System.out.println("please enter the role for the employee you require");
                         role = input.nextLine();
                         System.out.println("The available " + role + "s are:");
-                        System.out.println(Interface.getWorkersByRole(role, shift.getDate(), shift.isMorning()));
+                        ans=Interface.getWorkersByRole(role, shift.getDate(), shift.isMorning());
+                        System.out.println(ans);
+                        if (ans.equals("No workers to present for selected role, date and hour"))
+                            continue;
                         System.out.print("please enter the chosen id: ");
                         shift.getWorkers().add(Integer.parseInt(input.nextLine()));
                         System.out.println("Do you need more employees? (y/n)");
@@ -135,7 +146,7 @@ public class main {
                     format.setLenient(false);
                     c.setDate(format.parse(input.nextLine()));
                     System.out.print("is it a Morning shift you will miss? (true/false) ");
-                    c.setMorning(Boolean.getBoolean(input.nextLine()));
+                    c.setMorning(Boolean.parseBoolean(input.nextLine()));
                     System.out.print("reason:");
                     c.setReason(input.nextLine());
                 }
@@ -166,42 +177,50 @@ public class main {
                     while(!finished){
                         System.out.println("The employee you selected is\n"+w.toString());
                         System.out.println("Please choose a field you want to change:");
-                        System.out.print("1. Full name");
-                        System.out.print("2. salary");
-                        System.out.print("3. pension");
-                        System.out.print("4. vacation days");
-                        System.out.print("5. sick days");
-                        System.out.print("6. start date");
-                        System.out.print("7. role");
-                        System.out.print("8. finished editing");
+                        System.out.println("1. Full name");
+                        System.out.println("2. salary");
+                        System.out.println("3. pension");
+                        System.out.println("4. vacation days");
+                        System.out.println("5. sick days");
+                        System.out.println("6. start date");
+                        System.out.println("7. role");
+                        System.out.println("8. finished editing");
                         opt=Integer.parseInt(input.nextLine());
                         switch (opt){
                             case 1:
                                 System.out.print("Enter new Full name:");
                                 w.setName(input.nextLine());
+                                break;
                             case 2:
                                 System.out.print("Enter new salary:");
                                 w.setSalary(Integer.parseInt(input.nextLine()));
+                                break;
                             case 3:
                                 System.out.print("Enter new pension:");
                                 w.setPension(Integer.parseInt(input.nextLine()));
+                                break;
                             case 4:
                                 System.out.print("Enter new vacation days:");
                                 w.setVacation_days(Integer.parseInt(input.nextLine()));
+                                break;
                             case 5:
                                 System.out.print("Enter new sick days:");
                                 w.setSick_days(Integer.parseInt(input.nextLine()));
+                                break;
                             case 6:
                                 System.out.print("Enter new start date:");
                                 SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                                 format.setLenient(false);
                                 w.setStart_date(format.parse(input.nextLine()));
+                                break;
                             case 7:
                                 System.out.print("Enter new role:");
                                 w.setRole(input.nextLine());
+                                break;
                             case 8:
                                 System.out.print("updating...");
                                 finished=true;
+                                break;
                             default:
                                 System.out.println("wrong command, please try again");
                         }
@@ -231,7 +250,7 @@ public class main {
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift? (true/false)");
-                    isMorning=Boolean.getBoolean(input.nextLine());
+                    isMorning=Boolean.parseBoolean(input.nextLine());
                     s=Interface.searchShift(oldDate,isMorning);
                     if(s==null){
                         System.out.print("Shift not found, Exiting to main menu");
@@ -240,12 +259,12 @@ public class main {
                     while(!finished){
                         System.out.println("The shift you selected is\n"+s.toString());
                         System.out.println("Please choose a field you want to change:");
-                        System.out.print("1. date");
-                        System.out.print("2. morning");
-                        System.out.print("3. manager_id");
-                        System.out.print("4. add worker");
-                        System.out.print("5. remove worker");
-                        System.out.print("6. finished editing");
+                        System.out.println("1. date");
+                        System.out.println("2. morning");
+                        System.out.println("3. manager_id");
+                        System.out.println("4. add worker");
+                        System.out.println("5. remove worker");
+                        System.out.println("6. finished editing");
                         opt=Integer.parseInt(input.nextLine());
                         switch (opt){
                             case 1:
@@ -253,31 +272,35 @@ public class main {
                                 System.out.print("Enter new start date:");
                                 format.setLenient(false);
                                 s.setDate(format.parse(input.nextLine()));
+                                break;
                             case 2:
                                 System.out.print("is it a morning shift? (true/false)");
-                                s.setMorning(Boolean.getBoolean(input.nextLine()));
+                                s.setMorning(Boolean.parseBoolean(input.nextLine()));
+                                break;
                             case 3:
                                 String ans=Interface.getWorkersByRole("manager", s.getDate(),s.isMorning());
                                 System.out.println(ans);
-                                if(ans=="No mangers to present for selected date and hour")
+                                if(ans.equals("No workers to present for selected role, date and hour"))
                                 {
                                     System.out.println("Shifts need at least one manger, cannot continue exiting back to main menu");
                                     return;
                                 }
                                 System.out.print("Enter new manager id:");
                                 s.setManager_id(Integer.parseInt(input.nextLine()));
+                                break;
                             case 4:
-                                System.out.print("The current employees are:");
+                                System.out.println("The current employees are:");
                                 for(Integer e: s.getWorkers())
                                     System.out.println(Interface.searchEmployee(e).toString()+"\n");
                                 System.out.print("please enter the id of the employee you wish to add:");
                                 int id= Integer.parseInt(input.nextLine());
                                 if(s.getWorkers().contains(id))
-                                    System.out.print("employee is already in this shift");
+                                    System.out.println("employee is already in this shift");
                                 else
                                     s.getWorkers().add(id);
+                                break;
                             case 5:
-                                System.out.print("The current employees are:");
+                                System.out.println("The current employees are:");
                                 for(Integer e: s.getWorkers())
                                     System.out.println(Interface.searchEmployee(e).toString()+"\n");
                                 System.out.print("please enter the id of the employee you wish to remove");
@@ -286,9 +309,11 @@ public class main {
                                     s.getWorkers().remove(id);
                                 else
                                     System.out.print("wrong id");
+                                break;
                             case 6:
                                 System.out.print("updating...");
                                 finished=true;
+                                break;
                             default:
                                 System.out.println("wrong command, please try again");
                         }
@@ -323,10 +348,10 @@ public class main {
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift constraint? (true/false)");
-                    isMorning=Boolean.getBoolean(input.nextLine());
+                    isMorning=Boolean.parseBoolean(input.nextLine());
                     constraints=Interface.searchConstraint(id, oldDate,isMorning);
                     if(constraints.isEmpty()){
-                        System.out.print("Constraint not found, Exiting to main menu");
+                        System.out.println("Constraint not found, Exiting to main menu");
                         return;
                     }
                     System.out.println("The constraints the system found are:");
@@ -347,11 +372,11 @@ public class main {
                     while(!finished){
                         System.out.println("The constraint you selected is\n"+c.toString());
                         System.out.println("Please choose a field you want to change:");
-                        System.out.print("1. date");
-                        System.out.print("2. morning");
-                        System.out.print("3. Employee's id");
-                        System.out.print("4. reason");
-                        System.out.print("5. finished editing");
+                        System.out.println("1. date");
+                        System.out.println("2. morning");
+                        System.out.println("3. Employee's id");
+                        System.out.println("4. reason");
+                        System.out.println("5. finished editing");
                         opt=Integer.parseInt(input.nextLine());
                         switch (opt){
                             case 1:
@@ -359,18 +384,23 @@ public class main {
                                 System.out.print("Enter new start date:");
                                 format.setLenient(false);
                                 c.setDate(format.parse(input.nextLine()));
+                                break;
                             case 2:
                                 System.out.print("is it a morning shift? (true/false)");
-                                c.setMorning(Boolean.getBoolean(input.nextLine()));
+                                c.setMorning(Boolean.parseBoolean(input.nextLine()));
+                                break;
                             case 3:
                                 System.out.print("Enter new Employee's id:");
                                 c.setId(Integer.parseInt(input.nextLine()));
+                                break;
                             case 4:
                                 System.out.print("Enter new reason:");
                                 c.setReason(input.nextLine());
+                                break;
                             case 5:
                                 System.out.print("updating...");
                                 finished=true;
+                                break;
                             default:
                                 System.out.println("wrong command, please try again");
                         }
@@ -407,8 +437,10 @@ public class main {
                     switch (ans){
                         case "y":
                             System.out.println(Interface.deleteEmployee(w));
+                            break;
                         case "n":
                             System.out.println("exiting back to main menu");
+                            break;
                         default:
                             System.out.println("wrong command, exiting back to main menu");
 
@@ -434,10 +466,10 @@ public class main {
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift? (true/false)");
-                    isMorning=Boolean.getBoolean(input.nextLine());
+                    isMorning=Boolean.parseBoolean(input.nextLine());
                     s=Interface.searchShift(oldDate,isMorning);
                     if(s==null){
-                        System.out.print("Shift not found, Exiting to main menu");
+                        System.out.println("Shift not found, Exiting to main menu");
                         return;
                     }
                     System.out.println("The shift you selected is\n"+s.toString());
@@ -446,8 +478,10 @@ public class main {
                     switch (ans){
                         case "y":
                             System.out.println(Interface.deleteShift(s));
+                            break;
                         case "n":
                             System.out.println("exiting back to main menu");
+                            break;
                         default:
                             System.out.println("wrong command, exiting back to main menu");
 
@@ -478,10 +512,10 @@ public class main {
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift constraint? (true/false)");
-                    isMorning=Boolean.getBoolean(input.nextLine());
+                    isMorning=Boolean.parseBoolean(input.nextLine());
                     constraints=Interface.searchConstraint(id, oldDate,isMorning);
                     if(constraints.isEmpty()){
-                        System.out.print("Constraint not found, Exiting to main menu");
+                        System.out.println("Constraint not found, Exiting to main menu");
                         return;
                     }
                     System.out.println("The constraints the system found are:");
@@ -504,8 +538,10 @@ public class main {
                     switch (ans){
                         case "y":
                             System.out.println(Interface.deleteConstraint(c));
+                            break;
                         case "n":
                             System.out.println("exiting back to main menu");
+                            break;
                         default:
                             System.out.println("wrong command, exiting back to main menu");
 
@@ -529,7 +565,7 @@ public class main {
                     id = Integer.parseInt(input.nextLine());
                     w = Interface.searchEmployee(id);
                     if (w == null) {
-                        System.out.print("Employee not found, Exiting to main menu");
+                        System.out.println("Employee not found, Exiting to main menu");
                         return;
                     }
                     System.out.println("The employee you searched is\n"+w.toString());
@@ -554,10 +590,10 @@ public class main {
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift? (true/false)");
-                    isMorning=Boolean.getBoolean(input.nextLine());
+                    isMorning=Boolean.parseBoolean(input.nextLine());
                     s=Interface.searchShift(oldDate,isMorning);
                     if(s==null){
-                        System.out.print("Shift not found, Exiting to main menu");
+                        System.out.println("Shift not found, Exiting to main menu");
                         return;
                     }
                     System.out.println("The shift you searched is\n"+s.toString());
@@ -586,10 +622,10 @@ public class main {
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift constraint? (true/false)");
-                    isMorning=Boolean.getBoolean(input.nextLine());
+                    isMorning=Boolean.parseBoolean(input.nextLine());
                     constraints=Interface.searchConstraint(id, oldDate,isMorning);
                     if(constraints.isEmpty()){
-                        System.out.print("Constraint not found, Exiting to main menu");
+                        System.out.println("Constraint not found, Exiting to main menu");
                         return;
                     }
                     System.out.println("The constraints the system found are:");
