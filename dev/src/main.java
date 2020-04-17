@@ -57,7 +57,7 @@ public class main {
                 800, supply1, LocationController.STORAGE);
         manager.moveProduct(1, expiration1, 600, 1, 2);
         manager.connectProductToCategory("main category2",2 );
-        manager.setSaleInfoOfNewProduct(1, "Milk", 12.5, 2.5);
+        manager.setSaleInfoOfNewProduct(2, "Tuna", 12.5, 2.5);
 
 
         Presentation p = new Presentation();

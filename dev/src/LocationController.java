@@ -12,9 +12,30 @@ public class LocationController {
     public LocationController(){
         this.productsLocation = new HashMap<Integer, Map<Date, Map<Integer, Integer>>>();
         this.locations = new HashMap();
+        locations.put(DEFECTS, "Defects");
+        locations.put(STORAGE, "Storage");
+        locations.put(SHELF, "Shelf");
+        locations.put(MINOR_STORAGE, "Minor Storage");
+    }
+
+    public Map<Integer, Map<Date, Map<Integer, Integer>>> getProductsLocation() {
+        return productsLocation;
+    }
+
+    public void setProductsLocation(Map<Integer, Map<Date, Map<Integer, Integer>>> productsLocation) {
+        this.productsLocation = productsLocation;
+    }
+
+    public Map<Integer, String> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Map<Integer, String> locations) {
+        this.locations = locations;
     }
 
     public void addProduct(int barCode, Date expirationDate, int location, int amount) {
+        if (0>location || location>=locations.size()){return;}  //location isn't exists -> doesn't do nothing
         if (productsLocation.containsKey(barCode)){ //barcode exists in locations
             if (productsLocation.get(barCode).containsKey(expirationDate)){ //barcode with expiration date exists
                 if (productsLocation.get(barCode).get(expirationDate).containsKey(location)){ //barcode with expiration date exists and the location exists
@@ -40,6 +61,8 @@ public class LocationController {
     }
 
     public void moveProduct(int barCode, Date expiration, int amount, int fromLocation, int toLocation) {
+        if (0>fromLocation || fromLocation>=locations.size()){return;}  //location isn't exists -> doesn't do nothing
+        if (0>toLocation || toLocation>=locations.size()){return;}  //location isn't exists -> doesn't do nothing
         if (this.productsLocation.containsKey(barCode)&&
                 this.productsLocation.get(barCode).containsKey(expiration)&&
                 this.productsLocation.get(barCode).get(expiration).containsKey(fromLocation)&&
@@ -78,7 +101,4 @@ public class LocationController {
        Integer amount = productsLocation.get(barcode).get(date).get(location);
        return amount;
     }
-
-
-
 }

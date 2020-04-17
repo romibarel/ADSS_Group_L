@@ -45,7 +45,6 @@ public class DefectReport {
         }
         this.defects = relevantReports;
         this.dateStart = fromDate;
-        //TODO: understand why end date is needed
 
     }
 }

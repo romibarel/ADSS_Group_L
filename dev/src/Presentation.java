@@ -2,7 +2,7 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 public class Presentation {
-    private Singletone_Storage_Management buisnessManager;
+    private API_Buisness buisnessManager;
     private int option;
     private Scanner in;
     String pattern;
@@ -431,9 +431,9 @@ public class Presentation {
         for(Integer barcode : productsToShow){
          System.out.print(
                  "Barode: " + barcode + "\n" +
-                 "Product name" + buisnessManager.getDataSaleName(barcode)+ "\n" +
-                 "Product price" + buisnessManager.getDataSalePrice(barcode)+ "\n"+
-                 "Product discount" + buisnessManager.getDataSaleDiscount(barcode) + "\n\n");
+                 "Product name: " + buisnessManager.getDataSaleName(barcode)+ "\n" +
+                 "Product price: " + buisnessManager.getDataSalePrice(barcode)+ "\n"+
+                 "Product discount: " + buisnessManager.getDataSaleDiscount(barcode) + "\n\n");
         }
     }
 
@@ -614,7 +614,7 @@ public class Presentation {
             int amount = Integer.parseInt(in.nextLine());
             System.out.print("  " + i + ". from location (number): ");
             int fromLocation = Integer.parseInt(in.nextLine());
-            System.out.print("  " + i + ".To location (number): ");
+            System.out.print("  " + i + ". To location (number): ");
             int toLocation = Integer.parseInt(in.nextLine());
             System.out.print("\n");
             buisnessManager.moveProduct(barcode, expirationDate, amount, fromLocation, toLocation);

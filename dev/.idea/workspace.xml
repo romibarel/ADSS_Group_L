@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CategoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LocationControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ProductControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PurchaseTransactionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/API_Buisness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DefectReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DefectReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LocationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductPurchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductPurchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PurchaseTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PurchaseTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SaleTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SaleTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Singletone_Storage_Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Singletone_Storage_Management.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ProductController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="128" column="16" selection-start-line="128" selection-start-column="16" selection-end-line="128" selection-end-column="16" />
+              <folding>
+                <element signature="method#ProductController#0;class#ProductController#0" />
+                <element signature="method#setMainCategory#0;class#ProductController#0" />
+                <element signature="method#setNewSubCategory#0;class#ProductController#0" />
+                <element signature="method#getCategoryByName#0;class#ProductController#0" />
+                <element signature="method#containsCatagoryByName#0;class#ProductController#0" />
+                <element signature="method#setPriceOfExistingProduct#0;class#ProductController#0" />
+                <element signature="method#setDiscountOfExistingProduct#0;class#ProductController#0" />
+                <element signature="method#setManufactorForProduct#0;class#ProductController#0" />
+                <element signature="method#setNextSupply#0;class#ProductController#0" />
+                <element signature="method#getSaleDataName#0;class#ProductController#0" />
+                <element signature="method#getSaleDataPrice#0;class#ProductController#0" />
+                <element signature="method#getSaleDataDiscount#0;class#ProductController#0" />
+                <element signature="method#getProductName#0;class#ProductController#0" />
+                <element signature="method#getProductManufactor#0;class#ProductController#0" />
+                <element signature="method#getProductAmount#0;class#ProductController#0" />
+                <element signature="method#getProductMinAmount#0;class#ProductController#0" />
+                <element signature="method#getProductNextSupplyTime#0;class#ProductController#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ProductControllerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+              <folding>
+                <element signature="method#setUp#0;class#ProductControllerTest#0" />
+                <element signature="method#tearDown#0;class#ProductControllerTest#0" />
+                <element signature="method#connectProductToCategory#0;class#ProductControllerTest#0" />
+                <element signature="method#sell#0;class#ProductControllerTest#0" />
+                <element signature="method#sellNeedToAlert#1;class#ProductControllerTest#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PurchaseTransaction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="81">
+              <caret line="5" column="92" selection-start-line="5" selection-start-column="77" selection-end-line="5" selection-end-column="92" />
+              <folding>
+                <element signature="e#422#423#0" expanded="true" />
+                <element signature="e#464#465#0" expanded="true" />
+                <element signature="method#purchase#0;class#PurchaseTransaction#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PurchaseTransactionTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="173">
+              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ReportController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-291">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SaleTransaction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="22" column="80" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="80" />
+              <folding>
+                <element signature="method#SaleTransaction#0;class#SaleTransaction#0" />
+                <element signature="e#393#394#0" expanded="true" />
+                <element signature="e#432#433#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Transaction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TransactionController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <folding>
+                <element signature="method#TransactionController#0;class#TransactionController#0" />
+                <element signature="method#purchase#0;class#TransactionController#0" />
+                <element signature="method#sellProduct#0;class#TransactionController#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ProductSale.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-227">
+              <caret column="13" selection-start-column="13" selection-end-column="13" />
+              <folding>
+                <element signature="method#ProductSale#0;class#ProductSale#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ProductReport.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-191">
+              <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+              <folding>
+                <element signature="method#ProductReport#0;class#ProductReport#0" />
+                <element signature="method#makeNewReport#0;class#ProductReport#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="JUnit4 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>locations</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/API_Buisness.java" />
+        <option value="$PROJECT_DIR$/src/Presentation.java" />
+        <option value="$PROJECT_DIR$/src/main.java" />
+        <option value="$PROJECT_DIR$/src/Singletone_Storage_Management.java" />
+        <option value="$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.groovy" />
+        <option value="$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.java" />
+        <option value="$PROJECT_DIR$/src/Category.java" />
+        <option value="$PROJECT_DIR$/src/DefectReport.java" />
+        <option value="$PROJECT_DIR$/src/CategoryTest.java" />
+        <option value="$PROJECT_DIR$/src/LocationController.java" />
+        <option value="$PROJECT_DIR$/src/LocationControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/ProductPurchase.java" />
+        <option value="$PROJECT_DIR$/src/PurchaseTransaction.java" />
+        <option value="$PROJECT_DIR$/src/PurchaseTransactionTest.java" />
+        <option value="$PROJECT_DIR$/src/SaleTransaction.java" />
+        <option value="$PROJECT_DIR$/src/SaleTransactionTest.java" />
+        <option value="$PROJECT_DIR$/src/ProductController.java" />
+        <option value="$PROJECT_DIR$/src/ProductControllerTest.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="953" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587162422874" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+      <recent name="groovy.util.GroovyTestCase" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.ProductControllerTest.connectProductToCategory">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main" />
+      <module name="dev" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LocationControllerTest.reduceFromShelf" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="LocationControllerTest" />
+      <option name="METHOD_NAME" value="reduceFromShelf" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerTest.connectProductToCategory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductControllerTest" />
+      <option name="METHOD_NAME" value="connectProductToCategory" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerTest.sellNeedToAlert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductControllerTest" />
+      <option name="METHOD_NAME" value="sellNeedToAlert" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerTest.sellNoNeedToAlert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductControllerTest" />
+      <option name="METHOD_NAME" value="sellNoNeedToAlert" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PurchaseTransactionTest.purchase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PurchaseTransactionTest" />
+      <option name="METHOD_NAME" value="purchase" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="JUnit.LocationControllerTest.reduceFromShelf" />
+      <item itemvalue="JUnit.PurchaseTransactionTest.purchase" />
+      <item itemvalue="JUnit.ProductControllerTest.sellNeedToAlert" />
+      <item itemvalue="JUnit.ProductControllerTest.sellNoNeedToAlert" />
+      <item itemvalue="JUnit.ProductControllerTest.connectProductToCategory" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ProductControllerTest.connectProductToCategory" />
+        <item itemvalue="JUnit.ProductControllerTest.sellNoNeedToAlert" />
+        <item itemvalue="JUnit.ProductControllerTest.sellNeedToAlert" />
+        <item itemvalue="JUnit.PurchaseTransactionTest.purchase" />
+        <item itemvalue="JUnit.LocationControllerTest.reduceFromShelf" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="" />
+      <created>1587146109319</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587146109319</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="PurchaseTransactionTest_purchase - 2020.04.18 at 01h 02m 07s.xml">
+      <configuration name="PurchaseTransactionTest.purchase" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PurchaseTransactionTest_purchase - 2020.04.18 at 01h 19m 50s.xml">
+      <configuration name="PurchaseTransactionTest.purchase" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PurchaseTransactionTest_purchase - 2020.04.18 at 01h 20m 38s.xml">
+      <configuration name="PurchaseTransactionTest.purchase" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest_sellNeedToAlert - 2020.04.18 at 01h 20m 42s.xml">
+      <configuration name="ProductControllerTest.sellNeedToAlert" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest_sellNoNeedToAlert - 2020.04.18 at 01h 20m 46s.xml">
+      <configuration name="ProductControllerTest.sellNoNeedToAlert" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest_sellNoNeedToAlert - 2020.04.18 at 01h 20m 51s.xml">
+      <configuration name="ProductControllerTest.sellNoNeedToAlert" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest_sellNoNeedToAlert - 2020.04.18 at 01h 26m 08s.xml">
+      <configuration name="ProductControllerTest.sellNoNeedToAlert" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest_connectProductToCategory - 2020.04.18 at 01h 26m 11s.xml">
+      <configuration name="ProductControllerTest.connectProductToCategory" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest_connectProductToCategory - 2020.04.18 at 01h 26m 39s.xml">
+      <configuration name="ProductControllerTest.connectProductToCategory" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest_connectProductToCategory - 2020.04.18 at 01h 26m 47s.xml">
+      <configuration name="ProductControllerTest.connectProductToCategory" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973147" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" weight="0.087248325" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28747204" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Presentation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="435" column="36" selection-start-line="435" selection-start-column="36" selection-end-line="435" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/API_Buisness.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="76" selection-start-column="76" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/Assert.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="333" selection-start-line="333" selection-end-line="333" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataSaleProduct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-374">
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+          <folding>
+            <element signature="method#DataSaleProduct#0;class#DataSaleProduct#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Defect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-594">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding>
+            <element signature="method#Defect#0;class#Defect#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DefectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding>
+            <element signature="method#addDefect#0;class#DefectController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DefectReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CategoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-189">
+          <caret line="26" column="93" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="93" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#182#183#0" expanded="true" />
+            <element signature="e#215#216#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Singletone_Storage_Management.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3645">
+          <caret line="180" selection-start-line="180" selection-end-line="180" />
+          <folding>
+            <element signature="method#connectProductToCategory#0;class#Singletone_Storage_Management#0" />
+            <element signature="method#setMinimumAmount#0;class#Singletone_Storage_Management#0" />
+            <element signature="method#setManufactorforProduct#0;class#Singletone_Storage_Management#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="11" column="8" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LocationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1728">
+          <caret line="64" column="38" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
+          <folding>
+            <element signature="e#685#686#0" expanded="true" />
+            <element signature="e#724#725#0" expanded="true" />
+            <element signature="e#934#935#0" expanded="true" />
+            <element signature="e#966#967#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="e#1072#1073#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LocationControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="17" selection-start-line="17" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProductRepData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Category.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1890">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-443">
+          <caret line="13" column="4" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProductPurchase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+          <folding>
+            <element signature="e#780#781#0" expanded="true" />
+            <element signature="e#823#824#0" expanded="true" />
+            <element signature="e#861#862#0" expanded="true" />
+            <element signature="e#899#900#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#1033#1034#0" expanded="true" />
+            <element signature="e#1068#1069#0" expanded="true" />
+            <element signature="e#1099#1100#0" expanded="true" />
+            <element signature="e#1147#1148#0" expanded="true" />
+            <element signature="e#1187#1188#0" expanded="true" />
+            <element signature="e#1219#1220#0" expanded="true" />
+            <element signature="e#1247#1248#0" expanded="true" />
+            <element signature="e#1289#1290#0" expanded="true" />
+            <element signature="e#1323#1324#0" expanded="true" />
+            <element signature="e#1358#1359#0" expanded="true" />
+            <element signature="e#1389#1390#0" expanded="true" />
+            <element signature="e#1437#1438#0" expanded="true" />
+            <element signature="e#1477#1478#0" expanded="true" />
+            <element signature="e#1507#1508#0" expanded="true" />
+            <element signature="e#1536#1537#0" expanded="true" />
+            <element signature="e#1577#1578#0" expanded="true" />
+            <element signature="e#1613#1614#0" expanded="true" />
+            <element signature="e#1652#1653#0" expanded="true" />
+            <element signature="e#1689#1690#0" expanded="true" />
+            <element signature="e#1747#1748#0" expanded="true" />
+            <element signature="e#1799#1800#0" expanded="true" />
+            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1862#1863#0" expanded="true" />
+            <element signature="e#1907#1908#0" expanded="true" />
+            <element signature="e#1947#1948#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProductReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-191">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding>
+            <element signature="method#ProductReport#0;class#ProductReport#0" />
+            <element signature="method#makeNewReport#0;class#ProductReport#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProductSale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-227">
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+          <folding>
+            <element signature="method#ProductSale#0;class#ProductSale#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PurchaseTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="5" column="92" selection-start-line="5" selection-start-column="77" selection-end-line="5" selection-end-column="92" />
+          <folding>
+            <element signature="e#422#423#0" expanded="true" />
+            <element signature="e#464#465#0" expanded="true" />
+            <element signature="method#purchase#0;class#PurchaseTransaction#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReportController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-291">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Transaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TransactionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding>
+            <element signature="method#TransactionController#0;class#TransactionController#0" />
+            <element signature="method#purchase#0;class#TransactionController#0" />
+            <element signature="method#sellProduct#0;class#TransactionController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SaleTransactionTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SaleTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="22" column="80" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="80" />
+          <folding>
+            <element signature="method#SaleTransaction#0;class#SaleTransaction#0" />
+            <element signature="e#393#394#0" expanded="true" />
+            <element signature="e#432#433#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PurchaseTransactionTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="128" column="16" selection-start-line="128" selection-start-column="16" selection-end-line="128" selection-end-column="16" />
+          <folding>
+            <element signature="method#ProductController#0;class#ProductController#0" />
+            <element signature="method#setMainCategory#0;class#ProductController#0" />
+            <element signature="method#setNewSubCategory#0;class#ProductController#0" />
+            <element signature="method#getCategoryByName#0;class#ProductController#0" />
+            <element signature="method#containsCatagoryByName#0;class#ProductController#0" />
+            <element signature="method#setPriceOfExistingProduct#0;class#ProductController#0" />
+            <element signature="method#setDiscountOfExistingProduct#0;class#ProductController#0" />
+            <element signature="method#setManufactorForProduct#0;class#ProductController#0" />
+            <element signature="method#setNextSupply#0;class#ProductController#0" />
+            <element signature="method#getSaleDataName#0;class#ProductController#0" />
+            <element signature="method#getSaleDataPrice#0;class#ProductController#0" />
+            <element signature="method#getSaleDataDiscount#0;class#ProductController#0" />
+            <element signature="method#getProductName#0;class#ProductController#0" />
+            <element signature="method#getProductManufactor#0;class#ProductController#0" />
+            <element signature="method#getProductAmount#0;class#ProductController#0" />
+            <element signature="method#getProductMinAmount#0;class#ProductController#0" />
+            <element signature="method#getProductNextSupplyTime#0;class#ProductController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProductControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+          <folding>
+            <element signature="method#setUp#0;class#ProductControllerTest#0" />
+            <element signature="method#tearDown#0;class#ProductControllerTest#0" />
+            <element signature="method#connectProductToCategory#0;class#ProductControllerTest#0" />
+            <element signature="method#sell#0;class#ProductControllerTest#0" />
+            <element signature="method#sellNeedToAlert#1;class#ProductControllerTest#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -29,15 +29,19 @@ class Singletone_Storage_Management implements API_Buisness{
     public ReportController getReport(){
         return this.report;
     }
+
     public DefectController getDefects(){
         return this.defects;
     }
+
     public TransactionController getTransactions(){
         return transactions;
     }
+
     public LocationController getLocations(){
         return locations;
     }
+
     public ProductController getInventory(){
         return inventory;
     }
@@ -127,43 +131,52 @@ class Singletone_Storage_Management implements API_Buisness{
         this.getInventory().setManufactorForProduct(barcode, newName);
     }
 
+    @Override
     public void setNextSupply(int barcode , Date nextSupply){
         this.getInventory().setNextSupply(barcode, nextSupply);
     }
-    public String getDataSaleName(int barcode){
-       return this.getInventory().getSaleDataName(barcode);
+
+    @Override
+    public String getProducteName(Integer barcode) {
+        return this.getInventory().getProductName(barcode);
     }
 
-    public String getDataSalePrice(int barcode){
+    @Override
+    public String getProducteManufactor(Integer barcode) {
+        return this.getInventory().getProductManufactor(barcode);
+    }
+
+    @Override
+    public String getProducteAmount(Integer barcode) {
+        return this.getInventory().getProductAmount(barcode);
+    }
+
+    @Override
+    public String getProducteMinAmount(Integer barcode) {
+        return this.getInventory().getProductMinAmount(barcode);
+    }
+
+    @Override
+    public String getProducteDate(Integer barcode) {
+        return this.getInventory().getProductNextSupplyTime(barcode);
+    }
+
+    @Override
+    public String getDataSaleName(Integer barcode) {
+        return this.getInventory().getSaleDataName(barcode);
+    }
+
+    @Override
+    public String getDataSalePrice(Integer barcode) {
         double d = this.getInventory().getSaleDataPrice(barcode);
         return String.valueOf(d);
     }
 
-    public String getDataSaleDiscount(int barcode){
+    @Override
+    public String getDataSaleDiscount(Integer barcode) {
         double d = this.getInventory().getSaleDataDiscount(barcode);
         return String.valueOf(d);
     }
-
-    public String getProducteName(int barcode){
-        return this.getInventory().getProductName(barcode);
-    }
-
-    public String getProducteManufactor(int barcode){
-        return this.getInventory().getProductManufactor(barcode);
-    }
-
-    public String getProducteAmount(int barcode){
-        return this.getInventory().getProductAmount(barcode);
-    }
-
-    public String getProducteMinAmount(int barcode){
-        return this.getInventory().getProductMinAmount(barcode);
-    }
-
-    public String getProducteDate(int barcode){
-        return this.getInventory().getProductNextSupplyTime(barcode);
-    }
-
 
 
 }

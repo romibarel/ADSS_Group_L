@@ -2,6 +2,7 @@ import java.util.*;
 
 public class ProductController {
     public static final String DEFAULT = "Default category";
+    public static final String PRODUCT_NOT_FOUND = "Product not found";
     public static final int DEFAULT_MIN_AMOUNT = Integer.MAX_VALUE;
 
     private List<Category> categories;
@@ -172,7 +173,6 @@ public class ProductController {
         p.setNextSupplyTime(nextSupply);
     }
 
-
     public boolean sale(int barCode, int amount){
         Product p = searchProduct(barCode);
         if (p==null){return false;} //can't sale then no need to alert
@@ -185,37 +185,44 @@ public class ProductController {
 
     public String getSaleDataName(int barcode){
         DataSaleProduct p = getDataSale(barcode);
+        if(p==null){return PRODUCT_NOT_FOUND;}
         return p.getProductName();
     }
 
     public double getSaleDataPrice(int barcode){
         DataSaleProduct p = getDataSale(barcode);
+        if (p==null){return 0;}
         return p.getPrice();
     }
 
     public double getSaleDataDiscount(int barcode){
         DataSaleProduct p = getDataSale(barcode);
+        if (p==null){return 0;}
         return p.getDiscount();
     }
 
     public String getProductName(int barcode){
         Product p = searchProduct(barcode);
+        if (p==null){return PRODUCT_NOT_FOUND;}
         return p.getProductName();
     }
 
     public String getProductManufactor(int barcode){
         Product p = searchProduct(barcode);
+        if (p==null){return PRODUCT_NOT_FOUND;}
         return p.getManufactor();
     }
 
     public String getProductAmount(int barcode){
         Product p = searchProduct(barcode);
+        if (p==null){return PRODUCT_NOT_FOUND;}
         int amount = p.getAmount();
         return String.valueOf(amount);
     }
 
     public String getProductMinAmount(int barcode){
         Product p = searchProduct(barcode);
+        if (p==null){return PRODUCT_NOT_FOUND;}
         int Minamount = p.getMinAmount();
         return String.valueOf(Minamount);
     }
@@ -228,5 +235,7 @@ public class ProductController {
 
         return nextDate.toString();
     }
+
+
 
 }

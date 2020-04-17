@@ -10,11 +10,19 @@ public class PurchaseTransaction extends Transaction {
         this.purchseTransactions = new HashMap<>();
     }
 
+    public Map<Integer, ProductPurchase> getPurchseTransactions() {
+        return purchseTransactions;
+    }
+
+    public void setPurchseTransactions(Map<Integer, ProductPurchase> purchseTransactions) {
+        this.purchseTransactions = purchseTransactions;
+    }
+
     public void purchase(int barCode, String productName, String supplier, double price, double discount, Date expirationDate, int amount, Date date, int location) {
         Singletone_Storage_Management.getInstance().getLocations().addProduct(barCode, expirationDate, location, amount); //add product to locations
         Singletone_Storage_Management.getInstance().getInventory().purchaseProduct(barCode, productName, supplier, amount);
-        ///TODO: understands where the ProductPurchase comes from -> for now it's null
-        ProductPurchase pp = null;
+        //create new purchase product
+        ProductPurchase pp = new ProductPurchase(barCode, productName, supplier, price, discount, amount, expirationDate, location);
         this.purchseTransactions.put(barCode, pp);
     }
 
