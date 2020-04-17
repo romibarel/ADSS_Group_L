@@ -160,6 +160,19 @@ public class ProductController {
         searchProduct(barcode).setMinAmount(minimumAmount);
     }
 
+    public void setManufactorForProduct(int barcode , String newManufactor){
+        Product p = searchProduct(barcode);
+        if(p==null){return;}
+        p.setManufactor(newManufactor);
+    }
+
+    public void setNextSupply(int barcode , Date nextSupply){
+        Product p = searchProduct(barcode);
+        if(p==null){return;}
+        p.setNextSupplyTime(nextSupply);
+    }
+
+
     public boolean sale(int barCode, int amount){
         Product p = searchProduct(barCode);
         if (p==null){return false;} //can't sale then no need to alert
@@ -169,4 +182,51 @@ public class ProductController {
         }
         return false;   //no need to alert
     }
+
+    public String getSaleDataName(int barcode){
+        DataSaleProduct p = getDataSale(barcode);
+        return p.getProductName();
+    }
+
+    public double getSaleDataPrice(int barcode){
+        DataSaleProduct p = getDataSale(barcode);
+        return p.getPrice();
+    }
+
+    public double getSaleDataDiscount(int barcode){
+        DataSaleProduct p = getDataSale(barcode);
+        return p.getDiscount();
+    }
+
+    public String getProductName(int barcode){
+        Product p = searchProduct(barcode);
+        return p.getProductName();
+    }
+
+    public String getProductManufactor(int barcode){
+        Product p = searchProduct(barcode);
+        return p.getManufactor();
+    }
+
+    public String getProductAmount(int barcode){
+        Product p = searchProduct(barcode);
+        int amount = p.getAmount();
+        return String.valueOf(amount);
+    }
+
+    public String getProductMinAmount(int barcode){
+        Product p = searchProduct(barcode);
+        int Minamount = p.getMinAmount();
+        return String.valueOf(Minamount);
+    }
+
+    public String getProductNextSupplyTime(int barcode){
+        Product p = searchProduct(barcode);
+        Date nextDate = p.getNextSupplyTime();
+        if(nextDate == null)
+          return "unknown next supply time";
+
+        return nextDate.toString();
+    }
+
 }

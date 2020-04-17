@@ -63,4 +63,22 @@ public class LocationController {
         }
         return false;
     }
+
+    public Set<Date> getBarcodDates (int barcode){
+        Set<Date> dateList =productsLocation.get(barcode).keySet();
+        return dateList;
+    }
+
+    public Set<Integer> getLocationsByDate(int barcode , Date date){
+        Set<Integer> locationSet = productsLocation.get(barcode).get(date).keySet();
+        return locationSet;
+    }
+
+    public Integer getAmountByLocation(int barcode , Date date , Integer location){
+       Integer amount = productsLocation.get(barcode).get(date).get(location);
+       return amount;
+    }
+
+
+
 }

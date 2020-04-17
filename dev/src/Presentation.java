@@ -56,7 +56,7 @@ public class Presentation {
     public void InventoryMenu() {
         System.out.println("\nInventory Section:\n");
         List<String> initiateOptions = Arrays.asList("Add new 'sale product'", "Edit existing 'sale product' information",
-                "Edit minimum amount of product", "Add category", "Connect product to category", "print all product's name in store",
+                "Alter product information", "Add category", "Connect product to category", "Product information",
                 "print all categories name in store", "Back to main menu");
         printMenu(initiateOptions);
         option = Integer.parseInt(in.nextLine());
@@ -68,7 +68,7 @@ public class Presentation {
                 editExistingSaleProductInformation();
                 break;
             case 3:
-                editMinumumAmountOfProduct();
+                AlterProductMenu();
                 break;
             case 4:
                 addCatagoryToInventoryMenu();
@@ -77,7 +77,7 @@ public class Presentation {
                 connectProductToCategory();
                 break;
             case 6:
-                printAllExistingProducts();
+                ShowProducInfoMenu();
                 break;
             case 7:
                 printAllExistingCategories();
@@ -153,6 +153,49 @@ public class Presentation {
         int i = 1;
         for (String option : options) {
             System.out.println(i++ + ". " + option);
+        }
+    }
+
+    public void AlterProductMenu(){
+        List<String> initiateOptions = Arrays.asList(
+                "Set Minimum amount of product",
+                "Set manufactor of product",
+                "Set next supply date of product",
+                "Back to main menu");
+        printMenu(initiateOptions);
+        option = Integer.parseInt(in.nextLine());
+        switch (option) {
+            case 1:
+                editMinumumAmountOfProduct();
+                break;
+            case 2:
+                editManufactorOfProduct();
+                break;
+            case 3:
+                editNextSupply();
+            default:
+                break;
+        }
+
+    }
+
+    public void ShowProducInfoMenu(){
+        List<String> initiateOptions = Arrays.asList(
+                "General information",
+                "Sale information",
+                "Back to main menu");
+
+        printMenu(initiateOptions);
+        option = Integer.parseInt(in.nextLine());
+        switch (option) {
+            case 1:
+                ShowGeneralInfo();
+                break;
+            case 2:
+                ShowSaleInfo();
+                break;
+            default:
+                break;
         }
     }
 
@@ -307,6 +350,110 @@ public class Presentation {
         }
     }
 
+    public void editManufactorOfProduct(){
+        // int barcode, double newPrice/double newDiscount int chosenOption
+        boolean error = false;
+        System.out.print("  Edit manufactor of product:\n");
+        System.out.print("  Type how many items (different bar codes) you want to edit their minimum amount: ");
+        int numberOfItems = Integer.parseInt(in.nextLine());
+        for (int i = 1; i <= numberOfItems; i++) {
+            System.out.print("  Type barcode number of the " + i + " item: ");
+            int barcode = Integer.parseInt(in.nextLine());
+            System.out.print("  Type new manufactor's name of the " + i + " item: ");
+            String newName = in.nextLine();
+            buisnessManager.setManufactorforProduct(barcode, newName);
+        }
+        if (error) {
+            //TODO: if need to do something if date is not in the format
+        } else {
+            System.out.print("\nEdit Manufactor of product complete successfully.\n");
+        }
+    }
+
+    public void editNextSupply(){
+        // int barcode, double newPrice/double newDiscount int chosenOption
+        boolean error = false;
+        System.out.print("  Edit next Supply of product:\n");
+        System.out.print("  Type how many items (different bar codes) you want to edit their minimum amount: ");
+        int numberOfItems = Integer.parseInt(in.nextLine());
+        for (int i = 1; i <= numberOfItems; i++) {
+            System.out.print("  Type barcode number of the " + i + " item: ");
+            int barcode = Integer.parseInt(in.nextLine());
+            System.out.print("  Type next supply date of the " + i + " item: ");
+            Date nextSupply = null;
+            try {
+                String expiDate = in.nextLine();
+                nextSupply = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+            } catch (Exception e) {
+                System.out.print("Illegal date input");
+                error = true;
+                break;
+            }
+            buisnessManager.setNextSupply(barcode, nextSupply);
+        }
+        if (error) {
+            //TODO: if need to do something if date is not in the format
+        } else {
+            System.out.print("\nEdit Manufactor of product complete successfully.\n");
+        }
+    }
+
+    public void ShowGeneralInfo() {
+        System.out.print("  Type how many items (different bar codes) you want to watch general information: ");
+        int numberOfItems = Integer.parseInt(in.nextLine());
+        List<Integer> productsToShow = new LinkedList<>();
+        for (int i = 1; i <= numberOfItems; i++) {
+            System.out.print("  Type barcode number of the " + i + " item: ");
+            int barcode = Integer.parseInt(in.nextLine());
+            productsToShow.add(new Integer(barcode));
+        }
+        for(Integer barcode : productsToShow){
+            System.out.print(
+                    "Barode: " + barcode + "\n" +
+                    "Product name :" + buisnessManager.getProducteName(barcode)+ "\n" +
+                    "Product manufactor :" + buisnessManager.getProducteManufactor(barcode)+ "\n"+
+                    "Product amount :" + buisnessManager.getProducteAmount(barcode)+ "\n"+
+                    "Product minimum amount :" + buisnessManager.getProducteMinAmount(barcode)+ "\n"+
+                    "Product next supply date :" + buisnessManager.getProducteDate(barcode) +
+                     "\n\n");
+        }
+    }
+//
+    public void ShowSaleInfo() {
+        System.out.print("  Type how many items (different bar codes) you want to watch sale information: ");
+        int numberOfItems = Integer.parseInt(in.nextLine());
+        List<Integer> productsToShow = new LinkedList<>();
+        for (int i = 1; i <= numberOfItems; i++) {
+            System.out.print("  Type barcode number of the " + i + " item: ");
+            int barcode = Integer.parseInt(in.nextLine());
+            productsToShow.add(new Integer(barcode));
+        }
+        for(Integer barcode : productsToShow){
+         System.out.print(
+                 "Barode: " + barcode + "\n" +
+                 "Product name" + buisnessManager.getDataSaleName(barcode)+ "\n" +
+                 "Product price" + buisnessManager.getDataSalePrice(barcode)+ "\n"+
+                 "Product discount" + buisnessManager.getDataSaleDiscount(barcode) + "\n\n");
+        }
+    }
+
+    public void ShowProductLocation(){
+        System.out.print("  Type how many items (different bar codes) you want to watch location information: ");
+        int numberOfItems = Integer.parseInt(in.nextLine());
+        List<Integer> locationsToShow = new LinkedList<>();
+        for (int i = 1; i <= numberOfItems; i++) {
+            System.out.print("  Type barcode number of the " + i + " item: ");
+            int barcode = Integer.parseInt(in.nextLine());
+            locationsToShow.add(new Integer(barcode));
+        }
+
+        for(Integer barcode : locationsToShow){
+            System.out.print("Barode: " + barcode + "\n");
+            //List<String> dateList =
+        }
+
+    }
+
     public void addDefect() {
         //Date date, int barCode, int amount, String reason, String creator, int location, Date expiration -> the parameters
         boolean error = false;
@@ -367,7 +514,7 @@ public class Presentation {
 
     private void showDefects(DefectReport defectReport) {
         System.out.print("\nThe defect report from date " + defectReport.getDateStart().toString() + " is:\n");
-        System.out.print("sorted by dates\n");
+        System.out.print("sorted by dates:\n\n");
         List<Defect> defects = defectReport.getDefects();
         defects.sort(Comparator.comparing(Defect::getDate));
         if (defects.size() == 0) {
@@ -375,7 +522,14 @@ public class Presentation {
             return;
         }
         for (Defect defect : defects) {
-            System.out.println("date accrued: " + defect.getDate().toString() + " barcode: " + defect.getBarCode() + " amount: " + defect.getAmount() + " reason: " + defect.getReason() + " creator: " + defect.getCreator() + " location: " + defect.getLocation() + " expiration date: " + defect.getExpiration().toString());
+            System.out.println(
+                    " date accrued: " + defect.getDate().toString() +"\n" +
+                    " barcode: " + defect.getBarCode() + "\n" +
+                    " amount: " + defect.getAmount() + "\n" +
+                    " reason: " + defect.getReason() + "\n" +
+                    " creator: " + defect.getCreator() + "\n" +
+                    " location: " + defect.getLocation() + "\n" +
+                    " expiration date: " + defect.getExpiration().toString() + "\n\n");
         }
 
     }

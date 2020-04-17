@@ -122,5 +122,49 @@ class Singletone_Storage_Management implements API_Buisness{
     public void setMinimumAmount(int barcode, int minimumAmount) {
         this.getInventory().setMinimumAmount(barcode, minimumAmount);
     }
+
+    public void setManufactorforProduct(int barcode , String newName){
+        this.getInventory().setManufactorForProduct(barcode, newName);
+    }
+
+    public void setNextSupply(int barcode , Date nextSupply){
+        this.getInventory().setNextSupply(barcode, nextSupply);
+    }
+    public String getDataSaleName(int barcode){
+       return this.getInventory().getSaleDataName(barcode);
+    }
+
+    public String getDataSalePrice(int barcode){
+        double d = this.getInventory().getSaleDataPrice(barcode);
+        return String.valueOf(d);
+    }
+
+    public String getDataSaleDiscount(int barcode){
+        double d = this.getInventory().getSaleDataDiscount(barcode);
+        return String.valueOf(d);
+    }
+
+    public String getProducteName(int barcode){
+        return this.getInventory().getProductName(barcode);
+    }
+
+    public String getProducteManufactor(int barcode){
+        return this.getInventory().getProductManufactor(barcode);
+    }
+
+    public String getProducteAmount(int barcode){
+        return this.getInventory().getProductAmount(barcode);
+    }
+
+    public String getProducteMinAmount(int barcode){
+        return this.getInventory().getProductMinAmount(barcode);
+    }
+
+    public String getProducteDate(int barcode){
+        return this.getInventory().getProductNextSupplyTime(barcode);
+    }
+
+
+
 }
 
