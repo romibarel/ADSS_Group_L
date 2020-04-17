@@ -3,10 +3,7 @@ package Logic;
 import CLI.PresentShift;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ShiftRepo
 {
@@ -38,7 +35,7 @@ public class ShiftRepo
 
 	public static Result add_shift(PresentShift shift)
 	{
-		Result result=Shift.check_parameters(shift);
+		Result result=Shift.check_parameters(shift,true);
 		if (result.success)
 		{
 			Shift new_shift=new Shift(shift);
@@ -52,7 +49,10 @@ public class ShiftRepo
 		Result result;
 		Shift shift_to_edit=get_shift(previous_date,previous_morning);
 		if (shift_to_edit==null) return new Result(false,"shift doesnt exist");
-		result=Shift.check_parameters(shift);
+		boolean check_date=true;
+		if (previous_date.equals(shift.getDate()) & previous_morning==shift.isMorning())  //if the date hasn't changed no need to check its validity
+			check_date=false;
+		result=Shift.check_parameters(shift,check_date);
 		if (result.success)
 		{
 			shift_to_edit.setDate(shift.getDate());
@@ -99,6 +99,7 @@ public class ShiftRepo
 				currentWeekShifts.add(shift);
 			}
 		}
+		currentWeekShifts.sort(Comparator.comparing(Shift::getDate)); //sort by date
 		return currentWeekShifts;
 	}
 
@@ -108,6 +109,11 @@ public class ShiftRepo
 		return shifts;
 	}
 
-
+	//check if worker is scheduled at specific date
+	public static boolean is_worker_scheduled_at(int id,Date date,boolean morning)
+	{
+		Shift shift=get_shift(date,morning);
+		return shift.getWorkers().contains(id) || shift.getManager_id() == id;
+	}
 
 }
