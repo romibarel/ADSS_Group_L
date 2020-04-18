@@ -504,7 +504,7 @@ public class Presentation {
 
     private void getDefectsReport() {
         boolean error = false;
-        System.out.print("  Buisness.Defects.Defect report:\n");
+        System.out.print("  Defect report:\n");
         System.out.print("  Type date to from which you wish to find defects (dd/MM/yyyy format): ");
         Date fromDate = null;
         try {

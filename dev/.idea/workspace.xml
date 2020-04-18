@@ -2,60 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/API_Buisness.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Category.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/CategoryTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DataSaleProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Defect.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DefectController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DefectReport.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/LocationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/LocationControllerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Presentation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/ProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/ProductControllerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/ProductPurchase.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/ProductRepData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/ProductReport.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/ProductSale.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/PurchaseTransaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/PurchaseTransactionTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/ReportController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/SaleTransaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Singletone_Storage_Management.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Singletone_Storage_ManagementTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Transaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/TransactionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/API_Buisness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CategoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/CategoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataSaleProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/DataSaleProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Defect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Defects/Defect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Defects/DefectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DefectReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Reports/DefectReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Locations/LocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LocationControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/LocationControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/ProductControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductPurchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/ProductPurchase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductRepData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/ProductRepData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Reports/ProductReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductSale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/ProductSale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PurchaseTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/PurchaseTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PurchaseTransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/PurchaseTransactionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Reports/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SaleTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/SaleTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Singletone_Storage_Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Singletone_Storage_Management.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Presentation.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -82,10 +29,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Presentation/Presentation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="735" column="5" lean-forward="true" selection-start-line="735" selection-start-column="5" selection-end-line="735" selection-end-column="5" />
+            <state relative-caret-position="-1566">
+              <caret line="5" column="37" lean-forward="true" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="method#printAllExistingProducts#0;class#Presentation#0" />
                 <element signature="method#moveProduct#0;class#Presentation#0" />
               </folding>
@@ -207,6 +153,7 @@
     <findStrings>
       <find>locations</find>
       <find>public</find>
+      <find>Buisness.Defects.Defect</find>
     </findStrings>
     <replaceStrings>
       <replace>private</replace>
@@ -247,7 +194,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -283,7 +230,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587207483231" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587212765009" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -448,7 +395,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.34451902" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32214764" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.67449665" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36129755" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -736,10 +683,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Presentation/Presentation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="735" column="5" lean-forward="true" selection-start-line="735" selection-start-column="5" selection-end-line="735" selection-end-column="5" />
+        <state relative-caret-position="-1566">
+          <caret line="5" column="37" lean-forward="true" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#printAllExistingProducts#0;class#Presentation#0" />
             <element signature="method#moveProduct#0;class#Presentation#0" />
           </folding>
