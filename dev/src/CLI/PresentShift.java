@@ -1,6 +1,9 @@
 package CLI;
 
+import Logic.Shift;
+
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PresentShift {
@@ -16,6 +19,18 @@ public class PresentShift {
         this.manager_id = manager_id;
         this.workers = workers;
     }
+
+    public PresentShift() {
+        workers=new LinkedList<>();
+    }
+
+    public PresentShift(Shift shift){
+        this.date = shift.getDate();
+        this.morning = shift.isMorning();
+        this.manager_id = shift.getManager_id();
+        this.workers = shift.getWorkers();
+    }
+
 
     public Date getDate() {
         return date;
@@ -51,11 +66,10 @@ public class PresentShift {
 
     @Override
     public String toString() {
-        return "PresentShift{" +
+        return
                 "date=" + date  +
-                ", morning=" + morning +
-                ", manager_id=" + manager_id +
-                ", workers=" + workers +
-                '}';
+                "\nmorning=" + morning +
+                "\nmanager_id=" + manager_id +
+                "\nworkers=" + workers ;
     }
 }
