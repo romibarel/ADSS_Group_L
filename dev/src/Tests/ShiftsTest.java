@@ -1,3 +1,4 @@
+import CLI.PresentConstraint;
 import CLI.PresentShift;
 import CLI.PresentWorker;
 import Logic.ConstrainsRepo;
@@ -16,48 +17,54 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ShiftsTest
 {
-	PresentWorker w;
-	PresentShift s;
-
-	@BeforeEach
-	public void before_tests() throws ParseException
-	{
-		Date date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
-		w=new PresentWorker("avi cohen",0,12,1234,11,5,5,date,"manager");
-
-		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
-		s=new PresentShift(date2,true,0,null);
-	}
 
 	@AfterEach
 	public void after_tests()
 	{
 		WorkersRepo.getWorkers().clear();
 		ShiftRepo.get_shifts().clear();
+		ConstrainsRepo.getConstraints().clear();
 	}
 
 	@Test
 	public void test_fail_add_shift() throws ParseException
 	{
+		Date start_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
+		PresentWorker w=new PresentWorker("avi cohen",0,12,1234,11,5,5,start_date,"manager");
+		Date shift_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
+		PresentShift s=new PresentShift(shift_date,true,0,null);
+
 		ShiftRepo.add_shift(s);
 		assertFalse(ShiftRepo.add_shift(s).success); // there is already a shift in that time
 
 		Date date=new SimpleDateFormat("dd/MM/yyyy").parse("14/02/1990");
 		s.setDate(date);
 		assertFalse(ShiftRepo.add_shift(s).success); // cant add shift in the past
+
 		s.setDate(null);
 		assertFalse(ShiftRepo.add_shift(s).success); // null date
-		s.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2023"));
 
+		s.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2023"));
 		s.setManager_id(12345);
 		assertFalse(ShiftRepo.add_shift(s).success); // manager with id 12345 doesnt exist
 
-		//TODO add workers and manager with constarint and run more tests
+		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
+		PresentConstraint c1=new PresentConstraint(date2,true,0,"wedding",0);
+		WorkersRepo.add_worker(w);
+		ConstrainsRepo.addConstraint(c1);
+		s.setManager_id(0);
+		s.setDate(date2);
+		assertFalse(ShiftRepo.add_shift(s).success); //the manager has a constraint
 	}
 
 	@Test
 	public void test_good_add_shift() throws ParseException
 	{
+		Date start_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
+		PresentWorker w=new PresentWorker("avi cohen",0,12,1234,11,5,5,start_date,"manager");
+		Date shift_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
+		PresentShift s=new PresentShift(shift_date,true,0,null);
+
 		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("16/05/2020");
 		PresentShift s2=new PresentShift(date2,true,0,null);
 
@@ -79,6 +86,11 @@ public class ShiftsTest
 	@Test
 	public void test_good_delete_shift() throws ParseException
 	{
+		Date start_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
+		PresentWorker w=new PresentWorker("avi cohen",0,12,1234,11,5,5,start_date,"manager");
+		Date shift_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
+		PresentShift s=new PresentShift(shift_date,true,0,null);
+
 		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("16/05/2020");
 		WorkersRepo.add_worker(w);
 		s.setManager_id(0);
@@ -90,6 +102,11 @@ public class ShiftsTest
 	@Test
 	public void test_get_shift() throws ParseException
 	{
+		Date start_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
+		PresentWorker w=new PresentWorker("avi cohen",0,12,1234,11,5,5,start_date,"manager");
+		Date shift_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
+		PresentShift s=new PresentShift(shift_date,true,0,null);
+
 		//add two shifts, then get shift in date2 and check that it is indeed the date
 		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("16/05/2020");
 		PresentShift s2=new PresentShift(date2,true,0,null);

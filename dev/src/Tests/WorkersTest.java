@@ -1,8 +1,8 @@
+import CLI.PresentConstraint;
 import CLI.PresentShift;
 import CLI.PresentWorker;
 import Logic.ConstrainsRepo;
 import Logic.ShiftRepo;
-import Logic.Worker;
 import Logic.WorkersRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +60,12 @@ public class WorkersTest
 		//no constraint were added so all drivers should be returned
 		assertEquals(1,WorkersRepo.get_by_role("driver",date,true).size());
 
-		//TODO add constarint and run one more test
+		PresentConstraint c1=new PresentConstraint(date,true,w3.getId(),"wedding",0);
+		PresentConstraint c2=new PresentConstraint(date,true,w4.getId(),"wedding",1);
+		ConstrainsRepo.addConstraint(c1);
+		ConstrainsRepo.addConstraint(c2);
+		//the cashiers w3,w4 added constraints so 0 cashiers should be available
+		assertEquals(0,WorkersRepo.get_by_role("cashier",date,true).size());
 	}
 
 	@Test

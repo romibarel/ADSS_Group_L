@@ -2,9 +2,7 @@ package Logic;
 
 import CLI.PresentShift;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class Shift
 		//check manager_id
 		if (WorkersRepo.get_by_id(shift.getManager_id())==null)
 			return new Result(false,"manager doest exist");
-		if (!WorkersRepo.get_by_id(shift.getManager_id()).is_manager())
+		if (!WorkersRepo.get_by_id(shift.getManager_id()).is_manager())//no null pointer exception because manager is verified to exist
 			return new Result(false,"wrong manager id");
 		if (!ConstrainsRepo.is_available(shift.getManager_id(),shift.getDate(),shift.isMorning()))
 			return new Result(false, "manager has constraint for that shift");

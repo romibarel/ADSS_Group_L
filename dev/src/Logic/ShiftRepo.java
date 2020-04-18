@@ -2,7 +2,6 @@ package Logic;
 
 import CLI.PresentShift;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ShiftRepo
@@ -113,6 +112,7 @@ public class ShiftRepo
 	public static boolean is_worker_scheduled_at(int id,Date date,boolean morning)
 	{
 		Shift shift=get_shift(date,morning);
+		if (shift==null) return false;
 		return shift.getWorkers().contains(id) || shift.getManager_id() == id;
 	}
 
