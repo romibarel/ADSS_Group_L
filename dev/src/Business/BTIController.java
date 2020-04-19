@@ -11,7 +11,7 @@ public class BTIController {
     private static BTIController bti = null;
     private static ITBController itb;
     private static BTDController btd;
-    private List<Delivery> deliveries;
+    private DeliveryArchive archive;
     private List<Supply> supplies;
     private List<DeliverDoc> documents;
     private List<Driver> drivers;
@@ -32,36 +32,78 @@ public class BTIController {
     public void set(ITBController itb, BTDController btd, List<String[]> supplies, List<String[]> drivers, List<String[]> sections, List<String[]> locations, List<String[]> trucks){
         BTIController.itb = itb;
         BTIController.btd = btd;
+        archive = new DeliveryArchive();
 
         this.supplies = new LinkedList<>();
+        //(String name, int quant)
         for (String[] combo : supplies){
             Supply sup = new Supply(combo[0], Integer.parseInt(combo[1]));
             this.supplies.add(sup);
         }
 
+        documents = new LinkedList<>();
+
         this.drivers = new LinkedList<>();
+        //drivers.add(new String[] {"Moshe", "Mazda", "Toyota"});
+        //(List<String> licenses, String name)
         for (String[] combo : drivers){
-            Driver driver = new Driver();
+            String name = combo[0];
+            List<String> licenses= new LinkedList<>();
+            for (int i=1; i<combo.length; i++){
+                licenses.add(combo[i]);
+            }
+            Driver driver = new Driver(licenses, name);
             this.drivers.add(driver);
         }
 
-        this.sections = new Sections();
+        HashMap<Integer, List<String>> secs = new HashMap<>();
+        for (String[] combo : sections){
+            Integer area = Integer.parseInt(combo[0]);
+            List <String> locs = new LinkedList<>();
+            for (int i=1; i<combo.length; i++){
+                locs.add(combo[i]);
+            }
+            secs.put(area, locs);
+        }
+        this.sections = new Sections(secs);
 
         this.locations = new LinkedList<>();
+        //(String address, int phone, String associate)
+        //"Super Lee", "052", "Haim"
         for (String[] combo : locations){
-            Location loc = new Location();
+            Location loc = new Location(combo[0], Integer.parseInt(combo[1]), combo[2]);
             this.locations.add(loc);
         }
 
         this.trucks = new LinkedList<>();
+        //(int truckNum, int plate, int weighNeto, int maxWeight, String type)
+        //"1", "111", "1000", "4000", "Mazda"
+        //todo: delete last input
         for (String[] combo : trucks){
-            Truck truck = new Truck();
+            Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4], Integer.parseInt(combo[2])) ;
             this.trucks.add(truck);
         }
+
+        btd.set(bti, this.drivers, this.sections, this.locations, this.trucks);
     }
 
-    public void createDoc(int docNum, String[] doc){
-
+    //destination, supplies&quants,
+    //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
+    //todo: check that creating deliver doc is right now
+    public String createDoc(int docNum, String[] doc){
+        String[] data = doc[1].split(" ", Integer.MAX_VALUE);
+        List<Supply> supplies = new LinkedList<>();
+        for (int i=0; i<data.length-1; i+=2){
+            try {
+                Supply supp = new Supply(data[i], Integer.parseInt(data[i + 1]));
+                supplies.add(supp);
+            }catch (Exception e){
+                return "Invalid supplies input";
+            }
+        }
+        DeliverDoc deliverDoc = new DeliverDoc(docNum, doc[0], supplies, null);
+        documents.add(deliverDoc);
+        return "Document created successfully.";
     }
 
     public String createDelivery(Date date, Date time, int truckInt, String driverName, String sourceName, List<Integer> docNums){
@@ -75,7 +117,7 @@ public class BTIController {
 
         Driver driver = null;
         for(Driver d : drivers){
-            if (d.getName.eqauls(driverName))
+            if (driverName.equals(d.getName()))
                 driver = d;
         }
         if (driver == null)
@@ -89,7 +131,7 @@ public class BTIController {
         if (source == null)
             return "The source doesn't exist.";
 
-        List<DeliverDoc> docs =new LinkedList<>();
+        List<DeliverDoc> docs = new LinkedList<>();
         for (DeliverDoc doc : documents){
             if (docNums.contains(doc.getNum()))
                 docs.add(doc);
@@ -97,65 +139,45 @@ public class BTIController {
         if (docs.size() != docNums.size())
             return "Some delivery docs weren't added.";
 
+
+        //todo: remove castings when haim updates return value
         List<Location> destinations = new LinkedList<>();
-        for (DeliverDoc doc : documents){
-            if (locations.contains(doc.getDestination()))
-                destinations.add(doc.getDestination());
+        int area = sections.getSection((Location) docs.get(0).getDestination());
+        for (DeliverDoc doc : docs){
+            if (locations.contains(doc.getDestination())){
+                if (area != sections.getSection((Location) doc.getDestination()))
+                    return "You tried to deliver to different areas.";
+                destinations.add((Location) doc.getDestination());
+            }
         }
         if (locations.size() != docs.size())
-            return "Some of the destinations wenren't added.";
+            return "Some of the destinations weren't added.";
         Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs);
         if(!(delivery.isApproved()))
-            return false;
-        deliveries.add(delivery);
-        return true;
-    }
+            return "The driver is unlicensed for the given truck.";
 
-    public List<Delivery> getDeliveries() {
-        return deliveries;
-    }
-
-    public void setDeliveries(List<Delivery> deliveries) {
-        this.deliveries = deliveries;
+        //if we got here all is a ok
+        archive.add(delivery);
+        return "Delivery was created successfully!";
     }
 
     public List<Supply> getSupplies() {
         return supplies;
     }
 
-    public void setSupplies(List<Supply> supplies) {
-        this.supplies = supplies;
-    }
-
     public List<DeliverDoc> getDocuments() {
         return documents;
-    }
-
-    public void setDocuments(List<DeliverDoc> documents) {
-        this.documents = documents;
     }
 
     public List<Driver> getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(List<Driver> drivers) {
-        this.drivers = drivers;
-    }
-
     public Sections getSections() {
         return sections;
     }
 
-    public void setSections(Sections sections) {
-        this.sections = sections;
-    }
-
     public List<Truck> getTrucks() {
         return trucks;
-    }
-
-    public void setTrucks(List<Truck> trucks) {
-        this.trucks = trucks;
     }
 }

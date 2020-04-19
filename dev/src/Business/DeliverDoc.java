@@ -13,7 +13,7 @@ public class DeliverDoc {
     public Object getDestination() {
         return null;//todo
     }
-
+//todo: haim we don't need truckWeight and truck here remember?? we need to have Location dest instead :D
     public DeliverDoc(int num, List<Supply> deliveryList, int truckWeight, Truck truck) {
         this.num = num;
         this.deliveryList = deliveryList;

@@ -25,11 +25,13 @@ public class ITBController {
         ITBController.itp = itp;
     }
 
-    public void createDoc(int docNum, String[] doc){
-        bti.createDoc(docNum, doc);
+    //destination, supplies&quants,
+    //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
+    public String createDoc(int docNum, String[] doc){
+       return bti.createDoc(docNum, doc);
     }
 
-    public void createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs){
-        bti.createDelivery(date, time, truck, driver, source, docs);
+    public String createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs){
+        return bti.createDelivery(date, time, truck, driver, source, docs);
     }
 }

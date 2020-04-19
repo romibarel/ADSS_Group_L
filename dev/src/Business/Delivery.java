@@ -1,9 +1,7 @@
 package Business;
 
 import java.sql.Time;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Delivery {
     private Date date;
@@ -18,8 +16,6 @@ public class Delivery {
         //need to check if date and time are acceptable dont know how
         if (!driver.getLicenses().contains(truck.getType())){
             approved = false;
-        if (!driver.getLicenses().contains(truck.getType())){
-            throw new IllegalArgumentException("Unlicensed driver");
         }
         else {
             this.date = date;
@@ -29,25 +25,27 @@ public class Delivery {
             this.source = source;
             docLoc = new HashMap<>();
             for (DeliverDoc doc : docs) {
-                for (Location location : locations) {
-                    if (doc.getDestination().equals(location.getAddress())) { //todo what is it get destination?? there are couple of them..
-                        docLoc.put(doc, location);
-                    }
-                }
+                //todo: remove casting when haim finishes
+                docLoc.put(doc, (Location) doc.getDestination());
             }
+            approved = true;
         }
     }
 
-    private void alert() {
-
+    public List<DeliverDoc> getDocs(){
+        List<DeliverDoc> docs = new LinkedList<>();
+        Iterator<DeliverDoc> iter = docLoc.keySet().iterator();
+        for (DeliverDoc doc : docLoc.keySet()){
+            docs.add(doc);
+        }
+        return docs;
     }
-
 
     public Date getDate() {
         return date;
     }
 
-    public Time getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
@@ -65,5 +63,9 @@ public class Delivery {
 
     public HashMap<DeliverDoc, Location> getDocLoc() {
         return docLoc;
+    }
+
+    public boolean isApproved(){
+        return approved;
     }
 }

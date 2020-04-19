@@ -1,10 +1,16 @@
 package Business;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class DeliveryArchive {
     private List<Delivery> deliveries;
     private List<Integer> documents;
+
+    public DeliveryArchive(){
+        deliveries = new LinkedList<>();
+        documents = new LinkedList<>();
+    }
 
     public DeliveryArchive(List<Delivery> deliveries, List<Integer> documents) {
         this.deliveries = deliveries;
@@ -19,11 +25,10 @@ public class DeliveryArchive {
         return documents;
     }
 
-    public void add(Business.Delivery del){
-        deliveries.add(del);
-        List<DeliverDoc> docs = del.getDocs();
-        for (DeliverDoc d : docs){
-            documents.add(d.getNum());
+    public void add(Delivery delivery){
+        deliveries.add(delivery);
+        for (DeliverDoc doc : delivery.getDocs()){
+            documents.add(doc.getNum());
         }
     }
 

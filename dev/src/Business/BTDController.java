@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BTDController {
-    private static BTDController btd = null;//todo romi i think you wanted to do DTBcontroller
+    private static BTDController btd = null;//todo haim i think you wanted to do DTBcontroller
     private static BTIController bti;
     private List<Driver> drivers;
     private DeliveryArchive archive ;
@@ -24,7 +24,7 @@ public class BTDController {
         return btd;
     }
 
-    public void setBTD(BTIController bti, LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
+    public void set(BTIController bti, List<Driver> drivers, Sections sections, List<Location> locations, List<Truck> trucks){
         BTDController.bti = bti;
         this.drivers = drivers;
         this.sections = sections;

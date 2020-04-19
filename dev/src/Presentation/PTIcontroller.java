@@ -80,7 +80,7 @@ public class PTIcontroller {
         }
 
         //create the delivery trough interface layer
-        itp.createDelivery(date, time, truckNum, driver, source, docs);
+        System.out.println(itp.createDelivery(date, time, truckNum, driver, source, docs));
         return docNum + docs.size();
     }
 
@@ -90,10 +90,11 @@ public class PTIcontroller {
 
         while (!finish) {
             //destination, supplies&quants,
+            //0=destination 1=long string of format: supply1 quant1, supply2, quant2...
             String[] doc = new String[2];
             System.out.println("Let's create a delivery document. Where would you like to deliver?");
             doc[0] = scanner.nextLine();
-            System.out.println("Please enter all the supplies and quantities to deliver in this format: supply1 quant1, supply2, quant2...");
+            System.out.println("Please enter all the supplies and quantities to deliver in this format: supply1 quant1 supply2 quant2...");
             doc[1] = scanner.nextLine();
             System.out.println("Do you wish to add another destination? [y/n]");
             String yn = scanner.nextLine();
@@ -103,7 +104,7 @@ public class PTIcontroller {
                 System.out.println("Invalid answer, the system will create the delivery now.");
                 finish = true;
             }
-            itp.createDoc(docNum, doc);
+            System.out.println(itp.createDoc(docNum, doc));
             docNums.add(docNum);
             docNum++;
         }

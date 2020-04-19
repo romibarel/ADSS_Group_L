@@ -30,12 +30,12 @@ public class ITPController {
         ITPController.itb = itb;
     }
 
-    public void createDoc(int docNum, String[] doc){
-        itb.createDoc(docNum, doc);
+    public String createDoc(int docNum, String[] doc){
+       return itb.createDoc(docNum, doc);
     }
 
-    public void createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs){
-        itb.createDelivery(date, time, truck, driver, source, docs);
+    public String createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs){
+        return itb.createDelivery(date, time, truck, driver, source, docs);
     }
 
 }
