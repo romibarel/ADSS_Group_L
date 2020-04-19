@@ -2,7 +2,6 @@ package Logic;
 
 import CLI.PresentWorker;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,9 +33,6 @@ public class WorkersRepo
 		return new Result(true,"success");
 	}
 
-
-
-
 	public static Result edit_worker(PresentWorker worker)
 	{
 		Result result;
@@ -56,6 +52,7 @@ public class WorkersRepo
 		}
 		return result;
 	}
+
 	// return the available workers in specific date and role
 	public static List<Worker> get_by_role(String role,Date date,boolean morning)
 	{

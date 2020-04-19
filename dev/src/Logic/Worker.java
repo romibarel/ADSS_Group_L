@@ -2,7 +2,6 @@ package Logic;
 
 import CLI.PresentWorker;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Worker
@@ -56,6 +55,9 @@ public class Worker
 
 		//check start_date
 		if (worker.getStart_date()==null) return new Result(false, "invalid start date");
+
+		//check id
+		if (WorkersRepo.get_by_id(worker.getId())!=null) return new Result (false,"id already exists");
 
 		return new Result(true,"success");
 	}
