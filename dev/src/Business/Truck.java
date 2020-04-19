@@ -9,6 +9,15 @@ public class Truck {
     private String type;//todo add to url
     private int currentLoad = 0;//todo is it neccessery
 
+    public Truck(int truckNum, int plate, int weighNeto, int maxWeight, String type, int currentLoad) {
+        this.truckNum = truckNum;
+        this.plate = plate;
+        this.weighNeto = weighNeto;
+        this.maxWeight = maxWeight;
+        this.type = type;
+        this.currentLoad = currentLoad;
+    }
+
 
     //the driver will check if he can use the truck?
 

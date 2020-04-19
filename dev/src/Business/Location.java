@@ -5,6 +5,12 @@ public class Location {
     private int phone;
     private String associate;
 
+    public Location(String address, int phone, String associate) {
+        this.address = address;
+        this.phone = phone;
+        this.associate = associate;
+    }
+
     public String getAddress() {
         return address;
     }

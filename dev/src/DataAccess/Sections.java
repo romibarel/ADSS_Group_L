@@ -9,7 +9,7 @@ public class Sections {
 
     public void addSection(int section)
     {
-        areas.put(Section);
+        areas.putIfAbsent(section, new LinkedList<>());
     }
 
 

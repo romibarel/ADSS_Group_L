@@ -6,6 +6,11 @@ public class Driver {
     private List<String> licenses;
     private String name;
 
+    public Driver(List<String> licenses, String name) {
+        this.licenses = licenses;
+        this.name = name;
+    }
+
     public boolean canDriveTruck(String truckType)
     {
         return licenses.contains(truckType);
