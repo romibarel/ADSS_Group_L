@@ -13,7 +13,7 @@ public class PresentConstraint {
     private String reason;
     private int cid;
 
-    public PresentConstraint(Date date, boolean morning, int id, String reason, int cid) {
+    public PresentConstraint(Date date, boolean morning, int id, String reason) {
         this.date = date;
         this.morning = morning;
         this.id = id;

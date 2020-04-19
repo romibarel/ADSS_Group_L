@@ -61,6 +61,7 @@ public class ConstrainsRepo
 		if(!checking.success)
 			return checking;
 		Constraint con=new Constraint(c.getDate(),c.isMorning(),c.getId(),c.getReason(), id);
+		id++;
 		constraints.add(con);
 		return new Result(true,"Constraint was added "+c.toString());
 	}
@@ -91,4 +92,7 @@ public class ConstrainsRepo
 		return new Result(false,"could not find matching constraint to delete");
 	}
 
+	public static List<Constraint> getConstraints() {
+		return constraints;
+	}
 }
