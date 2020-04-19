@@ -7,9 +7,11 @@ import Buisness.Reports.DefectReport;
 import Buisness.Reports.ProductReport;
 import Buisness.Reports.ReportController;
 import Buisness.Transactions.TransactionController;
+import Presentation.PdataInventoryReport;
 
 import java.util.Date;
 import java.util.List;
+import java.util.*;
 
 public class Singletone_Storage_Management implements API_Buisness{
 
@@ -207,5 +209,23 @@ public class Singletone_Storage_Management implements API_Buisness{
     public Integer getAmountByLocation(int barcode , Date date , Integer location){
         return this.locations.getAmountByLocation(barcode , date , location);
     }
+
+    public List<String> CategoriesOfInventoryReport(Date today){
+        return this.report.getMainCategories(today);
+    }
+
+    public List<String> CategoriesOfInventoryReport(Date today ,String category){
+        return this.report.getSubCateroies(today , category);
+    }
+
+
+
+    public List<PdataInventoryReport> RepProdofInventoryReport (Date date , String category ){
+       return report.dataOfReport(date , category);
+    }
+
+    public Collection<List<String>> subcat(Date date){return report.subcat(date);}
+
+    public void creatInventoryReport(Date today){this.report.creatInventoryReport(today);}
 }
 

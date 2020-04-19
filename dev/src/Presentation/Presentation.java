@@ -148,7 +148,7 @@ public class Presentation {
 
     private void ReportMenu() {
         System.out.println("\nReports section:\n");
-        List<String> initiateOptions = Arrays.asList("Defects report", "Time report", "Back to main menu");
+        List<String> initiateOptions = Arrays.asList("Defects report", "Time report", "new Time Report" , "Back to main menu");
         printMenu(initiateOptions);
         option = Integer.parseInt(in.nextLine());
         switch (option) {
@@ -157,6 +157,9 @@ public class Presentation {
                 break;
             case 2:
                 getTimeReport();
+                break;
+            case 3:
+                showInventoryReport();
                 break;
             default:
                 break;
@@ -748,6 +751,18 @@ public class Presentation {
         return filterMainCategories;
     }
 
+    private List<String> getMainCategoriesByDate(Date date) {
+        List<String> filterMainCategories = buisnessManager.getListOfCategoriesNames();
+        for (List<String> listOfCategories : buisnessManager.subcat(date)) {
+            for (String name : listOfCategories) {
+                if (filterMainCategories.contains(name)) {
+                    filterMainCategories.remove(name);      //remove from list all sub categories
+                }
+            }
+        }
+        return filterMainCategories;
+    }
+
     private void showRecursiveFromMainCategoryDown(String FromHereAndDown, ProductReport productReport, String offset) {
         System.out.print(offset + "- Products under category " + FromHereAndDown + ":\n");
         List<ProductRepData> myCategoryProducts = productReport.getReportData().get(FromHereAndDown);
@@ -758,4 +773,27 @@ public class Presentation {
             showRecursiveFromMainCategoryDown(subCategories, productReport, offset + "        ");
         }
     }
+
+    public void showInventoryReport(){
+        buisnessManager.creatInventoryReport(today);
+        System.out.println("Updated inventory report: \n");
+        System.out.println("report for date: " + today.toString() + "\n\n");
+        List<String> mainCategories = getMainCategoriesByDate(today);
+        for(String category : mainCategories){
+            showRecursiveFromMainCategoryDowns(category , "");
+        }
+
+    }
+
+    private void showRecursiveFromMainCategoryDowns(String FromHereAndDown, String offset) {
+        System.out.print(offset + "- Products under category " + FromHereAndDown + ":\n");
+        List<PdataInventoryReport> myCategoryProducts = buisnessManager.RepProdofInventoryReport(today , FromHereAndDown);
+        for (PdataInventoryReport productRepData : myCategoryProducts) {
+            System.out.print(offset + "- Barcode: " + productRepData.getBarcode() + ", Product name: " + productRepData.getProductName() + ", Buisness.Invenrory.Product amount: " + productRepData.getAmount() + "\n");
+        }
+        for (String subCategories : buisnessManager.CategoriesOfInventoryReport(today ,FromHereAndDown)) {
+            showRecursiveFromMainCategoryDowns(subCategories,offset + "        ");
+        }
+    }
+
 }

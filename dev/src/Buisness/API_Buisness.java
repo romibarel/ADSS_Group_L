@@ -2,9 +2,12 @@ package Buisness;
 
 import Buisness.Reports.DefectReport;
 import Buisness.Reports.ProductReport;
+import Presentation.PdataInventoryReport;
 
 import java.util.Date;
 import java.util.List;
+import java.util.*;
+
 
 public interface API_Buisness {
 
@@ -76,4 +79,14 @@ public interface API_Buisness {
     List<Integer> getLocationsByDate(int barcode , Date date);
 
     Integer getAmountByLocation(int barcode , Date date , Integer location);
+
+    List<String> CategoriesOfInventoryReport(Date today);
+
+    List<PdataInventoryReport> RepProdofInventoryReport (Date date , String category );
+
+    List<String> CategoriesOfInventoryReport(Date today ,String category);
+
+    Collection<List<String>> subcat(Date date);
+
+    void creatInventoryReport(Date today);
 }
