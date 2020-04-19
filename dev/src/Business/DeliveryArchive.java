@@ -6,6 +6,10 @@ public class DeliveryArchive {
     private List<Delivery> deliveries;
     private List<Integer> documents;
 
+    public DeliveryArchive(List<Delivery> deliveries, List<Integer> documents) {
+        this.deliveries = deliveries;
+        this.documents = documents;
+    }
 
     public List<Delivery> getDeliveries() {
         return deliveries;

@@ -1,5 +1,7 @@
 package DataAccess;
 
+import Business.BTDController;
+
 import java.util.List;
 
 public class DTBController {
@@ -9,6 +11,17 @@ public class DTBController {
     private List<Location> locations;
     private Sections sections;
     private List<Delivery> deliveries;
+    private BTDController bController = null;
+
+    public DTBController(List<Driver> drivers, DeliveryArchive archive, List<Truck> trucks,
+                         List<Location> locations, Sections sections, List<Delivery> deliveries) {
+        this.drivers = drivers;
+        this.archive = archive;
+        this.trucks = trucks;
+        this.locations = locations;
+        this.sections = sections;
+        this.deliveries = deliveries;
+    }
 
     public List<Driver> getDrivers() {
         return drivers;

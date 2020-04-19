@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BTDController {
-    private static BTDController btd = null;
+    private static BTDController btd = null;//todo romi i think you wanted to do DTBcontroller
     private static BTIController bti;
     private List<Driver> drivers;
     private DeliveryArchive archive ;

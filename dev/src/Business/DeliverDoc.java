@@ -7,7 +7,20 @@ public class DeliverDoc {
     private List<Supply> deliveryList;
     private int truckWeight;
     private Truck truck;
-    private boolean approved;
+    private Location location;
+    private boolean approved;//todo add
+
+    public Object getDestination() {
+        return null;//todo
+    }
+
+    public DeliverDoc(int num, List<Supply> deliveryList, int truckWeight, Truck truck) {
+        this.num = num;
+        this.deliveryList = deliveryList;
+        this.truckWeight = truckWeight;
+        this.truck = truck;
+        approved = truckWeight < truck.getMaxWeight();
+    }
 
     public int getNum() {
         return num;
@@ -37,6 +50,10 @@ public class DeliverDoc {
         this.truck = truck;
     }
 
+    /**
+     * you need to check if the driver is good for the truck as well
+     * @return
+     */
     public boolean isApproved() {
         return approved;
     }
@@ -45,7 +62,4 @@ public class DeliverDoc {
         this.approved = approved;
     }
 
-    public Object getDestination() {
-        return null;//todo
-    }
 }
