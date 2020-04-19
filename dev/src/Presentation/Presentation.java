@@ -463,19 +463,26 @@ public class Presentation {
         System.out.print("\n\n");
 
         for(Integer barcode : locationsToShow){
-            System.out.print("  Barode: " + barcode + "\n");
             List<Date> dateList = buisnessManager.getBarcodDates(barcode);
+            if(dateList!=null) {
+                System.out.print("  Barode: " + barcode + "\n");
 
-            for(Date d : dateList){
-                System.out.print("  \tDate: " + d.toString() + "\n");
-                List<Integer> locationList = buisnessManager.getLocationsByDate(barcode , d);
 
-                for(Integer i : locationList){
-                    Integer j  = buisnessManager.getAmountByLocation(barcode , d , i);
-                    System.out.print("  \t\tIn location: " + i.toString() +
-                                     " the amount is: " + j.toString() + "\n");
+                for (Date d : dateList) {
+                    System.out.print("  \tDate: " + d.toString() + "\n");
+                    List<Integer> locationList = buisnessManager.getLocationsByDate(barcode, d);
+
+                    for (Integer i : locationList) {
+                        Integer j = buisnessManager.getAmountByLocation(barcode, d, i);
+                        System.out.print("  \t\tIn location: " + i.toString() +
+                                " the amount is: " + j.toString() + "\n");
+                    }
+
                 }
 
+            }
+            else{
+                System.out.println("  Barode: " + barcode + " not exsist");
             }
             System.out.print("\n\n");
         }

@@ -90,7 +90,10 @@ public class LocationController {
     }
 
     public List<Date> getBarcodDates (int barcode){
-        List<Date> dateList = new ArrayList(productsLocation.get(barcode).keySet());
+        List<Date> dateList = null;
+        if(productsLocation.containsKey(barcode)) {
+             dateList = new ArrayList(productsLocation.get(barcode).keySet());
+        }
         return dateList;
     }
 
