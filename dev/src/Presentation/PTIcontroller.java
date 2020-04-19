@@ -10,13 +10,16 @@ public class PTIcontroller {
     private Scanner scanner = new Scanner(System.in);
 
     private PTIcontroller(){
-        this.itp = ITPController.getITP();
     }
 
     public static PTIcontroller getPTI(){
         if (ptIcontroller == null)
             ptIcontroller = new PTIcontroller();
         return ptIcontroller;
+    }
+
+    public void set(ITPController itp){
+        PTIcontroller.itp = itp;
     }
 
     public void start(){
@@ -97,7 +100,7 @@ public class PTIcontroller {
             if (yn.equals("n"))
                 finish = true;
             else if (!yn.equals("y")){
-                System.out.println("Sorry, I didn't catch that... No more delivery documents.");
+                System.out.println("Invalid answer, the system will create the delivery now.");
                 finish = true;
             }
             itp.createDoc(docNum, doc);

@@ -16,14 +16,18 @@ public class ITPController {
     private static ITBController itb;
 
     private ITPController(){
-        this.pti = PTIcontroller.getPTI();
-        this.itb = ITBController.getITB();
+
     }
 
     public static ITPController getITP(){
         if (itp == null)
             itp = new ITPController();
         return itp;
+    }
+
+    public void set(PTIcontroller pti, ITBController itb){
+        ITPController.pti = pti;
+        ITPController.itb = itb;
     }
 
     public void createDoc(int docNum, String[] doc){

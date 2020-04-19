@@ -3,6 +3,7 @@ package Business;
 import Interface.ITBController;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,20 +19,45 @@ public class BTIController {
     private List<Location> locations;
     private List<Truck> trucks;
 
-    private BTIController(LinkedList<Supply> supplies, LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
-        this.itb = ITBController.getITB();
-        this.btd = BTDController.getBTD(drivers, sections, trucks);
-        this.supplies = supplies;
-        this.drivers = drivers;
-        this.sections = sections;
-        this.locations = locations;
-        this.trucks = trucks;
+    private BTIController(){
+
     }
 
-    public static BTIController getBTI(LinkedList<Supply> supplies, LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
+    public static BTIController getBTI(){
         if (bti == null)
-            bti = new BTIController(supplies, drivers, sections, locations, trucks);
+            bti = new BTIController();
         return bti;
+    }
+
+    public void set(ITBController itb, BTDController btd, List<String[]> supplies, List<String[]> drivers, List<String[]> sections, List<String[]> locations, List<String[]> trucks){
+        BTIController.itb = itb;
+        BTIController.btd = btd;
+
+        this.supplies = new LinkedList<>();
+        for (String[] combo : supplies){
+            Supply sup = new Supply(combo[0], Integer.parseInt(combo[1]));
+            this.supplies.add(sup);
+        }
+
+        this.drivers = new LinkedList<>();
+        for (String[] combo : drivers){
+            Driver driver = new Driver();
+            this.drivers.add(driver);
+        }
+
+        this.sections = new Sections();
+
+        this.locations = new LinkedList<>();
+        for (String[] combo : locations){
+            Location loc = new Location();
+            this.locations.add(loc);
+        }
+
+        this.trucks = new LinkedList<>();
+        for (String[] combo : trucks){
+            Truck truck = new Truck();
+            this.trucks.add(truck);
+        }
     }
 
     public void createDoc(int docNum, String[] doc){
@@ -76,6 +102,8 @@ public class BTIController {
             if (locations.contains(doc.getDestination()))
                 destinations.add(doc.getDestination());
         }
+        if (locations.size() != docs.size())
+            return "Some of the destinations wenren't added.";
         Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs);
         if(!(delivery.isApproved()))
             return false;

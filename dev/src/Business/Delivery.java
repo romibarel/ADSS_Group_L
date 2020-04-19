@@ -17,8 +17,8 @@ public class Delivery {
     public Delivery(Date date, Date time, Truck truck, Driver driver, Location source, List<Location> destinations, List<DeliverDoc> docs){
         //need to check if date and time are acceptable dont know how
         if (!driver.getLicenses().contains(truck.getType())){
-            alert();
-        if (!driver.getLicenses().contains(truck.getType)){
+            approved = false;
+        if (!driver.getLicenses().contains(truck.getType())){
             throw new IllegalArgumentException("Unlicensed driver");
         }
         else {

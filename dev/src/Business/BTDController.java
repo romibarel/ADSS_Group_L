@@ -14,17 +14,21 @@ public class BTDController {
     private List<Truck> trucks;
     private List<Delivery> deliveries;
 
-    private BTDController(LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
-        this.bti = BTIController.getBTI(null, drivers, sections, locations, trucks);
+    private BTDController(){
+
+    }
+
+    public static BTDController getBTD(){
+        if (btd == null)
+            btd = new BTDController();
+        return btd;
+    }
+
+    public void setBTD(BTIController bti, LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
+        BTDController.bti = bti;
         this.drivers = drivers;
         this.sections = sections;
         this.trucks = trucks;
-    }
-
-    public static BTDController getBTD(LinkedList<Driver> drivers, Sections sections, List<Location> locations, LinkedList<Truck> trucks){
-        if (btd == null)
-            btd = new BTDController(drivers, sections, locations, trucks);
-        return btd;
     }
 
     public List<Driver> getDrivers() {

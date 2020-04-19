@@ -11,14 +11,18 @@ public class ITBController {
     private static ITPController itp;
 
     private ITBController(){
-        this.bti = BTIController.getBTI(null, null, null, null, null);
-        this.itp = ITPController.getITP();
+
     }
 
     public static ITBController getITB(){
         if (itb == null)
             itb = new ITBController();
         return itb;
+    }
+
+    public void set(BTIController bti, ITPController itp){
+        ITBController.bti = bti;
+        ITBController.itp = itp;
     }
 
     public void createDoc(int docNum, String[] doc){
