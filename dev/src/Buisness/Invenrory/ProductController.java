@@ -1,21 +1,39 @@
 package Buisness.Invenrory;
 
 
+import DAL.InventoryDAL.CategoryDAL;
+import DAL.InventoryDAL.ProductControllerDAL;
+
 import java.util.*;
 
 public class ProductController {
     public static final String DEFAULT = "Default category";
-    public static final String PRODUCT_NOT_FOUND = "Buisness.Invenrory.Product not found";
+    public static final String PRODUCT_NOT_FOUND = "Product not found";
     public static final int DEFAULT_MIN_AMOUNT = Integer.MAX_VALUE;
 
     private List<Category> categories;
-    private Map<Integer , DataSaleProduct> saleData; //<barCode , Buisness.Invenrory.DataSaleProduct>
+
+    private Map<Integer , DataSaleProduct> saleData; //<barCode , DataSaleProduct>
+
+    private ProductControllerDAL productControllerDAL;
 
     public ProductController(){
         saleData = new HashMap<>();
         this.categories = new ArrayList<>();
-        Category missingCategory = new Category(DEFAULT);
-        this.categories.add(missingCategory);
+        this.productControllerDAL = new ProductControllerDAL();
+        restore();
+        setMainCategory(DEFAULT);
+
+    }
+
+    private void restore() {
+        for (CategoryDAL categoryDAL: productControllerDAL.getCategoryDALS()){
+            Category c = new Category(categoryDAL);
+            this.categories.add(c);
+        }
+        for (Integer i : productControllerDAL.getSaleData().keySet()){
+            this.saleData.put(i, new DataSaleProduct(productControllerDAL.getSaleData().get(i)));
+        }
     }
 
     public List<Category> getCategories() {
@@ -35,9 +53,10 @@ public class ProductController {
     }
 
     public void setMainCategory(String mainCategoryName) {
-        if (!categories.contains(mainCategoryName)) {
+        if (getCategoryByName(mainCategoryName)==null) {
             Category category = new Category(mainCategoryName);
             this.categories.add(category);
+            this.productControllerDAL.addCategory(category.createDAL());
         }
     }
 
@@ -46,11 +65,14 @@ public class ProductController {
             Category mainC = getCategoryByName(mainCategoryName);
             Category subC = new Category(subcategoryName);
             mainC.appendSubCategory(subC);
+            this.productControllerDAL.createNewCategory(subC.createDAL());  //DAL issues, add the new category to data layer
+            this.productControllerDAL.appendSubCategory(mainC.getName(), subC.getName());
             this.categories.add(subC);
         }
         else if (containsCatagoryByName(mainCategoryName) && containsCatagoryByName(subcategoryName)){//main exists and sub exists
             Category mainC = getCategoryByName(mainCategoryName);
             Category subC = getCategoryByName(subcategoryName);
+            this.productControllerDAL.appendSubCategory(mainC.getName(), subC.getName()); //DAL update
             mainC.appendSubCategory(subC);
         }
     }
@@ -76,7 +98,8 @@ public class ProductController {
     public void appendProductToCategory(int barCode, String categoryName) { //assume the product already exists, otherwise doesn't do nothing
         Category c = getCategoryByName(categoryName);
         Product p = searchProduct(barCode);
-        if (p!=null){
+        if (p!=null && c!=null){
+            this.productControllerDAL.appendProductToCategoryDAL(c.getName(), p.createDAL());//DAL update
             c.appendProduct(p);
         }
     }
@@ -117,16 +140,19 @@ public class ProductController {
         if(this.saleData.containsKey(barcode)){return;}
         DataSaleProduct dataSaleProduct = new DataSaleProduct(barcode, productName, price , discount);
         this.saleData.put(barcode, dataSaleProduct);
+        this.productControllerDAL.addNewDataSaleProduct(barcode, dataSaleProduct.createDAL()); //add to DAL
     }
 
     public void setPriceOfExistingProduct(int barcode, double newPrice) { //if barcode doesn't exists -> doesn't do anything
         if(!this.saleData.containsKey(barcode)){return;}
         this.saleData.get(barcode).setPrice(newPrice);
+        this.productControllerDAL.updateDataSaleProduct(barcode , this.saleData.get(barcode).createDAL()); //update DAL
     }
 
     public void setDiscountOfExistingProduct(int barcode, double newDiscount) { //if barcode doesn't exists -> doesn't do anything
         if(!this.saleData.containsKey(barcode)){return;}
         this.saleData.get(barcode).setDiscount(newDiscount);
+        this.productControllerDAL.updateDataSaleProduct(barcode , this.saleData.get(barcode).createDAL());
     }
 
     public void connectProductToCategory(String categoryName, int barcode){
@@ -136,12 +162,14 @@ public class ProductController {
             if (category.getProduct(barcode)!=null) {
                 p = category.getProduct(barcode);
                 category.removeProduct(barcode);
+                this.productControllerDAL.deleteProductFromCategory(p.createDAL(), category.createDAL());   //DAL delete
             }
         }
         if (p==null){return;} //if the product doesn't exists -> doesn't do anything
         for (Category category: this.categories) { //add to destination category
             if (category.getName().equals(categoryName)) {
                 category.appendProduct(p);
+                this.productControllerDAL.appendProductToCategoryDAL(categoryName , p.createDAL());     //DAL insert
             }
         }
     }
@@ -149,9 +177,11 @@ public class ProductController {
     public void purchaseProduct(int barCode, String productName, String supplier, int amount){
         if(searchProduct(barCode)==null) { //this product doesn't exists yet
             Product p = new Product(barCode, productName, supplier, amount, DEFAULT_MIN_AMOUNT, null);//initialize with min amount = 0 and next supply time = null
+            this.productControllerDAL.addNewProduct(p.createDAL()); //insert to DAL
             for (Category category: this.categories){
                 if (category.getName().equals(DEFAULT)){
                     category.appendProduct(p);
+                    this.productControllerDAL.appendProductToCategoryDAL(category.getName() , p.createDAL());   //update DAL
                 }
             }
         }
@@ -161,25 +191,30 @@ public class ProductController {
     }
 
     public void setMinimumAmount(int barcode,int minimumAmount){
+        if (searchProduct(barcode) == null){return;}
         searchProduct(barcode).setMinAmount(minimumAmount);
+        this.productControllerDAL.updateProduct(searchProduct(barcode).createDAL());
     }
 
     public void setManufactorForProduct(int barcode , String newManufactor){
         Product p = searchProduct(barcode);
         if(p==null){return;}
         p.setManufactor(newManufactor);
+        this.productControllerDAL.updateProduct(p.createDAL());
     }
 
     public void setNextSupply(int barcode , Date nextSupply){
         Product p = searchProduct(barcode);
         if(p==null){return;}
         p.setNextSupplyTime(nextSupply);
+        this.productControllerDAL.updateProduct(p.createDAL());
     }
 
     public boolean sale(int barCode, int amount){
         Product p = searchProduct(barCode);
         if (p==null){return false;} //can't sale then no need to alert
         p.setAmount(p.getAmount()-amount); //it's legal because we've checked before that there are at least @amount on shelf
+        this.productControllerDAL.updateProduct(p.createDAL()); //update DAL
         if (p.getAmount()<=p.getMinAmount()){
             return true;    //need to alert
         }
@@ -239,11 +274,11 @@ public class ProductController {
         return nextDate.toString();
     }
 
-
     public void setCategoryName(String categoryName, String newName) {
         Category category = getCategoryByName(categoryName);
         if (category ==null){return;}
         category.setName(newName);
+        this.productControllerDAL.updateCategory(category.createDAL()); //update DAL
     }
 
     public void deleteCategory(String categoryName) {
@@ -254,6 +289,7 @@ public class ProductController {
         if (!hasProducts && !hasSubCategories){ //enable to delete category only if doesn't contains subCategories or products
             for (int i=0; i<this.categories.size(); i=i+1){
                 if (categories.get(i).getName().equals(categoryName)){
+                    this.productControllerDAL.deleteCategory(categories.get(i).createDAL());
                     this.categories.remove(i);
                     return;
                 }

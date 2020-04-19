@@ -1,10 +1,8 @@
-package Buisness.Defects;
-
-import DAL.DefectsDAL.DefectDAL;
+package DAL.DefectsDAL;
 
 import java.util.Date;
 
-public class Defect {
+public class DefectDAL {
     private Date date;
     private int barCode;
     private int amount;
@@ -13,7 +11,7 @@ public class Defect {
     private int location;
     private Date expiration;
 
-    public Defect(Date date, int barCode, int amount, String reason, String creator, int location, Date expiration) {
+    public DefectDAL(Date date, int barCode, int amount, String reason, String creator, int location, Date expiration) {
         this.date = date;
         this.barCode = barCode;
         this.amount = amount;
@@ -21,16 +19,6 @@ public class Defect {
         this.creator = creator;
         this.location = location;
         this.expiration = expiration;
-    }
-
-    public Defect (DefectDAL defectDAL){
-        this.date = defectDAL.getDate();
-        this.barCode = defectDAL.getBarCode();
-        this.amount = defectDAL.getAmount();
-        this.reason = defectDAL.getReason();
-        this.creator = defectDAL.getCreator();
-        this.location = defectDAL.getLocation();
-        this.expiration = defectDAL.getExpiration();
     }
 
     public Date getDate() {
@@ -84,8 +72,4 @@ public class Defect {
     }
 
     public void setExpiration(Date accuredTime){this.expiration = accuredTime;}
-
-    public DefectDAL createDAL() {
-        return new DefectDAL(date,barCode,amount,reason,creator,location,expiration);
-    }
 }

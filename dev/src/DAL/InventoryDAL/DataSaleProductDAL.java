@@ -1,29 +1,16 @@
-package Buisness.Invenrory;
+package DAL.InventoryDAL;
 
-import DAL.InventoryDAL.DataSaleProductDAL;
-
-public class DataSaleProduct {
+public class DataSaleProductDAL {
     private int barCode;
     private String productName;
     private double price;
     private double discount;
 
-    public DataSaleProduct(int barCode, String productName, double price, double discount) {
+    public DataSaleProductDAL(int barCode, String productName, double price, double discount) {
         this.barCode = barCode;
         this.productName = productName;
         this.price = price;
         this.discount = discount;
-    }
-
-    public DataSaleProduct(DataSaleProductDAL dataSaleProduct) {
-        this.barCode = dataSaleProduct.getBarCode();
-        this.productName = dataSaleProduct.getProductName();
-        this.price = dataSaleProduct.getPrice();
-        this.discount = dataSaleProduct.getDiscount();
-    }
-
-    public DataSaleProductDAL createDAL() {
-        return new DataSaleProductDAL(barCode, productName, price, discount);
     }
 
     public int getBarCode() {
@@ -57,6 +44,4 @@ public class DataSaleProduct {
     public void setDiscount(double discount) {
         this.discount = discount;
     }
-
-
 }

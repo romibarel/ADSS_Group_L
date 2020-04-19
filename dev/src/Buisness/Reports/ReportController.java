@@ -1,6 +1,9 @@
 package Buisness.Reports;
 
-import Buisness.Invenrory.ProductRepData;
+import DAL.ReportsDAL.DefectReportDAL;
+import DAL.ReportsDAL.ProductRepDataDAL;
+import DAL.ReportsDAL.ProductReportDAL;
+import DAL.ReportsDAL.ReportsDAL;
 import Presentation.PdataInventoryReport;
 
 import java.util.*;
@@ -8,10 +11,25 @@ import java.util.*;
 public class ReportController {
     private Map<Date , ProductReport> transactionsReports;
     private Map<Date, DefectReport> defectivesReports;
+    private ReportsDAL reportsDAL;
 
     public ReportController(){
         this.transactionsReports = new HashMap<>();
         this.defectivesReports = new HashMap<>();
+        reportsDAL = new ReportsDAL();
+        restore();  //get from DAL all the previous date
+    }
+
+    private void restore() {
+        List <DefectReportDAL> def =  reportsDAL.restoreDefectsReportsList();
+        List <ProductReportDAL> rep = reportsDAL.restoreProductsReportList();
+        for (DefectReportDAL defectReportDAL : def){
+            this.defectivesReports.put(defectReportDAL.getDateStart() , new DefectReport(defectReportDAL));
+        }
+        for (ProductReportDAL productReportDAL : rep){
+            this.transactionsReports.put(productReportDAL.getDate() , new ProductReport(productReportDAL));
+        }
+
     }
 
     public DefectReport getDefectReports(Date today, Date fromDate) {
@@ -19,6 +37,10 @@ public class ReportController {
         DefectReport defectReport = new DefectReport();
         defectReport.makeNewReport(fromDate);
         this.defectivesReports.putIfAbsent(today, defectReport); //only one report per day
+        //DAL issues
+        DefectReportDAL defectReportDAL = defectReport.createDAL();
+        this.reportsDAL.addNewDefectReport(defectReportDAL );
+
         return this.defectivesReports.get(today);
     }
 
@@ -33,6 +55,8 @@ public class ReportController {
         ProductReport productReport = new ProductReport();
         productReport.makeNewReport(today);
         this.transactionsReports.putIfAbsent(today, productReport);
+        ProductReportDAL productRepDataDAL = productReport.createDAL();
+        this.reportsDAL.addNewProductReport(productRepDataDAL);
     }
 
     public List<String> getMainCategories(Date today){
@@ -65,6 +89,4 @@ public class ReportController {
         toRet = transactionsReports.get(date).getHierarchy().values();
         return toRet;
    }
-
-
 }

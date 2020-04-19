@@ -1,4 +1,7 @@
-package Buisness.Invenrory;
+package Buisness.Reports;
+
+import DAL.ReportsDAL.ProductRepDataDAL;
+import com.sun.org.apache.bcel.internal.generic.RET;
 
 public class ProductRepData {
     private int barCode;
@@ -9,6 +12,12 @@ public class ProductRepData {
         this.barCode = barCode;
         this.productName = productName;
         this.amount = amount;
+    }
+
+    public ProductRepData (ProductRepDataDAL productRepDataDAL){
+        this.barCode = productRepDataDAL.getBarCode();
+        this.productName = productRepDataDAL.getProductName();
+        this.amount = productRepDataDAL.getAmount();
     }
 
     public int getBarCode() {
@@ -33,5 +42,9 @@ public class ProductRepData {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public ProductRepDataDAL createDAL() {
+        return new ProductRepDataDAL(barCode, productName,amount);
     }
 }

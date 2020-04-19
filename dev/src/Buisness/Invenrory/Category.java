@@ -1,5 +1,8 @@
 package Buisness.Invenrory;
 
+import DAL.InventoryDAL.CategoryDAL;
+import DAL.InventoryDAL.ProductDAL;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,28 @@ public class Category {
         this.name = categoryName;
         this.subCategories = new ArrayList<>();
         this.productList = new ArrayList<>();
+    }
+
+    public Category(CategoryDAL categoryDAL){
+        this.name = categoryDAL.getName();
+        for (CategoryDAL categoryDAL1 : categoryDAL.getSubCategoriesDAL()){
+            this.subCategories.add(new Category(categoryDAL));
+        }
+        for (ProductDAL productDAL : categoryDAL.getProductListDAL()){
+            this.productList.add(new Product(productDAL));
+        }
+    }
+
+    public CategoryDAL createDAL(){
+        List<CategoryDAL> categoryDALS = new ArrayList<>();
+        List<ProductDAL> productDALS = new ArrayList<>();
+        for (Category category : this.subCategories) {
+            categoryDALS.add(category.createDAL());
+        }
+        for (Product product : this.productList) {
+            productDALS.add(product.createDAL());
+        }
+        return new CategoryDAL(this.name, categoryDALS, productDALS);
     }
 
     public void setName(String name) {
@@ -57,7 +82,7 @@ public class Category {
     }
 
     public boolean hasProduct(int barCode) {
-        for (Product p:productList) {
+        for (Product p : productList) {
             if (p.getBarCode()==(barCode)){
                 return true; //product exists
             }

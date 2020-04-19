@@ -1,38 +1,22 @@
-package Buisness.Invenrory;
-
-import DAL.InventoryDAL.ProductDAL;
+package DAL.InventoryDAL;
 
 import java.util.Date;
 
-public class Product {
-
+public class ProductDAL {
     private int barCode;
     private String productName;
     private String manufactor;
     private int amount;
     private int minAmount;
-    private  Date nextSupplyTime;
+    private Date nextSupplyTime;
 
-    public Product(int barCode, String productName, String manufactor, int amount, int minAmount, Date nextSupplyTime) {
+    public ProductDAL(int barCode, String productName, String manufactor, int amount, int minAmount, Date nextSupplyTime) {
         this.barCode = barCode;
         this.productName = productName;
         this.manufactor = manufactor;
         this.amount = amount;
         this.minAmount = minAmount;
         this.nextSupplyTime = nextSupplyTime;
-    }
-
-    public Product(ProductDAL productDAL) {
-        this.barCode = productDAL.getBarCode();
-        this.productName = productDAL.getProductName();
-        this.manufactor = productDAL.getManufactor();
-        this.amount = productDAL.getAmount();
-        this.minAmount = productDAL.getMinAmount();
-        this.nextSupplyTime = productDAL.getNextSupplyTime();
-    }
-
-    public ProductDAL createDAL(){
-        return new ProductDAL(barCode, productName, manufactor, amount, minAmount, nextSupplyTime);
     }
 
     public int getBarCode() {

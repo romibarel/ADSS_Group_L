@@ -2,6 +2,8 @@ package Buisness.Reports;
 
 import Buisness.Defects.Defect;
 import Buisness.Singletone_Storage_Management;
+import DAL.DefectsDAL.DefectDAL;
+import DAL.ReportsDAL.DefectReportDAL;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,11 +11,17 @@ import java.util.List;
 
 public class DefectReport {
     private Date dateStart;
-    private Date dateEnd;
     private List<Defect> defects;
 
     public DefectReport(){
         this.defects = new ArrayList<>();
+    }
+
+    public DefectReport (DefectReportDAL defectReportDAL){
+        this.dateStart = defectReportDAL.getDateStart();
+        for (DefectDAL defectDAL : defectReportDAL.getDefects()) {
+            this.defects.add(new Defect(defectDAL));
+        }
     }
 
     public Date getDateStart() {
@@ -22,14 +30,6 @@ public class DefectReport {
 
     public void setDateStart(Date dateStart) {
         this.dateStart = dateStart;
-    }
-
-    public Date getDateEnd() {
-        return dateEnd;
-    }
-
-    public void setDateEnd(Date dateEnd) {
-        this.dateEnd = dateEnd;
     }
 
     public List<Defect> getDefects() {
@@ -51,5 +51,15 @@ public class DefectReport {
         this.defects = relevantReports;
         this.dateStart = fromDate;
 
+    }
+
+    public DefectReportDAL createDAL() {
+        List<DefectDAL> defectDALS = new ArrayList<>();
+        for (Defect defect: defects){
+            DefectDAL d = defect.createDAL();
+            defectDALS.add(d);
+        }
+        DefectReportDAL defectReportDAL = new DefectReportDAL(this.dateStart, defectDALS);
+        return defectReportDAL;
     }
 }

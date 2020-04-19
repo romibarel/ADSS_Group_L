@@ -2,7 +2,7 @@ package Presentation;
 
 import Buisness.API_Buisness;
 import Buisness.Defects.Defect;
-import Buisness.Invenrory.ProductRepData;
+import Buisness.Reports.ProductRepData;
 import Buisness.Reports.DefectReport;
 import Buisness.Reports.ProductReport;
 import Buisness.Singletone_Storage_Management;
