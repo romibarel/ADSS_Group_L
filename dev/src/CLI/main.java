@@ -73,6 +73,8 @@ public class main {
                     w.setStart_date(format.parse(input.nextLine()));
                     System.out.print("role: ");
                     w.setRole(input.nextLine());
+                    System.out.print("bank account: ");
+                    w.setBank_account_number(Integer.parseInt(input.nextLine()));
                 }
                 catch (Exception e){
                     System.out.println("wrong parameter has been entered, exiting back to main menu");
@@ -184,7 +186,8 @@ public class main {
                         System.out.println("5. sick days");
                         System.out.println("6. start date");
                         System.out.println("7. role");
-                        System.out.println("8. finished editing");
+                        System.out.println("8. bank account");
+                        System.out.println("9. finished editing");
                         opt=Integer.parseInt(input.nextLine());
                         switch (opt){
                             case 1:
@@ -218,6 +221,10 @@ public class main {
                                 w.setRole(input.nextLine());
                                 break;
                             case 8:
+                                System.out.print("Enter new bank account:");
+                                w.setBank_account_number(Integer.parseInt(input.nextLine()));
+                                break;
+                            case 9:
                                 System.out.print("updating...");
                                 finished=true;
                                 break;

@@ -21,6 +21,14 @@ public class PresentConstraint {
         this.cid=cid;
     }
 
+    public PresentConstraint(Date date, boolean morning, int id, String reason, int cid) {
+        this.date = date;
+        this.morning = morning;
+        this.id = id;
+        this.reason = reason;
+        this.cid = cid;
+    }
+
     public PresentConstraint() {
     }
 
