@@ -21,16 +21,6 @@ public class DTBController {
 
     }
 
-    public void set(List<Driver> drivers, DeliveryArchive archive, List<Truck> trucks,
-               List<Location> locations, Sections sections, List<Delivery> deliveries) {
-        this.drivers = drivers;
-        this.archive = archive;
-        this.trucks = trucks;
-        this.locations = locations;
-        this.sections = sections;
-        this.deliveries = deliveries;
-    }
-
     public static DTBController getDTB() {
         if (thisOne == null)
             thisOne = new DTBController();

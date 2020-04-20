@@ -5,7 +5,6 @@ import java.util.List;
 public class DeliverDoc {
     private int num;
     private List<Supply> deliveryList;
-    private Truck truck;    //todo Romi we need it?
     private Location destination;
 
     /**
@@ -20,18 +19,10 @@ public class DeliverDoc {
         this.destination = destination;
     }
 
-    /**
-     * with Truck
-     * @param num
-     * @param deliveryList
-     * @param truck
-     * @param destination
-     */
-    public DeliverDoc(int num, List<Supply> deliveryList, Truck truck, Location destination) {
-        this.num = num;
-        this.deliveryList = deliveryList;
-        this.truck = truck;
-        this.destination = destination;
+
+
+    public DeliverDoc(int docNum, String s, List<Supply> supplies, Location destination) {
+
     }
 
     public Location getDestination() {
@@ -59,13 +50,6 @@ public class DeliverDoc {
     }
 
 
-    public Truck getTruck() {
-        return truck;
-    }   //todo delete?
-
-    public void setTruck(Truck truck) {
-        this.truck = truck;
-    }      //todo delete?
 
 
 }

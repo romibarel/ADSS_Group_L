@@ -83,8 +83,7 @@ public class BTIController {
             Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4], Integer.parseInt(combo[2])) ;
             this.trucks.add(truck);
         }
-
-        btd.set(this.drivers, this.sections, this.locations, this.trucks);
+        btd.set(this.drivers, this.archive, this.sections , this.locations , this.trucks , null);
     }
 
     //destination, supplies&quants,
@@ -101,12 +100,20 @@ public class BTIController {
                 return "Invalid supplies input";
             }
         }
-        DeliverDoc deliverDoc = new DeliverDoc(docNum, doc[0], supplies, null);
+        Location doc0 = null;
+        for (Location l: locations) {
+            if (doc[0].equals(l.getAddress()))
+            {
+                doc0 = l;
+                break;
+            }
+        }
+        DeliverDoc deliverDoc = new DeliverDoc(docNum, supplies, doc0);
         documents.add(deliverDoc);
         return "Document created successfully.";
     }
 
-    public String createDelivery(Date date, Date time, int truckInt, String driverName, String sourceName, List<Integer> docNums){
+    public String createDelivery(Date date, Date time, int truckInt, String driverName, String sourceName, List<Integer> docNums, int truckWeight){
         Truck truck = null;
         for (Truck t : trucks){
             if (t.getTruckNum() == truckInt)
@@ -114,7 +121,8 @@ public class BTIController {
         }
         if (truck == null)
             return "This truck doesn't exist.";
-
+        if (truck.getMaxWeight() < truckWeight)
+            return "The truck exceeds its max weight";
         Driver driver = null;
         for(Driver d : drivers){
             if (driverName.equals(d.getName()))
@@ -140,7 +148,6 @@ public class BTIController {
             return "Some delivery docs weren't added.";
 
 
-        //todo: remove castings when haim updates return value
         List<Location> destinations = new LinkedList<>();
         int area = sections.getSection( docs.get(0).getDestination());
         for (DeliverDoc doc : docs){

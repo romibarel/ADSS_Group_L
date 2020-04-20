@@ -31,7 +31,7 @@ public class ITBController {
        return bti.createDoc(docNum, doc);
     }
 
-    public String createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs){
-        return bti.createDelivery(date, time, truck, driver, source, docs);
+    public String createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs, int truckWeight){
+        return bti.createDelivery(date, time, truck, driver, source, docs, truckWeight);
     }
 }

@@ -25,8 +25,7 @@ public class Delivery {
             this.source = source;
             docLoc = new HashMap<>();
             for (DeliverDoc doc : docs) {
-                //todo: remove casting when haim finishes
-                docLoc.put(doc, (Location) doc.getDestination());
+                docLoc.put(doc, doc.getDestination());
             }
             approved = true;
         }

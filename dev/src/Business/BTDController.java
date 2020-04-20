@@ -17,8 +17,15 @@ public class BTDController {
     private List<Truck> trucks;
     private List<Delivery> deliveries;
 
-    private BTDController(){
+    //todo deliveries moved inside archoce
 
+    private BTDController(){
+        BTDController.dataTb = DTBController.getDTB();
+        BTDController.bti = BTIController.getBTI();
+        drivers = new LinkedList<>();
+        locations = new LinkedList<>();
+        trucks = new LinkedList<>();
+        deliveries = new LinkedList<>();
     }
 
     public static BTDController getBTD(){
@@ -27,37 +34,58 @@ public class BTDController {
         return thisOne;
     }
 
-
-    public void set(List<Driver> drivers, Sections sections, List<Location> locations, List<Truck> trucks){
-        BTDController.bti = BTIController.getBTI()
-        BTDController.dataTb = DTBController.getDTB();
-        this.drivers = drivers;
+    /**
+     * Sections and Archive must be given all other can be null for not changeing
+     * @param drivers
+     * @param archive
+     * @param sections
+     * @param locations
+     * @param trucks
+     * @param deliveries
+     */
+    public void set(List<Driver> drivers, DeliveryArchive archive, Sections sections, List<Location> locations, List<Truck> trucks, List<Delivery> deliveries) {
+        this.archive = archive;
         this.sections = sections;
-        this.trucks = trucks;
-
-//todo contunue here
-//        this.dataTb = dataTb;
-        this.bti = bti;
-        this.archive  = archive ;
-        this.sections = sections;
-        this.drivers = drivers;
-        this.locations = locations;
-        this.trucks = trucks;
-        this.deliveries = deliveries;
-
-
+        if (drivers != null) {
+            this.drivers = drivers;
+        }
+        if (locations != null) {
+            this.locations = locations;
+        }
+        if (trucks != null) {
+            this.trucks = trucks;
+        }
+        if (deliveries != null) {
+            this.deliveries = deliveries;
+        }
     }
 
-    public void set(DTBController dataTb, DeliveryArchive archive, List<Delivery> deliveries
-            ,BTIController bti, List<Driver> drivers, Sections sections, List<Location> locations, List<Truck> trucks){
-//        this.dataTb = dataTb;
-//        this.bti = bti;
-//        this.archive  = archive ;
-//        this.sections = sections;
-//        this.drivers = drivers;
-//        this.locations = locations;
-//        this.trucks = trucks;
-//        this.deliveries = deliveries;
+    public boolean addDelivery(Delivery delivery)
+    {
+        if (deliveries == null)
+            deliveries = new LinkedList<>();
+        return deliveries.add(delivery);
+    }
+
+    public boolean addTruck(Truck truck)
+    {
+        if (trucks == null)
+            trucks = new LinkedList<>();
+        return trucks.add(truck);
+    }
+
+    public boolean addLocation(Location location)
+    {
+        if (locations == null)
+            locations = new LinkedList<>();
+        return locations.add(location);
+    }
+
+    public boolean addDriver(Driver driver)
+    {
+        if (drivers == null)
+            drivers = new LinkedList<>();
+        return drivers.add(driver);
     }
 
 
