@@ -17,7 +17,6 @@ public class BTDController {
     private List<Truck> trucks;
 
     private BTDController(){
-        BTDController.dataTb = DTBController.getDTB();
         BTDController.bti = BTIController.getBTI();
         drivers = new LinkedList<>();
         locations = new LinkedList<>();
@@ -25,8 +24,10 @@ public class BTDController {
     }
 
     public static BTDController getBTD(){
-        if (thisOne == null)
+        if (thisOne == null) {
             thisOne = new BTDController();
+            BTDController.dataTb = DTBController.getDTB();
+        }
         return thisOne;
     }
 

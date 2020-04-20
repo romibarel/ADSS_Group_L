@@ -16,12 +16,13 @@ public class DTBController {
     private Sections sections;
 
     private DTBController() {
-        btdController = BTDController.getBTD();
     }
 
     public static DTBController getDTB() {
-        if (thisOne == null)
+        if (thisOne == null) {
             thisOne = new DTBController();
+            btdController = BTDController.getBTD();
+        }
         return thisOne;
     }
 

@@ -26,8 +26,9 @@ public class PTIcontroller {
     public void start(){
         //docNum is the id of the delivery document
         int docNum = 0;
+        System.out.println("Welcome !");
         while(true){
-            System.out.println("Hello please enter 1 for adding supplies and 2 for creating delivery");
+            System.out.println("Please enter 1 for adding supplies and 2 for creating delivery");
             String input = scanner.nextLine();
             if ("1".equals(input))
             {
