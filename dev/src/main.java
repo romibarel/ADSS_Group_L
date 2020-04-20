@@ -1,6 +1,8 @@
 import Business.BTDController;
 import Business.BTIController;
+import Business.DeliveryArchive;
 import Business.Sections;
+import DataAccess.DTBController;
 import Interface.ITBController;
 import Interface.ITPController;
 import Presentation.PTIcontroller;
@@ -15,6 +17,7 @@ public class main {
         ITBController itb = ITBController.getITB();
         BTIController bti = BTIController.getBTI();
         BTDController btd = BTDController.getBTD();
+        DTBController dtb = DTBController.getDTB();
         List<String[]> supplies = new LinkedList<>();
         List<String[]> drivers = new LinkedList<>();
         List<String[]> sections = new LinkedList<>();
@@ -50,6 +53,7 @@ public class main {
         itp.set(pti, itb);
         itb.set(bti, itp);
         bti.set(itb, btd, supplies, drivers, sections, locations, trucks);
+
 
         pti.start();
     }

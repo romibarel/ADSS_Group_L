@@ -5,13 +5,15 @@ public class Truck {
     private int plate;
     private int weighNeto;
     private int maxWeight;
+    private String type;
 
 
-    public Truck(int truckNum, int plate, int weighNeto, int maxWeight, String type, int currentLoad) {
+    public Truck(int truckNum, int plate, int weighNeto, int maxWeight, String type) {
         this.truckNum = truckNum;
         this.plate = plate;
         this.weighNeto = weighNeto;
         this.maxWeight = maxWeight;
+        this.type = type;
     }
 
 
@@ -49,4 +51,11 @@ public class Truck {
         this.maxWeight = maxWeight;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
