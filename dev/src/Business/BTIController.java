@@ -84,7 +84,7 @@ public class BTIController {
             this.trucks.add(truck);
         }
 
-        btd.set(bti, this.drivers, this.sections, this.locations, this.trucks);
+        btd.set(this.drivers, this.sections, this.locations, this.trucks);
     }
 
     //destination, supplies&quants,
@@ -142,12 +142,12 @@ public class BTIController {
 
         //todo: remove castings when haim updates return value
         List<Location> destinations = new LinkedList<>();
-        int area = sections.getSection((Location) docs.get(0).getDestination());
+        int area = sections.getSection( docs.get(0).getDestination());
         for (DeliverDoc doc : docs){
             if (locations.contains(doc.getDestination())){
-                if (area != sections.getSection((Location) doc.getDestination()))
+                if (area != sections.getSection(doc.getDestination()))
                     return "You tried to deliver to different areas.";
-                destinations.add((Location) doc.getDestination());
+                destinations.add(doc.getDestination());
             }
         }
         if (locations.size() != docs.size())
