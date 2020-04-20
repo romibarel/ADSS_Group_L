@@ -1,6 +1,6 @@
 package Buisness.Locations;
 
-import DAL.LocationControllerDAL;
+import DAL.LocationsDAL.LocationControllerDAL;
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ public class LocationController {
 
     public LocationController(){
         this.productsLocation = new HashMap<Integer, Map<Date, Map<Integer, Integer>>>();
-        this.locations = new HashMap();
+        this.locations = new HashMap<>();
         locations.put(DEFECTS, "Defects");
         locations.put(STORAGE, "Storage");
         locations.put(SHELF, "Shelf");

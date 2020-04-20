@@ -20,6 +20,7 @@ public class DefectReport {
 
     public DefectReport (DefectReportDAL defectReportDAL){
         this.dateStart = defectReportDAL.getDateStart();
+        defects = new ArrayList<>();
         for (DefectDAL defectDAL : defectReportDAL.getDefects()) {
             this.defects.add(new Defect(defectDAL));
         }

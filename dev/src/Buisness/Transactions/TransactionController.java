@@ -38,4 +38,28 @@ public class TransactionController {
         }
         return false;
     }
+
+    public List<PurchaseTransaction> getPurchaseTransactions() {
+        return purchaseTransactions;
+    }
+
+    public void setPurchaseTransactions(List<PurchaseTransaction> purchaseTransactions) {
+        this.purchaseTransactions = purchaseTransactions;
+    }
+
+    public List<SaleTransaction> getSaleTransactions() {
+        return saleTransactions;
+    }
+
+    public void setSaleTransactions(List<SaleTransaction> saleTransactions) {
+        this.saleTransactions = saleTransactions;
+    }
+
+    public int getTransactionID() {
+        return transactionID;
+    }
+
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
+    }
 }

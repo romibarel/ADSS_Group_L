@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportsDAL {
-    List <DefectReportDAL> defectReportDALList;
-    List<ProductReportDAL> productReportDALList;
+    private List <DefectReportDAL> defectReportDALList;
+    private List<ProductReportDAL> productReportDALList;
 
     public ReportsDAL(){
         this.defectReportDALList = new ArrayList<DefectReportDAL>();

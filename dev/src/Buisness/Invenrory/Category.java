@@ -19,6 +19,8 @@ public class Category {
 
     public Category(CategoryDAL categoryDAL){
         this.name = categoryDAL.getName();
+        this.subCategories = new ArrayList<>();
+        this.productList = new ArrayList<>();
         for (CategoryDAL categoryDAL1 : categoryDAL.getSubCategoriesDAL()){
             this.subCategories.add(new Category(categoryDAL));
         }
@@ -72,6 +74,7 @@ public class Category {
     }
 
     public void appendSubCategory(Category subCategory) {
+        if (this.subCategories==null){return;}
         if (!this.subCategories.contains(subCategory.getName())){
             this.subCategories.add(subCategory);
         }

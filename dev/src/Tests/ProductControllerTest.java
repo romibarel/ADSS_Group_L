@@ -13,12 +13,11 @@ import java.util.List;
 
 public class ProductControllerTest {
 
-    private Date date;
+
     private ProductController productController;
 
     @Before
     public void setUp() throws Exception {
-        date = new Date();
         productController = new ProductController();
     }
 
@@ -42,14 +41,14 @@ public class ProductControllerTest {
     public void sellNeedToAlert() {    //test the alert
         productController.purchaseProduct(1, "Test product", "Test supplier", 100);
         productController.setMinimumAmount(1, 15);
-        Assert.assertEquals(productController.sale(1, 90), true);  //return alert under minimum
+        Assert.assertTrue(productController.sale(1, 90));  //return alert under minimum
     }
 
     @Test
     public void sellNoNeedToAlert() {    //test the alert
         productController.purchaseProduct(1, "Test product", "Test supplier", 100);
         productController.setMinimumAmount(1, 15);
-        Assert.assertEquals(productController.sale(1, 70), false);  //return alert under minimum
+        Assert.assertFalse(productController.sale(1, 70));  //return alert under minimum
     }
 
     @Test

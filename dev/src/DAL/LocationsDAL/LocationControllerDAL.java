@@ -1,4 +1,4 @@
-package DAL;
+package DAL.LocationsDAL;
 
 import java.util.Date;
 import java.util.HashMap;

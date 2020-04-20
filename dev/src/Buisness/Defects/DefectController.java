@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 public class DefectController {
-    List<Defect> defects;
-    DefectControllerDAL defectControllerDAL;
+    private List<Defect> defects;
+    private DefectControllerDAL defectControllerDAL;
 
     public DefectController() {
         this.defects = new ArrayList<>();

@@ -28,6 +28,6 @@ public class PurchaseTransactionTest {
         purchaseTransaction.purchase(2,"Test product", "Test supplier",
                 10, 2, date, 100, date, 2);
         Assert.assertEquals(purchaseTransaction.getPurchseTransactions().size(),1);
-        Assert.assertEquals(purchaseTransaction.getPurchseTransactions().keySet().contains(2), true);
+        Assert.assertTrue(purchaseTransaction.getPurchseTransactions().keySet().contains(2));
     }
 }

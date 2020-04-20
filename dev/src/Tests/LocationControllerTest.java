@@ -29,8 +29,8 @@ public class LocationControllerTest {
         locationController.addProduct(1, date, 1, 100);
         Assert.assertEquals(locationController.getProductsLocation().size(), 1);
         Assert.assertEquals(locationController.getProductsLocation().size(), 1);
-        Assert.assertEquals(locationController.getProductsLocation().get(1).get(date).keySet().contains(1), true);
-        Assert.assertEquals(locationController.getProductsLocation().get(1).get(date).values().contains(100), true);
+        assertTrue(locationController.getProductsLocation().get(1).get(date).keySet().contains(1));
+        assertTrue(locationController.getProductsLocation().get(1).get(date).values().contains(100));
     }
 
     @Test
@@ -52,9 +52,9 @@ public class LocationControllerTest {
         Assert.assertEquals(locationController.getProductsLocation().size(), 0);
         Date date = new Date();
         locationController.addProduct(1, date, 2, 100);
-        Assert.assertEquals(locationController.getProductsLocation().get(1).get(date).keySet().contains(2), true);
-        Assert.assertEquals(locationController.getProductsLocation().get(1).get(date).values().contains(100), true);
-        Assert.assertEquals(locationController.reduceFromShelf(1, 30, date), true);
-        Assert.assertEquals(locationController.getProductsLocation().get(1).get(date).values().contains(70), true);
+        assertTrue(locationController.getProductsLocation().get(1).get(date).keySet().contains(2));
+        assertTrue(locationController.getProductsLocation().get(1).get(date).values().contains(100));
+        assertTrue(locationController.reduceFromShelf(1, 30, date));
+        assertTrue(locationController.getProductsLocation().get(1).get(date).values().contains(70));
     }
 }

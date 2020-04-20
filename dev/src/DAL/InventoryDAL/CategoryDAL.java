@@ -42,6 +42,7 @@ public class CategoryDAL {
     }
 
     public void appendSubCategory (CategoryDAL subCategoryDAL){
+        if (subCategoryDAL == null){return;}
         if (!this.subCategoriesDAL.contains(subCategoryDAL.getName())){
             this.subCategoriesDAL.add(subCategoryDAL);
         }

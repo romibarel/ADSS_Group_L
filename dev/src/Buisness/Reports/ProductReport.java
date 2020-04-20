@@ -20,6 +20,8 @@ public class ProductReport {
 
     public ProductReport (ProductReportDAL productReportDAL){
         this.date = productReportDAL.getDate();
+        this.hierarchy = new HashMap<>();
+        this.reportData = new HashMap<>();
         for (String categoryName : productReportDAL.getHierarchy().keySet()) {
             List<String> subCat = new ArrayList<>();
             for (String sub:productReportDAL.getHierarchy().get(categoryName)) {

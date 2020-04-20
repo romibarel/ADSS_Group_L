@@ -36,29 +36,29 @@ public class CategoryTest {
 
     @org.junit.Test
     public void hasProduct() {
-        Assert.assertEquals(c.hasProduct(0), false);
+        Assert.assertFalse(c.hasProduct(0));
         Assert.assertEquals(c.getProductList().size(), 0);
         c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
         Assert.assertEquals(c.getProductList().size(), 1);
-        Assert.assertEquals(c.hasProduct(0), true);
+        Assert.assertTrue(c.hasProduct(0));
     }
 
     @org.junit.Test
     public void removeProduct() {
-        Assert.assertEquals(c.hasProduct(0), false);
+        Assert.assertFalse(c.hasProduct(0));
         Assert.assertEquals(c.getProductList().size(), 0);
         c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
         Assert.assertEquals(c.getProductList().size(), 1);
-        Assert.assertEquals(c.hasProduct(0), true);
+        Assert.assertTrue(c.hasProduct(0));
         c.removeProduct(0);
-        Assert.assertEquals(c.hasProduct(0), false);
+        Assert.assertFalse(c.hasProduct(0));
     }
 
     @org.junit.Test
     public void getProductNames() {
         c.appendProduct(new Product(0, "Test product0", "Test supplier", 1000, 100, new Date()));
         c.appendProduct(new Product(1, "Test product1", "Test supplier", 1000, 100, new Date()));
-        Assert.assertEquals(c.getProductNames().contains("Test product0"), true);
-        Assert.assertEquals(c.getProductNames().contains("Test product1"), true);
+        Assert.assertTrue(c.getProductNames().contains("Test product0"));
+        Assert.assertTrue(c.getProductNames().contains("Test product1"));
     }
 }

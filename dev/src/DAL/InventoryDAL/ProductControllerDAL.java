@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductControllerDAL {
-    List<CategoryDAL> categoryDALS;
+    private List<CategoryDAL> categoryDALS;
     private Map<Integer , DataSaleProductDAL> saleData; //<barCode, DataSaleProduct>
 
     public ProductControllerDAL(){
