@@ -78,9 +78,8 @@ public class BTIController {
         this.trucks = new LinkedList<>();
         //(int truckNum, int plate, int weighNeto, int maxWeight, String type)
         //"1", "111", "1000", "4000", "Mazda"
-        //todo: delete last input
         for (String[] combo : trucks){
-            Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4], Integer.parseInt(combo[2])) ;
+            Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4]) ;
             this.trucks.add(truck);
         }
         updateBTD();
