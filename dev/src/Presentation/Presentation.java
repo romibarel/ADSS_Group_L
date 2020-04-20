@@ -1,10 +1,6 @@
 package Presentation;
 
 import Buisness.API_Buisness;
-import Buisness.Defects.Defect;
-import Buisness.Reports.ProductRepData;
-import Buisness.Reports.DefectReport;
-import Buisness.Reports.ProductReport;
 import Buisness.Singletone_Storage_Management;
 
 import java.text.SimpleDateFormat;
@@ -148,18 +144,18 @@ public class Presentation {
 
     private void ReportMenu() {
         System.out.println("\nReports section:\n");
-        List<String> initiateOptions = Arrays.asList("Defects report", "Time report", "new Time Report" , "Back to main menu");
+        List<String> initiateOptions = Arrays.asList("Inventory report","Report By Categories" , "Defects report" ,  "Back to main menu");
         printMenu(initiateOptions);
         option = Integer.parseInt(in.nextLine());
         switch (option) {
             case 1:
-                getDefectsReport();
+                showInventoryReport();
                 break;
             case 2:
-                getTimeReport();
+                showInventoryReportByCategories();
                 break;
             case 3:
-                showInventoryReport();
+                getDefectsReports();
                 break;
             default:
                 break;
@@ -529,7 +525,7 @@ public class Presentation {
         }
     }
 
-    private void getDefectsReport() {
+    /*private void getDefectsReport() {
         boolean error = false;
         System.out.print("  Defect report:\n");
         System.out.print("  Type date to from which you wish to find defects (dd/MM/yyyy format): ");
@@ -548,9 +544,30 @@ public class Presentation {
         } else {
             System.out.print("\nDefect report complete successfully.\n");
         }
+    }*/
+
+    private void getDefectsReports() {
+        boolean error = false;
+        System.out.print("  Defect report:\n");
+        System.out.print("  Type date to from which you wish to find defects (dd/MM/yyyy format): ");
+        Date fromDate = null;
+        try {
+            String fromDateS = in.nextLine();
+            fromDate = new SimpleDateFormat("dd/MM/yyyy").parse(fromDateS);
+        } catch (Exception e) {
+            System.out.print("Illegal date input");
+            error = true;
+        }
+        List<Pdefect> defectsToShow = buisnessManager.creatDefectReport(today, fromDate); //THE END ISN'T RELEVANT
+        showPdefects(defectsToShow , fromDate);
+        if (error) {
+            //TODO: if need to do something if date is not in the format
+        } else {
+            System.out.print("\nDefect report complete successfully.\n");
+        }
     }
 
-    private void showDefects(DefectReport defectReport) {
+   /* private void showDefects(DefectReport defectReport) {
         System.out.print("\nThe defect report from date " + defectReport.getDateStart().toString() + " is:\n");
         System.out.print("sorted by dates:\n\n");
         List<Defect> defects = defectReport.getDefects();
@@ -570,6 +587,27 @@ public class Presentation {
                     " expiration date: " + defect.getExpiration().toString() + "\n\n");
         }
 
+    }*/
+
+    private void showPdefects(List<Pdefect> defectsToShow , Date start) {
+        System.out.print("\nThe defect report from date " + start.toString() + " is:\n");
+        System.out.print("sorted by dates:\n\n");
+        List<Pdefect> defects = defectsToShow;
+        defects.sort(Comparator.comparing(Pdefect::getDate));
+        if (defects.size() == 0) {
+            System.out.print("No defects to show.\n");
+            return;
+        }
+        for (Pdefect defect : defects) {
+            System.out.println(
+                    " date accrued: " + defect.getDate().toString() +"\n" +
+                            " barcode: " + defect.getBarCode() + "\n" +
+                            " amount: " + defect.getAmount() + "\n" +
+                            " reason: " + defect.getReason() + "\n" +
+                            " creator: " + defect.getCreator() + "\n" +
+                            " location: " + defect.getLocation() + "\n" +
+                            " expiration date: " + defect.getExpiration().toString() + "\n\n");
+        }
     }
 
     private void addCatagoryToInventoryMenu() {
@@ -638,7 +676,7 @@ public class Presentation {
         }
     }
 
-    private void printAllExistingProducts() {
+   /* private void printAllExistingProducts() {
         System.out.print("\nListing all products in store:\n");
         List<String> names = buisnessManager.getListOfProductsNames();
         if (names != null) {
@@ -647,7 +685,7 @@ public class Presentation {
             System.out.print("no products to show.\n");
         }
         System.out.print("\nprinting all product's names complete successfully.\n");
-    }
+    }*/
 
     private void printAllExistingCategories() {
         {
@@ -698,7 +736,7 @@ public class Presentation {
 
     }
 
-    private void getTimeReport() {
+   /* private void getTimeReport() {
         boolean error = false;
         System.out.print("  Time report:\n\n");
         ProductReport timeReport = buisnessManager.getTimeReport(today);
@@ -708,7 +746,7 @@ public class Presentation {
         } else {
             System.out.print("\nTime report complete successfully.\n");
         }
-    }
+    }*/
 
     private void connectProductToCategory() {
         boolean error = false;
@@ -731,15 +769,15 @@ public class Presentation {
     }
 
     //Time report functions -> recursively to show the hierarchy
-    private void showTimeReport(ProductReport timeReport) {
+   /* private void showTimeReport(ProductReport timeReport) {
         List<String> mainCategories = getMainCategories(timeReport);
         for (String categoryName : mainCategories) {
             showRecursiveFromMainCategoryDown(categoryName, timeReport, "");
             System.out.println();
         }
-    }
+    }*/
 
-    private List<String> getMainCategories(ProductReport timeReport) {
+   /* private List<String> getMainCategories(ProductReport timeReport) {
         List<String> filterMainCategories = buisnessManager.getListOfCategoriesNames();
         for (List<String> listOfCategories : timeReport.getHierarchy().values()) {
             for (String name : listOfCategories) {
@@ -749,7 +787,7 @@ public class Presentation {
             }
         }
         return filterMainCategories;
-    }
+    }*/
 
     private List<String> getMainCategoriesByDate(Date date) {
         List<String> filterMainCategories = buisnessManager.getListOfCategoriesNames();
@@ -763,7 +801,7 @@ public class Presentation {
         return filterMainCategories;
     }
 
-    private void showRecursiveFromMainCategoryDown(String FromHereAndDown, ProductReport productReport, String offset) {
+   /* private void showRecursiveFromMainCategoryDown(String FromHereAndDown, ProductReport productReport, String offset) {
         System.out.print(offset + "- Products under category " + FromHereAndDown + ":\n");
         List<ProductRepData> myCategoryProducts = productReport.getReportData().get(FromHereAndDown);
         for (ProductRepData productRepData : myCategoryProducts) {
@@ -772,13 +810,34 @@ public class Presentation {
         for (String subCategories : productReport.getHierarchy().get(FromHereAndDown)) {
             showRecursiveFromMainCategoryDown(subCategories, productReport, offset + "        ");
         }
-    }
+    }*/
 
     public void showInventoryReport(){
         buisnessManager.creatInventoryReport(today);
         System.out.println("Updated inventory report: \n");
         System.out.println("report for date: " + today.toString() + "\n\n");
         List<String> mainCategories = getMainCategoriesByDate(today);
+        for(String category : mainCategories){
+            showRecursiveFromMainCategoryDowns(category , "");
+        }
+
+    }
+
+    public void showInventoryReportByCategories(){
+        buisnessManager.creatInventoryReport(today);
+        System.out.println("Updated inventory report: \n");
+        List<String> mainCategories = new ArrayList<>();
+        System.out.print("  Type how many categories (different ctegories) you want to watch: ");
+        int numberOfItems = Integer.parseInt(in.nextLine());
+        for (int i = 1; i <= numberOfItems; i++) {
+
+            System.out.print("  " + i + ". category name:");
+            String categoryName = in.nextLine();
+            mainCategories.add(categoryName);
+            System.out.print("\n");
+        }
+        System.out.println("report for date: " + today.toString() + "\n\n");
+
         for(String category : mainCategories){
             showRecursiveFromMainCategoryDowns(category , "");
         }

@@ -8,6 +8,7 @@ import Buisness.Reports.ProductReport;
 import Buisness.Reports.ReportController;
 import Buisness.Transactions.TransactionController;
 import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
 
 import java.util.Date;
 import java.util.List;
@@ -122,6 +123,10 @@ public class Singletone_Storage_Management implements API_Buisness{
     @Override
     public DefectReport getDefectReport(Date today, Date fromDate) {
         return this.report.getDefectReports(today, fromDate);
+    }
+
+    public List<Pdefect> creatDefectReport(Date today, Date fromDate) {
+        return this.report.creatDefectReport(today, fromDate);
     }
 
     @Override

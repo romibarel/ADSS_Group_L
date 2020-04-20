@@ -4,6 +4,7 @@ import Buisness.Defects.Defect;
 import Buisness.Singletone_Storage_Management;
 import DAL.DefectsDAL.DefectDAL;
 import DAL.ReportsDAL.DefectReportDAL;
+import Presentation.Pdefect;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +52,25 @@ public class DefectReport {
         this.defects = relevantReports;
         this.dateStart = fromDate;
 
+    }
+
+    public List<Pdefect> creatNewReport(Date fromDate){
+        List<Defect> allDefects = Singletone_Storage_Management.getInstance().getDefects().getDefects();
+        List<Defect> relevantReports = new ArrayList<>();
+        for (Defect defect: allDefects) {
+            if (defect.getDate().compareTo(fromDate)>=0){
+                relevantReports.add(defect);
+            }
+        }
+        this.defects = relevantReports;
+        this.dateStart = fromDate;
+
+        List<Pdefect> toRet = new ArrayList<>();
+        for(Defect d: relevantReports){
+            Pdefect defectToShow = new Pdefect(d.getDate() , d.getBarCode() , d.getAmount() , d.getReason() , d.getCreator() , d.getLocation() , d.getExpiration() );
+            toRet.add(defectToShow);
+        }
+        return toRet;
     }
 
     public DefectReportDAL createDAL() {

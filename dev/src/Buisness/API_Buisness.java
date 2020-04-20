@@ -3,10 +3,11 @@ package Buisness;
 import Buisness.Reports.DefectReport;
 import Buisness.Reports.ProductReport;
 import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.*;
 
 
 public interface API_Buisness {
@@ -47,6 +48,8 @@ public interface API_Buisness {
     void setDiscountOfExistingProduct(int barcode, double newDiscount);
 
     DefectReport getDefectReport(Date today, Date fromDate);
+
+    List<Pdefect> creatDefectReport(Date today, Date fromDate);
 
     ProductReport getTimeReport (Date today);
 

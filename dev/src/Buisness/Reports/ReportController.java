@@ -1,10 +1,10 @@
 package Buisness.Reports;
 
 import DAL.ReportsDAL.DefectReportDAL;
-import DAL.ReportsDAL.ProductRepDataDAL;
 import DAL.ReportsDAL.ProductReportDAL;
 import DAL.ReportsDAL.ReportsDAL;
 import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
 
 import java.util.*;
 
@@ -42,6 +42,18 @@ public class ReportController {
         this.reportsDAL.addNewDefectReport(defectReportDAL );
 
         return this.defectivesReports.get(today);
+    }
+
+    public List<Pdefect> creatDefectReport(Date today, Date fromDate) {
+
+       DefectReport defectReport = new DefectReport();
+       List<Pdefect> toRet =  defectReport.creatNewReport(fromDate);
+       this.defectivesReports.putIfAbsent(today, defectReport); //only one report per day
+       //DAL issues
+       DefectReportDAL defectReportDAL = defectReport.createDAL();
+       this.reportsDAL.addNewDefectReport(defectReportDAL );
+
+        return toRet;
     }
 
     public ProductReport getTimeReports(Date today){
