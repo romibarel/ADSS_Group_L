@@ -25,8 +25,7 @@ public class Delivery {
             this.source = source;
             docLoc = new HashMap<>();
             for (DeliverDoc doc : docs) {
-                //todo: remove casting when haim finishes
-                docLoc.put(doc, (Location) doc.getDestination());
+                docLoc.put(doc, doc.getDestination());
             }
             approved = true;
         }
@@ -35,9 +34,7 @@ public class Delivery {
     public List<DeliverDoc> getDocs(){
         List<DeliverDoc> docs = new LinkedList<>();
         Iterator<DeliverDoc> iter = docLoc.keySet().iterator();
-        for (DeliverDoc doc : docLoc.keySet()){
-            docs.add(doc);
-        }
+        docs.addAll(docLoc.keySet());
         return docs;
     }
 

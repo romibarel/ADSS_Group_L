@@ -12,6 +12,11 @@ public class PTIcontroller {
     private PTIcontroller(){
     }
 
+    //todo add Supplies method
+
+    //todo make an interface for the user to do stuff with input
+    // than add everything to BTI
+
     public static PTIcontroller getPTI(){
         if (ptIcontroller == null)
             ptIcontroller = new PTIcontroller();
@@ -70,7 +75,7 @@ public class PTIcontroller {
         System.out.println("Please enter the source of delivery.");
         source = scanner.nextLine();
         docs = createDocuments(docNum);
-        System.out.println("Please weigh the truck and enter its weight in kilos.");
+        System.out.println("Please weight the truck and enter its weight in kilos.");
         input = scanner.nextLine();
         try{
             truckWeight = Integer.parseInt(input);
@@ -80,7 +85,7 @@ public class PTIcontroller {
         }
 
         //create the delivery trough interface layer
-        System.out.println(itp.createDelivery(date, time, truckNum, driver, source, docs));
+        System.out.println(itp.createDelivery(date, time, truckNum, driver, source, docs, truckWeight));
         return docNum + docs.size();
     }
 
@@ -111,4 +116,5 @@ public class PTIcontroller {
 
         return docNums;
     }
+
 }

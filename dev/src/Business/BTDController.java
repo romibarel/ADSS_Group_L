@@ -1,11 +1,14 @@
 package Business;
 
 
+import DataAccess.DTBController;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class BTDController {
-    private static BTDController btd = null;//todo haim i think you wanted to do DTBcontroller
+    private static BTDController thisOne;
+    private static DTBController dataTb;
     private static BTIController bti;
     private List<Driver> drivers;
     private DeliveryArchive archive ;
@@ -14,22 +17,78 @@ public class BTDController {
     private List<Truck> trucks;
     private List<Delivery> deliveries;
 
-    private BTDController(){
+    //todo deliveries moved inside archoce
 
+    private BTDController(){
+        BTDController.dataTb = DTBController.getDTB();
+        BTDController.bti = BTIController.getBTI();
+        drivers = new LinkedList<>();
+        locations = new LinkedList<>();
+        trucks = new LinkedList<>();
+        deliveries = new LinkedList<>();
     }
 
     public static BTDController getBTD(){
-        if (btd == null)
-            btd = new BTDController();
-        return btd;
+        if (thisOne == null)
+            thisOne = new BTDController();
+        return thisOne;
     }
 
-    public void set(BTIController bti, List<Driver> drivers, Sections sections, List<Location> locations, List<Truck> trucks){
-        BTDController.bti = bti;
-        this.drivers = drivers;
+    /**
+     * Sections and Archive must be given all other can be null for not changeing
+     * @param drivers
+     * @param archive
+     * @param sections
+     * @param locations
+     * @param trucks
+     * @param deliveries
+     */
+    public void set(List<Driver> drivers, DeliveryArchive archive, Sections sections, List<Location> locations, List<Truck> trucks, List<Delivery> deliveries) {
+        this.archive = archive;
         this.sections = sections;
-        this.trucks = trucks;
+        if (drivers != null) {
+            this.drivers = drivers;
+        }
+        if (locations != null) {
+            this.locations = locations;
+        }
+        if (trucks != null) {
+            this.trucks = trucks;
+        }
+        if (deliveries != null) {
+            this.deliveries = deliveries;
+        }
     }
+
+    public boolean addDelivery(Delivery delivery)
+    {
+        if (deliveries == null)
+            deliveries = new LinkedList<>();
+        return deliveries.add(delivery);
+    }
+
+    public boolean addTruck(Truck truck)
+    {
+        if (trucks == null)
+            trucks = new LinkedList<>();
+        return trucks.add(truck);
+    }
+
+    public boolean addLocation(Location location)
+    {
+        if (locations == null)
+            locations = new LinkedList<>();
+        return locations.add(location);
+    }
+
+    public boolean addDriver(Driver driver)
+    {
+        if (drivers == null)
+            drivers = new LinkedList<>();
+        return drivers.add(driver);
+    }
+
+
 
     public List<Driver> getDrivers() {
         return drivers;
