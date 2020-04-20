@@ -25,6 +25,8 @@ public class DeliveryArchive {
         return documents;
     }
 
+
+
     public void add(Delivery delivery){
         deliveries.add(delivery);
         for (DeliverDoc doc : delivery.getDocs()){

@@ -12,10 +12,6 @@ public class PTIcontroller {
     private PTIcontroller(){
     }
 
-    //todo add Supplies method
-
-    //todo make an interface for the user to do stuff with input
-    // than add everything to BTI
 
     public static PTIcontroller getPTI(){
         if (ptIcontroller == null)
@@ -31,8 +27,46 @@ public class PTIcontroller {
         //docNum is the id of the delivery document
         int docNum = 0;
         while(true){
-            docNum = createDelivery(docNum);
+            System.out.println("Hello please enter 1 for adding supplies and 2 for creating delivery");
+            String input = scanner.nextLine();
+            if ("1".equals(input))
+            {
+                addSupplies();
+            }
+            else if("2".equals(input)) {
+                docNum = createDelivery(docNum);
+            }
         }
+    }
+
+    private String addSupplies() {
+        System.out.println("Enter Supply name");
+        String name = scanner.nextLine();
+        while (name == null)
+        {
+            System.out.println("Enter Supply name");
+            name = scanner.nextLine();
+        }
+        System.out.println("Enter Supply name");
+        String number = null;
+        int num = 0 ;
+        boolean goodNumber = false;
+        while (!goodNumber) {
+            number = scanner.nextLine();
+            try {
+                num = Integer.parseInt(number);
+                goodNumber = true;
+            } catch (Exception e) {
+                System.out.println("Invalid number, please enter a number.");
+                goodNumber = false;
+            }
+            if (num < 0) // todo <=?
+            {
+                System.out.println("Invalid number, please enter a positive number.");
+                goodNumber = false;
+            }
+        }
+        return "You added : " + itp.addSupply(name, num);
     }
 
     private int createDelivery(int docNum) {

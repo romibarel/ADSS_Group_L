@@ -83,7 +83,12 @@ public class BTIController {
             Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4], Integer.parseInt(combo[2])) ;
             this.trucks.add(truck);
         }
-        btd.set(this.drivers, this.archive, this.sections , this.locations , this.trucks , null);
+        updateBTD();
+    }
+
+    public void updateBTD() {
+        btd.set(this.drivers, this.archive, this.sections , this.locations , this.trucks );
+
     }
 
     //destination, supplies&quants,
@@ -186,5 +191,21 @@ public class BTIController {
 
     public List<Truck> getTrucks() {
         return trucks;
+    }
+
+    public void addSupply(String name, int num) {
+        boolean newSup = true;
+        for (Supply sup : supplies) {
+            if (name.equals(sup.getName()))
+            {
+                sup.setQuant(sup.getQuant() + num);
+                newSup = false;
+                break;
+            }
+        }
+        if (newSup)
+        {
+            supplies.add(new Supply(name,num));
+        }
     }
 }

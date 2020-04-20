@@ -11,6 +11,7 @@ public class Location {
         this.associate = associate;
     }
 
+
     public String getAddress() {
         return address;
     }

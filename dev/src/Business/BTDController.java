@@ -15,9 +15,6 @@ public class BTDController {
     private Sections sections;
     private List<Location> locations;
     private List<Truck> trucks;
-    private List<Delivery> deliveries;
-
-    //todo deliveries moved inside archoce
 
     private BTDController(){
         BTDController.dataTb = DTBController.getDTB();
@@ -25,7 +22,6 @@ public class BTDController {
         drivers = new LinkedList<>();
         locations = new LinkedList<>();
         trucks = new LinkedList<>();
-        deliveries = new LinkedList<>();
     }
 
     public static BTDController getBTD(){
@@ -41,9 +37,8 @@ public class BTDController {
      * @param sections
      * @param locations
      * @param trucks
-     * @param deliveries
      */
-    public void set(List<Driver> drivers, DeliveryArchive archive, Sections sections, List<Location> locations, List<Truck> trucks, List<Delivery> deliveries) {
+    public void set(List<Driver> drivers, DeliveryArchive archive, Sections sections, List<Location> locations, List<Truck> trucks) {
         this.archive = archive;
         this.sections = sections;
         if (drivers != null) {
@@ -55,16 +50,16 @@ public class BTDController {
         if (trucks != null) {
             this.trucks = trucks;
         }
-        if (deliveries != null) {
-            this.deliveries = deliveries;
-        }
     }
 
-    public boolean addDelivery(Delivery delivery)
+//    public void saveToDB(){
+//        dataTb.save(dataTb.make(drivers), dataTb.make(archive), dataTb.make(trucks), dataTb.make(locations), dataTb.make(sections));
+//    }
+
+
+    public void addDelivery(Delivery delivery)
     {
-        if (deliveries == null)
-            deliveries = new LinkedList<>();
-        return deliveries.add(delivery);
+        archive.add(delivery);
     }
 
     public boolean addTruck(Truck truck)
@@ -87,7 +82,6 @@ public class BTDController {
             drivers = new LinkedList<>();
         return drivers.add(driver);
     }
-
 
 
     public List<Driver> getDrivers() {
@@ -129,14 +123,5 @@ public class BTDController {
     public void setSections(Sections sections) {
         this.sections = sections;
     }
-
-    public List<Delivery> getDeliveries() {
-        return deliveries;
-    }
-
-    public void setDeliveries(List<Delivery> deliveries) {
-        this.deliveries = deliveries;
-    }
-
 
 }

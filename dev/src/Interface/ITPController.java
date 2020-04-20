@@ -38,5 +38,10 @@ public class ITPController {
         return itb.createDelivery(date, time, truck, driver, source, docs, truckWeight);
     }
 
+    public String addSupply(String name, int num) {
+        String massage = num + ", "+name;
+        itb.addSupply(name , num);
+        return massage;
+    }
 }
 

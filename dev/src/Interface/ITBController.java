@@ -34,4 +34,12 @@ public class ITBController {
     public String createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs, int truckWeight){
         return bti.createDelivery(date, time, truck, driver, source, docs, truckWeight);
     }
+
+
+    public String addSupply(String name, int num) {
+        String massage = num + ", "+name;
+        bti.addSupply(name , num);
+        return massage;
+    }
+
 }

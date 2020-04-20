@@ -3,22 +3,20 @@ package DataAccess;
 import Business.BTDController;
 import Business.BTIController;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class DTBController {
-    private static BTDController BusinessBoss;
+    private static BTDController btdController;
     private static DTBController thisOne;
-    private static BTIController bti;
     private List<Driver> drivers;
     private DeliveryArchive archive;
     private List<Truck> trucks;
     private List<Location> locations;
     private Sections sections;
-    private List<Delivery> deliveries;
-    private BTDController bController = null;
 
     private DTBController() {
-
+        btdController = BTDController.getBTD();
     }
 
     public static DTBController getDTB() {
@@ -26,6 +24,22 @@ public class DTBController {
             thisOne = new DTBController();
         return thisOne;
     }
+
+
+  /*  *//**
+     * @param drivers
+     * @param archive
+     * @param trucks
+     * @param locations
+     * @param sections
+     *//*
+    public void save(List<Business.Driver> drivers, Business.DeliveryArchive archive, List<Business.Truck> trucks, List<Business.Location> locations, Business.Sections sections) {
+        this.drivers = save(drivers);
+        this.archive = save(archive);
+        this.trucks = save(trucks);
+        this.locations = save(locations);
+        this.sections = save(sections);
+    }*/
 
     public List<Driver> getDrivers() {
         return drivers;
@@ -67,11 +81,11 @@ public class DTBController {
         this.sections = sections;
     }
 
-    public List<Delivery> getDeliveries() {
-        return deliveries;
-    }
+    /*public void save(List<Business.Location> bLocations) {
+        locations = new LinkedList<>();
+        for (Business.Location l: bLocations ){
+            locations.add(new Location(l.getAddress(), l.getPhone(), l.getAssociate()));
+        }
+    }*/
 
-    public void setDeliveries(List<Delivery> deliveries) {
-        this.deliveries = deliveries;
-    }
 }

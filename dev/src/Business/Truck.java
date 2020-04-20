@@ -6,16 +6,12 @@ public class Truck {
     private int weighNeto;
     private int maxWeight;
 
-    private String type;//todo add to url
-    private int currentLoad = 0;//todo is it neccessery
 
     public Truck(int truckNum, int plate, int weighNeto, int maxWeight, String type, int currentLoad) {
         this.truckNum = truckNum;
         this.plate = plate;
         this.weighNeto = weighNeto;
         this.maxWeight = maxWeight;
-        this.type = type;
-        this.currentLoad = currentLoad;
     }
 
 
@@ -53,19 +49,4 @@ public class Truck {
         this.maxWeight = maxWeight;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getCurrentLoad() {
-        return currentLoad;
-    }
-
-    public void setCurrentLoad(int currentLoad) {
-        this.currentLoad = currentLoad;
-    }
 }
