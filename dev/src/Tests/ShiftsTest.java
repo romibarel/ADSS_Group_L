@@ -99,7 +99,7 @@ public class ShiftsTest
 	}
 
 	@Test
-	public void test_get_shift() throws ParseException
+	public void test_get_shift1() throws ParseException
 	{
 		Date start_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
 		PresentWorker w=new PresentWorker("avi cohen",0,12,1234,11,5,5,start_date,"manager");
@@ -116,6 +116,22 @@ public class ShiftsTest
 		s2.setManager_id(0);
 		ShiftRepo.add_shift(s2);
 		assertEquals(date2,ShiftRepo.get_shift(date2,true).getDate());
+
+	}
+
+	@Test
+	public void test_get_shift2() throws ParseException
+	{
+		Date start_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
+		PresentWorker w=new PresentWorker("avi cohen",0,12,1234,11,5,5,start_date,"manager");
+		Date shift_date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2020");
+		PresentShift s=new PresentShift(shift_date,true,0,null);
+		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("16/05/2020");
+		PresentShift s2=new PresentShift(date2,true,0,null);
+
+		WorkersRepo.add_worker(w);
+		ShiftRepo.add_shift(s);
+		ShiftRepo.add_shift(s2);
 
 		//get shift in date that wasn't scheduled
 		Date date3=new SimpleDateFormat("dd/MM/yyyy").parse("16/05/2030");

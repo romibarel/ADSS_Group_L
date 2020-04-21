@@ -13,7 +13,7 @@ public class WorkersRepo
 	public static Result add_worker(PresentWorker worker)
 	{
 		if (get_by_id(worker.getId())!=null) return new Result(false,"there is already a worker with that id");
-		Result result= Worker.check_parameters(worker);
+		Result result= Worker.check_parameters(worker,true);
 		if (result.success)
 		{
 			Worker new_worker=new Worker(worker);
@@ -38,7 +38,7 @@ public class WorkersRepo
 		Result result;
 		Worker worker_to_edit=get_by_id(worker.getId());
 		if (worker_to_edit==null) return new Result(false,"worker doesnt exist");
-		result=Worker.check_parameters(worker);
+		result=Worker.check_parameters(worker,false);
 		if (result.success)
 		{
 			worker_to_edit.setStart_date(worker.getStart_date());
