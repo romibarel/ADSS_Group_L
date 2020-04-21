@@ -12,11 +12,13 @@ public class Delivery {
     private HashMap<DeliverDoc, Location> docLoc;
     private boolean approved;
 
-    public Delivery(Date date, Date time, Truck truck, Driver driver, Location source, List<Location> destinations, List<DeliverDoc> docs){
+    public Delivery(Date date, Date time, Truck truck, Driver driver, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
         //need to check if date and time are acceptable dont know how
         if (!driver.getLicenses().contains(truck.getType())){
             approved = false;
         }
+        else if (truck.getMaxWeight()<truckWeight)
+            approved = false;
         else {
             this.date = date;
             this.departureTime = time;

@@ -82,7 +82,7 @@ public class BTIController {
             Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4]) ;
             this.trucks.add(truck);
         }
-        updateBTD();
+        //updateBTD();
     }
 
     public void updateBTD() {
@@ -163,7 +163,7 @@ public class BTIController {
         }
         if (locations.size() != docs.size())
             return "Some of the destinations weren't added.";
-        Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs);
+        Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, truckWeight);
         if(!(delivery.isApproved()))
             return "The driver is unlicensed for the given truck.";
 
