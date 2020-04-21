@@ -82,10 +82,11 @@ public class BTIController {
             Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4]) ;
             this.trucks.add(truck);
         }
-        //updateBTD();
+        updateBTD();
     }
 
     public void updateBTD() {
+        btd = BTDController.getBTD();
         btd.set(this.drivers, this.archive, this.sections , this.locations , this.trucks );
 
     }
