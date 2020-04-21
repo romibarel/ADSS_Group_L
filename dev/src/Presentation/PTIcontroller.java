@@ -48,7 +48,7 @@ public class PTIcontroller {
             System.out.println("Enter Supply name");
             name = scanner.nextLine();
         }
-        System.out.println("Enter Supply name");
+        System.out.println("Enter Supply quntity");
         String number = null;
         int num = 0 ;
         boolean goodNumber = false;
