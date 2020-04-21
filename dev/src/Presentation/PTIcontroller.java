@@ -1,5 +1,9 @@
 package Presentation;
 
+import Business.BTDController;
+import Business.BTIController;
+import DataAccess.DTBController;
+import Interface.ITBController;
 import Interface.ITPController;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -23,19 +27,155 @@ public class PTIcontroller {
         PTIcontroller.itp = itp;
     }
 
+    public void setup(){
+        boolean finish = false;
+        while(!finish) {
+            System.out.println("Would you like to automatically setup? [y/n]");
+            String input = scanner.nextLine();
+            if (input.equals("y")){
+                finish = true;
+                PTIcontroller pti = PTIcontroller.getPTI();
+                ITPController itp = ITPController.getITP();
+                ITBController itb = ITBController.getITB();
+                BTIController bti = BTIController.getBTI();
+                BTDController btd = BTDController.getBTD();
+                DTBController dtb = DTBController.getDTB();
+                List<String[]> supplies = new LinkedList<>();
+                List<String[]> drivers = new LinkedList<>();
+                List<String[]> sections = new LinkedList<>();
+                List<String[]> locations = new LinkedList<>();
+                List<String[]> trucks = new LinkedList<>();
+
+                supplies.add(new String[] {"First", "2"});
+                supplies.add(new String[] {"Second", "5"});
+                supplies.add(new String[] {"Third", "10"});
+
+                drivers.add(new String[] {"Moshe", "Mazda", "Toyota"});
+                drivers.add(new String[] {"Joseph", "Mercedes"});
+
+                sections.add(new String[] {"1", "Super Lee", "Lee Office"});
+                sections.add(new String[] {"2", "Shufersal", "Max Stock", "Best Buy"});
+                sections.add(new String[] {"3", "Mega", "Costco"});
+
+                locations.add(new String[] {"Super Lee", "052", "Haim"});
+                locations.add(new String[] {"Lee Office", "058", "Romi"});
+                locations.add(new String[] {"Shufersal", "054", "Tony"});
+                locations.add(new String[] {"Max Stock", "050", "Ziv"});
+                locations.add(new String[] {"Best Buy", "055", "Tomer"});
+                locations.add(new String[] {"Mega", "053", "Sivan"});
+                locations.add(new String[] {"Costco", "057", "Gali"});
+
+                //int truckNum, int plate, int weighNeto, int maxWeight, String type
+                trucks.add(new String[] {"1", "111", "1000", "4000", "Mazda"});
+                trucks.add(new String[] {"2", "222", "1200", "7000", "Toyota"});
+                trucks.add(new String[] {"3", "333", "1100", "5500", "Mercedes"});
+                trucks.add(new String[] {"4", "123", "2000", "4000", "Mazda"});
+
+                pti.set(itp);
+                itp.set(pti, itb);
+                itb.set(bti, itp);
+                bti.set(itb, btd, supplies, drivers, sections, locations, trucks);
+            }
+            else if (input.equals("n")){
+                PTIcontroller pti = PTIcontroller.getPTI();
+                ITPController itp = ITPController.getITP();
+                ITBController itb = ITBController.getITB();
+                BTIController bti = BTIController.getBTI();
+                BTDController btd = BTDController.getBTD();
+                DTBController dtb = DTBController.getDTB();
+                List<String[]> supplies = new LinkedList<>();
+                List<String[]> drivers = new LinkedList<>();
+                List<String[]> sections = new LinkedList<>();
+                List<String[]> locations = new LinkedList<>();
+                List<String[]> trucks = new LinkedList<>();
+
+                while(!finish){
+                    System.out.println("What would you like to add?\n" +
+                            "1) Supply\n" +
+                            "2) Driver\n" +
+                            "3) Section\n" +
+                            "4) Truck\n" +
+                            "5) Finish");
+                    input = scanner.nextLine();
+                    switch (input){
+                        case("1"):
+                            System.out.println("Enter the name and quantity of the supply.\n");
+                            input = scanner.nextLine();
+                            String [] sup = input.split(" ", Integer.MAX_VALUE);
+                            supplies.add(sup);
+                            break;
+                        case("2"):
+                            System.out.println("Enter the name of driver and all his/her types of licenses.\n");
+                            input = scanner.nextLine();
+                            String [] driver = input.split(" ", Integer.MAX_VALUE);
+                            drivers.add(driver);
+                            break;
+                        case("3"):
+                            System.out.println("Enter number of the section to add and all the locations that belong to it.\n");
+                            input = scanner.nextLine();
+                            String [] secs = input.split(" ", Integer.MAX_VALUE);
+                            sections.add(secs);
+                            for (int i=1; i<secs.length; i++){
+                                boolean exists = false;
+                                for (String[] s : locations) {
+                                    if (s[0].equals(secs[i]))
+                                        exists = true;
+                                }
+                                 if(!exists) {
+                                     System.out.println("Enter number of the phone number and associate's name of " + secs[i] + " .\n");
+                                     input = scanner.nextLine();
+                                     String[] temp = input.split(" ", Integer.MAX_VALUE);
+                                     String[] loc = new String[3];
+                                     loc[0] = secs[i];
+                                     try {
+                                         loc[1] = temp[0];
+                                         loc[2] = temp[1];
+                                     } catch (Exception e) {
+                                         System.out.println("invalid phone number and associate's name.\n");
+                                     }
+                                     locations.add(loc);
+                                 }
+                            }
+                            break;
+                        case("4"):
+                            System.out.println("Please enter the truck's number, plate, neto weight, maximum weight and type.\n");
+                            input = scanner.nextLine();
+                            String [] truck = input.split(" ", Integer.MAX_VALUE);
+                            trucks.add(truck);
+                            break;
+                        case("5"):
+                            finish = true;
+                            pti.set(itp);
+                            itp.set(pti, itb);
+                            itb.set(bti, itp);
+                            bti.set(itb, btd, supplies, drivers, sections, locations, trucks);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
     public void start(){
         //docNum is the id of the delivery document
+        boolean finish = false;
         int docNum = 0;
         System.out.println("Welcome !");
-        while(true){
-            System.out.println("Please enter 1 for adding supplies and 2 for creating delivery");
+        while(!finish){
+            System.out.println("Please enter 1 for adding supplies, 2 for creating delivery and 3 for shut down.\n");
             String input = scanner.nextLine();
-            if ("1".equals(input))
-            {
-                addSupplies();
-            }
-            else if("2".equals(input)) {
-                docNum = createDelivery(docNum);
+            switch (input){
+                case ("1"):
+                    addSupplies();
+                    break;
+                case ("2"):
+                    docNum = createDelivery(docNum);
+                    break;
+                case ("3"):
+                    finish = true;
+                    break;
             }
         }
     }
