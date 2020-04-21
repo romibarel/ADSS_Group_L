@@ -17,8 +17,13 @@ public class Shift
 	{
 		this.morning=shift.isMorning();
 		this.manager_id=shift.getManager_id();
-		this.workers=shift.getWorkers();
-		this.date=shift.getDate();
+		this.date=new Date(shift.getDate().getTime()); //deep copy the date
+		this.workers= new LinkedList<>();
+		//deep copy the list
+		if (shift.getWorkers()!=null)
+			for (int id:shift.getWorkers())
+				workers.add(id);
+
 	}
 
 	public static Result check_parameters(PresentShift shift,boolean check_date)
@@ -54,6 +59,7 @@ public class Shift
 					return new Result(false, "worker number " + worker_id + " has constraint for that shift");
 			}
 		}
+
 		return new Result(true,"success");
 	}
 
@@ -77,7 +83,7 @@ public class Shift
 
 	public void setDate(Date date)
 	{
-		this.date = date;
+		this.date = new Date(date.getTime()); //deep copy the date
 	}
 
 	public int getManager_id()
@@ -98,7 +104,10 @@ public class Shift
 
 	public void setWorkers(List<Integer> workers)
 	{
-		this.workers = workers;
+		this.workers = new LinkedList<>();
+		if (workers!=null)
+			for( int id:workers) //deep copy the list
+				this.workers.add(id);
 	}
 
 }

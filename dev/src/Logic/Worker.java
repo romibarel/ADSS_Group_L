@@ -19,17 +19,17 @@ public class Worker
 	public Worker(PresentWorker worker)
 	{
 		this.id=worker.getId();
-		this.name=worker.getName();
+		this.name= worker.getName();
 		this.bank_account_number=worker.getBank_account_number();
 		this.salary=worker.getSalary();
 		this.pension=worker.getPension();
 		this.vacation_days=worker.getVacation_days();
 		this.sick_days=worker.getSick_days();
 		this.role=worker.getRole();
-		this.start_date=worker.getStart_date();
+		this.start_date=new Date(worker.getStart_date().getTime()); //deep copy the date
 	}
 
-	public static Result check_parameters(PresentWorker worker)
+	public static Result check_parameters(PresentWorker worker, boolean check_id)
 	{
 
 		//check name
@@ -57,7 +57,8 @@ public class Worker
 		if (worker.getStart_date()==null) return new Result(false, "invalid start date");
 
 		//check id
-		if (WorkersRepo.get_by_id(worker.getId())!=null) return new Result (false,"id already exists");
+		if (check_id)
+			if (WorkersRepo.get_by_id(worker.getId())!=null) return new Result (false,"id already exists");
 
 		return new Result(true,"success");
 	}
@@ -149,7 +150,7 @@ public class Worker
 
 	public void setStart_date(Date start_date)
 	{
-		this.start_date = start_date;
+		this.start_date = new Date(start_date.getTime()); //deep copy
 	}
 
 	public String getRole()
