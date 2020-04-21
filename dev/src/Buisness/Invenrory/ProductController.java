@@ -20,7 +20,7 @@ public class ProductController {
     public ProductController(){
         saleData = new HashMap<>();
         this.categories = new ArrayList<>();
-        this.productControllerDAL = new ProductControllerDAL();
+        this.productControllerDAL = ProductControllerDAL.getInstance();
         restore();
         setMainCategory(DEFAULT);
 
@@ -296,5 +296,10 @@ public class ProductController {
                 }
             }
         }
+    }
+    public void clean (){
+        saleData = new HashMap<>();
+        this.categories = new ArrayList<>();
+        setMainCategory(DEFAULT);
     }
 }

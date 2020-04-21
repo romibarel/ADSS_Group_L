@@ -7,10 +7,19 @@ import java.util.Map;
 public class LocationControllerDAL {
     private Map<Integer , Map<Date, Map<Integer, Integer>>> productsLocationDAL; // <barcode, <expirationDate, <location, quantity>
     private Map<Integer , String> locationsDAL; // <locationNumber , locationName>
+    private static LocationControllerDAL instance;
 
-    public LocationControllerDAL(){
+    private LocationControllerDAL(){
         this.productsLocationDAL = new HashMap<Integer, Map<Date, Map<Integer, Integer>>>();
         this.locationsDAL = new HashMap();
+    }
+
+    public static LocationControllerDAL getInstance(){
+
+        if (instance == null)
+            instance = new LocationControllerDAL();
+
+        return instance;
     }
 
     public Map<Integer, Map<Date, Map<Integer, Integer>>> getProductsLocationDAL() {

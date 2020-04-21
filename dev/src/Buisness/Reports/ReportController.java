@@ -16,7 +16,7 @@ public class ReportController {
     public ReportController(){
         this.transactionsReports = new HashMap<>();
         this.defectivesReports = new HashMap<>();
-        reportsDAL = new ReportsDAL();
+        reportsDAL = ReportsDAL.getInstance();
         restore();  //get from DAL all the previous date
     }
 
@@ -81,11 +81,13 @@ public class ReportController {
 
     public List<String> getSubCateroies (Date date , String category){
         List<String> toRet = transactionsReports.get(date).getHierarchy().get(category);
+        if (toRet == null){return new LinkedList<>();}
         return toRet;
     }
 
    public List<PdataInventoryReport> dataOfReport (Date date , String category){
         List<ProductRepData> Categories = transactionsReports.get(date).getReportData().get(category);
+        if (Categories == null){return new LinkedList<>();}
         List<PdataInventoryReport> toRet = new LinkedList<>();
         for(ProductRepData p : Categories){
             PdataInventoryReport newP  = new PdataInventoryReport(p.getBarCode() , p.getProductName() , p.getAmount());

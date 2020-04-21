@@ -34,7 +34,18 @@ public class Presentation {
         List<String> initiateOptions = Arrays.asList("Inventory section", "Location section",
                 "Transaction section", "Defect section", "Report section", "exit");
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+
         switch (option) {
             case 1:
                 InventoryMenu();
@@ -63,7 +74,17 @@ public class Presentation {
                 "Alter product information", "Add category","Edit category", "Connect product to category", "Product information",
                 "print all categories name in store", "Back to main menu");
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         switch (option) {
             case 1:
                 addNewProductSale();
@@ -98,7 +119,17 @@ public class Presentation {
         System.out.println("\nLocation Section:\n");
         List<String> initiateOptions = Arrays.asList("Move product", "Show locations by barcode" , "Back to main menu");
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         switch (option) {
             case 1:
                 moveProduct();
@@ -115,7 +146,17 @@ public class Presentation {
         System.out.println("\nTransaction Section:\n");
         List<String> initiateOptions = Arrays.asList("Sell products", "Purchase products", "Back to main menu");
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         switch (option) {
             case 1:
                 sellProducts();
@@ -132,7 +173,17 @@ public class Presentation {
         System.out.println("\nDefect Section:\n");
         List<String> initiateOptions = Arrays.asList("Add defects", "Back to main menu");
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         switch (option) {
             case 1:
                 addDefect();
@@ -146,7 +197,17 @@ public class Presentation {
         System.out.println("\nReports section:\n");
         List<String> initiateOptions = Arrays.asList("Inventory report","Report By Categories" , "Defects report" ,  "Back to main menu");
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         switch (option) {
             case 1:
                 showInventoryReport();
@@ -176,7 +237,17 @@ public class Presentation {
                 "Set next supply date of product",
                 "Back to main menu");
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         switch (option) {
             case 1:
                 editMinumumAmountOfProduct();
@@ -199,7 +270,17 @@ public class Presentation {
                 "Back to main menu");
 
         printMenu(initiateOptions);
-        option = Integer.parseInt(in.nextLine());
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         switch (option) {
             case 1:
                 ShowGeneralInfo();
@@ -216,29 +297,42 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Sell products:\n");
         System.out.print("  Type how many items (different bar codes) in this sale: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
-        for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  Type expiration date of the " + i + " item (dd/MM/yyyy format): ");
-            Date expirationDate = null;
+        int numberOfItems = 0;
+        do {
             try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        for (int i = 1; i <= numberOfItems; i++) {
+            try {
+                System.out.print("  Type barcode number of the " + i + " item: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  Type expiration date of the " + i + " item (dd/MM/yyyy format): ");
+                Date expirationDate = null;
+
                 String expiDate = in.nextLine();
                 expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
-            } catch (Exception e) {
-                System.out.print("Illegal date input");
+
+                System.out.print("  Type amount of the " + i + " item: ");
+                int amount = Integer.parseInt(in.nextLine());
+
+                boolean alert = buisnessManager.sellProduct(today, barcode, amount, expirationDate);
+                if (alert) { //alert to costumer that the product reached it's minimum amount limit
+                    System.out.print("  Product " + barcode + " has reached under it's minimum amount!!!!!");
+                }
+            }
+            catch(Exception e){
                 error = true;
                 break;
             }
-            System.out.print("  Type amount of the " + i + " item: ");
-            int amount = Integer.parseInt(in.nextLine());
-            boolean alert = buisnessManager.sellProduct(today, barcode, amount, expirationDate);
-            if (alert){ //alert to costumer that the product reached it's minimum amount limit
-                System.out.print("  Product "+barcode+" has reached under it's minimum amount!!!!!");
-            }
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.print("Illegal input");
         } else {
             System.out.print("\nSale complete successfully.\n");
         }
@@ -251,38 +345,49 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Purchase products:\n");
         System.out.print("  Type how many items (different bar codes) in this purchase: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         System.out.print("  Type manufactor name: ");
         String manufactor = in.nextLine();
         for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  Type product name of the " + i + " item: ");
-            String productName = in.nextLine();
-            System.out.print("  Type price of the " + i + " item: ");
-            double price = Double.parseDouble(in.nextLine());
-            System.out.print("  Type discount of the " + i + " item (if doesn't exists type 0): ");
-            double discount = Double.parseDouble(in.nextLine());
-            System.out.print("  Type expiration date of the " + i + " item (dd/MM/yyyy format): ");
-            Date expirationDate = null;
             try {
+                System.out.print("  Type barcode number of the " + i + " item: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  Type product name of the " + i + " item: ");
+                String productName = in.nextLine();
+                System.out.print("  Type price of the " + i + " item: ");
+                double price = Double.parseDouble(in.nextLine());
+                System.out.print("  Type discount of the " + i + " item (if doesn't exists type 0): ");
+                double discount = Double.parseDouble(in.nextLine());
+                System.out.print("  Type expiration date of the " + i + " item (dd/MM/yyyy format): ");
+                Date expirationDate = null;
+
                 String expiDate = in.nextLine();
                 expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+
+                System.out.print("  Type amount of the " + i + " item: ");
+                int amount = Integer.parseInt(in.nextLine());
+                System.out.print("  Type the number of location to allocate the " + i + " item: ");
+                int location = Integer.parseInt(in.nextLine());
+                buisnessManager.buyProduct(barcode, productName, manufactor,
+                        price, discount, expirationDate,
+                        amount, today, location);
             } catch (Exception e) {
-                System.out.print("Illegal date input");
                 error = true;
                 break;
             }
-            System.out.print("  Type amount of the " + i + " item: ");
-            int amount = Integer.parseInt(in.nextLine());
-            System.out.print("  Type the number of location to allocate the " + i + " item: ");
-            int location = Integer.parseInt(in.nextLine());
-            buisnessManager.buyProduct(barcode, productName, manufactor,
-                    price, discount, expirationDate,
-                    amount, today, location);
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.print("Illegal input");
         } else {
             System.out.print("\nPurchase complete successfully.\n");
         }
@@ -293,20 +398,36 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Add products sale information:\n");
         System.out.print("  Type how many items (different bar codes) in this sale: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  Type product name of the " + i + " item: ");
-            String productName = in.nextLine();
-            System.out.print("  Type price of the " + i + " item: ");
-            double price = Double.parseDouble(in.nextLine());
-            System.out.print("  Type discount of the " + i + " item: ");
-            double discount = Double.parseDouble(in.nextLine());
-            buisnessManager.setSaleInfoOfNewProduct(barcode, productName, price, discount);
+            try {
+                System.out.print("  Type barcode number of the " + i + " item: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  Type product name of the " + i + " item: ");
+                String productName = in.nextLine();
+                System.out.print("  Type price of the " + i + " item: ");
+                double price = Double.parseDouble(in.nextLine());
+                System.out.print("  Type discount of the " + i + " item: ");
+                double discount = Double.parseDouble(in.nextLine());
+                buisnessManager.setSaleInfoOfNewProduct(barcode, productName, price, discount);
+            }
+            catch (Exception e){
+                error = true;
+                break;
+            }
         }
         if (error) {
-            /* TODO: if need to do something if date is not in the format */
+            System.out.println("Illegal input.");
         } else {
             System.out.print("\nAdd new product sale complete successfully.\n");
         }
@@ -317,27 +438,54 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Edit existing products sale information:\n");
         printMenu(Arrays.asList("Edit price", "Edit discount", "back to menu"));
-        int chosenOption = Integer.parseInt(in.nextLine());
+        int chosenOption = 0;
+        do {
+            try {
+                chosenOption = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         if (chosenOption != 1 && chosenOption != 2) {
             return;
         }
         System.out.print("  Type how many items (different bar codes) you want to edit: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
-        for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            if (chosenOption == 1) {
-                System.out.print("  Type the new price of the " + i + " item: ");
-                double newPrice = Double.parseDouble(in.nextLine());
-                buisnessManager.setPriceOfExistingProduct(barcode, newPrice);
-            } else {
-                System.out.print("  Type the new discount of the " + i + " item: ");
-                double newDiscount = Double.parseDouble(in.nextLine());
-                buisnessManager.setDiscountOfExistingProduct(barcode, newDiscount);
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
             }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        for (int i = 1; i <= numberOfItems; i++) {
+            try {
+                System.out.print("  Type barcode number of the " + i + " item: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                if (chosenOption == 1) {
+                    System.out.print("  Type the new price of the " + i + " item: ");
+                    double newPrice = Double.parseDouble(in.nextLine());
+                    buisnessManager.setPriceOfExistingProduct(barcode, newPrice);
+                } else {
+                    System.out.print("  Type the new discount of the " + i + " item: ");
+                    double newDiscount = Double.parseDouble(in.nextLine());
+                    buisnessManager.setDiscountOfExistingProduct(barcode, newDiscount);
+                }
+            }
+            catch (Exception e){
+                error = true;
+                break;
+            }
+
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.println("Illegal input.");
         } else {
             System.out.print("\nEdit sale details complete successfully.\n");
         }
@@ -348,16 +496,33 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Edit minimum amount of product:\n");
         System.out.print("  Type how many items (different bar codes) you want to edit their minimum amount: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  Type the minimum amount of the " + i + " item: ");
-            int minimumAmount = Integer.parseInt(in.nextLine());
-            buisnessManager.setMinimumAmount(barcode, minimumAmount);
+            try {
+                System.out.print("  Type barcode number of the " + i + " item: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  Type the minimum amount of the " + i + " item: ");
+                int minimumAmount = Integer.parseInt(in.nextLine());
+                buisnessManager.setMinimumAmount(barcode, minimumAmount);
+            }
+            catch (Exception e){
+                error = true;
+                break;
+            }
+
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.println("Illegal input.");
         } else {
             System.out.print("\nEdit minimum amount of product complete successfully.\n");
         }
@@ -368,16 +533,32 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Edit manufactor of product:\n");
         System.out.print("  Type how many items (different bar codes) you want to edit their minimum amount: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  Type new manufactor's name of the " + i + " item: ");
-            String newName = in.nextLine();
-            buisnessManager.setManufactorforProduct(barcode, newName);
+            try {
+                System.out.print("  Type barcode number of the " + i + " item: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  Type new manufactor's name of the " + i + " item: ");
+                String newName = in.nextLine();
+                buisnessManager.setManufactorforProduct(barcode, newName);
+            }
+            catch (Exception e){
+                error = true;
+                break;
+            }
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.println("Illegal input.");
         } else {
             System.out.print("\nEdit Manufactor of product complete successfully.\n");
         }
@@ -388,24 +569,35 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Edit next Supply of product:\n");
         System.out.print("  Type how many items (different bar codes) you want to edit their minimum amount: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
-        for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  Type next supply date of the " + i + " item: ");
-            Date nextSupply = null;
+        int numberOfItems = 0;
+        do {
             try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        for (int i = 1; i <= numberOfItems; i++) {
+            try {
+                System.out.print("  Type barcode number of the " + i + " item: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  Type next supply date of the " + i + " item: ");
+                Date nextSupply = null;
+
                 String expiDate = in.nextLine();
                 nextSupply = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+
+                buisnessManager.setNextSupply(barcode, nextSupply);
             } catch (Exception e) {
-                System.out.print("Illegal date input");
                 error = true;
                 break;
             }
-            buisnessManager.setNextSupply(barcode, nextSupply);
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.print("Illegal input");
         } else {
             System.out.print("\nEdit Manufactor of product complete successfully.\n");
         }
@@ -413,12 +605,28 @@ public class Presentation {
 
     private void ShowGeneralInfo() {
         System.out.print("  Type how many items (different bar codes) you want to watch general information: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        boolean error = false;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         List<Integer> productsToShow = new LinkedList<>();
         for (int i = 1; i <= numberOfItems; i++) {
             System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            productsToShow.add(new Integer(barcode));
+            try {
+                int barcode = Integer.parseInt(in.nextLine());
+                productsToShow.add(new Integer(barcode));
+            }
+            catch (Exception e){
+                break;
+            }
         }
         for(Integer barcode : productsToShow){
             System.out.print(
@@ -434,12 +642,28 @@ public class Presentation {
 
     private void ShowSaleInfo() {
         System.out.print("  Type how many items (different bar codes) you want to watch sale information: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        boolean error = false;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         List<Integer> productsToShow = new LinkedList<>();
         for (int i = 1; i <= numberOfItems; i++) {
             System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            productsToShow.add(new Integer(barcode));
+            try{
+                int barcode = Integer.parseInt(in.nextLine());
+                productsToShow.add(new Integer(barcode));
+            }
+            catch (Exception e){
+                break;
+            }
         }
         for(Integer barcode : productsToShow){
          System.out.print(
@@ -452,12 +676,29 @@ public class Presentation {
 
     private void ShowProductLocation(){
         System.out.print("  Type how many items (different bar codes) you want to watch location information: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        boolean error = false;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         List<Integer> locationsToShow = new LinkedList<>();
         for (int i = 1; i <= numberOfItems; i++) {
             System.out.print("  Type barcode number of the " + i + " item: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            locationsToShow.add(new Integer(barcode));
+            try {
+                int barcode = Integer.parseInt(in.nextLine());
+                locationsToShow.add(new Integer(barcode));
+            }
+            catch (Exception e){
+                break;
+            }
+
         }
         System.out.print("\n\n");
 
@@ -493,58 +734,49 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Add defects:\n");
         System.out.print("  Type how many items (different bar codes) you want to declare as defects: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
-        for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  barcode of defect item " + i + ": ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  amount of defect item " + i + ": ");
-            int amount = Integer.parseInt(in.nextLine());
-            System.out.print("  reason of defect item " + i + ": ");
-            String reason = in.nextLine();
-            System.out.print("  creator of defect item " + i + ": ");
-            String creator = in.nextLine();
-            System.out.print("  location (number) of defect item " + i + ": ");
-            int location = Integer.parseInt(in.nextLine());
-            System.out.print("  expiration date of defect item " + i + ": ");
-            Date expirationDate = null;
+        int numberOfItems = 0;
+        do {
             try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        for (int i = 1; i <= numberOfItems; i++) {
+            try {
+                System.out.print("  barcode of defect item " + i + ": ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  amount of defect item " + i + ": ");
+                int amount = Integer.parseInt(in.nextLine());
+                System.out.print("  reason of defect item " + i + ": ");
+                String reason = in.nextLine();
+                System.out.print("  creator of defect item " + i + ": ");
+                String creator = in.nextLine();
+                System.out.print("  location (number) of defect item " + i + ": ");
+                int location = Integer.parseInt(in.nextLine());
+                System.out.print("  expiration date of defect item " + i + ": ");
+                Date expirationDate = null;
+
                 String expiDate = in.nextLine();
                 expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+
+                System.out.print("\n");
+                buisnessManager.addDefect(today, barcode, amount, reason, creator, location, expirationDate);
             } catch (Exception e) {
-                System.out.print("Illegal date input");
                 error = true;
                 break;
             }
-            System.out.print("\n");
-            buisnessManager.addDefect(today, barcode, amount, reason, creator, location, expirationDate);
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.print("Illegal input");
         } else {
             System.out.print("\nSet defects complete successfully.\n");
         }
     }
 
-    /*private void getDefectsReport() {
-        boolean error = false;
-        System.out.print("  Defect report:\n");
-        System.out.print("  Type date to from which you wish to find defects (dd/MM/yyyy format): ");
-        Date fromDate = null;
-        try {
-            String fromDateS = in.nextLine();
-            fromDate = new SimpleDateFormat("dd/MM/yyyy").parse(fromDateS);
-        } catch (Exception e) {
-            System.out.print("Illegal date input");
-            error = true;
-        }
-        DefectReport defectReport = buisnessManager.getDefectReport(today, fromDate); //THE END ISN'T RELEVANT
-        showDefects(defectReport);
-        if (error) {
-            //TODO: if need to do something if date is not in the format
-        } else {
-            System.out.print("\nDefect report complete successfully.\n");
-        }
-    }*/
 
     private void getDefectsReports() {
         boolean error = false;
@@ -554,40 +786,19 @@ public class Presentation {
         try {
             String fromDateS = in.nextLine();
             fromDate = new SimpleDateFormat("dd/MM/yyyy").parse(fromDateS);
+            List<Pdefect> defectsToShow = buisnessManager.creatDefectReport(today, fromDate); //THE END ISN'T RELEVANT
+            showPdefects(defectsToShow , fromDate);
         } catch (Exception e) {
-            System.out.print("Illegal date input");
             error = true;
         }
-        List<Pdefect> defectsToShow = buisnessManager.creatDefectReport(today, fromDate); //THE END ISN'T RELEVANT
-        showPdefects(defectsToShow , fromDate);
+
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.print("Illegal date input");
         } else {
             System.out.print("\nDefect report complete successfully.\n");
         }
     }
 
-   /* private void showDefects(DefectReport defectReport) {
-        System.out.print("\nThe defect report from date " + defectReport.getDateStart().toString() + " is:\n");
-        System.out.print("sorted by dates:\n\n");
-        List<Defect> defects = defectReport.getDefects();
-        defects.sort(Comparator.comparing(Defect::getDate));
-        if (defects.size() == 0) {
-            System.out.print("No defects to show.\n");
-            return;
-        }
-        for (Defect defect : defects) {
-            System.out.println(
-                    " date accrued: " + defect.getDate().toString() +"\n" +
-                    " barcode: " + defect.getBarCode() + "\n" +
-                    " amount: " + defect.getAmount() + "\n" +
-                    " reason: " + defect.getReason() + "\n" +
-                    " creator: " + defect.getCreator() + "\n" +
-                    " location: " + defect.getLocation() + "\n" +
-                    " expiration date: " + defect.getExpiration().toString() + "\n\n");
-        }
-
-    }*/
 
     private void showPdefects(List<Pdefect> defectsToShow , Date start) {
         System.out.print("\nThe defect report from date " + start.toString() + " is:\n");
@@ -618,12 +829,35 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Add categories:\n");
         printMenu(Arrays.asList("add main category", "Add sub category", "back to main menu"));
-        int chosenOption = Integer.parseInt(in.nextLine());
+        int chosenOption = 0;
+        do {
+            try {
+                chosenOption = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         if (chosenOption != 1 && chosenOption != 2) {
             return;
         }
         System.out.print("  Type how many categories you want to add: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        if (chosenOption != 1 && chosenOption != 2) {
+            return;
+        }
         for (int i = 1; i <= numberOfItems; i++) {
             System.out.print("  " + i + ". Category name: ");
             String categoryName = in.nextLine();
@@ -636,11 +870,7 @@ public class Presentation {
             }
             System.out.print("\n");
         }
-        if (error) {
-            //TODO: if need to do something if date is not in the format
-        } else {
-            System.out.print("\nAdd categories complete successfully.\n");
-        }
+        System.out.print("\nAdd categories complete successfully.\n");
     }
 
     private void editCategory(){
@@ -651,12 +881,32 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Edit categories:\n");
         printMenu(Arrays.asList("Edit existing category name", "delete category", "back to main menu"));
-        int chosenOption = Integer.parseInt(in.nextLine());
+        int chosenOption = 0;
+        do {
+            try {
+                chosenOption = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         if (chosenOption != 1 && chosenOption != 2) {
             return;
         }
         System.out.print("  Type how many categories you want to edit: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         for (int i = 1; i <= numberOfItems; i++) {
             System.out.print("  " + i + ". Category name: ");
             String categoryName = in.nextLine();
@@ -669,23 +919,8 @@ public class Presentation {
             }
             System.out.print("\n");
         }
-        if (error) {
-            //TODO: if need to do something if date is not in the format
-        } else {
-            System.out.print("\nEdit categories complete successfully.\n");
-        }
+        System.out.print("\nEdit categories complete successfully.\n");
     }
-
-   /* private void printAllExistingProducts() {
-        System.out.print("\nListing all products in store:\n");
-        List<String> names = buisnessManager.getListOfProductsNames();
-        if (names != null) {
-            printMenu(names);
-        } else {
-            System.out.print("no products to show.\n");
-        }
-        System.out.print("\nprinting all product's names complete successfully.\n");
-    }*/
 
     private void printAllExistingCategories() {
         {
@@ -705,20 +940,27 @@ public class Presentation {
         boolean error = false;
         System.out.print("  Move products:\n");
         System.out.print("  Type how many items (different bar codes) you want to move place: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         for (int i = 1; i <= numberOfItems; i++) {
+            try {
             System.out.print("  " + i + ". barcode of item: ");
             int barcode = Integer.parseInt(in.nextLine());
             System.out.print("  " + i + ". expiration date of item: ");
             Date expirationDate = null;
-            try {
+
                 String expiDate = in.nextLine();
                 expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
-            } catch (Exception e) {
-                System.out.print("Illegal date input");
-                error = true;
-                break;
-            }
+
             System.out.print("  " + i + ". amount of items to move: ");
             int amount = Integer.parseInt(in.nextLine());
             System.out.print("  " + i + ". from location (number): ");
@@ -727,67 +969,54 @@ public class Presentation {
             int toLocation = Integer.parseInt(in.nextLine());
             System.out.print("\n");
             buisnessManager.moveProduct(barcode, expirationDate, amount, fromLocation, toLocation);
+            } catch (Exception e) {
+                error = true;
+                break;
+            }
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.print("Illegal input.");
         } else {
             System.out.print("\nMove products complete successfully.\n");
         }
 
     }
 
-   /* private void getTimeReport() {
-        boolean error = false;
-        System.out.print("  Time report:\n\n");
-        ProductReport timeReport = buisnessManager.getTimeReport(today);
-        showTimeReport(timeReport);
-        if (error) {
-            //TODO: if need to do something if date is not in the format
-        } else {
-            System.out.print("\nTime report complete successfully.\n");
-        }
-    }*/
-
     private void connectProductToCategory() {
         boolean error = false;
         System.out.print("  Connect product to category:\n");
         System.out.print("  Type how many items (different bar codes) you want to connect to categories: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         for (int i = 1; i <= numberOfItems; i++) {
-            System.out.print("  " + i + ". barcode of product: ");
-            int barcode = Integer.parseInt(in.nextLine());
-            System.out.print("  " + i + ". category name to connect product:");
-            String categoryName = in.nextLine();
-            System.out.print("\n");
-            buisnessManager.connectProductToCategory(categoryName, barcode);
+            try {
+                System.out.print("  " + i + ". barcode of product: ");
+                int barcode = Integer.parseInt(in.nextLine());
+                System.out.print("  " + i + ". category name to connect product:");
+                String categoryName = in.nextLine();
+                System.out.print("\n");
+                buisnessManager.connectProductToCategory(categoryName, barcode);
+            }
+            catch (Exception e){
+                error = true;
+                break;
+            }
         }
         if (error) {
-            //TODO: if need to do something if date is not in the format
+            System.out.println("Illegal input.");
         } else {
             System.out.print("\nConnect product to category successfully.\n");
         }
     }
-
-    //Time report functions -> recursively to show the hierarchy
-   /* private void showTimeReport(ProductReport timeReport) {
-        List<String> mainCategories = getMainCategories(timeReport);
-        for (String categoryName : mainCategories) {
-            showRecursiveFromMainCategoryDown(categoryName, timeReport, "");
-            System.out.println();
-        }
-    }*/
-
-   /* private List<String> getMainCategories(ProductReport timeReport) {
-        List<String> filterMainCategories = buisnessManager.getListOfCategoriesNames();
-        for (List<String> listOfCategories : timeReport.getHierarchy().values()) {
-            for (String name : listOfCategories) {
-                if (filterMainCategories.contains(name)) {
-                    filterMainCategories.remove(name);      //remove from list all sub categories
-                }
-            }
-        }
-        return filterMainCategories;
-    }*/
 
     private List<String> getMainCategoriesByDate(Date date) {
         List<String> filterMainCategories = buisnessManager.getListOfCategoriesNames();
@@ -801,16 +1030,6 @@ public class Presentation {
         return filterMainCategories;
     }
 
-   /* private void showRecursiveFromMainCategoryDown(String FromHereAndDown, ProductReport productReport, String offset) {
-        System.out.print(offset + "- Products under category " + FromHereAndDown + ":\n");
-        List<ProductRepData> myCategoryProducts = productReport.getReportData().get(FromHereAndDown);
-        for (ProductRepData productRepData : myCategoryProducts) {
-            System.out.print(offset + "- Barcode: " + productRepData.getBarCode() + ", Product name: " + productRepData.getProductName() + ", Buisness.Invenrory.Product amount: " + productRepData.getAmount() + "\n");
-        }
-        for (String subCategories : productReport.getHierarchy().get(FromHereAndDown)) {
-            showRecursiveFromMainCategoryDown(subCategories, productReport, offset + "        ");
-        }
-    }*/
 
     public void showInventoryReport(){
         buisnessManager.creatInventoryReport(today);
@@ -828,7 +1047,18 @@ public class Presentation {
         System.out.println("Updated inventory report: \n");
         List<String> mainCategories = new ArrayList<>();
         System.out.print("  Type how many categories (different ctegories) you want to watch: ");
-        int numberOfItems = Integer.parseInt(in.nextLine());
+        int numberOfItems = 0;
+        boolean error = false;
+        do {
+            try {
+                numberOfItems = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
         for (int i = 1; i <= numberOfItems; i++) {
 
             System.out.print("  " + i + ". category name:");

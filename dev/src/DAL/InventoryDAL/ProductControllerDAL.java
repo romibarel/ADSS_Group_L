@@ -11,10 +11,19 @@ import java.util.Map;
 public class ProductControllerDAL {
     private List<CategoryDAL> categoryDALS;
     private Map<Integer , DataSaleProductDAL> saleData; //<barCode, DataSaleProduct>
+    private static ProductControllerDAL instance;
 
-    public ProductControllerDAL(){
+    private ProductControllerDAL(){
         this.categoryDALS = new ArrayList<>();
         this.saleData = new HashMap<>();
+    }
+
+    public static ProductControllerDAL getInstance(){
+
+        if (instance == null)
+            instance = new ProductControllerDAL();
+
+        return instance;
     }
 
     public List<CategoryDAL> getCategoryDALS() {

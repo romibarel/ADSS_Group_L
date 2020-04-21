@@ -122,5 +122,9 @@ public class Category {
         return names;
     }
 
-
+    public void clean (String categoryName){
+        this.name = categoryName;
+        this.subCategories = new ArrayList<>();
+        this.productList = new ArrayList<>();
+    }
 }

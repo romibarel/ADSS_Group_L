@@ -9,14 +9,16 @@ import java.util.Date;
 
 public class CategoryTest {
 
+    public static String CATEGORY_NAME = "Test category";
     private Category c;
     @Before
     public void setUp() {
-        c = new Category("Test category");
+        c = new Category(CATEGORY_NAME);
     }
 
     @org.junit.Test
     public void appendSubCategory() {
+        c.clean(CATEGORY_NAME);
         Assert.assertEquals(c.getSubCategories().size(), 0);
         c.appendSubCategory(new Category("Test sub category"));
         Assert.assertEquals(c.getSubCategories().size(), 1);
@@ -27,6 +29,7 @@ public class CategoryTest {
 
     @org.junit.Test
     public void appendProduct() {
+        c.clean(CATEGORY_NAME);
         Assert.assertEquals(c.getProductList().size(), 0);
         c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
         Assert.assertEquals(c.getProductList().size(), 1);
@@ -36,6 +39,7 @@ public class CategoryTest {
 
     @org.junit.Test
     public void hasProduct() {
+        c.clean(CATEGORY_NAME);
         Assert.assertFalse(c.hasProduct(0));
         Assert.assertEquals(c.getProductList().size(), 0);
         c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
@@ -45,6 +49,7 @@ public class CategoryTest {
 
     @org.junit.Test
     public void removeProduct() {
+        c.clean(CATEGORY_NAME);
         Assert.assertFalse(c.hasProduct(0));
         Assert.assertEquals(c.getProductList().size(), 0);
         c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
@@ -56,6 +61,7 @@ public class CategoryTest {
 
     @org.junit.Test
     public void getProductNames() {
+        c.clean(CATEGORY_NAME);
         c.appendProduct(new Product(0, "Test product0", "Test supplier", 1000, 100, new Date()));
         c.appendProduct(new Product(1, "Test product1", "Test supplier", 1000, 100, new Date()));
         Assert.assertTrue(c.getProductNames().contains("Test product0"));

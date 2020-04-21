@@ -6,30 +6,35 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
+
 public class main {
 
-    private Scanner in;
-    String pattern;
-    SimpleDateFormat simpleDateFormat;
+    public static final String PATTERN = "dd/MM/yyyy";
 
     public static void main (String[] args){
+        initialize();
+        Presentation p = new Presentation();
+        p.startProgramMenu();
+    }
+
+    private static void initialize(){
         Date expiration1 = null;
         Date supply1 = null;
         Date defect1 = null;
         Date sell1 = null;
         try {
-            expiration1 = new SimpleDateFormat("dd/MM/yyyy").parse("17/01/2020");
-            supply1 = new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2020");
-            defect1 = new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2020");
-            sell1 = new SimpleDateFormat("dd/MM/yyyy").parse("15/01/2020");
+            expiration1 = new SimpleDateFormat(PATTERN).parse("17/01/2020");
+            supply1 = new SimpleDateFormat(PATTERN).parse("10/01/2020");
+            defect1 = new SimpleDateFormat(PATTERN).parse("13/01/2020");
+            sell1 = new SimpleDateFormat(PATTERN).parse("15/01/2020");
 
         }
-        catch (Exception e){}
+        catch (Exception ignored){}
 
         Singletone_Storage_Management manager = Singletone_Storage_Management.getInstance();
         /*
-        set 2 main categories: 'main category1' 'main category2'
-        set sub category to 'main category1': 'sub Category1'
+        set 3 main categories: 'Dairy' 'Canning' 'Personal care'
+        set sub categories 'Milk' under 'Dairy',  'Large' under 'Milk' and 'Shower' under 'Personal care'
         */
         manager.setMainCategory("Dairy");
         manager.setMainCategory("Canning");
@@ -47,8 +52,8 @@ public class main {
         */
 
         manager.buyProduct(1, "Milk","tnuva",
-        10,0,expiration1,
-        200, supply1, LocationController.SHELF);
+                10,0,expiration1,
+                200, supply1, LocationController.SHELF);
         manager.moveProduct(1, expiration1, 50, 2, 3);
         manager.connectProductToCategory("Large",1 );
         manager.setSaleInfoOfNewProduct(1, "Milk", 6.5, 0);
@@ -115,8 +120,8 @@ public class main {
         manager.setSaleInfoOfNewProduct(5, "Shocko", 14, 0);
 
         /*
-        * Set defects: a lot of products dropped from track because the driver was drunk :\
-        * */
+         * Set defects: a lot of products dropped from track because the driver was drunk :\
+         * */
 
         manager.addDefect(supply1, 5, 200, "dropped from track", "Avi Ferdman", 1, expiration1);
         manager.addDefect(supply1, 4, 50, "dropped from track", "Avi Ferdman", 1, expiration1);
@@ -139,7 +144,5 @@ public class main {
         manager.sellProduct(sell1, 5, 2, expiration1);
 
 
-        Presentation p = new Presentation();
-        p.startProgramMenu();
     }
 }

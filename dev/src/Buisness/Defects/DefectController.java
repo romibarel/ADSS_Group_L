@@ -13,7 +13,7 @@ public class DefectController {
 
     public DefectController() {
         this.defects = new ArrayList<>();
-        this.defectControllerDAL= new DefectControllerDAL();
+        this.defectControllerDAL= DefectControllerDAL.getInstance();
         restore();
     }
 

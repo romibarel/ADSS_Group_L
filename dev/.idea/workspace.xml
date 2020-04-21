@@ -3,41 +3,32 @@
   <component name="ChangeListManager">
     <list default="true" id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/API_Buisness.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/API_Buisness.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Defects/DefectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Defects/DefectController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Invenrory/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Invenrory/Category.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Invenrory/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Invenrory/ProductController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Locations/LocationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Locations/LocationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/DefectReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/DefectReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/ProductReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/ProductReport.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/ReportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/ReportController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Singletone_Storage_Management.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Singletone_Storage_Management.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Transactions/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Transactions/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Transactions/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Transactions/TransactionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/InventoryDAL/CategoryDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/InventoryDAL/CategoryDAL.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/DefectsDAL/DefectControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/DefectsDAL/DefectControllerDAL.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/InventoryDAL/ProductControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/InventoryDAL/ProductControllerDAL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/LocationControllerDAL.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/LocationsDAL/LocationControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/LocationsDAL/LocationControllerDAL.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/ReportsDAL/ReportsDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/ReportsDAL/ReportsDAL.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/Presentation/Presentation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Presentation/Presentation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Tests/CategoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Tests/CategoryTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/Tests/LocationControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Tests/LocationControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev/Tests/PurchaseTransactionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Tests/PurchaseTransactionTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dev/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Buisness/Defects/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Defects/DefectController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Buisness/Invenrory/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/Category.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Buisness/Locations/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Locations/LocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Reports/DefectReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Reports/DefectReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Reports/ProductReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Reports/ProductReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Transactions/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Transactions/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Transactions/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/InventoryDAL/CategoryDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/InventoryDAL/CategoryDAL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buisness/Reports/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Reports/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/LocationControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAL/ReportsDAL/ReportsDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/ReportsDAL/ReportsDAL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Presentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tests/CategoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/CategoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tests/LocationControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/LocationControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tests/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/ProductControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests/PurchaseTransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/PurchaseTransactionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,120 +40,24 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java">
+        <entry file="file://$PROJECT_DIR$/src/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/DefectReportDAL.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/ProductRepDataDAL.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-126">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/ProductReportDAL.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/ReportsDAL.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Tests/CategoryTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#appendSubCategory#0;class#CategoryTest#0" />
-                <element signature="method#appendProduct#0;class#CategoryTest#0" />
-              </folding>
+            <state relative-caret-position="-2254">
+              <caret line="36" column="104" selection-start-line="36" selection-start-column="104" selection-end-line="36" selection-end-column="104" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Presentation/Presentation.java">
+        <entry file="file://$PROJECT_DIR$/src/Buisness/Locations/LocationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-12512">
-              <caret line="69" column="22" lean-forward="true" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+            <state relative-caret-position="3510">
+              <caret line="134" column="24" selection-start-line="134" selection-start-column="24" selection-end-line="134" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Tests/LocationControllerTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-              <folding>
-                <element signature="method#moveProduct#0;class#LocationControllerTest#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Tests/ProductControllerTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-258">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
-              <folding>
-                <element signature="method#tearDown#0;class#ProductControllerTest#0" />
-                <element signature="method#connectProductToCategory#0;class#ProductControllerTest#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Tests/PurchaseTransactionTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
-              <folding>
-                <element signature="method#setUp#0;class#PurchaseTransactionTest#0" />
+                <element signature="e#2157#2158#0" expanded="true" />
+                <element signature="e#2196#2197#0" expanded="true" />
+                <element signature="method#clean#0;class#LocationController#0" />
               </folding>
             </state>
           </provider>
@@ -197,7 +92,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/PurchaseTransaction.java" />
         <option value="$PROJECT_DIR$/src/SaleTransaction.java" />
         <option value="$PROJECT_DIR$/src/SaleTransactionTest.java" />
         <option value="$PROJECT_DIR$/src/CategoryTest.java" />
@@ -212,7 +106,6 @@
         <option value="$PROJECT_DIR$/src/Buisness/Singletone_Storage_Management.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Transactions/SaleTransaction.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Transactions/PurchaseTransaction.java" />
-        <option value="$PROJECT_DIR$/src/Presentation/Presentation.java" />
         <option value="$PROJECT_DIR$/src/Presentation/PdataInventoryReport.java" />
         <option value="$PROJECT_DIR$/src/DAL/ReportsDAL.java" />
         <option value="$PROJECT_DIR$/src/DAL/DefectDAL.java" />
@@ -220,41 +113,44 @@
         <option value="$PROJECT_DIR$/src/DAL/ProductRepDataDAL.java" />
         <option value="$PROJECT_DIR$/src/DAL/ProductReportDAL.java" />
         <option value="$PROJECT_DIR$/src/DAL/ReportsDAL/DefectReportDAL.java" />
-        <option value="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectDAL.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Defects/Defect.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Reports/ProductRepData.java" />
-        <option value="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java" />
-        <option value="$PROJECT_DIR$/src/Buisness/Reports/ReportController.java" />
         <option value="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductDAL.java" />
         <option value="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductSaleDAL.java" />
         <option value="$PROJECT_DIR$/src/DAL/InventoryDAL/DataSaleProductDAL.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Invenrory/Product.java" />
         <option value="$PROJECT_DIR$/src/DAL/InventoryDAL/InventoryDAL.java" />
         <option value="$PROJECT_DIR$/src/DAL/LocationControllerDAL.java" />
-        <option value="$PROJECT_DIR$/src/main.java" />
-        <option value="$PROJECT_DIR$/src/Buisness/Defects/DefectController.java" />
-        <option value="$PROJECT_DIR$/src/Buisness/Invenrory/Category.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Invenrory/DataSaleProduct.java" />
-        <option value="$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java" />
-        <option value="$PROJECT_DIR$/src/Buisness/Locations/LocationController.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Reports/DefectReport.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Reports/ProductReport.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Transactions/Transaction.java" />
         <option value="$PROJECT_DIR$/src/Buisness/Transactions/TransactionController.java" />
         <option value="$PROJECT_DIR$/src/DAL/InventoryDAL/CategoryDAL.java" />
-        <option value="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java" />
+        <option value="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectDAL.java" />
         <option value="$PROJECT_DIR$/src/DAL/ReportsDAL/ReportsDAL.java" />
-        <option value="$PROJECT_DIR$/src/Tests/CategoryTest.java" />
-        <option value="$PROJECT_DIR$/src/Tests/LocationControllerTest.java" />
-        <option value="$PROJECT_DIR$/src/Tests/ProductControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java" />
+        <option value="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java" />
+        <option value="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java" />
+        <option value="$PROJECT_DIR$/src/Buisness/Defects/DefectController.java" />
+        <option value="$PROJECT_DIR$/src/Buisness/Reports/ReportController.java" />
+        <option value="$PROJECT_DIR$/src/Presentation/Presentation.java" />
         <option value="$PROJECT_DIR$/src/Tests/PurchaseTransactionTest.java" />
+        <option value="$PROJECT_DIR$/src/Buisness/Locations/LocationController.java" />
+        <option value="$PROJECT_DIR$/src/Tests/LocationControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java" />
+        <option value="$PROJECT_DIR$/src/Tests/ProductControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/Buisness/Invenrory/Category.java" />
+        <option value="$PROJECT_DIR$/src/Tests/CategoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="976" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -262,7 +158,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -286,20 +181,6 @@
               <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Buisness" type="462c0819:PsiDirectoryNode" />
-              <item name="Defects" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Buisness" type="462c0819:PsiDirectoryNode" />
-              <item name="Invenrory" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Buisness" type="462c0819:PsiDirectoryNode" />
               <item name="Locations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -313,21 +194,7 @@
               <item name="dev" type="b2602c69:ProjectViewProjectNode" />
               <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Buisness" type="462c0819:PsiDirectoryNode" />
-              <item name="Transactions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="DAL" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="DAL" type="462c0819:PsiDirectoryNode" />
-              <item name="DefectsDAL" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dev" type="b2602c69:ProjectViewProjectNode" />
@@ -341,24 +208,20 @@
               <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="DAL" type="462c0819:PsiDirectoryNode" />
+              <item name="LocationsDAL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DAL" type="462c0819:PsiDirectoryNode" />
               <item name="ReportsDAL" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Presentation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -367,7 +230,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587406381793" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587512547745" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -398,7 +261,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.PurchaseTransactionTest">
+  <component name="RunManager" selected="Application.Unnamed">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main" />
       <module name="dev" />
@@ -436,6 +299,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LocationControllerTest.addProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Tests" />
+      <option name="MAIN_CLASS_NAME" value="Tests.LocationControllerTest" />
+      <option name="METHOD_NAME" value="addProduct" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="dev" />
       <extension name="coverage">
@@ -447,16 +326,6 @@
       <option name="PACKAGE_NAME" value="Tests" />
       <option name="MAIN_CLASS_NAME" value="Tests.ProductControllerTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerTest.connectProductToCategory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="dev" />
-      <option name="PACKAGE_NAME" value="Tests" />
-      <option name="MAIN_CLASS_NAME" value="Tests.ProductControllerTest" />
-      <option name="METHOD_NAME" value="connectProductToCategory" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -478,19 +347,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
-      <item itemvalue="JUnit.ProductControllerTest.connectProductToCategory" />
       <item itemvalue="JUnit.ProductControllerTest" />
       <item itemvalue="JUnit.CategoryTest" />
       <item itemvalue="JUnit.LocationControllerTest" />
       <item itemvalue="JUnit.PurchaseTransactionTest" />
+      <item itemvalue="JUnit.LocationControllerTest.addProduct" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PurchaseTransactionTest" />
-        <item itemvalue="JUnit.ProductControllerTest" />
-        <item itemvalue="JUnit.LocationControllerTest" />
         <item itemvalue="JUnit.CategoryTest" />
-        <item itemvalue="JUnit.ProductControllerTest.connectProductToCategory" />
+        <item itemvalue="JUnit.LocationControllerTest" />
+        <item itemvalue="JUnit.ProductControllerTest" />
+        <item itemvalue="JUnit.PurchaseTransactionTest" />
+        <item itemvalue="JUnit.LocationControllerTest.addProduct" />
       </list>
     </recent_temporary>
   </component>
@@ -508,41 +377,42 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ProductControllerTest_sellNoNeedToAlert - 2020.04.20 at 21h 10m 48s.xml">
-      <configuration name="ProductControllerTest.sellNoNeedToAlert" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ProductControllerTest_connectProductToCategory - 2020.04.20 at 21h 10m 53s.xml">
-      <configuration name="ProductControllerTest.connectProductToCategory" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CategoryTest_appendSubCategory - 2020.04.20 at 21h 10m 57s.xml">
-      <configuration name="CategoryTest.appendSubCategory" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ProductControllerTest_deleteCategory - 2020.04.20 at 21h 11m 01s.xml">
-      <configuration name="ProductControllerTest.deleteCategory" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ProductControllerTest_connectProductToCategory - 2020.04.20 at 21h 11m 53s.xml">
-      <configuration name="ProductControllerTest.connectProductToCategory" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ProductControllerTest - 2020.04.20 at 21h 12m 05s.xml">
-      <configuration name="ProductControllerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CategoryTest - 2020.04.20 at 21h 12m 11s.xml">
-      <configuration name="CategoryTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="LocationControllerTest - 2020.04.20 at 21h 12m 16s.xml">
+    <history-entry file="LocationControllerTest - 2020.04.22 at 00h 07m 12s.xml">
       <configuration name="LocationControllerTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProductControllerTest - 2020.04.20 at 21h 12m 21s.xml">
+    <history-entry file="ProductControllerTest - 2020.04.22 at 00h 07m 55s.xml">
       <configuration name="ProductControllerTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PurchaseTransactionTest - 2020.04.20 at 21h 12m 25s.xml">
+    <history-entry file="ProductControllerTest - 2020.04.22 at 00h 09m 45s.xml">
+      <configuration name="ProductControllerTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CategoryTest - 2020.04.22 at 00h 11m 10s.xml">
+      <configuration name="CategoryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CategoryTest - 2020.04.22 at 00h 12m 56s.xml">
+      <configuration name="CategoryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PurchaseTransactionTest - 2020.04.22 at 00h 13m 43s.xml">
       <configuration name="PurchaseTransactionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductControllerTest - 2020.04.22 at 00h 13m 47s.xml">
+      <configuration name="ProductControllerTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocationControllerTest - 2020.04.22 at 00h 13m 51s.xml">
+      <configuration name="LocationControllerTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CategoryTest - 2020.04.22 at 00h 13m 55s.xml">
+      <configuration name="CategoryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CategoryTest - 2020.04.22 at 00h 54m 52s.xml">
+      <configuration name="CategoryTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="976" height="1056" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14393125" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34035477" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -551,15 +421,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32214764" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.25167784" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.23489933" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.39597315" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41498882" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.34451902" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.27181208" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -570,28 +440,7 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java</url>
-          <line>55</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.groovy" />
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/Assert.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="333" selection-start-line="333" selection-end-line="333" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SaleTransactionTest.java" />
     <entry file="file://$PROJECT_DIR$/src/Singletone_Storage_ManagementTest.java" />
     <entry file="file://$PROJECT_DIR$/src/Buisness/API_Buisness.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -600,22 +449,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentation/PdataInventoryReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-65">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAL/InventoryDAL/ProductSaleDAL.java" />
     <entry file="file://$PROJECT_DIR$/src/DAL/InventoryDAL/InventoryDAL.java" />
-    <entry file="file://$PROJECT_DIR$/src/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Buisness/Defects/Defect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1242">
@@ -626,27 +461,6 @@
             <element signature="method#Defect#1;class#Defect#0" />
             <element signature="e#2021#2022#0" expanded="true" />
             <element signature="e#2113#2114#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Buisness/Defects/DefectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Buisness/Invenrory/Category.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-801">
-          <caret line="76" column="46" lean-forward="true" selection-start-line="76" selection-start-column="46" selection-end-line="76" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Category#1;class#Category#0" />
           </folding>
         </state>
       </provider>
@@ -676,45 +490,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1494">
-          <caret line="189" column="59" lean-forward="true" selection-start-line="189" selection-start-column="59" selection-end-line="189" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getListOfCategoriesNames#0;class#ProductController#0" />
-            <element signature="method#getListOfProductsNames#0;class#ProductController#0" />
-            <element signature="method#setSaleInfoOfNewProduct#0;class#ProductController#0" />
-            <element signature="method#setPriceOfExistingProduct#0;class#ProductController#0" />
-            <element signature="method#setDiscountOfExistingProduct#0;class#ProductController#0" />
-            <element signature="method#getSaleDataName#0;class#ProductController#0" />
-            <element signature="method#getSaleDataPrice#0;class#ProductController#0" />
-            <element signature="method#getSaleDataDiscount#0;class#ProductController#0" />
-            <element signature="method#getProductName#0;class#ProductController#0" />
-            <element signature="method#getProductManufactor#0;class#ProductController#0" />
-            <element signature="method#getProductAmount#0;class#ProductController#0" />
-            <element signature="method#getProductMinAmount#0;class#ProductController#0" />
-            <element signature="method#getProductNextSupplyTime#0;class#ProductController#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Buisness/Locations/LocationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="131" column="21" lean-forward="true" selection-start-line="131" selection-start-column="21" selection-end-line="131" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2134#2135#0" expanded="true" />
-            <element signature="e#2173#2174#0" expanded="true" />
-            <element signature="e#2383#2384#0" expanded="true" />
-            <element signature="e#2415#2416#0" expanded="true" />
-            <element signature="e#2479#2480#0" expanded="true" />
-            <element signature="e#2521#2522#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Buisness/Reports/DefectReport.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -734,26 +509,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1150#1151#0" expanded="true" />
             <element signature="e#1223#1224#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Buisness/Reports/ProductReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="90" column="7" selection-start-line="90" selection-start-column="7" selection-end-line="90" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Buisness/Reports/ReportController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-99">
-          <caret line="82" column="26" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -829,37 +584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Buisness/Singletone_Storage_Management.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3897">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#298#299#0" expanded="true" />
-            <element signature="e#328#329#0" expanded="true" />
-            <element signature="e#383#384#0" expanded="true" />
-            <element signature="e#421#422#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAL/DefectsDAL/DefectDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="73" column="79" lean-forward="true" selection-start-line="73" selection-start-column="79" selection-end-line="73" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAL/InventoryDAL/CategoryDAL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-315">
@@ -884,16 +608,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1305">
-          <caret line="45" column="49" lean-forward="true" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAL/InventoryDAL/ProductDAL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -901,20 +615,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/DefectReportDAL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="324">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -923,14 +627,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/ProductRepDataDAL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
+        <state relative-caret-position="54">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/ProductReportDAL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="108">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -938,20 +642,214 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAL/DefectsDAL/DefectDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="method#DefectDAL#0;class#DefectDAL#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAL/ReportsDAL/ReportsDAL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="297">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#298#299#0" expanded="true" />
+            <element signature="e#328#329#0" expanded="true" />
+            <element signature="e#383#384#0" expanded="true" />
+            <element signature="e#421#422#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Buisness/Defects/DefectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Buisness/Singletone_Storage_Management.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="222" selection-start-line="222" selection-end-line="222" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Buisness/Reports/ProductReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1778#1779#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Buisness/Reports/ReportController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2079">
+          <caret line="83" column="53" selection-start-line="83" selection-start-column="53" selection-end-line="83" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/model/Statement.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/Assert.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="237" selection-start-line="237" selection-end-line="237" />
+          <folding>
+            <element signature="e#8323#8324#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/model/FrameworkMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#870#1063#0" expanded="true" />
+            <element signature="e#1062#1063#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/InvokeMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunBefores.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunAfters.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/BlockJUnit4ClassRunner.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/ParentRunner.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="226" column="16" selection-start-line="226" selection-start-column="16" selection-end-line="226" selection-end-column="16" />
+          <folding>
+            <element signature="e#2111#2112#0" expanded="true" />
+            <element signature="e#2155#2156#0" expanded="true" />
+            <element signature="e#5951#6086#0" expanded="true" />
+            <element signature="e#6085#6086#0" expanded="true" />
+            <element signature="e#6484#6648#0" expanded="true" />
+            <element signature="e#6647#6648#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runner/JUnitCore.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="302" column="33" selection-start-line="302" selection-start-column="33" selection-end-line="302" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getListOfCategoriesNames#0;class#ProductController#0" />
+            <element signature="method#getListOfProductsNames#0;class#ProductController#0" />
+            <element signature="method#setSaleInfoOfNewProduct#0;class#ProductController#0" />
+            <element signature="method#setPriceOfExistingProduct#0;class#ProductController#0" />
+            <element signature="method#setDiscountOfExistingProduct#0;class#ProductController#0" />
+            <element signature="method#getSaleDataName#0;class#ProductController#0" />
+            <element signature="method#getSaleDataPrice#0;class#ProductController#0" />
+            <element signature="method#getSaleDataDiscount#0;class#ProductController#0" />
+            <element signature="method#getProductName#0;class#ProductController#0" />
+            <element signature="method#getProductManufactor#0;class#ProductController#0" />
+            <element signature="method#getProductAmount#0;class#ProductController#0" />
+            <element signature="method#getProductMinAmount#0;class#ProductController#0" />
+            <element signature="method#getProductNextSupplyTime#0;class#ProductController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Buisness/Invenrory/Category.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="124" column="42" selection-start-line="124" selection-start-column="42" selection-end-line="124" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Category#1;class#Category#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/PurchaseTransactionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="216">
+          <caret line="14" column="11" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
           <folding>
             <element signature="method#setUp#0;class#PurchaseTransactionTest#0" />
           </folding>
@@ -960,43 +858,81 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/ProductControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-258">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="1296">
+          <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
           <folding>
             <element signature="method#tearDown#0;class#ProductControllerTest#0" />
-            <element signature="method#connectProductToCategory#0;class#ProductControllerTest#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/LocationControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="method#moveProduct#0;class#LocationControllerTest#0" />
-          </folding>
+        <state relative-caret-position="1053">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/CategoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="1485">
+          <caret line="63" column="31" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#appendSubCategory#0;class#CategoryTest#0" />
-            <element signature="method#appendProduct#0;class#CategoryTest#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Presentation/Presentation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12512">
-          <caret line="69" column="22" lean-forward="true" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+        <state relative-caret-position="181">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentation/Pdefect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="20" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentation/PdataInventoryReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2254">
+          <caret line="36" column="104" selection-start-line="36" selection-start-column="104" selection-end-line="36" selection-end-column="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Buisness/Locations/LocationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3510">
+          <caret line="134" column="24" selection-start-line="134" selection-start-column="24" selection-end-line="134" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2157#2158#0" expanded="true" />
+            <element signature="e#2196#2197#0" expanded="true" />
+            <element signature="method#clean#0;class#LocationController#0" />
           </folding>
         </state>
       </provider>

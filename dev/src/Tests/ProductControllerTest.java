@@ -27,6 +27,7 @@ public class ProductControllerTest {
 
     @Test
     public void connectProductToCategory() {
+        productController.clean();
         productController.setMainCategory("Test new main category");
         Assert.assertEquals(productController.getCategories().get(1).getProductList().size(),0);
         productController.purchaseProduct(2, "Test Buisness.Invenrory.Product", "Test Supplier", 100);
@@ -39,6 +40,7 @@ public class ProductControllerTest {
 
     @Test
     public void sellNeedToAlert() {    //test the alert
+        productController.clean();
         productController.purchaseProduct(1, "Test product", "Test supplier", 100);
         productController.setMinimumAmount(1, 15);
         Assert.assertTrue(productController.sale(1, 90));  //return alert under minimum
@@ -46,6 +48,7 @@ public class ProductControllerTest {
 
     @Test
     public void sellNoNeedToAlert() {    //test the alert
+        productController.clean();
         productController.purchaseProduct(1, "Test product", "Test supplier", 100);
         productController.setMinimumAmount(1, 15);
         Assert.assertFalse(productController.sale(1, 70));  //return alert under minimum
@@ -53,6 +56,7 @@ public class ProductControllerTest {
 
     @Test
     public void deleteCategory(){
+        productController.clean();
         Category c = new Category("Test category to delete");
         List <Category> list = new ArrayList();
         list.add(c);

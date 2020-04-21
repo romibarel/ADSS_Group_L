@@ -21,7 +21,7 @@ public class LocationController {
         locations.put(STORAGE, "Storage");
         locations.put(SHELF, "Shelf");
         locations.put(MINOR_STORAGE, "Minor Storage");
-        this.locationControllerDAL = new LocationControllerDAL();
+        this.locationControllerDAL = LocationControllerDAL.getInstance();
         restore();
     }
 
@@ -130,5 +130,14 @@ public class LocationController {
     public Integer getAmountByLocation(int barcode , Date date , Integer location){
        Integer amount = productsLocation.get(barcode).get(date).get(location);
        return amount;
+    }
+
+    public void clean (){
+        this.productsLocation = new HashMap<Integer, Map<Date, Map<Integer, Integer>>>();
+        this.locations = new HashMap<>();
+        locations.put(DEFECTS, "Defects");
+        locations.put(STORAGE, "Storage");
+        locations.put(SHELF, "Shelf");
+        locations.put(MINOR_STORAGE, "Minor Storage");
     }
 }
