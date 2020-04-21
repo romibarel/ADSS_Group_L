@@ -1,19 +1,20 @@
+package Tests;
 import CLI.PresentConstraint;
 import CLI.PresentShift;
 import CLI.PresentWorker;
 import Logic.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+import org.junit.Before;
+import static org.junit.Assert.*;
+
 public class ConstraintTest {
 
-    @BeforeEach
+    @Before
     public void before_tests() throws ParseException
     {
         ConstrainsRepo.getConstraints().clear();

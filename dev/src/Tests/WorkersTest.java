@@ -1,3 +1,4 @@
+package Tests;
 
 import CLI.PresentConstraint;
 import CLI.PresentShift;
@@ -5,26 +6,25 @@ import CLI.PresentWorker;
 import Logic.ConstrainsRepo;
 import Logic.ShiftRepo;
 import Logic.WorkersRepo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+import org.junit.After;
+import static org.junit.Assert.*;
 
 public class WorkersTest
 {
 
 
 
-	@AfterEach
+	@After
 	public void after_tests()
 	{
 		WorkersRepo.getWorkers().clear();
 		ShiftRepo.get_shifts().clear();
+		ConstrainsRepo.getConstraints().clear();
 	}
 
 
@@ -184,7 +184,7 @@ public class WorkersTest
 		assertFalse(WorkersRepo.delete_worker(123456).success); //worker doest exist
 	}
 
-	@Test void test_good_delete_worker() throws ParseException
+	@Test public void test_good_delete_worker() throws ParseException
 	{
 		Date date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2016");
 		PresentWorker w=new PresentWorker("avi cohen",0,12,1234,11,5,5,date,"manager");
