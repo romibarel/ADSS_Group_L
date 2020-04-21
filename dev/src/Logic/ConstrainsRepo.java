@@ -9,6 +9,11 @@ import java.util.List;
 
 public class ConstrainsRepo
 {
+	public static List<Constraint> getConstraints()
+	{
+		return constraints;
+	}
+
 	private static List<Constraint> constraints=new LinkedList<>();
 	private static int id=0;
 
@@ -88,7 +93,4 @@ public class ConstrainsRepo
 		return new Result(false,"could not find matching constraint to delete");
 	}
 
-	public static List<Constraint> getConstraints() {
-		return constraints;
-	}
 }

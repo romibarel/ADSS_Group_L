@@ -1,11 +1,6 @@
 package Tests;
 
-import Tests.ConstraintTest;
-import Tests.WorkersTest;
-
-import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
-import Tests.ShiftsTest;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
