@@ -207,4 +207,8 @@ public class BTIController {
             supplies.add(new Supply(name,num));
         }
     }
+
+    public DeliveryArchive getArchive(){
+        return archive;
+    }
 }

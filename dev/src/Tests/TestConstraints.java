@@ -167,9 +167,59 @@ public class TestConstraints {
         trucks.add(new String[] {"3", "333", "1100", "5500", "Mercedes"});
         trucks.add(new String[] {"4", "123", "2000", "4000", "Mazda"});
 
+        bti.set(null, null, supplies, drivers, sections, locations, trucks);
+
         bti.createDoc(0, new String[] {"Super Lee", "First 1 Second 2"});
 
         assertFalse(bti.getDocuments().isEmpty());
         assertEquals(0, bti.getDocuments().get(0).getNum());
+    }
+
+    @Test
+    public void BTIcreateDelivery() throws ParseException {
+        BTIController bti = BTIController.getBTI();
+        List<String[]> supplies = new LinkedList<>();
+        List<String[]> drivers = new LinkedList<>();
+        List<String[]> sections = new LinkedList<>();
+        List<String[]> locations = new LinkedList<>();
+        List<String[]> trucks = new LinkedList<>();
+
+        supplies.add(new String[] {"First", "2"});
+        supplies.add(new String[] {"Second", "5"});
+        supplies.add(new String[] {"Third", "10"});
+
+        drivers.add(new String[] {"Moshe", "Mazda", "Toyota"});
+        drivers.add(new String[] {"Joseph", "Mercedes"});
+
+        sections.add(new String[] {"1", "Super Lee", "Lee Office"});
+        sections.add(new String[] {"2", "Shufersal", "Max Stock", "Best Buy"});
+        sections.add(new String[] {"3", "Mega", "Costco"});
+
+        locations.add(new String[] {"Super Lee", "052", "Haim"});
+        locations.add(new String[] {"Lee Office", "058", "Romi"});
+        locations.add(new String[] {"Shufersal", "054", "Tony"});
+        locations.add(new String[] {"Max Stock", "050", "Ziv"});
+        locations.add(new String[] {"Best Buy", "055", "Tomer"});
+        locations.add(new String[] {"Mega", "053", "Sivan"});
+        locations.add(new String[] {"Costco", "057", "Gali"});
+
+        //int truckNum, int plate, int weighNeto, int maxWeight, String type
+        trucks.add(new String[] {"1", "111", "1000", "4000", "Mazda"});
+        trucks.add(new String[] {"2", "222", "1200", "7000", "Toyota"});
+        trucks.add(new String[] {"3", "333", "1100", "5500", "Mercedes"});
+        trucks.add(new String[] {"4", "123", "2000", "4000", "Mazda"});
+
+        bti.set(null, null, supplies, drivers, sections, locations, trucks);
+
+        bti.createDoc(0, new String[] {"Super Lee", "First 1 Second 2"});
+        List<Integer> docs = new LinkedList<>();
+        docs.add(0);
+        Date date = new SimpleDateFormat("dd/MM/yyyy").parse("18/05/2020");
+        Date time = new SimpleDateFormat("HH:mm").parse("09:00");
+
+        bti.createDelivery(date, time, 1, "Moshe", "Lee Office", docs, 3000);
+
+        assertFalse(bti.getArchive().getDeliveries().isEmpty());
+        assertEquals(1, bti.getArchive().getDeliveries().get(0).getTruckNum());
     }
 }
