@@ -93,7 +93,6 @@ public class BTIController {
 
     //destination, supplies&quants,
     //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
-    //todo: check that creating deliver doc is right now
     public String createDoc(int docNum, String[] doc){
         String[] data = doc[1].split(" ", Integer.MAX_VALUE);
         List<Supply> supplies = new LinkedList<>();
@@ -113,6 +112,8 @@ public class BTIController {
                 break;
             }
         }
+        if (doc0 == null)
+            return "The destination doesn't exist.";
         DeliverDoc deliverDoc = new DeliverDoc(docNum, supplies, doc0);
         documents.add(deliverDoc);
         return "Document created successfully.";
@@ -162,7 +163,7 @@ public class BTIController {
                 destinations.add(doc.getDestination());
             }
         }
-        if (locations.size() != docs.size())
+        if (destinations.size() != docs.size())
             return "Some of the destinations weren't added.";
         Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, truckWeight);
         if(!(delivery.isApproved()))
