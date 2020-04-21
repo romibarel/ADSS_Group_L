@@ -1,7 +1,9 @@
 package CLI;
 
+import Logic.Constraint;
 import Logic.Interface;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -19,8 +21,12 @@ public class main {
         System.out.println("Do you want to initialize the system with data?(y/n)");
         init=input.nextLine();
         if(init.equals("y")){
-            Interface.initializeSystem();
-            System.out.println("system's data loaded");
+            initData();
+            System.out.println("system's data loaded:\n");
+            System.out.println(Interface.printEmployees()+"\n");
+            System.out.println(Interface.printShifts()+"\n");
+            System.out.println(Interface.printConstraints()+"\n");;
+
         }
 
         while(!quit){
@@ -41,9 +47,103 @@ public class main {
                 continue;
             }
             System.out.println("you have chosen the command:");
-            System.out.println(calls.get(choice-1).getCommand());
+            System.out.println(calls.get(choice-1).getCommand()+"\n");
             calls.get(choice-1).call();
         }
+    }
+
+    private static void initData()
+    {
+        List<PresentWorker> workers=init_workers();
+        List<PresentShift> shifts=init_shifts();
+        List<PresentConstraint> constraints=init_constraints();
+        for (PresentWorker worker:workers)
+            Interface.addEmployee(worker);
+        for (PresentShift shift:shifts)
+            Interface.addShift(shift);
+        for (PresentConstraint constraint:constraints)
+            Interface.addConstraint(constraint);
+    }
+
+    private static List<PresentConstraint> init_constraints() {
+        List<PresentConstraint> constraints=new LinkedList<>();
+        try {
+            PresentConstraint c1=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("30/04/2020"), false,  1, "wedding" );
+            PresentConstraint c2=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("20/5/2020"), true,  1, "surgery" );
+            PresentConstraint c3=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("19/6/2020"), true,  2, "doctor" );
+            PresentConstraint c4=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("7/5/2020"), false,  3, "vacation" );
+            PresentConstraint c5=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("7/5/2020"), true,  3, "vacation" );
+            PresentConstraint c6=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("8/5/2020"), false,  3, "vacation" );
+            PresentConstraint c7=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("8/5/2020"), true,  3, "vacation" );
+            constraints.add(c1);
+            constraints.add(c2);
+            constraints.add(c3);
+            constraints.add(c4);
+            constraints.add(c5);
+            constraints.add(c6);
+            constraints.add(c7);
+        } catch (ParseException e) { }
+        return constraints;
+    }
+
+    private static List<PresentWorker> init_workers()
+    {
+        List<PresentWorker> workers=new LinkedList<>();
+        try
+        {
+            PresentWorker w1 = new PresentWorker("avi levy", 1, 202, 2000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2015"), "manager");
+            PresentWorker w2 = new PresentWorker("shimon cohen", 2, 311, 1000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2018"), "manager");
+            PresentWorker w3 = new PresentWorker("dan panorama", 3, 157, 1700, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("12/01/2019"), "cashier");
+            PresentWorker w4 = new PresentWorker("ben biton", 4, 802, 900, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/01/2020"), "cashier");
+            PresentWorker w5 = new PresentWorker("avi bitter", 5, 171, 1300, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("18/03/2020"), "driver");
+            workers.add(w1);
+            workers.add(w2);
+            workers.add(w3);
+            workers.add(w4);
+            workers.add(w5);
+        }catch(Exception ignored){}
+        return workers;
+    }
+
+    private static List<PresentShift> init_shifts()
+    {
+        List<PresentShift> shifts=new LinkedList<>();
+        try
+        {
+            List<Integer> workers_in_shift=new LinkedList<>();
+            workers_in_shift.add(1);
+            workers_in_shift.add(3);
+            workers_in_shift.add(5);
+            PresentShift s1=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),true,1,workers_in_shift);
+
+            workers_in_shift=new LinkedList<>();
+            workers_in_shift.add(2);
+            workers_in_shift.add(4);
+            PresentShift s2=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),false,1,workers_in_shift);
+
+            workers_in_shift=new LinkedList<>();
+            workers_in_shift.add(1);
+            workers_in_shift.add(5);
+            PresentShift s3=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("16/08/2020"),true,1,workers_in_shift);
+
+            workers_in_shift=new LinkedList<>();
+            workers_in_shift.add(1)
+            ;workers_in_shift.add(2); workers_in_shift.add(3); workers_in_shift.add(4);workers_in_shift.add(5);
+            PresentShift s4=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),false,1,workers_in_shift);
+
+            workers_in_shift=new LinkedList<>();
+            workers_in_shift.add(2);
+            workers_in_shift.add(3);
+            PresentShift s5=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),true,1,workers_in_shift);
+
+            shifts.add(s1);
+            shifts.add(s2);
+            shifts.add(s3);
+            shifts.add(s4);
+            shifts.add(s5);
+        }
+        catch (Exception ignored){}
+        return shifts;
     }
 
     private static void initCalls(List<Callback> calls){
@@ -664,6 +764,31 @@ public class main {
             }
         });
 
+        //print all employees
+        calls.add(new Callback() {
+            @Override
+            public void call() {
+                System.out.println(Interface.printEmployees());
+            }
+        });
+
+        //print all shifts
+        calls.add(new Callback() {
+            @Override
+            public void call() {
+                System.out.println(Interface.printShifts());
+            }
+        });
+
+        //print all constraints
+        calls.add(new Callback() {
+            @Override
+            public void call() {
+                System.out.println(Interface.printConstraints());
+            }
+        });
+
+
         //exit
         calls.add(new Callback() {
             @Override
@@ -688,7 +813,10 @@ public class main {
         actions.get(11).setCommand("12. search constraint.");
         actions.get(12).setCommand("13. present weekly shift report.");
         actions.get(13).setCommand("14. present weekly constraint report.");
-        actions.get(14).setCommand("15. Exit.");
+        actions.get(14).setCommand("15. print all employees.");
+        actions.get(15).setCommand("16. print all shifts.");
+        actions.get(16).setCommand("17. print all constraints.");
+        actions.get(17).setCommand("18. Exit.");
     }
 }
 

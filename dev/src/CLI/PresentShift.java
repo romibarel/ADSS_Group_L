@@ -28,7 +28,7 @@ public class PresentShift {
         this.date = shift.getDate();
         this.morning = shift.isMorning();
         this.manager_id = shift.getManager_id();
-        this.workers = shift.getWorkers();
+        this.workers = new LinkedList<>(shift.getWorkers());
     }
 
 

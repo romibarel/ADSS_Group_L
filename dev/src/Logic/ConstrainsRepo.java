@@ -12,10 +12,6 @@ public class ConstrainsRepo
 	private static List<Constraint> constraints=new LinkedList<>();
 	private static int id=0;
 
-	public static void initConstrains(){
-
-	}
-
 	public static Result check(PresentConstraint c){
 		if(WorkersRepo.get_by_id(c.getId())==null)
 			return new Result(false,"Employee does not exist in the system");

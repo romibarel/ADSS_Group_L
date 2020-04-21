@@ -12,11 +12,6 @@ import java.util.List;
 public class Interface
 {
 
-	public static void initializeSystem(){
-		ConstrainsRepo.initConstrains();
-
-	}
-
 
 	public static String addEmployee(PresentWorker worker){
 		Result r=WorkersRepo.add_worker(worker);
@@ -178,6 +173,79 @@ public class Interface
 			if(count!=1)
 				ret+= "\n";
 			ret+=count+".\n"+worker.toString();
+			count++;
+		}
+		return ret;
+	}
+
+	public static String printShifts(){
+		PresentShift shift=new PresentShift();
+		List<Shift> shifts=ShiftRepo.get_shifts();
+		shifts.sort((shift1, shift2) -> {
+			int i=shift1.getDate().compareTo(shift2.getDate());
+			if(i!=0)
+				return i;
+			if(shift1.isMorning()==shift2.isMorning())
+				return 0;
+			if(shift1.isMorning())
+				return -1;
+			return 1;
+		});
+		String ret="";
+		if(shifts.isEmpty())
+			return "No shifts to present";
+		int count=1;
+		ret="The shift are:";
+		for (Shift s: shifts) {
+			shift=new PresentShift(s);
+			ret+="\n"+count+".\n"+shift.toString();
+			count++;
+		}
+		return ret;
+	}
+
+	public static String printConstraints(){
+		PresentConstraint con=new PresentConstraint();
+		List<Constraint> constraints=ConstrainsRepo.getConstraints();
+		constraints.sort((constraint, t1) -> {
+			int i=constraint.getDate().compareTo(t1.getDate());
+			if(i!=0)
+				return i;
+			if(constraint.isMorning()==constraint.isMorning())
+				return 0;
+			if(constraint.isMorning())
+				return -1;
+			return 1;
+		});
+		String ret="";
+		if(constraints.isEmpty())
+			return "No constraint to present";
+		int count=1;
+		ret="The constraints are:";
+		for (Constraint c: constraints) {
+			con=new PresentConstraint(c);
+			ret+="\n"+count+".\n"+con.toString();
+			count++;
+		}
+		return ret;
+	}
+
+
+	public static String printEmployees(){
+		PresentWorker con=new PresentWorker();
+		List<Worker> workers=WorkersRepo.getWorkers();
+		workers.sort((worker1, worker2) -> {
+			return worker1.getId()-worker2.getId();
+		});
+		String ret="";
+		if(workers.isEmpty())
+			return "No employees to present";
+		int count=1;
+		ret="The employees are:";
+		for (Worker c: workers) {
+			con=new PresentWorker(c);
+			ret+="\n"+count+".\n"+con.toString();
+			count++;
 		}
 		return ret;
 	}
