@@ -1078,7 +1078,7 @@ public class Presentation {
         System.out.print(offset + "- Products under category " + FromHereAndDown + ":\n");
         List<PdataInventoryReport> myCategoryProducts = buisnessManager.RepProdofInventoryReport(today , FromHereAndDown);
         for (PdataInventoryReport productRepData : myCategoryProducts) {
-            System.out.print(offset + "- Barcode: " + productRepData.getBarcode() + ", Product name: " + productRepData.getProductName() + ", Buisness.Invenrory.Product amount: " + productRepData.getAmount() + "\n");
+            System.out.print(offset + "- Barcode: " + productRepData.getBarcode() + ", Product name: " + productRepData.getProductName() + ", Product amount: " + productRepData.getAmount() + "\n");
         }
         for (String subCategories : buisnessManager.CategoriesOfInventoryReport(today ,FromHereAndDown)) {
             showRecursiveFromMainCategoryDowns(subCategories,offset + "        ");

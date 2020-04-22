@@ -27,7 +27,6 @@ public class main {
             System.out.println("3)Run tests");
             System.out.println("4)Exit");
             int initialized = 0;
-
             boolean error = false;
             do {
                 try {
