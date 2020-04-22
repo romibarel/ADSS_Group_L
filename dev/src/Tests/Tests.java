@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import static org.junit.Assert.*;
 
-public class TestConstraints {
+public class Tests {
 
 
     @Test
@@ -221,7 +221,7 @@ public class TestConstraints {
         assertEquals(1, bti.getArchive().getDeliveries().get(0).getTruckNum());
     }
 
-    
+
     @Test
     public void BTIcreateDeliveryWrongDriver() throws ParseException {
         BTIController bti = BTIController.getBTI();
