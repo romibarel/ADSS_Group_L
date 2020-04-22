@@ -9,6 +9,11 @@ public class Supply {
         this.quant = quant;
     }
 
+    public Supply(Supply other, int quant) {
+        this.name = other.getName();
+        this.quant = quant;
+    }
+
     public String getName() {
         return name;
     }

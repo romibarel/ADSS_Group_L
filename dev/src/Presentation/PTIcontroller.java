@@ -102,6 +102,16 @@ public class PTIcontroller {
                             System.out.println("Enter the name and quantity of the supply.\n");
                             input = scanner.nextLine();
                             String [] sup = input.split(" ", Integer.MAX_VALUE);
+                            if (sup.length != 2){
+                                System.out.println("Invalid supply.");
+                                break;
+                            }
+                            try {
+                                int i = Integer.parseInt(sup[1]);
+                            } catch (Exception e){
+                                System.out.println("Invalid supply.");
+                                break;
+                            }
                             supplies.add(sup);
                             break;
                         case("2"):
@@ -114,6 +124,12 @@ public class PTIcontroller {
                             System.out.println("Enter number of the section to add and all the locations that belong to it.\n");
                             input = scanner.nextLine();
                             String [] secs = input.split(" ", Integer.MAX_VALUE);
+                            try {
+                                int j = Integer.parseInt(secs[0]);
+                            } catch (Exception e){
+                                System.out.println("Invalid area number.");
+                                break;
+                            }
                             sections.add(secs);
                             for (int i=1; i<secs.length; i++){
                                 boolean exists = false;
@@ -122,9 +138,15 @@ public class PTIcontroller {
                                         exists = true;
                                 }
                                  if(!exists) {
-                                     System.out.println("Enter number of the phone number and associate's name of " + secs[i] + " .\n");
+                                     System.out.println("Enter the phone number and associate's name of " + secs[i] + ".\n");
                                      input = scanner.nextLine();
                                      String[] temp = input.split(" ", Integer.MAX_VALUE);
+                                     try {
+                                         int j = Integer.parseInt(temp[0]);
+                                     } catch (Exception e){
+                                         System.out.println("Invalid phone number.");
+                                         break;
+                                     }
                                      String[] loc = new String[3];
                                      loc[0] = secs[i];
                                      try {
@@ -141,6 +163,15 @@ public class PTIcontroller {
                             System.out.println("Please enter the truck's number, plate, neto weight, maximum weight and type.\n");
                             input = scanner.nextLine();
                             String [] truck = input.split(" ", Integer.MAX_VALUE);
+                            try {
+                                int i = Integer.parseInt(truck[0]);
+                                i = Integer.parseInt(truck[1]);
+                                i = Integer.parseInt(truck[2]);
+                                i = Integer.parseInt(truck[3]);
+                            } catch (Exception e){
+                                System.out.println("Invalid truck details.");
+                                break;
+                            }
                             trucks.add(truck);
                             break;
                         case("5"):
@@ -168,16 +199,21 @@ public class PTIcontroller {
             String input = scanner.nextLine();
             switch (input){
                 case ("1"):
-                    addSupplies();
+                    System.out.println(addSupplies());
                     break;
                 case ("2"):
                     docNum = createDelivery(docNum);
+                    executeDelivery(docNum);
                     break;
                 case ("3"):
                     finish = true;
                     break;
             }
         }
+    }
+
+    private void executeDelivery(int docNum){
+        itp.execute(docNum);
     }
 
     private String addSupplies() {
@@ -207,7 +243,7 @@ public class PTIcontroller {
                 goodNumber = false;
             }
         }
-        return "You added : " + itp.addSupply(name, num);
+        return itp.addSupply(name, num);
     }
 
     private int createDelivery(int docNum) {
@@ -249,7 +285,6 @@ public class PTIcontroller {
         driver = scanner.nextLine();
         System.out.println("Please enter the source of delivery.");
         source = scanner.nextLine();
-        docs = createDocuments(docNum);
         System.out.println("Please weight the truck and enter its weight in kilos.");
         input = scanner.nextLine();
         try{
@@ -258,7 +293,11 @@ public class PTIcontroller {
             System.out.println("Invalid weight.");
             return docNum;
         }
-
+        docs = createDocuments(docNum);
+        if (docs.isEmpty()){
+            System.out.println("No document was successfully added, document cannot be created. Try again.");
+            return docNum;
+        }
         //create the delivery trough interface layer
         System.out.println(itp.createDelivery(date, time, truckNum, driver, source, docs, truckWeight));
         return docNum + docs.size();
@@ -284,12 +323,32 @@ public class PTIcontroller {
                 System.out.println("Invalid answer, the system will create the delivery now.");
                 finish = true;
             }
-            System.out.println(itp.createDoc(docNum, doc));
-            docNums.add(docNum);
-            docNum++;
+            String out = itp.createDoc(docNum, doc);
+            System.out.println(out);
+            if (!out.equals("Document created successfully.")){
+                finish = true;
+            }
+            else {
+                docNums.add(docNum);
+                docNum++;
+            }
         }
 
         return docNums;
+    }
+
+    public void arriveAt(String dest){
+        System.out.println("The delivery arrived at "+ dest +", would you like to get supplies? [y/n]");
+        String ans = scanner.nextLine();
+        boolean goodAns = false;
+        while (!goodAns){
+            ans = scanner.nextLine();
+            if (ans.equals("y") || ans.equals("n"))
+                goodAns = true;
+        }
+        if (ans.equals("y")){
+            System.out.println(addSupplies());
+        }
     }
 
 }

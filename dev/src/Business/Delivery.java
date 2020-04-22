@@ -64,6 +64,10 @@ public class Delivery {
         return docLoc;
     }
 
+    public Collection<Location> getDestinations(){
+        return docLoc.values();
+    }
+
     public boolean isApproved(){
         return approved;
     }

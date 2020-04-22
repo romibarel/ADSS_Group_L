@@ -1,6 +1,8 @@
 package Interface;
 
 import Business.BTIController;
+import Business.Delivery;
+import Business.Location;
 
 import java.util.Date;
 import java.util.List;
@@ -37,9 +39,14 @@ public class ITBController {
 
 
     public String addSupply(String name, int num) {
-        String massage = num + ", "+name;
-        bti.addSupply(name , num);
-        return massage;
+        return bti.addSupply(name , num);
     }
 
+    public void arriveAt(String dest){
+        itp.arriveAt(dest);
+    }
+
+    public void execute(int docNum){
+        bti.executeDelivery(docNum);
+}
 }

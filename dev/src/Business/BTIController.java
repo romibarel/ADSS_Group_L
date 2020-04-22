@@ -95,11 +95,20 @@ public class BTIController {
     //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
     public String createDoc(int docNum, String[] doc){
         String[] data = doc[1].split(" ", Integer.MAX_VALUE);
-        List<Supply> supplies = new LinkedList<>();
+        List<Supply> DocSupplies = new LinkedList<>();
         for (int i=0; i<data.length-1; i+=2){
             try {
-                Supply supp = new Supply(data[i], Integer.parseInt(data[i + 1]));
-                supplies.add(supp);
+                Supply supp = null;
+                for (Supply s : supplies){
+                    if (s.getName().equals(data[i])){
+                        supp = new Supply(s, Integer.parseInt(data[i+1]));
+                        if (s.getQuant() < Integer.parseInt(data[i+1]))
+                            return "Insufficient amount of supply " + supp.getName() + ".";
+                        s.setQuant(s.getQuant()-Integer.parseInt(data[i+1]));
+                        DocSupplies.add(supp);
+                        break;
+                    }
+                }
             }catch (Exception e){
                 return "Invalid supplies input";
             }
@@ -114,7 +123,7 @@ public class BTIController {
         }
         if (doc0 == null)
             return "The destination doesn't exist.";
-        DeliverDoc deliverDoc = new DeliverDoc(docNum, supplies, doc0);
+        DeliverDoc deliverDoc = new DeliverDoc(docNum, DocSupplies, doc0);
         documents.add(deliverDoc);
         return "Document created successfully.";
     }
@@ -171,7 +180,32 @@ public class BTIController {
 
         //if we got here all is a ok
         archive.add(delivery);
+        executeDelivery(delivery);
         return "Delivery was created successfully!";
+    }
+
+    public void executeDelivery(int docNum){
+        Delivery del = null;
+        DeliverDoc doc = null;
+        for (DeliverDoc d : documents){
+            if (d.getNum() == docNum){
+                doc = d;
+                break;
+            }
+        }
+        for (Delivery d : archive.getDeliveries()){
+            if (del.getDocs().contains(doc)){
+                del = d;
+                break;
+            }
+        }
+        executeDelivery(del);
+    }
+
+    private void executeDelivery(Delivery del){
+        for (Location loc : del.getDestinations()){
+            itb.arriveAt(loc.getAddress());
+        }
     }
 
     public List<Supply> getSupplies() {
@@ -194,7 +228,7 @@ public class BTIController {
         return trucks;
     }
 
-    public void addSupply(String name, int num) {
+    public String addSupply(String name, int num) {
         boolean newSup = true;
         for (Supply sup : supplies) {
             if (name.equals(sup.getName()))
@@ -208,6 +242,8 @@ public class BTIController {
         {
             supplies.add(new Supply(name,num));
         }
+
+        return "You added " +num+ " " + name +".";
     }
 
     public DeliveryArchive getArchive(){

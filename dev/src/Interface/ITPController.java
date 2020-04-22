@@ -39,9 +39,16 @@ public class ITPController {
     }
 
     public String addSupply(String name, int num) {
-        String massage = num + ", "+name;
-        itb.addSupply(name , num);
-        return massage;
+
+        return itb.addSupply(name , num);
+    }
+
+    public void arriveAt(String dest){
+        pti.arriveAt(dest);
+    }
+
+    public void execute(int docNum){
+        itb.execute(docNum);
     }
 }
 
