@@ -268,6 +268,7 @@ public class ProductController {
 
     public String getProductNextSupplyTime(int barcode){
         Product p = searchProduct(barcode);
+        if (p==null){return PRODUCT_NOT_FOUND;}
         Date nextDate = p.getNextSupplyTime();
         if(nextDate == null)
           return "unknown next supply time";
