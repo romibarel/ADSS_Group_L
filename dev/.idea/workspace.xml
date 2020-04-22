@@ -2,32 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Defects/DefectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Defects/DefectController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Invenrory/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Invenrory/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Locations/LocationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Locations/LocationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/ReportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Buisness/Reports/ReportController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/DefectsDAL/DefectControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/DefectsDAL/DefectControllerDAL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/InventoryDAL/ProductControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/InventoryDAL/ProductControllerDAL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/LocationsDAL/LocationControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/LocationsDAL/LocationControllerDAL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/DAL/ReportsDAL/ReportsDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/DAL/ReportsDAL/ReportsDAL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Presentation/Presentation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Presentation/Presentation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Tests/LocationControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Tests/LocationControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Tests/PurchaseTransactionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Tests/PurchaseTransactionTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Defects/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Defects/DefectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Invenrory/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Invenrory/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Locations/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Locations/LocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buisness/Reports/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buisness/Reports/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/DefectsDAL/DefectControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/InventoryDAL/ProductControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/LocationsDAL/LocationControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/ReportsDAL/ReportsDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/ReportsDAL/ReportsDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Presentation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests/CategoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/CategoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests/LocationControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/LocationControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/ProductControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -39,19 +13,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2254">
-              <caret line="36" column="104" selection-start-line="36" selection-start-column="104" selection-end-line="36" selection-end-column="104" />
+            <state relative-caret-position="216">
+              <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Buisness/Locations/LocationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3510">
+            <state relative-caret-position="1728">
               <caret line="134" column="24" selection-start-line="134" selection-start-column="24" selection-end-line="134" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -146,7 +120,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="976" />
@@ -230,7 +204,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587512547745" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587578829790" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -409,10 +383,10 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="976" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34035477" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16487648" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -917,16 +891,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2254">
-          <caret line="36" column="104" selection-start-line="36" selection-start-column="104" selection-end-line="36" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Buisness/Locations/LocationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3510">
+        <state relative-caret-position="1728">
           <caret line="134" column="24" selection-start-line="134" selection-start-column="24" selection-end-line="134" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -934,6 +901,13 @@
             <element signature="e#2196#2197#0" expanded="true" />
             <element signature="method#clean#0;class#LocationController#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
         </state>
       </provider>
     </entry>

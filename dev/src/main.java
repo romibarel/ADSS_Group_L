@@ -12,6 +12,7 @@ public class main {
     public static final String PATTERN = "dd/MM/yyyy";
 
     public static void main (String[] args){
+        //initialize store
         initialize();
         Presentation p = new Presentation();
         p.startProgramMenu();
