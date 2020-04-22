@@ -176,7 +176,7 @@ public class ProductController {
 
     public void purchaseProduct(int barCode, String productName, String supplier, int amount){
         if(searchProduct(barCode)==null) { //this product doesn't exists yet
-            Product p = new Product(barCode, productName, supplier, 0, DEFAULT_MIN_AMOUNT, null);//initialize with min amount = 0 and next supply time = null
+            Product p = new Product(barCode, productName, supplier, amount, DEFAULT_MIN_AMOUNT, null);//initialize with min amount = 0 and next supply time = null
             this.productControllerDAL.addNewProduct(p.createDAL()); //insert to DAL
             for (Category category: this.categories){
                 if (category.getName().equals(DEFAULT)){
