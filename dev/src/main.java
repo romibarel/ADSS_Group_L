@@ -1,9 +1,17 @@
 import Buisness.Locations.LocationController;
 import Buisness.Singletone_Storage_Management;
 import Presentation.Presentation;
+import Tests.CategoryTest;
 
-import java.util.Date;
+import Tests.LocationControllerTest;
+import Tests.ProductControllerTest;
+import Tests.PurchaseTransactionTest;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -12,8 +20,69 @@ public class main {
     public static final String PATTERN = "dd/MM/yyyy";
 
     public static void main (String[] args){
-        //initialize store
-        initialize();
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            System.out.println("1)Program with initialized data");
+            System.out.println("2)Program without initializing data");
+            System.out.println("3)Run tests");
+            System.out.println("4)Exit");
+            int initialized = 0;
+
+            boolean error = false;
+            do {
+                try {
+                    initialized = Integer.parseInt(scanner.nextLine());
+                    error = false;
+                }
+                catch (Exception e){
+                    error = true;
+                    System.out.println("Illegal input try again.");
+                }
+            }while (error);
+
+            if(initialized == 1){
+                initialize();
+                break;
+            }
+            else if(initialized ==2){
+                break;
+            }
+
+            else if(initialized ==3){
+                Result result1 = JUnitCore.runClasses(CategoryTest.class);
+                System.out.println("Run category test: " + result1.getRunCount());
+                for(Failure failure : result1.getFailures()){
+                    System.out.println(failure.toString());
+                }
+
+
+                Result result2 = JUnitCore.runClasses(LocationControllerTest.class);
+                System.out.println("Run Location Controller Tests: " + result2.getRunCount());
+                for(Failure failure : result2.getFailures()){
+                    System.out.println(failure.toString());
+                }
+
+                Result result3 = JUnitCore.runClasses(ProductControllerTest.class);
+                System.out.println("Run Product Controller Tests: " + result3.getRunCount());
+                for(Failure failure : result3.getFailures()){
+                    System.out.println(failure.toString());
+                }
+
+                Result result4 = JUnitCore.runClasses(PurchaseTransactionTest.class);
+                System.out.println("Run Purchase Transaction Tests: " + result4.getRunCount());
+                for(Failure failure : result4.getFailures()){
+                    System.out.println(failure.toString());
+                }
+
+                System.exit(0);
+
+            }
+            else if(initialized ==4){
+                System.exit(0);
+            }
+        }
+
+
         Presentation p = new Presentation();
         p.startProgramMenu();
     }
