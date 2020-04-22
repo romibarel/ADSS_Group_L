@@ -221,6 +221,7 @@ public class TestConstraints {
         assertEquals(1, bti.getArchive().getDeliveries().get(0).getTruckNum());
     }
 
+    
     @Test
     public void BTIcreateDeliveryWrongDriver() throws ParseException {
         BTIController bti = BTIController.getBTI();

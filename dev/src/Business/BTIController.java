@@ -159,6 +159,8 @@ public class BTIController {
             if (docNums.contains(doc.getNum()))
                 docs.add(doc);
         }
+        if (docs.isEmpty())
+            return "No delivery documents were added.";
         if (docs.size() != docNums.size())
             return "Some delivery docs weren't added.";
 
@@ -180,7 +182,6 @@ public class BTIController {
 
         //if we got here all is a ok
         archive.add(delivery);
-        executeDelivery(delivery);
         return "Delivery was created successfully!";
     }
 
@@ -194,7 +195,7 @@ public class BTIController {
             }
         }
         for (Delivery d : archive.getDeliveries()){
-            if (del.getDocs().contains(doc)){
+            if (d.getDocs().contains(doc)){
                 del = d;
                 break;
             }
