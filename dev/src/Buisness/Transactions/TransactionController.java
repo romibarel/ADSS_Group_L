@@ -21,7 +21,7 @@ public class TransactionController {
         PurchaseTransaction p = new PurchaseTransaction(transactionID++, date); //create new Purchase transaction
         p.purchase(barCode, productName, supplier, price, discount, expirationDate, amount, date, location); //make purchase
         purchaseTransactions.add(p); //add to purchase list
-        Singletone_Storage_Management.getInstance().getInventory().purchaseProduct(barCode,productName,supplier, amount);
+        //Singletone_Storage_Management.getInstance().getInventory().purchaseProduct(barCode,productName,supplier, amount);
     }
 
     public boolean sellProduct(Date date, int barCode, int amount, Date expirationDate){ //return if need to alert -> if product under minimum amount now
