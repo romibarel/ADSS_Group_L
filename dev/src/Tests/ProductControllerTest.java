@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ProductControllerTest {
@@ -51,6 +50,7 @@ public class ProductControllerTest {
         productController.clean();
         productController.purchaseProduct(1, "Test product", "Test supplier", 100);
         productController.setMinimumAmount(1, 15);
+        System.out.println(productController.searchProduct(1).getAmount());
         Assert.assertFalse(productController.sale(1, 70));  //return alert under minimum
     }
 
