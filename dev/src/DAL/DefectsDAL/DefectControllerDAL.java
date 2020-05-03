@@ -2,24 +2,16 @@ package DAL.DefectsDAL;
 
 import Buisness.Defects.Defect;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DefectControllerDAL {
 
     List<DefectDAL> defects;
-    private static DefectControllerDAL instance;
 
-    private DefectControllerDAL(){
+    public DefectControllerDAL(){
         this.defects = new ArrayList<>();
-    }
-
-    public static DefectControllerDAL getInstance(){
-
-        if (instance == null)
-            instance = new DefectControllerDAL();
-
-        return instance;
     }
 
     public List<DefectDAL> getDefects() {
@@ -32,5 +24,6 @@ public class DefectControllerDAL {
 
     public void addDefect (DefectDAL defectDAL){
         this.defects.add(defectDAL);
+
     }
 }

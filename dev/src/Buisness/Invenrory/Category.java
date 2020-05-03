@@ -1,5 +1,6 @@
 package Buisness.Invenrory;
 
+import DAL.DataAccess;
 import DAL.InventoryDAL.CategoryDAL;
 import DAL.InventoryDAL.ProductDAL;
 
@@ -10,21 +11,25 @@ public class Category {
     private String name;
     private List<Category> subCategories;
     private List<Product> productList;
+    private DataAccess dataAccess;
 
     public Category(String categoryName) {
         this.name = categoryName;
         this.subCategories = new ArrayList<>();
         this.productList = new ArrayList<>();
+        this.dataAccess = DataAccess.getInstance();
     }
 
     public Category(CategoryDAL categoryDAL){
         this.name = categoryDAL.getName();
         this.subCategories = new ArrayList<>();
         this.productList = new ArrayList<>();
-        for (CategoryDAL categoryDAL1 : categoryDAL.getSubCategoriesDAL()){
-            this.subCategories.add(new Category(categoryDAL));
+        this.dataAccess = DataAccess.getInstance();
+        List <CategoryDAL> l = dataAccess.getMySubCategoriesDAL(this.name);
+        for (CategoryDAL categoryDAL1 : l){
+            this.subCategories.add(new Category(categoryDAL1));
         }
-        for (ProductDAL productDAL : categoryDAL.getProductListDAL()){
+        for (ProductDAL productDAL : dataAccess.getProductListDAL(this.name)){
             this.productList.add(new Product(productDAL));
         }
     }

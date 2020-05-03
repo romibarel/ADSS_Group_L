@@ -1,5 +1,6 @@
 package Buisness.Locations;
 
+import DAL.DataAccess;
 import DAL.LocationsDAL.LocationControllerDAL;
 
 import java.util.*;
@@ -12,7 +13,7 @@ public class LocationController {
 
     private Map<Integer , Map<Date , Map<Integer, Integer>>> productsLocation; // <barcode, <expirationDate, <location, quantity>
     private Map<Integer , String> locations; // <locationNumber , locationName>
-    private LocationControllerDAL locationControllerDAL;
+    private DataAccess dataAccess;
 
     public LocationController(){
         this.productsLocation = new HashMap<Integer, Map<Date, Map<Integer, Integer>>>();
@@ -21,20 +22,20 @@ public class LocationController {
         locations.put(STORAGE, "Storage");
         locations.put(SHELF, "Shelf");
         locations.put(MINOR_STORAGE, "Minor Storage");
-        this.locationControllerDAL = LocationControllerDAL.getInstance();
+        this.dataAccess = DataAccess.getInstance();
         restore();
     }
 
     public void restore(){
-        for (Integer integer : this.locationControllerDAL.getLocationsDAL().keySet()){
-            this.locations.putIfAbsent(integer, this.locationControllerDAL.getLocationsDAL().get(integer));
+        for (Integer integer : this.dataAccess.getLocationsDAL().keySet()){
+            this.locations.putIfAbsent(integer, this.dataAccess.getLocationsDAL().get(integer));
         }
-        for (Integer barcode : this.locationControllerDAL.getProductsLocationDAL().keySet()){
+        for (Integer barcode : this.dataAccess.getProductsLocationDAL().keySet()){
             Map<Date , Map<Integer, Integer>> m1 = new HashMap<>();
-            for (Date date : this.locationControllerDAL.getProductsLocationDAL().get(barcode).keySet()){
+            for (Date date : this.dataAccess.getProductsLocationDAL().get(barcode).keySet()){
                 Map<Integer, Integer> m2 = new HashMap<>();
-                for (Integer location: this.locationControllerDAL.getProductsLocationDAL().get(barcode).get(date).keySet()){
-                    m2.putIfAbsent(location, this.locationControllerDAL.getProductsLocationDAL().get(barcode).get(date).get(location)); //put the location and quantity
+                for (Integer location: this.dataAccess.getProductsLocationDAL().get(barcode).get(date).keySet()){
+                    m2.putIfAbsent(location, this.dataAccess.getProductsLocationDAL().get(barcode).get(date).get(location)); //put the location and quantity
                 }
                 m1.putIfAbsent(date, m2);   //put date and it's map
             }
@@ -67,21 +68,24 @@ public class LocationController {
                     productsLocation.get(barCode).get(expirationDate).remove(location);
                     int newValue = oldAmount + amount;
                     productsLocation.get(barCode).get(expirationDate).put(location, newValue);
-                    this.locationControllerDAL.updateProductsQuantityInLocation(barCode, expirationDate, location, newValue);   //update DAL
+                    this.dataAccess.updateProductsQuantityInLocation(barCode, expirationDate, location, newValue);   //update DAL
                 }
                 else {  //barcode with expiration date exists but the location doesn't exists
                     productsLocation.get(barCode).get(expirationDate).put(location, amount);
+                    this.dataAccess.updateProductsQuantityInLocation(barCode, expirationDate, location, amount);   //update DAL
                 }
             }
             else{   //barcode exists but expiration date doesn't exists yet
                 productsLocation.get(barCode).put(expirationDate, new HashMap<Integer, Integer>());
                 productsLocation.get(barCode).get(expirationDate).put(location, amount);
+                this.dataAccess.updateProductsQuantityInLocation(barCode, expirationDate, location, amount);   //update DAL
             }
         }
         else{//barcode  doesn't exists
             productsLocation.put(barCode, new HashMap<>());
             productsLocation.get(barCode).put(expirationDate, new HashMap<Integer, Integer>());
             productsLocation.get(barCode).get(expirationDate).put(location, amount);
+            this.dataAccess.updateProductsQuantityInLocation(barCode, expirationDate, location, amount);   //update DAL
         }
     }
 
@@ -95,7 +99,7 @@ public class LocationController {
             int oldValue = this.productsLocation.get(barCode).get(expiration).get(fromLocation);
             int newValue = oldValue - amount;
             this.productsLocation.get(barCode).get(expiration).replace(fromLocation, newValue);
-            this.locationControllerDAL.updateProductsQuantityInLocation(barCode, expiration, fromLocation, newValue);   //Update DAL
+            this.dataAccess.updateProductsQuantityInLocation(barCode, expiration, fromLocation, newValue);   //Update DAL
             addProduct(barCode, expiration, toLocation, amount);
         }
     }
@@ -108,7 +112,7 @@ public class LocationController {
             int oldValue = this.productsLocation.get(barCode).get(expiration).get(SHELF);
             int newValue = oldValue - amount;
             this.productsLocation.get(barCode).get(expiration).replace(SHELF, newValue);
-            this.locationControllerDAL.updateProductsQuantityInLocation(barCode, expiration, SHELF, newValue);   //Update DAL
+            this.dataAccess.updateProductsQuantityInLocation(barCode, expiration, SHELF, newValue);   //Update DAL
             return true;
         }
         return false;
