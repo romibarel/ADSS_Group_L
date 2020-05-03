@@ -93,6 +93,7 @@ public class ProductReport {
             for (ProductRepData productRepData : getReportData().get(categoryName)) {
                 productRepDataDALList.add(productRepData.createDAL());
             }
+            reportDataDAL.put(categoryName, productRepDataDALList);
         }
         return new ProductReportDAL(this.date, hierarchyDAL, reportDataDAL);
     }

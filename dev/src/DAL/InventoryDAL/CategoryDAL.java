@@ -3,6 +3,9 @@ package DAL.InventoryDAL;
 import Buisness.Invenrory.Category;
 import Buisness.Invenrory.Product;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +26,6 @@ public class CategoryDAL {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<CategoryDAL> getSubCategoriesDAL() {
-        return subCategoriesDAL;
     }
 
     public void setSubCategoriesDAL(List<CategoryDAL> subCategoriesDAL) {
@@ -52,8 +51,15 @@ public class CategoryDAL {
         this.productListDAL.add(productDAL);
     }
 
-    public void deleteProduct (ProductDAL productDAL){
-        this.productListDAL.remove(productDAL);
+    public void deleteProduct(ProductDAL productDAL, Connection conn){
+        //this.productListDAL.remove(productDAL);
+        try {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM CATEGORIES_OF_PRODUCTS WHERE Barcode = "+productDAL.getBarCode()+";");
+            stmt.executeUpdate();
+        }
+        catch (Exception e){
+            System.out.println("failed");
+        }
     }
 
     public boolean hasProduct(int barCode) {

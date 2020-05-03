@@ -7,6 +7,7 @@ import Buisness.Reports.DefectReport;
 import Buisness.Reports.ProductReport;
 import Buisness.Reports.ReportController;
 import Buisness.Transactions.TransactionController;
+import DAL.DataAccess;
 import Presentation.PdataInventoryReport;
 import Presentation.Pdefect;
 
@@ -231,6 +232,13 @@ public class Singletone_Storage_Management implements API_Buisness{
 
     public Collection<List<String>> subcat(Date date){return report.subcat(date);}
 
-    public void creatInventoryReport(Date today){this.report.creatInventoryReport(today);}
+    public void creatInventoryReport(Date today){
+        this.report.creatInventoryReport(today);
+    }
+
+    public void exit(){
+        DataAccess.getInstance().close();
+        System.exit(0);
+    }
 }
 

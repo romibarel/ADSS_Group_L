@@ -1,5 +1,6 @@
 package Buisness.Defects;
 
+import DAL.DataAccess;
 import DAL.DefectsDAL.DefectControllerDAL;
 import DAL.DefectsDAL.DefectDAL;
 
@@ -9,16 +10,16 @@ import java.util.List;
 
 public class DefectController {
     private List<Defect> defects;
-    private DefectControllerDAL defectControllerDAL;
+    private DataAccess dataAccess;
 
     public DefectController() {
         this.defects = new ArrayList<>();
-        this.defectControllerDAL= DefectControllerDAL.getInstance();
+        this.dataAccess= DataAccess.getInstance();
         restore();
     }
 
     private void restore() {
-        for (DefectDAL defectDAL:this.defectControllerDAL.getDefects()) {
+        for (DefectDAL defectDAL:this.dataAccess.getDefects()) {
             Defect defect = new Defect(defectDAL);
             this.defects.add(defect);
         }
@@ -28,7 +29,7 @@ public class DefectController {
         Defect defect = new Defect(date, barCode, amount, reason, creator, location, expiration);
         //DAL issues
         DefectDAL defectDAL = defect.createDAL();
-        this.defectControllerDAL.addDefect(defectDAL);
+        this.dataAccess.addDefect(defectDAL);
 
         this.defects.add(defect);
     }

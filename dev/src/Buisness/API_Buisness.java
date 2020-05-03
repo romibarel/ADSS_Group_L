@@ -92,4 +92,6 @@ public interface API_Buisness {
     Collection<List<String>> subcat(Date date);
 
     void creatInventoryReport(Date today);
+
+    void exit();
 }

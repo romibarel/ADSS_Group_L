@@ -63,7 +63,7 @@ public class Presentation {
                 ReportMenu();
                 break;
             default:
-                System.exit(0);
+                buisnessManager.exit();
         }
         startProgramMenu();
     }
