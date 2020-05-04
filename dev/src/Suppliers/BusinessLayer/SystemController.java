@@ -198,4 +198,9 @@ public class SystemController {
     public LinkedList<Report> getReports() {
         return reports;
     }
+
+    public Order urgentOrder(int barCode, int amount) {
+        //TODO: implement this, make the cheapest order you can get
+        return null;
+    }
 }

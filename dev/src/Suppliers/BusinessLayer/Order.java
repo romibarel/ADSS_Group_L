@@ -4,9 +4,11 @@ import Suppliers.PersistenceLayer.LoanOrder;
 import Suppliers.PersistenceLayer.LoanProduct;
 import javafx.util.Pair;
 
+import javax.xml.crypto.Data;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -112,5 +114,20 @@ public class Order {
             prods += e.getKey().getName() + "\n";
         }
         return prods;
+    }
+
+    public double getPrice(){
+        //TODO: implement this
+        return 0;
+    }
+
+    public double getDiscount(){
+        //TODO: implement this
+        return 0;
+    }
+
+    public Date getExpirationDate(){
+        //TODO: implement this
+        return null;
     }
 }

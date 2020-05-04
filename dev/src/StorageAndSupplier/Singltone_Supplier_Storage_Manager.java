@@ -11,7 +11,11 @@ import javafx.util.Pair;
 import java.time.LocalDate;
 import java.util.*;
 
+
 public class Singltone_Supplier_Storage_Manager implements API_Buisness{
+
+    public static final int STORAGE = 1;
+
     private static Singltone_Supplier_Storage_Manager instance;
     private Singletone_Storage_Management storage_management;
     private SystemController supplier_management;
@@ -63,7 +67,18 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
 
     @Override
     public boolean sellProduct(Date date, int barCode, int amount, Date expirationDate) {
-        return this.storage_management.sellProduct(date, barCode, amount, expirationDate);
+        if (this.storage_management.sellProduct(date, barCode, amount, expirationDate)){ //need to make urgent order -> product under minimum
+            Order orderDetails = this.supplier_management.urgentOrder(barCode, Integer.parseInt(getProducteMinAmount(barCode))*2);
+
+             //TODO: change the supplier id from string to int
+
+            this.storage_management.buyProduct(barCode, getProducteName(barCode), Integer.toString(orderDetails.getSupplierID()), orderDetails.getPrice(),
+                    orderDetails.getDiscount(), orderDetails.getExpirationDate(),Integer.parseInt(getProducteMinAmount(barCode))*2 ,orderDetails.getExpirationDate(), STORAGE);
+            return true; //need to alert to presentation
+        }
+        else{
+            return false;  //no need to alert to presentation
+        }
     }
 
     @Override
