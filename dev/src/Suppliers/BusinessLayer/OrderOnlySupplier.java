@@ -8,15 +8,12 @@ import Suppliers.PersistenceLayer.LoanSupplier;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
-public class SelfPickupSupplier extends Supplier {
-    private String location;
-
-    public SelfPickupSupplier(String name, int companyID, String bankAccNum, String payCond, String phoneNum, String location){
+public class OrderOnlySupplier extends Supplier {
+    public OrderOnlySupplier(String name, int companyID, String bankAccNum, String payCond, String phoneNum){
         super(name, companyID, bankAccNum, payCond, phoneNum);
-        this.location = location;
     }
 
-    public SelfPickupSupplier(LoanSupplier la){
+    public OrderOnlySupplier(LoanSupplier la){
         super(la);
     }
 
@@ -30,7 +27,7 @@ public class SelfPickupSupplier extends Supplier {
             lo.add(o.getLoan());
         for(Product p : getProducts())
             lp.add(p.getLoan(getID()));
-        return new LoanSupplier("SelfPickup", getID(), name, getCompanyID(), getBankAccNum(), getPayCond(), getPhoneNum(), getContacts(), la, lo, lp);
+        return new LoanSupplier("OrderOnly", getID(), name, getCompanyID(), getBankAccNum(), getPayCond(), getPhoneNum(), getContacts(), la, lo, lp);
     }
 
     public boolean removeOrder(int orderID){
@@ -44,6 +41,6 @@ public class SelfPickupSupplier extends Supplier {
     }
 
     public LocalDateTime assessOrderETA(){
-        return LocalDateTime.now().plusDays(1);
+        return LocalDateTime.now().plusDays(3);
     }
 }

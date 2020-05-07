@@ -1,15 +1,18 @@
 package StorageAndSupplier;
 
-import Storage.Buisness.*;
 import Storage.Buisness.Reports.DefectReport;
 import Storage.Buisness.Reports.ProductReport;
+import Storage.Buisness.Singletone_Storage_Management;
 import StorageAndSupplier.Presentation.PdataInventoryReport;
 import StorageAndSupplier.Presentation.Pdefect;
 import Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Singltone_Supplier_Storage_Manager implements API_Buisness{
@@ -22,7 +25,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
 
     private Singltone_Supplier_Storage_Manager() {
         this.storage_management = Singletone_Storage_Management.getInstance();
-        this.supplier_management = new SystemController();
+        this.supplier_management = SystemController.getInstance();
     }
 
     public static Singltone_Supplier_Storage_Manager getInstance(){
@@ -68,12 +71,12 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     @Override
     public boolean sellProduct(Date date, int barCode, int amount, Date expirationDate) {
         if (this.storage_management.sellProduct(date, barCode, amount, expirationDate)){ //need to make urgent order -> product under minimum
-            Order orderDetails = this.supplier_management.urgentOrder(barCode, Integer.parseInt(getProducteMinAmount(barCode))*2);
-
+            LocalDateTime ETA = this.supplier_management.urgentOrder(barCode, Integer.parseInt(getProducteMinAmount(barCode))*2);
+            //TODO: urgent order now returns the date ^^^^^
              //TODO: change the supplier id from string to int
 
-            this.storage_management.buyProduct(barCode, getProducteName(barCode), Integer.toString(orderDetails.getSupplierID()), orderDetails.getPrice(),
-                    orderDetails.getDiscount(), orderDetails.getExpirationDate(),Integer.parseInt(getProducteMinAmount(barCode))*2 ,orderDetails.getExpirationDate(), STORAGE);
+            //this.storage_management.buyProduct(barCode, getProducteName(barCode), Integer.toString(orderDetails.getSupplierID()), orderDetails.getPrice(),
+                    //orderDetails.getDiscount(), orderDetails.getExpirationDate(),Integer.parseInt(getProducteMinAmount(barCode))*2 ,orderDetails.getExpirationDate(), STORAGE);
             return true; //need to alert to presentation
         }
         else{
@@ -241,107 +244,147 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     * */
 
     @Override
-    public void loadSystem() {
-        this.supplier_management.loadSystem();
+    public void loadSystem(){
+        supplier_management.loadSystem();
     }
 
     @Override
-    public void addOrder(Order order) {
-this.supplier_management.addOrder(order);
+    public void addOrder(Order order){
+        //TODO: add order returns LocalDateTime or null if user entered an invalid order
+        LocalDateTime ETA = supplier_management.addOrder(order);
     }
 
     @Override
-    public void addSupplier(Supplier supplier) {
-this.supplier_management.addSupplier(supplier);
+    public void addSupplier(Supplier supplier){
+        supplier_management.addSupplier(supplier);
     }
 
     @Override
-    public void removeOrder(int orderID) {
-this.supplier_management.removeOrder(orderID);
+    public boolean addAgreement(int supplierID, Agreement a){
+        return supplier_management.addAgreement(supplierID, a);
     }
 
     @Override
-    public void removeSupplier(int supplierID) {
-this.supplier_management.removeSupplier(supplierID);
+    public void addProduct(int supplierID, Product p){
+        supplier_management.addProduct(supplierID, p);
     }
 
     @Override
-    public void reportArrival(Order arrivedOrder) {
-        this.supplier_management.reportArrival(arrivedOrder);
+    public boolean removeOrder(int orderID){
+        return supplier_management.removeOrder(orderID);
     }
 
     @Override
-    public void reportCancellation(Order cancelledOrder) {
-        this.supplier_management.reportCancellation(cancelledOrder);
+    public boolean removeSupplier(int supplierID){
+        return supplier_management.removeSupplier(supplierID);
     }
 
     @Override
-    public boolean setSupplierCompanyID(int supplierID, int companyID) {
-        return this.supplier_management.setSupplierCompanyID(supplierID, companyID);
+    public boolean removeProductFromOrder(int supplierID, int orderID, int productID){
+        return supplier_management.removeProductFromOrder(supplierID, orderID, productID);
     }
 
     @Override
-    public boolean setSupplierBankAccNum(int supplierID, String bankAccNum) {
-        return this.supplier_management.setSupplierBankAccNum(supplierID, bankAccNum);
+    public boolean removeSupplierContact(int supplierID, String phoneNum){
+        return supplier_management.removeSupplierContact(supplierID, phoneNum);
     }
 
     @Override
-    public boolean setSupplierPayCond(int supplierID, String payCond) {
-        return this.supplier_management.setSupplierPayCond(supplierID, payCond);
+    public boolean removeSupplierProduct(int supplierID, int productID){
+        return supplier_management.removeSupplierProduct(supplierID, productID);
     }
 
     @Override
-    public boolean setSupplierPhoneNum(int supplierID, String phoneNum) {
-        return this.supplier_management.setSupplierPhoneNum(supplierID, phoneNum);
+    public boolean removeSupplierAgreement(int supplierID, int agreementID){
+        return supplier_management.removeSupplierAgreement(supplierID, agreementID);
     }
 
     @Override
-    public boolean setSupplierContactNames(int supplierID, LinkedList<String> contacts) {
-        return this.supplier_management.setSupplierContactNames(supplierID, contacts);
+    public void reportArrival(Order arrivedOrder){
+        supplier_management.reportArrival(arrivedOrder);
     }
 
     @Override
-    public boolean setOrderProducts(int orderID, HashMap<Product, Pair<Integer, Integer>> products) {
-        return this.supplier_management.setOrderProducts(orderID, products);
+    public void reportCancellation(Order cancelledOrder){
+        supplier_management.reportCancellation(cancelledOrder);
     }
 
     @Override
-    public boolean setOrderETA(int orderID, LocalDate ETA) {
-        return this.supplier_management.setOrderETA(orderID, ETA);
+    public boolean setSupplierCompanyID(int supplierID, int companyID){
+        return supplier_management.setSupplierCompanyID(supplierID, companyID);
     }
 
     @Override
-    public boolean setAgreementProdAmount(int agreementID, int amount) {
-        return this.supplier_management.setAgreementProdAmount(agreementID, amount);
+    public boolean setSupplierBankAccNum(int supplierID, String bankAccNum){
+        return supplier_management.setSupplierBankAccNum(supplierID, bankAccNum);
     }
 
     @Override
-    public boolean setAgreementProdCond(int agreementID, int cond) {
-        return this.supplier_management.setAgreementProdCond(agreementID, cond);
+    public boolean setSupplierPayCond(int supplierID, String payCond){
+        return supplier_management.setSupplierPayCond(supplierID, payCond);
     }
 
     @Override
-    public Supplier getSupplierByID(int supplierID) {
-        return this.supplier_management.getSupplierByID(supplierID);
+    public boolean setSupplierPhoneNum(int supplierID, String phoneNum){
+        return supplier_management.setSupplierPhoneNum(supplierID, phoneNum);
     }
 
     @Override
-    public Order getOrderByID(int orderID) {
-        return this.supplier_management.getOrderByID(orderID);
+    public boolean addSupplierContact(int supplierID, Pair<String, String> contact){
+        return supplier_management.addSupplierContact(supplierID, contact);
     }
 
     @Override
-    public LinkedList<Supplier> getSuppliers() {
-        return this.supplier_management.getSuppliers();
+    public boolean setAmountOfProductInOrder(int orderID, int productID, int amount){
+        return supplier_management.setAmountOfProductInOrder(orderID, productID, amount);
     }
 
     @Override
-    public LinkedList<Order> getOrders() {
-        return this.supplier_management.getOrders();
+    public boolean setOrderETA(int orderID, LocalDateTime ETA){
+        //TODO: sets ETA of the order associated with orderID to a new one, return true is succeeded and false otherwise
+        if(supplier_management.setOrderETA(orderID, ETA)){
+
+        }
+        return false;
     }
 
     @Override
-    public LinkedList<Report> getReports() {
-        return this.supplier_management.getReports();
+    public boolean setAgreementProdAmount(int agreementID, int amount){
+        return supplier_management.setAgreementProdAmount(agreementID, amount);
+    }
+
+    @Override
+    public boolean setAgreementProdSale(int agreementID, int sale){
+        return supplier_management.setAgreementProdSale(agreementID, sale);
+    }
+
+    @Override
+    public Supplier getSupplier(int supplierID){
+        return supplier_management.getSupplier(supplierID);
+    }
+
+    @Override
+    public Order getOrder(int orderID){
+        return supplier_management.getOrder(orderID);
+    }
+
+    @Override
+    public LinkedList<Supplier> getSuppliers(){
+        return supplier_management.getSuppliers();
+    }
+
+    @Override
+    public LinkedList<Order> getOrders(){
+        return supplier_management.getOrders();
+    }
+
+    @Override
+    public LinkedList<Report> getReports(){
+        return supplier_management.getReports();
+    }
+
+    @Override
+    public void closeConnection(){
+        supplier_management.closeConnection();
     }
 }

@@ -1,35 +1,76 @@
 package Suppliers.BusinessLayer;
 
-import Suppliers.PersistenceLayer.*;
+import Suppliers.PersistenceLayer.DataController;
+import Suppliers.PersistenceLayer.LoanReport;
+import Suppliers.PersistenceLayer.LoanSupplier;
 import javafx.util.Pair;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class SystemController {
-    private LinkedList<Supplier> suppliers = new LinkedList<>();
-    private LinkedList<Report> reports = new LinkedList<>();
-    private DataController dc;
+    private static SystemController instance = null;
+    private LinkedList<Supplier> suppliers;
+    private LinkedList<Report> reports;
+    private final DataController dc = DataController.getInstance();
 
-    public SystemController(DataController dc){
-        this.dc = dc;
+    public static SystemController getInstance(){
+        if(instance == null)
+            return new SystemController();
+        return instance;
     }
 
-    public SystemController(){ }
+    private SystemController(){
+        suppliers = new LinkedList<>();
+        reports = new LinkedList<>();
+        for(LoanSupplier lp : dc.pullSupplierData()) {
+            switch (lp.getTag()){
+                case "FixedDays":
+                    suppliers.add(new FixedDaysSupplier(lp));
+                    break;
+                case "SelfPickup":
+                    suppliers.add(new SelfPickupSupplier(lp));
+                    break;
+                case "OrderOnly":
+                    suppliers.add(new OrderOnlySupplier(lp));
+                    break;
+            }
+        }
+
+        for(LoanReport lr : dc.pullReports()){
+            switch (lr.getTag()){
+                case "Arrival":
+                    reports.add(new ArrivalReport(lr));
+                    break;
+                case "Cancel":
+                    reports.add(new CancellationReport(lr));
+                    break;
+            }
+        }
+
+
+    }
 
     public void loadSystem(){
-        LinkedList<LoanSupplier> loanSuppliers = dc.getLoanSuppliers();
+        /*LinkedList<LoanSupplier> loanSuppliers = dc.getLoanSuppliers();
         LinkedList<LoanOrder> loanOrders = dc.getLoanOrders();
         LinkedList<LoanAgreement> loanAgreements = dc.getLoanAgreements();
+        LinkedList<LoanProduct> loanProducts = dc.getLoanProducts();
 
         suppliers.add(new FixedDaysSupplier(loanSuppliers.get(0)));
-        suppliers.add(new InviteOnlySupplier(loanSuppliers.get(1)));
+        suppliers.add(new OrderOnlySupplier(loanSuppliers.get(1)));
         suppliers.add(new SelfPickupSupplier(loanSuppliers.get(2)));
 
-        suppliers.get(0).addAgreement(new SaleAgreement(loanAgreements.get(0)));
-        suppliers.get(1).addAgreement(new GiftAgreement(loanAgreements.get(1)));
-        suppliers.get(2).addAgreement(new SaleAgreement(loanAgreements.get(2)));
+        suppliers.get(0).addProduct(new Product(loanProducts.get(0)));
+        suppliers.get(0).addProduct(new Product(loanProducts.get(1)));
+        suppliers.get(1).addProduct(new Product(loanProducts.get(2)));
+        suppliers.get(1).addProduct(new Product(loanProducts.get(3)));
+        suppliers.get(2).addProduct(new Product(loanProducts.get(4)));
+
+        suppliers.get(0).addAgreement(new Agreement(loanAgreements.get(0)));
+        suppliers.get(1).addAgreement(new Agreement(loanAgreements.get(1)));
+        suppliers.get(2).addAgreement(new Agreement(loanAgreements.get(2)));
 
         suppliers.get(0).addOrder(new Order(loanOrders.get(0)));
         suppliers.get(0).getOrders().get(0).calcTotal(suppliers.get(0).getAgreements());
@@ -37,128 +78,236 @@ public class SystemController {
         suppliers.get(1).getOrders().get(0).calcTotal(suppliers.get(1).getAgreements());
         suppliers.get(2).addOrder(new Order(loanOrders.get(2)));
         suppliers.get(2).getOrders().get(0).calcTotal(suppliers.get(2).getAgreements());
+         */
     }
 
-    public void addOrder(Order order){
+    public LocalDateTime addOrder(Order order){
         for(Supplier s : suppliers){
             if(s.getID() == order.getSupplierID()) {
                 order.calcTotal(s.getAgreements());
-                s.addOrder(order);
+                dc.addSupplierOrder(order.getLoan());
+                return s.addOrder(order);
             }
         }
+        return null;
     }
 
     public void addSupplier(Supplier supplier){
         suppliers.add(supplier);
+        dc.addSupplier(supplier.getLoan());
     }
 
-    public void removeOrder(int orderID){
+    public boolean addAgreement(int supplierID, Agreement a){
         for(Supplier s : suppliers){
-            for(Order o : s.getOrders()){
-                if(o.getID() == orderID){
-                    s.removeOrder(orderID);
-                    break;
+            if(s.getID() == supplierID) {
+                if(s.doesSupplyProduct(a.getProduct().getCatalogID())) {
+                    System.out.println("YESEYSEYSEYSYES");
+                    s.addAgreement(a);
+                    dc.addSupplierAgreement(a.getLoan(supplierID), supplierID);
+                    return true;
                 }
             }
         }
+        return false;
     }
 
-    public void removeSupplier(int supplierID){
+    public void addProduct(int supplierID, Product p){
+        for(Supplier s : suppliers){
+            if(s.getID() == supplierID) {
+                s.addProduct(p);
+                dc.addSupplierProduct(p.getLoan(supplierID), supplierID);
+            }
+        }
+    }
+
+    public boolean removeOrder(int orderID){
+        for(Supplier s : suppliers){
+            for(Order o : s.getOrders()){
+                if(o.getID() == orderID && s.removeOrder(orderID)){
+                    dc.removeSupplierOrder(orderID);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean removeSupplier(int supplierID){
         for(Supplier s : suppliers){
             if(s.getID() == supplierID){
                 suppliers.remove(s);
-                break;
+                dc.removeSupplier(supplierID);
+                return true;
             }
         }
+        return false;
+    }
+
+    public boolean removeProductFromOrder(int supplierID, int orderID, int productID){
+        for(Supplier s : suppliers){
+            if(s.getID() == supplierID && s.removeProductFromOrder(orderID, productID)){
+                dc.removeProductFromOrder(orderID, productID);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeSupplierContact(int supplierID, String phoneNum){
+        for(Supplier s : suppliers){
+            if(s.getID() == supplierID && s.removeContact(phoneNum)) {
+                dc.removeSupplierContact(supplierID, phoneNum);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeSupplierProduct(int supplierID, int productID){
+        for(Supplier s : suppliers){
+            if(s.getID() == supplierID && s.removeProduct(productID)) {
+                dc.removeSupplierProduct(productID, supplierID);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeSupplierAgreement(int supplierID, int agreementID){
+        for(Supplier s : suppliers){
+            if(s.getID() == supplierID && s.removeAgreement(agreementID)) {
+                dc.removeSupplierAgreement(agreementID);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void reportArrival(Order arrivedOrder){
         removeOrder(arrivedOrder.getID());
-        reports.add(new ArrivalReport(LocalDate.now(), arrivedOrder));
+        dc.removeSupplierOrder(arrivedOrder.getID());
+        Report r = new ArrivalReport(LocalDateTime.now(), arrivedOrder);
+        reports.add(r);
+        dc.addReport(r.getLoan());
     }
 
     public void reportCancellation(Order cancelledOrder){
         removeOrder(cancelledOrder.getID());
-        reports.add(new CancellationReport(LocalDate.now(), cancelledOrder));
+        dc.removeSupplierOrder(cancelledOrder.getID());
+        Report r = new CancellationReport(LocalDateTime.now(), cancelledOrder);
+        reports.add(r);
+        dc.addReport(r.getLoan());
+    }
+
+    public LocalDateTime urgentOrder(int barCode, int amount) {
+        double minPrice = Double.MAX_VALUE;
+        Supplier sup = null;
+        Product p;
+        for(Supplier s : suppliers){
+            if(s.doesSupplyProduct(barCode)){
+                double price = s.pitchPriceForProduct(barCode, amount);
+                if(price < minPrice) {
+                    minPrice = price;
+                    sup = s;
+                }
+            }
+        }
+        if(sup == null)
+            return null;
+        p = sup.getProductByID(barCode);
+        HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
+        products.put(p, new Pair<>(amount, 0));
+        Order o = new Order(sup.getName(), sup.getID(), LocalDateTime.now(), products);
+        addOrder(o);
+        return o.getETA();
     }
 
     public boolean setSupplierCompanyID(int supplierID, int companyID){
-        Supplier s = getSupplierByID(supplierID);
+        Supplier s = getSupplier(supplierID);
         if(s == null)
             return false;
         s.setCompanyID(companyID);
+        dc.updateSupplierCompanyID(companyID, supplierID);
         return true;
     }
 
     public boolean setSupplierBankAccNum(int supplierID, String bankAccNum){
-        Supplier s = getSupplierByID(supplierID);
+        Supplier s = getSupplier(supplierID);
         if(s == null)
             return false;
         s.setBankAccNum(bankAccNum);
+        dc.updateSupplierBankAccNum(bankAccNum, supplierID);
         return true;
     }
 
     public boolean setSupplierPayCond(int supplierID, String payCond){
-        Supplier s = getSupplierByID(supplierID);
+        Supplier s = getSupplier(supplierID);
         if(s == null)
             return false;
         s.setPayCond(payCond);
+        dc.updateSupplierPayCond(payCond, supplierID);
         return true;
     }
 
     public boolean setSupplierPhoneNum(int supplierID, String phoneNum){
-        Supplier s = getSupplierByID(supplierID);
+        Supplier s = getSupplier(supplierID);
         if(s == null)
             return false;
         s.setPhoneNum(phoneNum);
+        dc.updateSupplierPhoneNum(phoneNum, supplierID);
         return true;
     }
 
-    public boolean setSupplierContactNames(int supplierID, LinkedList<String> contacts){
-        Supplier s = getSupplierByID(supplierID);
+    public boolean addSupplierContact(int supplierID, Pair<String, String> contact){
+        Supplier s = getSupplier(supplierID);
         if(s == null)
             return false;
-        s.setContactNames(contacts);
+        s.addContact(contact);
+        dc.addSupplierContact(contact.getKey(), contact.getValue(), supplierID);
         return true;
     }
 
-    public boolean setOrderProducts(int orderID, HashMap<Product, Pair<Integer, Integer>> products){
-        Order o = getOrderByID(orderID);
+    public boolean setAmountOfProductInOrder(int orderID, int productID, int amount){
+        Order o = getOrder(orderID);
         if(o == null)
             return false;
-        o.setProducts(products);
+        o.setProductAmount(productID, amount);
         for(Supplier s : suppliers){
             if(s.getID() == o.getSupplierID())
                 o.calcTotal(s.getAgreements());
         }
+        dc.updateAmountOfProductInOrder(orderID, productID, amount, o.getTotal());
         return true;
     }
 
-    public boolean setOrderETA(int orderID, LocalDate ETA){
-        Order o = getOrderByID(orderID);
+    public boolean setOrderETA(int orderID, LocalDateTime ETA){
+        Order o = getOrder(orderID);
         if(o == null)
             return false;
         o.setETA(ETA);
+        dc.updateOrderETA(ETA, orderID);
         return true;
     }
 
     public boolean setAgreementProdAmount(int agreementID, int amount){
-        Agreement a = getAgreementByID(agreementID);
+        Agreement a = getAgreement(agreementID);
         if(a == null)
             return false;
         a.setProdAmount(amount);
+        dc.updateAgreementProdAmount(amount, agreementID);
         return true;
     }
 
-    public boolean setAgreementProdCond(int agreementID, int cond){
-        Agreement a = getAgreementByID(agreementID);
+    public boolean setAgreementProdSale(int agreementID, int sale){
+        Agreement a = getAgreement(agreementID);
         if(a == null)
             return false;
-        a.setProdCond(cond);
+        a.setProdSale(sale);
+        dc.updateAgreementProdSale(sale, agreementID);
         return true;
     }
 
-    public Supplier getSupplierByID(int supplierID){
+    public Supplier getSupplier(int supplierID){
         for(Supplier s : suppliers) {
             if (s.getID() == supplierID)
                 return s;
@@ -166,7 +315,7 @@ public class SystemController {
         return null;
     }
 
-    public Order getOrderByID(int orderID){
+    public Order getOrder(int orderID){
         for(Order o : getOrders()) {
             if (o.getID() == orderID)
                 return o;
@@ -174,7 +323,7 @@ public class SystemController {
         return null;
     }
 
-    private Agreement getAgreementByID(int agreementID){
+    private Agreement getAgreement(int agreementID){
         for(Supplier s : suppliers) {
             for(Agreement a : s.getAgreements()){
                 if(a.getAgreementID() == agreementID)
@@ -199,8 +348,7 @@ public class SystemController {
         return reports;
     }
 
-    public Order urgentOrder(int barCode, int amount) {
-        //TODO: implement this, make the cheapest order you can get
-        return null;
+    public void closeConnection(){
+        dc.close();
     }
 }

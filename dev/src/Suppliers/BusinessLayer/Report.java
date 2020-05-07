@@ -1,24 +1,34 @@
 package Suppliers.BusinessLayer;
 
-import java.time.LocalDate;
+import Suppliers.PersistenceLayer.LoanReport;
+
+import java.time.LocalDateTime;
 
 public abstract class Report {
     private static int statID = 1;
     private int reportID;
-    private LocalDate dateReported;
+    private LocalDateTime dateReported;
     private Order reportedOrder;
 
-    public Report(LocalDate dateReported, Order reportedOrder){
+    public Report(LocalDateTime dateReported, Order reportedOrder){
         reportID = statID++;
         this.dateReported = dateReported;
         this.reportedOrder = reportedOrder;
     }
 
+    public Report(LoanReport lr){
+        reportID = lr.getReportID();
+        dateReported = lr.getDateReported();
+        reportedOrder = new Order(lr.getReportedOrder());
+    }
+
+    public abstract LoanReport getLoan();
+
     public int getID(){
         return reportID;
     }
 
-    public LocalDate getDateReported(){
+    public LocalDateTime getDateReported(){
         return dateReported;
     }
 

@@ -7,12 +7,11 @@ import StorageAndSupplier.Presentation.Pdefect;
 import Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.HashMap;
-import java.time.LocalDate;
 
 
 public interface API_Buisness {
@@ -104,45 +103,59 @@ public interface API_Buisness {
     * SUPPLIERS SECTION
     * */
 
-    public void loadSystem();
+    void loadSystem();
 
-    public void addOrder(Order order);
+    void addOrder(Order order);
 
-    public void addSupplier(Supplier supplier);
+    void addSupplier(Supplier supplier);
 
-    public void removeOrder(int orderID);
+    boolean addAgreement(int supplierID, Agreement a);
 
-    public void removeSupplier(int supplierID);
+    void addProduct(int supplierID, Product p);
 
-    public void reportArrival(Order arrivedOrder);
+    boolean removeOrder(int orderID);
 
-    public void reportCancellation(Order cancelledOrder);
+    boolean removeSupplier(int supplierID);
 
-    public boolean setSupplierCompanyID(int supplierID, int companyID);
+    boolean removeProductFromOrder(int supplierID, int orderID, int productID);
 
-    public boolean setSupplierBankAccNum(int supplierID, String bankAccNum);
+    boolean removeSupplierContact(int supplierID, String phoneNum);
 
-    public boolean setSupplierPayCond(int supplierID, String payCond);
+    boolean removeSupplierProduct(int supplierID, int productID);
 
-    public boolean setSupplierPhoneNum(int supplierID, String phoneNum);
+    boolean removeSupplierAgreement(int supplierID, int agreementID);
 
-    public boolean setSupplierContactNames(int supplierID, LinkedList<String> contacts);
+    void reportArrival(Order arrivedOrder);
 
-    public boolean setOrderProducts(int orderID, HashMap<Product, Pair<Integer, Integer>> products);
+    void reportCancellation(Order cancelledOrder);
 
-    public boolean setOrderETA(int orderID, LocalDate ETA);
+    boolean setSupplierCompanyID(int supplierID, int companyID);
 
-    public boolean setAgreementProdAmount(int agreementID, int amount);
+    boolean setSupplierBankAccNum(int supplierID, String bankAccNum);
 
-    public boolean setAgreementProdCond(int agreementID, int cond);
+    boolean setSupplierPayCond(int supplierID, String payCond);
 
-    public Supplier getSupplierByID(int supplierID);
+    boolean setSupplierPhoneNum(int supplierID, String phoneNum);
 
-    public Order getOrderByID(int orderID);
+    boolean addSupplierContact(int supplierID, Pair<String, String> contact);
 
-    public LinkedList<Supplier> getSuppliers();
+    boolean setAmountOfProductInOrder(int orderID, int productID, int amount);
 
-    public LinkedList<Order> getOrders();
+    boolean setOrderETA(int orderID, LocalDateTime ETA);
 
-    public LinkedList<Report> getReports();
+    boolean setAgreementProdAmount(int agreementID, int amount);
+
+    boolean setAgreementProdSale(int agreementID, int sale);
+
+    Supplier getSupplier(int supplierID);
+
+    Order getOrder(int orderID);
+
+    LinkedList<Supplier> getSuppliers();
+
+    LinkedList<Order> getOrders();
+
+    LinkedList<Report> getReports();
+
+    void closeConnection();
 }
