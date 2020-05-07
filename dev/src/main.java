@@ -1,11 +1,14 @@
-import Buisness.Locations.LocationController;
-import Buisness.Singletone_Storage_Management;
-import Presentation.Presentation;
-import Tests.CategoryTest;
+import StorageAndSupplier.API_Buisness;
+import Storage.Buisness.Locations.LocationController;
+import StorageAndSupplier.Presentation.Presentation;
+import Storage.Tests.CategoryTest;
 
-import Tests.LocationControllerTest;
-import Tests.ProductControllerTest;
-import Tests.PurchaseTransactionTest;
+import Storage.Tests.LocationControllerTest;
+import Storage.Tests.ProductControllerTest;
+import Storage.Tests.PurchaseTransactionTest;
+import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
+import Suppliers.BusinessLayer.SystemController;
+import Suppliers.PersistenceLayer.DataController;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -21,6 +24,36 @@ public class main {
 
     public static void main (String[] args){
         Scanner scanner = new Scanner(System.in);
+        System.out.println("1)Run system of 'Storage'");
+        System.out.println("2)Run system of 'Suppliers'");
+        System.out.println("4)Exit");
+        int selected = 0;
+        boolean error = false;
+        do {
+            try {
+                selected = Integer.parseInt(scanner.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        while (true) {
+            if (selected == 1) {
+                runStorage(scanner);
+                break;
+            } else if (selected == 2) {
+                runSuppliers(scanner);
+                break;
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    private static void runStorage(Scanner scanner) {
         while(true){
             System.out.println("1)Program with initialized data");
             System.out.println("2)Program without initializing data");
@@ -86,6 +119,16 @@ public class main {
         p.startProgramMenu();
     }
 
+    private static void runSuppliers(Scanner scanner){
+        DataController dc = new DataController();
+        SystemController sc = new SystemController(dc);
+        Presentation p = new Presentation();
+        System.out.println("Would you like to load pre-made data or start from scratch? (y/n)");
+        if(scanner.next().equals("y"))
+            sc.loadSystem();
+        p.run();
+    }
+
     private static void initialize(){
         Date expiration1 = null;
         Date supply1 = null;
@@ -100,7 +143,7 @@ public class main {
         }
         catch (Exception ignored){}
 
-        Singletone_Storage_Management manager = Singletone_Storage_Management.getInstance();
+        API_Buisness manager = Singltone_Supplier_Storage_Manager.getInstance();
         /*
         set 3 main categories: 'Dairy' 'Canning' 'Personal care'
         set sub categories 'Milk' under 'Dairy',  'Large' under 'Milk' and 'Shower' under 'Personal care'
