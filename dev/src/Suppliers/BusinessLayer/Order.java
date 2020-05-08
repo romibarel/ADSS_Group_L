@@ -4,43 +4,53 @@ import Suppliers.PersistenceLayer.LoanOrder;
 import Suppliers.PersistenceLayer.LoanProduct;
 import javafx.util.Pair;
 
-import javax.xml.crypto.Data;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
-import java.util.Date;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 public class Order {
     private static int statID = 1;
+    private String supplierName;
     private int orderID;
     private int supplierID;
     private double total;
-    private LocalDate ETA;
-    private LocalDate dateIssued;
-    private HashMap<Product, Pair<Integer, Integer>> products;
+    private LocalDateTime ETA;
+    private LocalDateTime dateIssued;
+    private HashMap<Product, Pair<Integer, Integer>> products; // <Product, <Amount ordered, Sale percentage>>
 
-    public Order(int supplierID, LocalDate ETA, LocalDate dateIssued, HashMap<Product, Pair<Integer, Integer>> products){
+    public Order(String supplierName, int supplierID, LocalDateTime dateIssued, HashMap<Product, Pair<Integer, Integer>> products){
         orderID = statID++;
+        this.supplierName = supplierName;
         this.supplierID = supplierID;
         total = 0;
-        this.ETA = ETA;
+        this.ETA = null;
         this.dateIssued = dateIssued;
         this.products = products;
     }
 
     public Order(LoanOrder lo){
-        orderID = statID++;
+        orderID = lo.getOrderID();
         supplierID = lo.getSupplierID();
-        total = 0;
+        total = lo.getTotal();
         ETA = lo.getETA();
         dateIssued = lo.getDateIssued();
         HashMap<LoanProduct, Pair<Integer, Integer>> loanProducts = lo.getProducts();
         products = new HashMap<>();
         for(Map.Entry<LoanProduct, Pair<Integer, Integer>> e : loanProducts.entrySet())
             products.put(new Product(e.getKey()), new Pair<>(e.getValue().getKey(), e.getValue().getValue()));
+    }
+
+    public LoanOrder getLoan(){
+        HashMap<LoanProduct, Pair<Integer, Integer>> loanProducts = new HashMap<>();
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet())
+            loanProducts.put(e.getKey().getLoan(supplierID), new Pair<>(e.getValue().getKey(), e.getValue().getValue()));
+        return new LoanOrder(supplierID, orderID, total, ETA, dateIssued, loanProducts);
+
     }
 
     public int getID(){
@@ -55,12 +65,7 @@ public class Order {
         return total;
     }
 
-    public int getQuantityOf(Product p){
-        Pair<Integer, Integer> q = products.get(p);
-        return q.getValue() + q.getKey();
-    }
-
-    public LocalDate getETA(){
+    public LocalDateTime getETA(){
         return ETA;
     }
 
@@ -68,16 +73,19 @@ public class Order {
         return products;
     }
 
-    public boolean setProducts(HashMap<Product, Pair<Integer, Integer>> products) {
+    public boolean setProductAmount(int productID, int amount) {
         if(LocalDate.now().isBefore(ChronoLocalDate.from(dateIssued.plusDays(1)))) {
-            this.products = products;
+            for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
+                if(e.getKey().getCatalogID() == productID)
+                    products.replace(e.getKey(), new Pair<>(amount, e.getValue().getValue()));
+            }
             return true;
         }
         return false;
     }
 
-    public boolean setETA(LocalDate ETA) {
-        if(ETA.isAfter(ChronoLocalDate.from(this.ETA))) {
+    public boolean setETA(LocalDateTime ETA) {
+        if(this.ETA == null || ETA.isAfter(ChronoLocalDateTime.from(this.ETA))) {
             this.ETA = ETA;
             return true;
         }
@@ -89,21 +97,20 @@ public class Order {
         for(Agreement a : agreements)
             products = a.applyAgreement(products);
         for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet())
-            total += e.getKey().getPrice() * e.getValue().getKey();
+            total += e.getKey().getFinalPrice() * e.getValue().getKey();
         total = Double.parseDouble(new DecimalFormat("##.##").format(total));
     }
 
-    public LocalDate getDateIssued() {
+    public LocalDateTime getDateIssued() {
         return dateIssued;
     }
 
     public String toString(){
         String order =  "Order #" + orderID + " from supplier #" + supplierID +
-                        " from " + dateIssued.toString() + " to be delivered on " + ETA.toString() +
-                        " contains: \n";
-        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
-            order += e.getKey().getName() + " x" + (e.getValue().getKey() + e.getValue().getValue()) + "\n";
-        }
+                " from " + dateIssued.toString() + " to be delivered on " + ETA.toString() +
+                " contains: \n";
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet())
+            order += e.getKey().getName() + " x" + e.getValue().getKey() + "\n";
         order += "For a total of " + total + " nis.";
         return order;
     }
@@ -116,18 +123,36 @@ public class Order {
         return prods;
     }
 
-    public double getPrice(){
-        //TODO: implement this
-        return 0;
+    public double getPriceOf(int barCode){
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
+            if(e.getKey().getCatalogID() == barCode)
+                return e.getKey().getOriginalPrice();
+        }
+        return -1;
     }
 
-    public double getDiscount(){
-        //TODO: implement this
-        return 0;
+    public double getDiscountOf(int barCode){
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
+            if(e.getKey().getCatalogID() == barCode)
+                return e.getValue().getValue();
+        }
+        return -1;
     }
 
-    public Date getExpirationDate(){
-        //TODO: implement this
+    public LocalDateTime getExpirationDateOf(int barCode){
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
+            if(e.getKey().getCatalogID() == barCode)
+                return e.getKey().getExpirationDate();
+        }
         return null;
+    }
+
+    public void removeProduct(int productID){
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
+            if(e.getKey().getCatalogID() == productID) {
+                products.remove(e.getKey());
+                break;
+            }
+        }
     }
 }

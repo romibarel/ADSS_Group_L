@@ -1,10 +1,20 @@
 package Suppliers.BusinessLayer;
 
-import java.time.LocalDate;
+import Suppliers.PersistenceLayer.LoanReport;
+
+import java.time.LocalDateTime;
 
 public class CancellationReport extends Report {
 
-    public CancellationReport(LocalDate dateReported, Order arrivedOrder){
+    public CancellationReport(LocalDateTime dateReported, Order arrivedOrder){
         super(dateReported, arrivedOrder);
+    }
+
+    public CancellationReport(LoanReport lr){
+        super(lr);
+    }
+
+    public LoanReport getLoan() {
+        return new LoanReport("Cancel", getID(), getDateReported(), getReportedOrder().getLoan());
     }
 }

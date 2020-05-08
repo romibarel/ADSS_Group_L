@@ -1,22 +1,49 @@
 package Suppliers.BusinessLayer;
 
+import Suppliers.PersistenceLayer.LoanAgreement;
+import Suppliers.PersistenceLayer.LoanOrder;
+import Suppliers.PersistenceLayer.LoanProduct;
 import Suppliers.PersistenceLayer.LoanSupplier;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 public class SelfPickupSupplier extends Supplier {
     private String location;
 
-    public SelfPickupSupplier(int companyID, String bankAccNum, String payCond, LinkedList<String> contactNames, String phoneNum, String location){
-        super(companyID, bankAccNum, payCond, contactNames, phoneNum);
+    public SelfPickupSupplier(String name, int companyID, String bankAccNum, String payCond, String phoneNum, String location){
+        super(name, companyID, bankAccNum, payCond, phoneNum);
         this.location = location;
     }
 
     public SelfPickupSupplier(LoanSupplier la){
-        super(la.getCompanyID(), la.getBankAccNum(), la.getPayCond(), la.getContantNames(), la.getPhoneNum());
+        super(la);
     }
 
-    public void removeOrder(int orderID){
-        orders.removeIf(o -> o.getID() == orderID);
+    public LoanSupplier getLoan(){
+        LinkedList<LoanAgreement> la = new LinkedList<>();
+        LinkedList<LoanOrder> lo = new LinkedList<>();
+        LinkedList<LoanProduct> lp = new LinkedList<>();
+        for(Agreement a : getAgreements())
+            la.add(a.getLoan(getID()));
+        for(Order o : getOrders())
+            lo.add(o.getLoan());
+        for(Product p : getProducts())
+            lp.add(p.getLoan(getID()));
+        return new LoanSupplier("SelfPickup", getID(), name, getCompanyID(), getBankAccNum(), getPayCond(), getPhoneNum(), getContacts(), la, lo, lp);
+    }
+
+    public Order removeOrder(int orderID){
+        for(Order o : orders){
+            if(o.getID() == orderID){
+                orders.remove(o);
+                break;
+            }
+        }
+        return null;
+    }
+
+    public LocalDateTime assessOrderETA(){
+        return LocalDateTime.now().plusDays(1);
     }
 }

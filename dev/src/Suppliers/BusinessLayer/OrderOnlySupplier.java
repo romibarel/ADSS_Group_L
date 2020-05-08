@@ -8,13 +8,12 @@ import Suppliers.PersistenceLayer.LoanSupplier;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
-public class FixedDaysSupplier extends Supplier {
-
-    public FixedDaysSupplier(String name, int companyID, String bankAccNum, String payCond, String phoneNum){
+public class OrderOnlySupplier extends Supplier {
+    public OrderOnlySupplier(String name, int companyID, String bankAccNum, String payCond, String phoneNum){
         super(name, companyID, bankAccNum, payCond, phoneNum);
     }
 
-    public FixedDaysSupplier(LoanSupplier la){
+    public OrderOnlySupplier(LoanSupplier la){
         super(la);
     }
 
@@ -28,23 +27,20 @@ public class FixedDaysSupplier extends Supplier {
             lo.add(o.getLoan());
         for(Product p : getProducts())
             lp.add(p.getLoan(getID()));
-        return new LoanSupplier("FixedDays", getID(), name, getCompanyID(), getBankAccNum(), getPayCond(), getPhoneNum(), getContacts(), la, lo, lp);
+        return new LoanSupplier("OrderOnly", getID(), name, getCompanyID(), getBankAccNum(), getPayCond(), getPhoneNum(), getContacts(), la, lo, lp);
     }
 
     public Order removeOrder(int orderID){
         for(Order o : orders){
             if(o.getID() == orderID){
-                Order nextOrder = new Order(name, o.getSupplierID(), o.getDateIssued(), o.getProducts());
-                nextOrder.setETA(assessOrderETA());
                 orders.remove(o);
-                orders.add(nextOrder);
-                return nextOrder;
+                break;
             }
         }
         return null;
     }
 
     public LocalDateTime assessOrderETA(){
-        return LocalDateTime.now().plusDays(7);
+        return LocalDateTime.now().plusDays(3);
     }
 }

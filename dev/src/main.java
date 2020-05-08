@@ -120,8 +120,8 @@ public class main {
     }
 
     private static void runSuppliers(Scanner scanner){
-        DataController dc = new DataController();
-        SystemController sc = new SystemController(dc);
+        DataController dc = DataController.getInstance();
+        SystemController sc = SystemController.getInstance();
         Presentation p = new Presentation();
         System.out.println("Would you like to load pre-made data or start from scratch? (y/n)");
         if(scanner.next().equals("y"))

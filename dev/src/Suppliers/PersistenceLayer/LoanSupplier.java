@@ -1,32 +1,35 @@
 package Suppliers.PersistenceLayer;
 
-import Suppliers.BusinessLayer.Agreement;
-import Suppliers.BusinessLayer.Order;
+import javafx.util.Pair;
 
 import java.util.LinkedList;
 
 public class LoanSupplier {
-    private static int statID = 1;
     private int supplierID;
     private int companyID;
+    private String name;
     private String bankAccNum;
     private String payCond;
     private String phoneNum;
-    private LinkedList<String> contactNames;
-    private LinkedList<Agreement> agreements;
-    private LinkedList<Order> orders;
+    private LinkedList<Pair<String, String>> contacts;
+    private LinkedList<LoanAgreement> agreements;
+    private LinkedList<LoanOrder> orders;
+    private LinkedList<LoanProduct> products;
     private String tag;
 
-    public LoanSupplier(String tag, int companyID, String bankAccNum, String payCond, LinkedList<String> contactNames, String phoneNum){
-        supplierID = statID++;
+    public LoanSupplier(String tag, int supplierID, String name, int companyID, String bankAccNum, String payCond, String phoneNum, LinkedList<Pair<String, String>> contacts,
+                        LinkedList<LoanAgreement> agreements, LinkedList<LoanOrder> orders, LinkedList<LoanProduct> products){
+        this.supplierID = supplierID;
         this.companyID = companyID;
         this.bankAccNum = bankAccNum;
         this.payCond = payCond;
-        this.contactNames = contactNames;
+        this.contacts = contacts;
         this.phoneNum = phoneNum;
-        agreements = new LinkedList<>();
-        orders = new LinkedList<>();
+        this.agreements = agreements;
+        this.orders = orders;
+        this.products = products;
         this.tag = tag;
+        this.name = name;
     }
 
     public int getID() {
@@ -45,8 +48,8 @@ public class LoanSupplier {
         return payCond;
     }
 
-    public LinkedList<String> getContantNames() {
-        return contactNames;
+    public LinkedList<Pair<String, String>> getContants() {
+        return contacts;
     }
 
     public String getPhoneNum() {
@@ -55,5 +58,25 @@ public class LoanSupplier {
 
     public String getTag() {
         return tag;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LinkedList<LoanAgreement> getAgreements() {
+        return agreements;
+    }
+
+    public LinkedList<LoanOrder> getOrders() {
+        return orders;
+    }
+
+    public LinkedList<LoanProduct> getProducts() {
+        return products;
+    }
+
+    public LinkedList<Pair<String, String>> getContacts() {
+        return contacts;
     }
 }
