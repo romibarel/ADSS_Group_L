@@ -375,12 +375,29 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
 
     @Override
     public LinkedList<Order> getOrders(){
-        return supplier_management.getOrders();
+        return supplier_management.getAllOrders();
     }
 
     @Override
     public LinkedList<Report> getReports(){
         return supplier_management.getReports();
+    }
+
+    @Override
+    public void checkOrdersArrivalStatus(){
+        //TODO: returned a list of all arrived orders with all the details you will ever need
+        /*
+        Order.getSupplierID() - returns the supplierID of the supplier that supplied this order
+        Order.getDateIssued() - returns the date the order was ordered
+
+        Order.getProducts() - return a hashmap: <Product, Pair<Integer, Integer>> -> <The Product, Pair<Amount that was ordered, Discount given for the amount (may be 0)>>
+
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : Order.getProducts().entrySet()){
+            From the Product (e.getKey()) you can get the barCode (Product.getCatalogID()), price (Product.getOriginalPrice()) and expiration date (Product.getExpirationDate())
+            From the Pair (e.getValue()) you can get the amount (getKey()) and the discount (getValue())
+        }
+        */
+        LinkedList<Order> arrivedOrders = supplier_management.checkOrdersArrivalStatus();
     }
 
     @Override

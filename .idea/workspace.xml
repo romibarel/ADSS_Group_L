@@ -7,35 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5a0c68f-cb7a-4339-a500-2fe945ca3023" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/ArrivalReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/ArrivalReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/CancellationReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/CancellationReport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/GiftAgreement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/InviteOnlySupplier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SaleAgreement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanAgreement.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanAgreement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanSupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/Tests/TestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/Tests/TestClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/storage.db" beforeDir="false" afterPath="$PROJECT_DIR$/dev/storage.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +55,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587587919372" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../adss2/sqlite-jdbc-3.27.2.1.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

@@ -33,14 +33,14 @@ public class SelfPickupSupplier extends Supplier {
         return new LoanSupplier("SelfPickup", getID(), name, getCompanyID(), getBankAccNum(), getPayCond(), getPhoneNum(), getContacts(), la, lo, lp);
     }
 
-    public boolean removeOrder(int orderID){
+    public Order removeOrder(int orderID){
         for(Order o : orders){
             if(o.getID() == orderID){
                 orders.remove(o);
-                return true;
+                break;
             }
         }
-        return false;
+        return null;
     }
 
     public LocalDateTime assessOrderETA(){

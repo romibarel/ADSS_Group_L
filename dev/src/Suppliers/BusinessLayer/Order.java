@@ -126,7 +126,7 @@ public class Order {
     public double getPriceOf(int barCode){
         for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
             if(e.getKey().getCatalogID() == barCode)
-                return e.getKey().getFinalPrice();
+                return e.getKey().getOriginalPrice();
         }
         return -1;
     }

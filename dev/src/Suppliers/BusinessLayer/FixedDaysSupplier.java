@@ -31,17 +31,17 @@ public class FixedDaysSupplier extends Supplier {
         return new LoanSupplier("FixedDays", getID(), name, getCompanyID(), getBankAccNum(), getPayCond(), getPhoneNum(), getContacts(), la, lo, lp);
     }
 
-    public boolean removeOrder(int orderID){
+    public Order removeOrder(int orderID){
         for(Order o : orders){
             if(o.getID() == orderID){
                 Order nextOrder = new Order(name, o.getSupplierID(), o.getDateIssued(), o.getProducts());
                 nextOrder.setETA(assessOrderETA());
                 orders.remove(o);
                 orders.add(nextOrder);
-                return true;
+                return nextOrder;
             }
         }
-        return false;
+        return null;
     }
 
     public LocalDateTime assessOrderETA(){

@@ -101,7 +101,6 @@ public class SystemController {
         for(Supplier s : suppliers){
             if(s.getID() == supplierID) {
                 if(s.doesSupplyProduct(a.getProduct().getCatalogID())) {
-                    System.out.println("YESEYSEYSEYSYES");
                     s.addAgreement(a);
                     dc.addSupplierAgreement(a.getLoan(supplierID), supplierID);
                     return true;
@@ -122,11 +121,12 @@ public class SystemController {
 
     public boolean removeOrder(int orderID){
         for(Supplier s : suppliers){
-            for(Order o : s.getOrders()){
-                if(o.getID() == orderID && s.removeOrder(orderID)){
-                    dc.removeSupplierOrder(orderID);
-                    return true;
-                }
+            if(getOrder(orderID).getSupplierID() == s.getID()){
+                dc.removeSupplierOrder(orderID);
+                Order o = s.removeOrder(orderID);
+                if(o != null)
+                    dc.addSupplierOrder(o.getLoan());
+                return true;
             }
         }
         return false;
@@ -316,7 +316,7 @@ public class SystemController {
     }
 
     public Order getOrder(int orderID){
-        for(Order o : getOrders()) {
+        for(Order o : getAllOrders()) {
             if (o.getID() == orderID)
                 return o;
         }
@@ -337,7 +337,7 @@ public class SystemController {
         return suppliers;
     }
 
-    public LinkedList<Order> getOrders() {
+    public LinkedList<Order> getAllOrders() {
         LinkedList<Order> orders = new LinkedList<>();
         for(Supplier s : suppliers)
             orders.addAll(s.getOrders());
@@ -346,6 +346,17 @@ public class SystemController {
 
     public LinkedList<Report> getReports() {
         return reports;
+    }
+
+    public LinkedList<Order> checkOrdersArrivalStatus(){
+        LinkedList<Order> arrivedOrders = new LinkedList<>();
+        for(Order o : getAllOrders()){
+            if(o.getETA().isBefore(LocalDateTime.now())){
+                reportArrival(o);
+                arrivedOrders.add(o);
+            }
+        }
+        return arrivedOrders;
     }
 
     public void closeConnection(){

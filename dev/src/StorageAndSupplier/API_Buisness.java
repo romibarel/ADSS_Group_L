@@ -157,5 +157,7 @@ public interface API_Buisness {
 
     LinkedList<Report> getReports();
 
+    void checkOrdersArrivalStatus();
+
     void closeConnection();
 }

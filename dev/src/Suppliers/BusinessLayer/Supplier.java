@@ -173,7 +173,7 @@ public abstract class Supplier {
         return false;
     }
 
-    public abstract boolean removeOrder(int orderID);
+    public abstract Order removeOrder(int orderID);
 
     public boolean removeContact(String phoneNum){
         for(Pair<String, String> c : contacts){
