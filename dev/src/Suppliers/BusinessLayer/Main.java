@@ -1,8 +1,6 @@
 package Suppliers.BusinessLayer;
 
-import Suppliers.PersistenceLayer.DataController;
-import Suppliers.PresentationLayer.InputController;
-import java.util.Scanner;
+//import Suppliers.PresentationLayer.InputController;
 
 public class Main {
 
