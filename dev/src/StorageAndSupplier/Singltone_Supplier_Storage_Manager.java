@@ -5,14 +5,12 @@ import Storage.Buisness.Reports.ProductReport;
 import Storage.Buisness.Singletone_Storage_Management;
 import StorageAndSupplier.Presentation.PdataInventoryReport;
 import StorageAndSupplier.Presentation.Pdefect;
+import StorageAndSupplier.Presentation.Pproduct;
 import Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public class Singltone_Supplier_Storage_Manager implements API_Buisness{
@@ -249,24 +247,34 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void addOrder(Order order){
+    public void addOrder(int orderID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
         //TODO: add order returns LocalDateTime or null if user entered an invalid order
-        LocalDateTime ETA = supplier_management.addOrder(order);
+        HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
+        for(Map.Entry<Pproduct, Pair<Integer, Integer>> e : pproducts.entrySet())
+            products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate()), e.getValue());
+        LocalDateTime ETA = supplier_management.addOrder(new Order(orderID, dateIssued, products));
     }
 
     @Override
-    public void addSupplier(Supplier supplier){
-        supplier_management.addSupplier(supplier);
+    public void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum){
+        if(tag.equals("FixedDays"))
+            supplier_management.addSupplier(new FixedDaysSupplier(name, id, bankAccNum, payCond, phoneNum));
+        else if(tag.equals("OrderOnly"))
+            supplier_management.addSupplier(new OrderOnlySupplier(name, id, bankAccNum, payCond, phoneNum));
+        else supplier_management.addSupplier(new SelfPickupSupplier(name, id, bankAccNum, payCond, phoneNum, ""));
     }
 
     @Override
-    public boolean addAgreement(int supplierID, Agreement a){
-        return supplier_management.addAgreement(supplierID, a);
+    public boolean addAgreement(int supplierID, Pair<Pproduct, Pair<Integer, Integer>> agreementDetails){
+        Pproduct pp = agreementDetails.getKey();
+        Product p = new Product(pp.getCatalogID(), pp.getPrice(), pp.getName(), pp.getManufacturer(), pp.getExpirationDate());
+        Pair<Product, Pair<Integer, Integer>> details = new Pair<>(p, agreementDetails.getValue());
+        return supplier_management.addAgreement(supplierID, new Agreement(details));
     }
 
     @Override
-    public void addProduct(int supplierID, Product p){
-        supplier_management.addProduct(supplierID, p);
+    public void addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration){
+        supplier_management.addProduct(supplierID, new Product(productID, price, name, manufacturer, expiration));
     }
 
     @Override

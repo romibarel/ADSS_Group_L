@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class Order {
     private static int statID = 1;
-    private String supplierName;
     private int orderID;
     private int supplierID;
     private double total;
@@ -23,9 +22,8 @@ public class Order {
     private LocalDateTime dateIssued;
     private HashMap<Product, Pair<Integer, Integer>> products; // <Product, <Amount ordered, Sale percentage>>
 
-    public Order(String supplierName, int supplierID, LocalDateTime dateIssued, HashMap<Product, Pair<Integer, Integer>> products){
+    public Order(int supplierID, LocalDateTime dateIssued, HashMap<Product, Pair<Integer, Integer>> products){
         orderID = statID++;
-        this.supplierName = supplierName;
         this.supplierID = supplierID;
         total = 0;
         this.ETA = null;

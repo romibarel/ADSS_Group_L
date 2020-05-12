@@ -164,7 +164,7 @@ public class DataController {
         try {
             PreparedStatement p = con.prepareStatement("INSERT INTO SUPPLIER_PRODUCTS VALUES(?,?,?,?,?,?,?)");
             p.setInt(1, lp.getCatalogID());
-            p.setDouble(2, lp.getFinalPrice());
+            p.setDouble(2, lp.getPrice());
             p.setDouble(3, lp.getPrice());
             p.setString(4, lp.getName());
             p.setString(5, lp.getManufacturer());

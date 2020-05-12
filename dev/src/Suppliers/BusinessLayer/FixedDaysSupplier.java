@@ -34,7 +34,7 @@ public class FixedDaysSupplier extends Supplier {
     public Order removeOrder(int orderID){
         for(Order o : orders){
             if(o.getID() == orderID){
-                Order nextOrder = new Order(name, o.getSupplierID(), o.getDateIssued(), o.getProducts());
+                Order nextOrder = new Order(o.getSupplierID(), o.getDateIssued(), o.getProducts());
                 nextOrder.setETA(assessOrderETA());
                 orders.remove(o);
                 orders.add(nextOrder);
@@ -42,6 +42,13 @@ public class FixedDaysSupplier extends Supplier {
             }
         }
         return null;
+    }
+
+    public boolean setProductAmount(int productID, int amount, Order o){
+        if(o.getETA().isAfter(LocalDateTime.now().plusDays(1))) { // Check if order is at least one day before arrival
+            return o.setProductAmount(productID, amount);
+        }
+        return false;
     }
 
     public LocalDateTime assessOrderETA(){

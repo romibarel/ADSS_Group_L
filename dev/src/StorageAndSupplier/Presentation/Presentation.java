@@ -1144,23 +1144,21 @@ public class Presentation {
                             System.out.println("Please type the pay condition:");
                             String pc = scanner.next();
                             System.out.println("Press 1 to create fixed days supplier");
-                            System.out.println("Press 2 to create invite only supplier");
+                            System.out.println("Press 2 to create order only supplier");
                             System.out.println("Press 3 to create self pickup supplier");
                             System.out.println("Press anything else to go back");
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
-                                    businessManager.addSupplier(new FixedDaysSupplier(name, cid,ba,pc,pn));
+                                    businessManager.addSupplier("FixedDays",name, cid,ba,pc,pn);
                                     System.out.println("Success!\n");
                                     break;
                                 case 2:
-                                    businessManager.addSupplier(new OrderOnlySupplier(name, cid,ba,pc,pn));
+                                    businessManager.addSupplier("OrderOnly", name, cid,ba,pc,pn);
                                     System.out.println("Success!\n");
                                     break;
                                 case 3:
-                                    System.out.println("Please type the pickup location:");
-                                    String location = scanner.next();
-                                    businessManager.addSupplier(new SelfPickupSupplier(name, cid,ba,pc,pn,location));
+                                    businessManager.addSupplier("SelfPickup", name, cid,ba,pc,pn);
                                     System.out.println("Success!\n");
                                     break;
                                 default:
@@ -1256,7 +1254,7 @@ public class Presentation {
                             System.out.println("Enter the year, month, day, hour and minutes of the expiration date");
                             LocalDateTime l = LocalDateTime.of(scanner.nextInt(),scanner.nextInt(),scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
                             System.out.println("Enter the id of the supplier that supplies this product");
-                            businessManager.addProduct(scanner.nextInt(), new Product(catid, price, pname, manufacturer, l));
+                            businessManager.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l);
                             System.out.println();
                             break;
                         case 8:
@@ -1291,36 +1289,29 @@ public class Presentation {
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
-                                    System.out.println("Please enter the supplier's name");
-                                    String sname = scanner.next();
                                     System.out.println("Please enter the supplier ID");
                                     int s = scanner.nextInt();
-                                    Supplier supp = businessManager.getSupplier(s);
-                                    if(!(supp instanceof FixedDaysSupplier)){
+                                    if(!(businessManager.getSupplier(s) instanceof FixedDaysSupplier)){
                                         System.out.println("Error! not a fixed days supplier");
                                     }
                                     System.out.println("Please enter the name of the product, its manufacturer and its price, then enter the quantity");
                                     System.out.println("Repeat until you're done, than enter 'done'");
                                     String na = scanner.next();
-                                    HashMap<Product, Pair<Integer, Integer>> hm = new HashMap<>();
+                                    HashMap<Pproduct, Pair<Integer, Integer>> hm = new HashMap<>();
                                     while(!na.equals("done")){
                                         int id = scanner.nextInt();
                                         String manu = scanner.next();
                                         double pri = scanner.nextDouble();
                                         int amo = scanner.nextInt();
-                                        Product p = new Product(id, pri,na,manu, LocalDateTime.now().plusDays(7));
+                                        Pproduct p = new Pproduct(id, pri,na,manu, LocalDateTime.now().plusDays(7));
                                         Pair<Integer, Integer> pair = new Pair<>(amo,0);
                                         hm.put(p,pair);
                                         na = scanner.next();
                                     }
-                                    Order o = new Order(sname, s,LocalDateTime.now(),hm);
-                                    businessManager.addOrder(o);
-                                    supp.addOrder(o);
+                                    businessManager.addOrder(s,LocalDateTime.now(),hm);
                                     System.out.println("Success!");
                                     break;
                                 case 2:
-                                    System.out.println("Please enter the supplier's name");
-                                    sname = scanner.next();
                                     System.out.println("Please enter the supplier ID");
                                     int s1 = scanner.nextInt();
                                     Supplier supp1 = businessManager.getSupplier(s1);
@@ -1330,19 +1321,18 @@ public class Presentation {
                                     System.out.println("Please enter the name of the product, its manufacturer and its price, than enter the quantity");
                                     System.out.println("Repeat until you're done, than enter 'done'");
                                     String na1 = scanner.next();
-                                    HashMap<Product, Pair<Integer, Integer>> hm1 = new HashMap<>();
+                                    HashMap<Pproduct, Pair<Integer, Integer>> hm1 = new HashMap<>();
                                     while(!na1.equals("done")){
                                         int id = scanner.nextInt();
                                         String manu1 = scanner.next();
                                         double pri1 = scanner.nextDouble();
                                         int amo1 = scanner.nextInt();
-                                        Product p1 = new Product(id, pri1,na1,manu1, LocalDateTime.now().plusDays(7));
+                                        Pproduct p1 = new Pproduct(id, pri1,na1,manu1, LocalDateTime.now().plusDays(7));
                                         Pair<Integer, Integer> pair1 = new Pair<>(amo1,0);
                                         hm1.put(p1,pair1);
                                         na1 = scanner.next();
                                     }
-                                    Order o1 = new Order(sname, s1,LocalDateTime.now(),hm1);
-                                    businessManager.addOrder(o1);
+                                    businessManager.addOrder(s1,LocalDateTime.now(),hm1);
                                     System.out.println("Success!");
                                     break;
                                 default:
@@ -1444,7 +1434,7 @@ public class Presentation {
                     }
                     break;
                 case 4:
-                    System.out.println("Press 1 to view agreement details");
+                    System.out.println("Press 1 to view all agreement details");
                     System.out.println("Press 2 to add a new agreement");
                     System.out.println("Press 3 to edit an agreement");
                     System.out.println("Press 4 to remove agreement");
@@ -1473,7 +1463,7 @@ public class Presentation {
                             int aa = scanner.nextInt();
                             System.out.println("Enter the amount of the sale for it");
                             int hh = scanner.nextInt();
-                            if(businessManager.addAgreement(to.getID(), new Agreement(new Pair<>(new Product(catalogID1,pp,nn,mm, LocalDateTime.now().plusDays(7)),new Pair<>(aa,hh)))))
+                            if(businessManager.addAgreement(to.getID(), new Pair<>(new Pproduct(catalogID1,pp,nn,mm, LocalDateTime.now().plusDays(7)),new Pair<>(aa,hh))))
                                 System.out.println("Success!");
                             else System.out.println("Error, supplier does not supply this item");
                             break;

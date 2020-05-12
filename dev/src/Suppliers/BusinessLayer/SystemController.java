@@ -119,12 +119,21 @@ public class SystemController {
         }
     }
 
-    public boolean removeOrder(int orderID){
-        for(Supplier s : suppliers){
-            if(getOrder(orderID).getSupplierID() == s.getID()){
+    public boolean addSupplierContact(int supplierID, Pair<String, String> contact){
+        Supplier s = getSupplier(supplierID);
+        if(s == null)
+            return false;
+        s.addContact(contact);
+        dc.addSupplierContact(contact.getKey(), contact.getValue(), supplierID);
+        return true;
+    }
+
+    public boolean removeOrder(int orderID) {
+        for (Supplier s : suppliers) {
+            if (getOrder(orderID).getSupplierID() == s.getID()) {
                 dc.removeSupplierOrder(orderID);
                 Order o = s.removeOrder(orderID);
-                if(o != null)
+                if (o != null)
                     dc.addSupplierOrder(o.getLoan());
                 return true;
             }
@@ -217,7 +226,7 @@ public class SystemController {
         p = sup.getProductByID(barCode);
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         products.put(p, new Pair<>(amount, 0));
-        Order o = new Order(sup.getName(), sup.getID(), LocalDateTime.now(), products);
+        Order o = new Order(sup.getID(), LocalDateTime.now(), products);
         addOrder(o);
         return o.getETA();
     }
@@ -258,23 +267,15 @@ public class SystemController {
         return true;
     }
 
-    public boolean addSupplierContact(int supplierID, Pair<String, String> contact){
-        Supplier s = getSupplier(supplierID);
-        if(s == null)
-            return false;
-        s.addContact(contact);
-        dc.addSupplierContact(contact.getKey(), contact.getValue(), supplierID);
-        return true;
-    }
-
     public boolean setAmountOfProductInOrder(int orderID, int productID, int amount){
         Order o = getOrder(orderID);
         if(o == null)
             return false;
-        o.setProductAmount(productID, amount);
         for(Supplier s : suppliers){
-            if(s.getID() == o.getSupplierID())
+            if(s.getID() == o.getSupplierID()) {
+                s.setProductAmount(productID, amount, o);
                 o.calcTotal(s.getAgreements());
+            }
         }
         dc.updateAmountOfProductInOrder(orderID, productID, amount, o.getTotal());
         return true;
