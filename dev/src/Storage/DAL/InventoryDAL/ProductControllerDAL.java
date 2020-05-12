@@ -44,7 +44,7 @@ public class ProductControllerDAL {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProductDAL product = new ProductDAL(rs.getInt(1),
-                        rs.getString(2), rs.getString(3), rs.getInt(4),
+                        rs.getString(2), rs.getInt(3), rs.getInt(4),
                         rs.getInt(5), rs.getDate(6));
                 p.add(product);
             }
@@ -183,7 +183,7 @@ public class ProductControllerDAL {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO PRODUCTS VALUES (?,?,?,?,?,?)");
             stmt.setInt(1, productDAL.getBarCode());
             stmt.setString(2, productDAL.getProductName());
-            stmt.setString(3, productDAL.getManufactor());
+            stmt.setInt(3, productDAL.getManufactor());
             stmt.setInt(4, productDAL.getAmount());
             stmt.setInt(5, productDAL.getMinAmount());
             stmt.setDate(6, (Date) productDAL.getNextSupplyTime());
@@ -229,7 +229,7 @@ public class ProductControllerDAL {
                     " Barcode = " + barCode);
             ResultSet rs = stmt.executeQuery();
             ret = new ProductDAL(rs.getInt(1), rs.getString(2),
-                    rs.getString(3), rs.getInt(4),
+                    rs.getInt(3), rs.getInt(4),
                     rs.getInt(5), rs.getDate(6));
         }
         catch (Exception e){
@@ -322,7 +322,7 @@ public class ProductControllerDAL {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProductDAL product = new ProductDAL(rs.getInt(1),
-                        rs.getString(2), rs.getString(3), rs.getInt(4),
+                        rs.getString(2), rs.getInt(3), rs.getInt(4),
                         rs.getInt(5), rs.getDate(6));
                 ret.add(product);
             }

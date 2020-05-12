@@ -62,9 +62,9 @@ public class Singletone_Storage_Management {
     }
 
 
-    public void buyProduct(int barCode, String productName, String supplier, double price,
+    public void buyProduct(int barCode, String productName, int supplierID, double price,
                            double discount,Date expirationDate, int amount, Date date,int location) { //barCode, productName, price, amount, date, manufactor, location, expiratiomDate
-        this.transactions.purchase(barCode, productName, supplier, price,discount,expirationDate,amount,date,location);
+        this.transactions.purchase(barCode, productName, supplierID, price,discount,expirationDate,amount,date,location);
     }
 
 
@@ -146,8 +146,8 @@ public class Singletone_Storage_Management {
         this.getInventory().setMinimumAmount(barcode, minimumAmount);
     }
 
-    public void setManufactorforProduct(int barcode , String newName){
-        this.getInventory().setManufactorForProduct(barcode, newName);
+    public void setManufactorforProduct(int barcode , int supplierID){
+        this.getInventory().setManufactorForProduct(barcode, supplierID);
     }
 
 
@@ -161,7 +161,7 @@ public class Singletone_Storage_Management {
     }
 
 
-    public String getProducteManufactor(Integer barcode) {
+    public int getProducteManufactor(Integer barcode) {
         return this.getInventory().getProductManufactor(barcode);
     }
 

@@ -17,9 +17,9 @@ public class TransactionController {
         this.transactionID = 0;
     }
 
-    public void purchase(int barCode, String productName, String supplier, double price, double discount, Date expirationDate, int amount, Date date, int location) {
+    public void purchase(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
         PurchaseTransaction p = new PurchaseTransaction(transactionID++, date); //create new Purchase transaction
-        p.purchase(barCode, productName, supplier, price, discount, expirationDate, amount, date, location); //make purchase
+        p.purchase(barCode, productName, supplierID, price, discount, expirationDate, amount, date, location); //make purchase
         purchaseTransactions.add(p); //add to purchase list
     }
 

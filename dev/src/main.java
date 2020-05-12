@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class main {
 
     public static final String PATTERN = "dd/MM/yyyy";
+    public static final Integer SupplierID = 1;
 
     public static void main (String[] args){
         Scanner scanner = new Scanner(System.in);
@@ -160,7 +161,7 @@ public class main {
         set sale product info of Milk to be: 6.5 -> no discount
         */
 
-        manager.buyProduct(1, "Milk","tnuva",
+        manager.buyProduct(1, "Milk",SupplierID,
                 10,0,expiration1,
                 200, supply1, LocationController.SHELF);
         manager.moveProduct(1, expiration1, 50, 2, 3);
@@ -175,7 +176,7 @@ public class main {
         set sale product info of Tuna to be: 12.5 -> 2.5
         */
 
-        manager.buyProduct(2, "Tuna","StarKist",
+        manager.buyProduct(2, "Tuna",SupplierID,
                 6.5,2,expiration1,
                 800, supply1, LocationController.STORAGE);
         manager.moveProduct(2, expiration1, 600, 1, 2);
@@ -191,7 +192,7 @@ public class main {
         set sale product info of Shampoo to be: 25 -> 3
         */
 
-        manager.buyProduct(3, "Shampoo","Dove",
+        manager.buyProduct(3, "Shampoo",SupplierID,
                 20,5.5,expiration1,
                 900, supply1, LocationController.STORAGE);
         manager.moveProduct(3, expiration1, 600, 1, 2);
@@ -206,7 +207,7 @@ public class main {
         set sale product info of Cheese to be: 6 -> 0
         */
 
-        manager.buyProduct(4, "Cheese","tnuva",
+        manager.buyProduct(4, "Cheese",SupplierID,
                 8,3,expiration1,
                 1000, supply1, LocationController.STORAGE);
         manager.moveProduct(4, expiration1, 450, 1, 2);
@@ -221,7 +222,7 @@ public class main {
         set sale product info of Shocko to be: 14 -> 0
         */
 
-        manager.buyProduct(5, "Shocko","tnuva",
+        manager.buyProduct(5, "Shocko",SupplierID,
                 10,1.5,expiration1,
                 1000, supply1, LocationController.STORAGE);
         manager.moveProduct(5, expiration1, 555, 1, 2);

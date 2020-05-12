@@ -5,15 +5,15 @@ import java.util.Date;
 public class ProductDAL {
     private int barCode;
     private String productName;
-    private String manufactor;
+    private int supplierID;
     private int amount;
     private int minAmount;
     private Date nextSupplyTime;
 
-    public ProductDAL(int barCode, String productName, String manufactor, int amount, int minAmount, Date nextSupplyTime) {
+    public ProductDAL(int barCode, String productName, int supplierID, int amount, int minAmount, Date nextSupplyTime) {
         this.barCode = barCode;
         this.productName = productName;
-        this.manufactor = manufactor;
+        this.supplierID = supplierID;
         this.amount = amount;
         this.minAmount = minAmount;
         this.nextSupplyTime = nextSupplyTime;
@@ -27,8 +27,8 @@ public class ProductDAL {
         return productName;
     }
 
-    public String getManufactor() {
-        return manufactor;
+    public int getManufactor() {
+        return supplierID;
     }
 
     public int getAmount() {
@@ -51,8 +51,8 @@ public class ProductDAL {
         this.productName = productName;
     }
 
-    public void setManufactor(String manufactor) {
-        this.manufactor = manufactor;
+    public void setManufactor(int supplierID) {
+        this.supplierID = supplierID;
     }
 
     public void setAmount(int amount) {

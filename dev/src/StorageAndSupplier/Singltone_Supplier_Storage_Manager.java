@@ -10,6 +10,7 @@ import Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 
@@ -62,8 +63,8 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void buyProduct(int barCode, String productName, String supplier, double price, double discount, Date expirationDate, int amount, Date date, int location) {
-        this.storage_management.buyProduct(barCode, productName, supplier, price, discount, expirationDate, amount, date, location);
+    public void buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
+        this.storage_management.buyProduct(barCode, productName, supplierID, price, discount, expirationDate, amount, date, location);
     }
 
     @Override
@@ -71,10 +72,11 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         if (this.storage_management.sellProduct(date, barCode, amount, expirationDate)){ //need to make urgent order -> product under minimum
             LocalDateTime ETA = this.supplier_management.urgentOrder(barCode, Integer.parseInt(getProducteMinAmount(barCode))*2);
             //TODO: urgent order now returns the date ^^^^^
-             //TODO: change the supplier id from string to int
+            if (ETA!=null){
+                Date supplyTime = convertToDateViaSqlTimestamp(ETA);
+                this.storage_management.setNextSupply(barCode, supplyTime);
+            }
 
-            //this.storage_management.buyProduct(barCode, getProducteName(barCode), Integer.toString(orderDetails.getSupplierID()), orderDetails.getPrice(),
-                    //orderDetails.getDiscount(), orderDetails.getExpirationDate(),Integer.parseInt(getProducteMinAmount(barCode))*2 ,orderDetails.getExpirationDate(), STORAGE);
             return true; //need to alert to presentation
         }
         else{
@@ -138,7 +140,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public String getProducteManufactor(Integer barcode) {
+    public int getProducteManufactor(Integer barcode) {
         return this.storage_management.getProducteManufactor(barcode);
     }
 
@@ -158,8 +160,8 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void setManufactorforProduct(int barcode, String newName) {
-        this.storage_management.setManufactorforProduct(barcode, newName);
+    public void setManufactorforProduct(int barcode, int supplierID) {
+        this.storage_management.setManufactorforProduct(barcode, supplierID);
     }
 
     @Override
@@ -406,10 +408,34 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         }
         */
         LinkedList<Order> arrivedOrders = supplier_management.checkOrdersArrivalStatus();
+        for (Order o : arrivedOrders){
+            int supplierID = o.getSupplierID();
+            for (Map.Entry<Product, Pair<Integer, Integer>> e : o.getProducts().entrySet()){
+                int barcode = e.getKey().getCatalogID();
+                String productName = e.getKey().getName();
+                double price = e.getKey().getOriginalPrice();
+                Date expiration = convertToDateViaSqlTimestamp(e.getKey().getExpirationDate());
+                Date today = convertToDateViaSqlTimestamp(LocalDateTime.now());
+                int amount = e.getValue().getKey();
+                double discount = e.getValue().getValue();
+                this.storage_management.buyProduct(barcode, productName, supplierID, price, discount, expiration, amount, today, STORAGE);
+            }
+        }
     }
 
     @Override
     public void closeConnection(){
         supplier_management.closeConnection();
+    }
+
+
+    public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    public static Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+        return java.sql.Timestamp.valueOf(dateToConvert);
     }
 }

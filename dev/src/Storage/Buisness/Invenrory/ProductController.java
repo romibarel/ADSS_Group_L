@@ -175,9 +175,9 @@ public class ProductController {
         }
     }
 
-    public void purchaseProduct(int barCode, String productName, String supplier, int amount){
+    public void purchaseProduct(int barCode, String productName, int supplierID, int amount){
         if(searchProduct(barCode)==null) { //this product doesn't exists yet
-            Product p = new Product(barCode, productName, supplier, amount, DEFAULT_MIN_AMOUNT, null);//initialize with min amount = 0 and next supply time = null
+            Product p = new Product(barCode, productName, supplierID, amount, DEFAULT_MIN_AMOUNT, null);//initialize with min amount = 0 and next supply time = null
             this.dataAccess.addNewProduct(p.createDAL()); //insert to DAL
             for (Category category: this.categories){
                 if (category.getName().equals(DEFAULT)){
@@ -188,7 +188,7 @@ public class ProductController {
         }
         else{       //TODO: decide what happens when the product exists in some category and now a purchase happened
             searchProduct(barCode).setAmount(searchProduct(barCode).getAmount()+amount);
-            searchProduct(barCode).setManufactor(supplier);
+            searchProduct(barCode).setManufactor(supplierID);
         }
     }
 
@@ -198,10 +198,10 @@ public class ProductController {
         this.dataAccess.updateProduct(searchProduct(barcode).createDAL());
     }
 
-    public void setManufactorForProduct(int barcode , String newManufactor){
+    public void setManufactorForProduct(int barcode , int SupplierID){
         Product p = searchProduct(barcode);
         if(p==null){return;}
-        p.setManufactor(newManufactor);
+        p.setManufactor(SupplierID);
         this.dataAccess.updateProduct(p.createDAL());
     }
 
@@ -247,9 +247,9 @@ public class ProductController {
         return p.getProductName();
     }
 
-    public String getProductManufactor(int barcode){
+    public int getProductManufactor(int barcode){
         Product p = searchProduct(barcode);
-        if (p==null){return PRODUCT_NOT_FOUND;}
+        if (p==null){return -1;}
         return p.getManufactor();
     }
 

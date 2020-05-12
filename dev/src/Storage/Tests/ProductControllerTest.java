@@ -13,8 +13,8 @@ import java.util.List;
 
 public class ProductControllerTest {
 
-
     private ProductController productController;
+    private final Integer SupplierID = 1;
 
     @Before
     public void setUp() throws Exception {
@@ -30,7 +30,7 @@ public class ProductControllerTest {
         productController.clean();
         productController.setMainCategory("Test new main category");
         Assert.assertEquals(productController.getCategories().get(1).getProductList().size(),0);
-        productController.purchaseProduct(2, "Test Buisness.Invenrory.Product", "Test Supplier", 100);
+        productController.purchaseProduct(2, "Test Buisness.Invenrory.Product", SupplierID , 100);
         productController.connectProductToCategory("Test new main category", 2);
         Assert.assertEquals(productController.getCategories().get(1).getProductList().size(),1);
         Assert.assertEquals(productController.getCategories().get(1).getProductList().get(0).getBarCode(),2);
@@ -41,7 +41,7 @@ public class ProductControllerTest {
     @Test
     public void sellNeedToAlert() {    //test the alert
         productController.clean();
-        productController.purchaseProduct(1, "Test product", "Test supplier", 100);
+        productController.purchaseProduct(1, "Test product", SupplierID , 100);
         productController.setMinimumAmount(1, 15);
         Assert.assertTrue(productController.sale(1, 90));  //return alert under minimum
     }
@@ -49,7 +49,7 @@ public class ProductControllerTest {
     @Test
     public void sellNoNeedToAlert() {    //test the alert
         productController.clean();
-        productController.purchaseProduct(1, "Test product", "Test supplier", 100);
+        productController.purchaseProduct(1, "Test product", SupplierID , 100);
         productController.setMinimumAmount(1, 15);
         Assert.assertFalse(productController.sale(1, 70));  //return alert under minimum
     }

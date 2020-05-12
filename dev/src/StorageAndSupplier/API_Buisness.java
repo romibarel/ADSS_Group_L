@@ -28,7 +28,7 @@ public interface API_Buisness {
 
     List<String> getListOfCategoriesNames ();
 
-    void buyProduct(int barCode, String productName, String supplier,
+    void buyProduct(int barCode, String productName, int supplierID,
                     double price,double discount,Date expirationDate,
                     int amount, Date date, int location);
 
@@ -57,7 +57,7 @@ public interface API_Buisness {
 
     String getProducteName(Integer barcode);
 
-    String getProducteManufactor(Integer barcode);
+    int getProducteManufactor(Integer barcode);
 
     String getProducteAmount(Integer barcode);
 
@@ -65,7 +65,7 @@ public interface API_Buisness {
 
     String getProducteDate(Integer barcode);
 
-    void setManufactorforProduct(int barcode, String newName);
+    void setManufactorforProduct(int barcode, int supplierID);
 
     String getDataSaleName(Integer barcode);
 

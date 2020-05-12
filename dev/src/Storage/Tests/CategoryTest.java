@@ -10,6 +10,7 @@ import java.util.Date;
 public class CategoryTest {
 
     public static String CATEGORY_NAME = "Test category";
+    public static int SUPPLIER_ID = 1;
     private Category c;
     @Before
     public void setUp() {
@@ -31,7 +32,7 @@ public class CategoryTest {
     public void appendProduct() {
         c.clean(CATEGORY_NAME);
         Assert.assertEquals(c.getProductList().size(), 0);
-        c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
+        c.appendProduct(new Product(0, "Test product", SUPPLIER_ID, 1000, 100, new Date()));
         Assert.assertEquals(c.getProductList().size(), 1);
         Product product = c.getProductList().get(0);
         Assert.assertEquals(product.getProductName(), "Test product");
@@ -42,7 +43,7 @@ public class CategoryTest {
         c.clean(CATEGORY_NAME);
         Assert.assertFalse(c.hasProduct(0));
         Assert.assertEquals(c.getProductList().size(), 0);
-        c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
+        c.appendProduct(new Product(0, "Test product", SUPPLIER_ID, 1000, 100, new Date()));
         Assert.assertEquals(c.getProductList().size(), 1);
         Assert.assertTrue(c.hasProduct(0));
     }
@@ -52,7 +53,7 @@ public class CategoryTest {
         c.clean(CATEGORY_NAME);
         Assert.assertFalse(c.hasProduct(0));
         Assert.assertEquals(c.getProductList().size(), 0);
-        c.appendProduct(new Product(0, "Test product", "Test supplier", 1000, 100, new Date()));
+        c.appendProduct(new Product(0, "Test product", SUPPLIER_ID, 1000, 100, new Date()));
         Assert.assertEquals(c.getProductList().size(), 1);
         Assert.assertTrue(c.hasProduct(0));
         c.removeProduct(0);
@@ -62,8 +63,8 @@ public class CategoryTest {
     @org.junit.Test
     public void getProductNames() {
         c.clean(CATEGORY_NAME);
-        c.appendProduct(new Product(0, "Test product0", "Test supplier", 1000, 100, new Date()));
-        c.appendProduct(new Product(1, "Test product1", "Test supplier", 1000, 100, new Date()));
+        c.appendProduct(new Product(0, "Test product0", SUPPLIER_ID, 1000, 100, new Date()));
+        c.appendProduct(new Product(1, "Test product1", SUPPLIER_ID, 1000, 100, new Date()));
         Assert.assertTrue(c.getProductNames().contains("Test product0"));
         Assert.assertTrue(c.getProductNames().contains("Test product1"));
     }

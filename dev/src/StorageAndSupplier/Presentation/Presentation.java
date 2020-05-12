@@ -365,10 +365,10 @@ public class Presentation {
                 System.out.println("Illegal input try again.");
             }
         }while (error);
-        System.out.print("  Type manufactor name: ");
-        String manufactor = in.nextLine();
         for (int i = 1; i <= numberOfItems; i++) {
             try {
+                System.out.print("  Type supplier ID (number): ");
+                int manufactor = Integer.parseInt(in.nextLine());
                 System.out.print("  Type barcode number of the " + i + " item: ");
                 int barcode = Integer.parseInt(in.nextLine());
                 System.out.print("  Type product name of the " + i + " item: ");
@@ -557,9 +557,9 @@ public class Presentation {
             try {
                 System.out.print("  Type barcode number of the " + i + " item: ");
                 int barcode = Integer.parseInt(in.nextLine());
-                System.out.print("  Type new manufactor's name of the " + i + " item: ");
-                String newName = in.nextLine();
-                businessManager.setManufactorforProduct(barcode, newName);
+                System.out.print("  Type new supplier's ID (number) of the " + i + " item: ");
+                int supplierID = Integer.parseInt(in.nextLine());
+                businessManager.setManufactorforProduct(barcode, supplierID);
             }
             catch (Exception e){
                 error = true;

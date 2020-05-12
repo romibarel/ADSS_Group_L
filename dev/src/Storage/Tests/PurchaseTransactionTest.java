@@ -6,10 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.jnlp.IntegrationService;
 import java.util.Date;
 
 public class PurchaseTransactionTest {
 
+    public static final Integer supplierID = 1;
     private PurchaseTransaction purchaseTransaction;
     private Date date;
     @Before
@@ -25,7 +27,7 @@ public class PurchaseTransactionTest {
     @Test
     public void purchase() {
         Assert.assertEquals(purchaseTransaction.getPurchseTransactions().size(),0);
-        purchaseTransaction.purchase(2,"Test product", "Test supplier",
+        purchaseTransaction.purchase(2,"Test product", supplierID,
                 10, 2, date, 100, date, 2);
         Assert.assertEquals(purchaseTransaction.getPurchseTransactions().size(),1);
         Assert.assertTrue(purchaseTransaction.getPurchseTransactions().keySet().contains(2));
