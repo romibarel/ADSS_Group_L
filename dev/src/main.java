@@ -1,14 +1,12 @@
-import StorageAndSupplier.API_Buisness;
 import Storage.Buisness.Locations.LocationController;
-import StorageAndSupplier.Presentation.Presentation;
 import Storage.Tests.CategoryTest;
-
 import Storage.Tests.LocationControllerTest;
 import Storage.Tests.ProductControllerTest;
 import Storage.Tests.PurchaseTransactionTest;
+import StorageAndSupplier.API_Buisness;
+import StorageAndSupplier.Presentation.Presentation;
 import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
 import Suppliers.BusinessLayer.SystemController;
-import Suppliers.PersistenceLayer.DataController;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -120,10 +118,9 @@ public class main {
     }
 
     private static void runSuppliers(Scanner scanner){
-        DataController dc = DataController.getInstance();
         SystemController sc = SystemController.getInstance();
         Presentation p = new Presentation();
-        System.out.println("Would you like to load pre-made data or start from scratch? (y/n)");
+        System.out.println("Would you like to load pre-made data? (y/n)");
         if(scanner.next().equals("y"))
             sc.loadSystem();
         p.run();

@@ -86,6 +86,74 @@ public class DataController {
 //        loanAgreements.add(a3);
     }
 
+    public void loadSystem(){
+        LoanProduct oliveOil = new LoanProduct(3,1, 20, "Olive Oil", "Zeita", LocalDateTime.now().plusDays(7));
+        LoanProduct milk1 = new LoanProduct(1,2, 5, "Milk", "Tara", LocalDateTime.now().plusDays(7));
+        LoanProduct milk2 = new LoanProduct(2,2, 5, "Milk", "Tnuva", LocalDateTime.now().plusDays(7));
+        LoanProduct bread = new LoanProduct(2,3, 10, "Bread", "Berman", LocalDateTime.now().plusDays(7));
+        LoanProduct butter = new LoanProduct(2,4, 3, "Butter", "Tnuva", LocalDateTime.now().plusDays(7));
+        LoanProduct cheese = new LoanProduct(1,5, 25, "Cheese", "Emek", LocalDateTime.now().plusDays(7));
+        LinkedList<LoanProduct> loanProducts1 = new LinkedList<>();
+        LinkedList<LoanProduct> loanProducts2 = new LinkedList<>();
+        LinkedList<LoanProduct> loanProducts3 = new LinkedList<>();
+        loanProducts1.add(cheese);
+        loanProducts1.add(butter);
+        loanProducts1.add(milk1);
+        loanProducts2.add(milk2);
+        loanProducts2.add(bread);
+        loanProducts3.add(oliveOil);
+        addSupplierProduct(oliveOil, 3);
+        addSupplierProduct(milk1, 1);
+        addSupplierProduct(cheese, 1);
+        addSupplierProduct(butter, 1);
+        addSupplierProduct(milk2, 2);
+        addSupplierProduct(bread, 2);
+
+        HashMap<LoanProduct, Pair<Integer, Integer>> o1Products = new HashMap<>();
+        HashMap<LoanProduct, Pair<Integer, Integer>> o2Products = new HashMap<>();
+        HashMap<LoanProduct, Pair<Integer, Integer>> o3Products = new HashMap<>();
+        o1Products.put(cheese, new Pair<>(20, 5));
+        o1Products.put(milk1, new Pair<>(20, 8));
+        o1Products.put(butter, new Pair<>(5, 0));
+        o2Products.put(milk2, new Pair<>(15, 3));
+        o2Products.put(bread, new Pair<>(30, 0));
+        o3Products.put(oliveOil, new Pair<>(50, 8));
+        LoanOrder o1 = new LoanOrder(1, 1, 582, LocalDateTime.now().plusDays(1), LocalDateTime.now(), o1Products);
+        LoanOrder o2 = new LoanOrder(2, 2, 372.75, LocalDateTime.now().plusDays(2), LocalDateTime.now(), o2Products);
+        LoanOrder o3 = new LoanOrder(3, 3, 800, LocalDateTime.now().plusDays(3), LocalDateTime.now(), o3Products);
+        addSupplierOrder(o1);
+        addSupplierOrder(o2);
+        addSupplierOrder(o3);
+        LinkedList<LoanOrder> loanOrders1 = new LinkedList<>();
+        LinkedList<LoanOrder> loanOrders2 = new LinkedList<>();
+        LinkedList<LoanOrder> loanOrders3 = new LinkedList<>();
+        loanOrders1.add(o1);
+        loanOrders2.add(o2);
+        loanOrders3.add(o3);
+
+        LoanAgreement a1 = new LoanAgreement(1, 1, new Pair<>(cheese, new Pair<>(20, 5)));
+        LoanAgreement a12 = new LoanAgreement(1, 4, new Pair<>(milk1, new Pair<>(15, 8)));
+        LoanAgreement a2 = new LoanAgreement(2, 2, new Pair<>(milk2, new Pair<>(10, 3)));
+        LoanAgreement a3 = new LoanAgreement(3, 3, new Pair<>(oliveOil, new Pair<>(40, 8)));
+        addSupplierAgreement(a1, 1);
+        addSupplierAgreement(a12, 1);
+        addSupplierAgreement(a2, 2);
+        addSupplierAgreement(a3,3);
+        LinkedList<LoanAgreement> loanAgreements1 = new LinkedList<>();
+        LinkedList<LoanAgreement> loanAgreements2 = new LinkedList<>();
+        LinkedList<LoanAgreement> loanAgreements3 = new LinkedList<>();
+        loanAgreements1.add(a1);
+        loanAgreements1.add(a2);
+        loanAgreements2.add(a12);
+        loanAgreements3.add(a3);
+
+        LinkedList<Pair<String, String>> contacts = new LinkedList<>();
+        addSupplierContact("Adir Ben Shahar", "080-1020304", 1);
+        addSupplier(new LoanSupplier("FixedDays",1,"Rom", 1, "1-2-3", "Cash", "010", contacts, loanAgreements1, loanOrders1, loanProducts1));
+        addSupplier(new LoanSupplier("InviteOnly",2,"Adir", 2, "2-3-1", "Credit", "020", contacts, loanAgreements2, loanOrders2, loanProducts2));
+        addSupplier(new LoanSupplier("SelfPickup", 3,"Din", 3, "3-2-1", "Credit",  "030", contacts, loanAgreements3, loanOrders3, loanProducts3));
+    }
+
     public void close(){
         try {
             if (con != null)
