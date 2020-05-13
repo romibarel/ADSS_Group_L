@@ -4,7 +4,6 @@ import java.sql.Time;
 import java.util.*;
 
 public class Delivery {
-    private int id;
     private Date date;
     private Date departureTime;
     private int truckNum;
@@ -13,8 +12,7 @@ public class Delivery {
     private HashMap<DeliverDoc, Location> docLoc;
     private boolean approved;
 
-    public Delivery(int id, Date date, Date time, Truck truck, Driver driver, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
-       this.id = id;
+    public Delivery(Date date, Date time, Truck truck, int driverID, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
         if (!driver.getLicenses().contains(truck.getType())){
             approved = false;
         }

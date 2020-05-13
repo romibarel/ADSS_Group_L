@@ -5,6 +5,8 @@ import Business.BTIController;
 import DataAccess.DTBController;
 import Interface.ITBController;
 import Interface.ITPController;
+
+import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -177,7 +179,7 @@ public class PTIcontroller {
     }
 
     public void start(){
-        //docNum is the id of the delivery document
+        //docNum is the first available id of a delivery document.
         boolean finish = false;
         int docNum = 0;
         System.out.println("Welcome to the delivery system!");
@@ -187,19 +189,17 @@ public class PTIcontroller {
             if (input.equals("quit"))
                 finish = true;
             else{
-                createDelivery(docNum);
-                docNum++;
+                //create delivery returns the next available delivery document id.
+                docNum = createDelivery(docNum);
             }
         }
     }
-
-
 
     private int createDelivery(int docNum) {
         Date date;
         Date time;
         int truckNum;
-        String driver;
+        int driverID;
         String source;
         int truckWeight;
         List<Integer> docs;
@@ -230,11 +230,21 @@ public class PTIcontroller {
             System.out.println("Invalid truck number.");
             return docNum;
         }
-        System.out.println("Please enter the name of the driver.");
-        driver = scanner.nextLine();
-        System.out.println("Please enter the source of delivery.");
+        System.out.println("Please enter the driver's ID.");
+        input = scanner.nextLine();
+        try {
+            driverID = Integer.parseInt(input);
+        } catch (Exception e) {
+            System.out.println("Invalid ID number.");
+            return docNum;
+        }
+        System.out.println("Please enter the address for thr source of delivery.");
         source = scanner.nextLine();
-        System.out.println("Please weight the truck and enter its weight in kilos.");
+        if (input == null || input.trim().equals("")){
+            System.out.println("Source address can't be empty.");
+            return docNum;
+        }
+        System.out.println("Please weigh the truck and enter its weight in kilos.");
         input = scanner.nextLine();
         try{
             truckWeight = Integer.parseInt(input);
@@ -242,26 +252,50 @@ public class PTIcontroller {
             System.out.println("Invalid weight.");
             return docNum;
         }
-        docs = createDocuments(docNum);
+        if (truckWeight < 0){
+            System.out.println("A negative weight is literally impossible XD.");
+            return docNum;
+        }
+        docs = createDocuments(docNum, source);
         if (docs.isEmpty()){
             System.out.println("No document was successfully added, document cannot be created. Try again.");
             return docNum;
         }
         //create the delivery trough interface layer
-        System.out.println(itp.createDelivery(date, time, truckNum, driver, source, docs, truckWeight));
+        System.out.println(itp.createDelivery(date, time, truckNum, driverID, source, docs, truckWeight));
         return docNum + docs.size();
     }
 
-    private List<Integer> createDocuments(int docNum){
+    private List<Integer> createDocuments(int docNum, String source){
         boolean finish = false;
         List<Integer> docNums = new LinkedList<>();
+
+        System.out.println("What would you like to pick up from the source (address '" + source + "')?\n" +
+                "Enter in format: supply1 quant1 supply2 quant2...");
+        String sourceSupplies = scanner.next();
+        String[] sourceDoc = new String[2];
+        sourceDoc[0] = source;
+        sourceDoc[1] = sourceSupplies;
+        String out = itp.createDoc(docNum, sourceDoc);
+        System.out.println(out);
+        if (!out.equals("Document created successfully."))
+            return docNums;
+        else {
+            docNums.add(docNum);
+            docNum++;
+        }
 
         while (!finish) {
             //destination, supplies&quants,
             //0=destination 1=long string of format: supply1 quant1, supply2, quant2...
             String[] doc = new String[2];
-            System.out.println("Let's create a delivery document. Where would you like to deliver?");
-            doc[0] = scanner.nextLine();
+            System.out.println("Let's create the delivery document for the next Destination. Where would you like to deliver?");
+            String destination = scanner.nextLine();
+            if (destination == null || destination.trim().equals("")){
+                System.out.println("Destination address can't be empty.");
+                return new LinkedList<>();
+            }
+            doc[0] = destination;
             System.out.println("Please enter all the supplies and quantities to deliver in this format: supply1 quant1 supply2 quant2...");
             doc[1] = scanner.nextLine();
             System.out.println("Do you wish to add another destination? [y/n]");
@@ -269,13 +303,14 @@ public class PTIcontroller {
             if (yn.equals("n"))
                 finish = true;
             else if (!yn.equals("y")){
-                System.out.println("Invalid answer, the system will create the delivery now.");
+                System.out.println("Invalid answer, the system will create the delivery with the current information now.");
                 finish = true;
             }
-            String out = itp.createDoc(docNum, doc);
+            out = itp.createDoc(docNum, doc);
             System.out.println(out);
             if (!out.equals("Document created successfully.")){
-                finish = true;
+                System.out.println("The creation of the delivery document failed. The Delivery will not be created.");
+                return new LinkedList<>();
             }
             else {
                 docNums.add(docNum);
