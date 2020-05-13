@@ -42,11 +42,5 @@ public class ITBController {
         return bti.addSupply(name , num);
     }
 
-    public void arriveAt(String dest){
-        itp.arriveAt(dest);
-    }
 
-    public void execute(int docNum){
-        bti.executeDelivery(docNum);
-}
 }
