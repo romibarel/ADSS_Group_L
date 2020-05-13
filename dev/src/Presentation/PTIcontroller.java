@@ -269,6 +269,8 @@ public class PTIcontroller {
     private List<Integer> createDocuments(int docNum, String source){
         boolean finish = false;
         List<Integer> docNums = new LinkedList<>();
+        Date estimatedDateOfArrival;
+        Date estimatedTimeOfArrival;
 
         System.out.println("What would you like to pick up from the source (address '" + source + "')?\n" +
                 "Enter in format: supply1 quant1 supply2 quant2...");
@@ -298,6 +300,27 @@ public class PTIcontroller {
             doc[0] = destination;
             System.out.println("Please enter all the supplies and quantities to deliver in this format: supply1 quant1 supply2 quant2...");
             doc[1] = scanner.nextLine();
+
+            System.out.println("What is the estimated date of arrival to " +destination+ " in dd/mm/yyyy format?");
+            String input = scanner.nextLine();
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                estimatedDateOfArrival = format.parse(input);
+            } catch (Exception e) {
+                System.out.println("Invalid date, try again.");
+                return new LinkedList<>();
+            }
+
+            System.out.println("What is the estimated time of arrival to " +destination+ " in HH:mm format?");
+            input = scanner.nextLine();
+            format = new SimpleDateFormat("HH:mm");
+            try {
+                estimatedTimeOfArrival = format.parse(input);
+            } catch (Exception e) {
+                System.out.println("Invalid time, try again.");
+                return new LinkedList<>();
+            }
+
             System.out.println("Do you wish to add another destination? [y/n]");
             String yn = scanner.nextLine();
             if (yn.equals("n"))
