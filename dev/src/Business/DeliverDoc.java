@@ -1,18 +1,23 @@
 package Business;
 
+import java.util.Date;
 import java.util.List;
 
 public class DeliverDoc {
     private int num;
     private List<Supply> deliveryList;
     private Location destination;
+    private Date estimatedTimeOfArrival;
+    private Date estimatedDayOfArrival;
 
-    /**
-     * without Truck
-     * @param num
-     * @param deliveryList
-     * @param destination
-     */
+    public DeliverDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int num, List<Supply> deliveryList, Location destination) {
+        this.num = num;
+        this.deliveryList = deliveryList;
+        this.destination = destination;
+        this.estimatedTimeOfArrival = estimatedTimeOfArrival;
+        this.estimatedDayOfArrival = estimatedDayOfArrival;
+    }
+
     public DeliverDoc(int num, List<Supply> deliveryList, Location destination) {
         this.num = num;
         this.deliveryList = deliveryList;
