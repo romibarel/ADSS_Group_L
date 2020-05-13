@@ -6,7 +6,6 @@ import Storage.Tests.PurchaseTransactionTest;
 import StorageAndSupplier.API_Buisness;
 import StorageAndSupplier.Presentation.Presentation;
 import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
-import Suppliers.BusinessLayer.SystemController;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -119,12 +118,15 @@ public class main {
     }
 
     private static void runSuppliers(Scanner scanner){
-        SystemController sc = SystemController.getInstance();
+        //SystemController sc = SystemController.getInstance();
         Presentation p = new Presentation();
-        System.out.println("Would you like to load pre-made data? (y/n)");
-        if(scanner.next().equals("y"))
-            sc.loadSystem();
+        //System.out.println("Would you like to load pre-made data? (y/n)");
+        //if(scanner.next().equals("y"))
+            //sc.loadSystem();
         p.run();
+        //System.out.println("NO");
+        //sc.unloadSystem();
+        //sc.closeConnection();
     }
 
     private static void initialize(){

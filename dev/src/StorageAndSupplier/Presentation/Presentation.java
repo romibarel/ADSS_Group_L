@@ -1098,10 +1098,15 @@ public class Presentation {
     * Suppliers Section
     * */
 
-    boolean isTerminated = false;
-
     public void run(){
+        boolean isTerminated = false, isLoad = false;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Would you like to load pre-made data? (y/n)");
+        if(scanner.next().equals("y")) {
+            businessManager.loadSystem();
+            isLoad = true;
+        }
+
         while(!isTerminated){
             System.out.println("Choose 1 for suppliers");
             System.out.println("Choose 2 for orders");
@@ -1111,7 +1116,7 @@ public class Presentation {
             int option = scanner.nextInt();
             switch (option){
                 case 1:
-                    System.out.println("Choose 1 to view all suppliers and their details");
+                    System.out.println("Choose 1 to view details about a supplier");
                     System.out.println("Choose 2 to add a new supplier to the system");
                     System.out.println("Choose 3 to edit the supplier's details");
                     System.out.println("Choose 4 to delete a supplier from the system");
@@ -1119,22 +1124,36 @@ public class Presentation {
                     System.out.println("Choose 6 to remove a contact from a supplier");
                     System.out.println("Choose 7 to add a new product to a supplier");
                     System.out.println("Choose 8 to remove a product from a supplier");
+                    System.out.println("Choose 9 to view all products a supplier has to offer");
                     System.out.println("Choose anything else to go back");
                     option = scanner.nextInt();
                     switch (option){
                         case 1:
-                            for(Supplier s : businessManager.getSuppliers()){
-                                System.out.println("ID: " + s.getID());
-                                System.out.println("Name: " + s.getName());
-                                System.out.println("Company ID: " + s.getCompanyID());
-                                System.out.println("Pay condition: " + s.getPayCond());
-                                System.out.println("Phone number: " + s.getPhoneNum());
-                                System.out.println("Bank account: " + s.getBankAccNum()+"\n");
+                            System.out.println("Enter the supplierID");
+                            int suppid = scanner.nextInt();
+                            Supplier s = businessManager.getSupplier(suppid);
+                            if(s == null) {
+                                System.out.println("No such supplier");
+                                break;
                             }
+                            System.out.println("ID: " + s.getID());
+                            System.out.println("Name: " + s.getName());
+                            System.out.println("Company ID: " + s.getCompanyID());
+                            System.out.println("Pay condition: " + s.getPayCond());
+                            System.out.println("Phone number: " + s.getPhoneNum());
+                            System.out.println("Bank account: " + s.getBankAccNum());
+                            if(!s.getContacts().isEmpty()) {
+                                System.out.print("Contacts: ");
+                                for (Pair<String, String> contact : s.getContacts())
+                                    System.out.print("<" + contact.getKey() + ", " + contact.getValue() + "> ");
+                            }
+                            System.out.println();
                             break;
                         case 2:
                             System.out.println("Please type the name:");
                             String name = scanner.next();
+                            if(!checkValidName(name))
+                                break;
                             System.out.println("Please type the company ID:");
                             int cid = scanner.nextInt();
                             System.out.println("Please type the phone number:");
@@ -1143,10 +1162,10 @@ public class Presentation {
                             String ba = scanner.next();
                             System.out.println("Please type the pay condition:");
                             String pc = scanner.next();
-                            System.out.println("Press 1 to create fixed days supplier");
-                            System.out.println("Press 2 to create order only supplier");
-                            System.out.println("Press 3 to create self pickup supplier");
-                            System.out.println("Press anything else to go back");
+                            System.out.println("Choose 1 to create fixed days supplier");
+                            System.out.println("Choose 2 to create order only supplier");
+                            System.out.println("Choose 3 to create self pickup supplier");
+                            System.out.println("Choose anything else to go back");
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
@@ -1166,11 +1185,11 @@ public class Presentation {
                             }
                             break;
                         case 3:
-                            System.out.println("Press 1 to edit Company ID");
-                            System.out.println("Press 2 to edit bank account");
-                            System.out.println("Press 3 to edit pay condition");
-                            System.out.println("Press 4 to edit phone number");
-                            System.out.println("Press anything else to go back");
+                            System.out.println("Choose 1 to edit Company ID");
+                            System.out.println("Choose 2 to edit bank account");
+                            System.out.println("Choose 3 to edit pay condition");
+                            System.out.println("Choose 4 to edit phone number");
+                            System.out.println("Choose anything else to go back");
                             option = scanner.nextInt();
                             int id;
                             switch (option){
@@ -1229,6 +1248,8 @@ public class Presentation {
                             int sid = scanner.nextInt();
                             System.out.println("Enter the contact's full name");
                             String fn = scanner.next();
+                            if(!checkValidName(fn))
+                                break;
                             System.out.println("Enter the contact's phone number");
                             String pnum = scanner.next();
                             businessManager.addSupplierContact(sid, new Pair<>(fn, pnum));
@@ -1249,6 +1270,8 @@ public class Presentation {
                             double price = scanner.nextDouble();
                             System.out.println("Enter the name");
                             String pname = scanner.nextLine();
+                            if(!checkValidName(pname))
+                                break;
                             System.out.println("Enter the manufacturer");
                             String manufacturer = scanner.nextLine();
                             System.out.println("Enter the year, month, day, hour and minutes of the expiration date");
@@ -1265,85 +1288,67 @@ public class Presentation {
                                 System.out.println("Success!");
                             else System.out.println("Error!");
                             break;
+                        case 9:
+                            System.out.println("Enter the supplierID");
+                            int sid1 = scanner.nextInt();
+                            for(Product p : businessManager.getSupplier(sid1).getProducts())
+                                System.out.println(p.toString() + "\n");
+                            break;
                         default:
                             break;
                     }
                     break;
                 case 2:
-                    System.out.println("Press 1 to watch all pending orders and their details");
-                    System.out.println("Press 2 to add an order");
-                    System.out.println("Press 3 to edit an order");
-                    System.out.println("Press 4 to cancel an order");
-                    System.out.println("Press 5 to announce the arrival of an order");
-                    System.out.println("Press anything else to go back");
+                    System.out.println("Choose 1 to view details about all pending orders of a certain supplier");
+                    System.out.println("Choose 2 to add an order");
+                    System.out.println("Choose 3 to edit an order");
+                    System.out.println("Choose 4 to cancel an order");
+                    System.out.println("Choose 5 to announce the arrival of an order");
+                    System.out.println("Choose anything else to go back");
                     option = scanner.nextInt();
                     switch (option){
                         case 1:
-                            for(Order o : businessManager.getOrders())
-                                System.out.println(o.toString());
+                            System.out.println("Enter the supplierID");
+                            int suppid = scanner.nextInt();
+                            Supplier supp = businessManager.getSupplier(suppid);
+                            if(supp == null) {
+                                System.out.println("No such supplier");
+                                break;
+                            }
+                            for(Order o : supp.getOrders())
+                                System.out.println(o.toString() + "\n");
                             break;
                         case 2:
-                            System.out.println("Press 1 to add a constant order(fixed days supplier only)");
-                            System.out.println("Press 2 to add a regular order");
-                            System.out.println("Press anything else to go back");
-                            option = scanner.nextInt();
-                            switch (option){
-                                case 1:
-                                    System.out.println("Please enter the supplier ID");
-                                    int s = scanner.nextInt();
-                                    if(!(businessManager.getSupplier(s) instanceof FixedDaysSupplier)){
-                                        System.out.println("Error! not a fixed days supplier");
-                                    }
-                                    System.out.println("Please enter the name of the product, its manufacturer and its price, then enter the quantity");
-                                    System.out.println("Repeat until you're done, than enter 'done'");
-                                    String na = scanner.next();
-                                    HashMap<Pproduct, Pair<Integer, Integer>> hm = new HashMap<>();
-                                    while(!na.equals("done")){
-                                        int id = scanner.nextInt();
-                                        String manu = scanner.next();
-                                        double pri = scanner.nextDouble();
-                                        int amo = scanner.nextInt();
-                                        Pproduct p = new Pproduct(id, pri,na,manu, LocalDateTime.now().plusDays(7));
-                                        Pair<Integer, Integer> pair = new Pair<>(amo,0);
-                                        hm.put(p,pair);
-                                        na = scanner.next();
-                                    }
-                                    businessManager.addOrder(s,LocalDateTime.now(),hm);
-                                    System.out.println("Success!");
+                            System.out.println("Please enter the supplier ID");
+                            int s = scanner.nextInt();
+                            HashMap<Pproduct, Pair<Integer, Integer>> hm = new HashMap<>();
+                            String ans;
+                            do{
+                                System.out.println("Please enter the id of the product");
+                                int id = scanner.nextInt();
+                                System.out.println("Please enter the name of the product");
+                                String name = scanner.next();
+                                if(!checkValidName(name))
                                     break;
-                                case 2:
-                                    System.out.println("Please enter the supplier ID");
-                                    int s1 = scanner.nextInt();
-                                    Supplier supp1 = businessManager.getSupplier(s1);
-                                    if(supp1 instanceof FixedDaysSupplier){
-                                        System.out.println("Error! a fixed days only supplier");
-                                    }
-                                    System.out.println("Please enter the name of the product, its manufacturer and its price, than enter the quantity");
-                                    System.out.println("Repeat until you're done, than enter 'done'");
-                                    String na1 = scanner.next();
-                                    HashMap<Pproduct, Pair<Integer, Integer>> hm1 = new HashMap<>();
-                                    while(!na1.equals("done")){
-                                        int id = scanner.nextInt();
-                                        String manu1 = scanner.next();
-                                        double pri1 = scanner.nextDouble();
-                                        int amo1 = scanner.nextInt();
-                                        Pproduct p1 = new Pproduct(id, pri1,na1,manu1, LocalDateTime.now().plusDays(7));
-                                        Pair<Integer, Integer> pair1 = new Pair<>(amo1,0);
-                                        hm1.put(p1,pair1);
-                                        na1 = scanner.next();
-                                    }
-                                    businessManager.addOrder(s1,LocalDateTime.now(),hm1);
-                                    System.out.println("Success!");
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
+                                System.out.println("Please enter the manufacturer of the product");
+                                String manu = scanner.next();
+                                System.out.println("Please enter the price of the product");
+                                double pri = scanner.nextDouble();
+                                System.out.println("Please enter the quantity of the product");
+                                int amo = scanner.nextInt();
+                                Pproduct p = new Pproduct(id, pri,name,manu, LocalDateTime.now().plusDays(7));
+                                Pair<Integer, Integer> pair = new Pair<>(amo,0);
+                                hm.put(p,pair);
+                                System.out.println("Would you like to enter another one? (y/n)");
+                                ans = scanner.next();
+                            } while(!ans.equals("n"));
+                            businessManager.addOrder(s,LocalDateTime.now(),hm);
+                            System.out.println("Success!");
                         case 3:
-                            System.out.println("Press 1 to edit the ETA of the order");
-                            System.out.println("Press 2 to edit the amount of a certain product in the order");
-                            System.out.println("Press 3 to remove a product from an order");
-                            System.out.println("Press anything else to go back");
+                            System.out.println("Choose 1 to edit the ETA of the order");
+                            System.out.println("Choose 2 to edit the amount of a certain product in the order");
+                            System.out.println("Choose 3 to remove a product from an order");
+                            System.out.println("Choose anything else to go back");
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
@@ -1406,9 +1411,10 @@ public class Presentation {
                     }
                     break;
                 case 3:
-                    System.out.println("Press 1 to view all arrival reports");
-                    System.out.println("Press 2 to view all cancellation reports");
-                    System.out.println("press anything else to go back");
+                    System.out.println("Choose 1 to view all arrival reports");
+                    System.out.println("Choose 2 to view all cancellation reports");
+                    System.out.println("Choose 3 to view a certain report");
+                    System.out.println("Choose anything else to go back");
                     option = scanner.nextInt();
                     switch (option){
                         case 1:
@@ -1429,23 +1435,40 @@ public class Presentation {
                                 }
                             }
                             break;
+                        case 3:
+                            System.out.println("Enter the reportID");
+                            int rid = scanner.nextInt();
+                            Report r = businessManager.getReport(rid);
+                            if(r == null){
+                                System.out.println("No such report");
+                                break;
+                            }
+                            System.out.println("Report ID: "+r.getID());
+                            System.out.println("Date reported: "+r.getDateReported());
+                            System.out.println("Order ID: "+ r.getReportedOrder().getID()+"\n");
+                            break;
                         default:
                             break;
                     }
                     break;
                 case 4:
-                    System.out.println("Press 1 to view all agreement details");
-                    System.out.println("Press 2 to add a new agreement");
-                    System.out.println("Press 3 to edit an agreement");
-                    System.out.println("Press 4 to remove agreement");
-                    System.out.println("Press anything else to go back");
+                    System.out.println("Choose 1 to view details about all agreements of a certain supplier");
+                    System.out.println("Choose 2 to add a new agreement");
+                    System.out.println("Choose 3 to edit an agreement");
+                    System.out.println("Choose 4 to remove agreement");
+                    System.out.println("Choose anything else to go back");
                     option = scanner.nextInt();
                     switch (option){
                         case 1:
-                            for(Supplier s : businessManager.getSuppliers()){
-                                for(Agreement a : s.getAgreements())
-                                    System.out.println(a.toString() + "Associated with supplier ID " + s.getID());
+                            System.out.println("Enter the supplierID");
+                            int sid = scanner.nextInt();
+                            Supplier s = businessManager.getSupplier(sid);
+                            if(s == null){
+                                System.out.println("No such supplier");
+                                break;
                             }
+                            for(Agreement a : s.getAgreements())
+                                System.out.println(a.toString() + "\n");
                         case 2:
                             System.out.println("Enter the supplier ID");
                             int su = scanner.nextInt();
@@ -1454,23 +1477,28 @@ public class Presentation {
                                 System.out.println("Error! no such supplier");
                                 break;
                             }
-                            System.out.println("Enter the catalogID, name, price and manufacturer of the product");
+                            System.out.println("Enter the catalogID of the product to be applied on");
                             int catalogID1 = scanner.nextInt();
+                            System.out.println("Enter the name of the product");
                             String nn = scanner.next();
+                            if(!checkValidName(nn))
+                                break;
+                            System.out.println("Enter the price of the product");
                             double pp = scanner.nextDouble();
+                            System.out.println("Enter the manufacturer of the product");
                             String mm = scanner.next();
                             System.out.println("Enter the amount for the sale to apply");
                             int aa = scanner.nextInt();
-                            System.out.println("Enter the amount of the sale for it");
+                            System.out.println("Enter the sale for it");
                             int hh = scanner.nextInt();
                             if(businessManager.addAgreement(to.getID(), new Pair<>(new Pproduct(catalogID1,pp,nn,mm, LocalDateTime.now().plusDays(7)),new Pair<>(aa,hh))))
                                 System.out.println("Success!");
                             else System.out.println("Error, supplier does not supply this item");
                             break;
                         case 3:
-                            System.out.println("Press 1 to set the product amount");
-                            System.out.println("Press 2 to set the product sale");
-                            System.out.println("Press anything else to go back");
+                            System.out.println("Choose 1 to set the product amount");
+                            System.out.println("Choose 2 to set the product sale");
+                            System.out.println("Choose anything else to go back");
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
@@ -1514,5 +1542,14 @@ public class Presentation {
             }
         }
         System.out.println("\nThanks for using our system, looking forward to seeing you again!");
+        if(isLoad) businessManager.unloadSystem();
+    }
+
+    private boolean checkValidName(String name){
+        if(name.isEmpty() || name.matches(".*\\d+.*")){
+            System.out.println("Not a valid name");
+            return false;
+        }
+        return true;
     }
 }

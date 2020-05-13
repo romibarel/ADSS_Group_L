@@ -103,7 +103,9 @@ public interface API_Buisness {
 
     void loadSystem();
 
-    void addOrder(int orderID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products);
+    void unloadSystem();
+
+    void addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products);
 
     void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum);
 
@@ -150,6 +152,8 @@ public interface API_Buisness {
     Order getOrder(int orderID);
 
     LinkedList<Supplier> getSuppliers();
+
+    Report getReport(int reportID);
 
     LinkedList<Order> getOrders();
 

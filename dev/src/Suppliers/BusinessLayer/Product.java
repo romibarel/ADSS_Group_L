@@ -33,7 +33,7 @@ public class Product {
     }
 
     public String toString(){
-        return "Product " + name + " catalogID #" + catalogID + " for " + price + "nis  from " + manufacturer;// + " valid until " + expirationDate.toString();
+        return "Product: " + name + " catalogID #" + catalogID + " for " + price + "nis from " + manufacturer;
     }
 
     public Product duplicate(){
