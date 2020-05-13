@@ -1,22 +1,24 @@
 package CLI;
 
-import Logic.Constraint;
-import Logic.Interface;
+import InterfaceLayer.InterfaceConstraint;
+import InterfaceLayer.InterfaceShift;
+import InterfaceLayer.InterfaceWorker;
+import InterfaceLayer.Interface;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class main {
+public class WorkerMenu {
     private static boolean  quit=false;
     private static Scanner input = new Scanner(System.in);
+    private static List<Callback> calls=new LinkedList<>();
+
     public static void main (String[] args){
         int choice;
         String init;
-        List<Callback> calls=new LinkedList<>();
         initCalls(calls);
         initActions(calls);
-
         System.out.println("Welcome to Super-Li HR System");
         System.out.println("Do you want to initialize the system with data?(y/n)");
         init=input.nextLine();
@@ -26,14 +28,17 @@ public class main {
             System.out.println(Interface.printEmployees()+"\n");
             System.out.println(Interface.printShifts()+"\n");
             System.out.println(Interface.printConstraints()+"\n");;
-
         }
 
         while(!quit){
-            System.out.println("The possible commands are:");
-            for (Callback action: calls) {
-                System.out.println(action.getCommand());
-            }
+
+            System.out.println("Please choose from the following menus");
+            System.out.println("1. Add menu");
+            System.out.println("2. Edit menu");
+            System.out.println("3. Delete menu");
+            System.out.println("4. Search menu");
+            System.out.println("5. Report menu");
+            System.out.println("6. Exit program");
             System.out.println("Please choose a command:");
             try {
                 choice = Integer.parseInt(input.nextLine());
@@ -42,39 +47,184 @@ public class main {
                 System.out.println("illegal input");
                 continue;
             }
-            if(choice>calls.size()| choice<1){
-                System.out.println("no such command");
+            if(choice>6| choice<1){
+                System.out.println("no such menu");
                 continue;
             }
-            System.out.println("you have chosen the command:");
-            System.out.println(calls.get(choice-1).getCommand()+"\n");
-            calls.get(choice-1).call();
+           switch (choice)
+           {
+               case 1:
+                   System.out.println("Add menu:");
+                   addMenu();
+                   break;
+               case 2:
+                   System.out.println("Edit menu:");
+                   editMenu();
+                   break;
+               case 3:
+                   System.out.println("Delete menu:");
+                   deleteMenu();
+                   break;
+               case 4:
+                   System.out.println("Search menu:");
+                   searchMenu();
+                   break;
+               case 5:
+                   System.out.println("Report menu:");
+                   reportMenu();
+                   break;
+               case 6:
+                   exit();
+                   break;
+               default:
+                   System.out.println("Could not find menu");
+           }
         }
+    }
+
+    private static void exit(){
+        quit=true;
+        System.out.println("Exiting.");
+    }
+
+    private static void addMenu(){
+        int choice=0;
+        System.out.println("The possible add commands are:");
+        for (int i=0; i<3; i++) {
+            System.out.println(calls.get(i).getCommand());
+        }
+        System.out.println("Please choose a command:");
+        try {
+            choice = Integer.parseInt(input.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("illegal input");
+            return;
+        }
+        if(choice>3| choice<1){
+            System.out.println("no such command");
+            return;
+        }
+        System.out.println("you have chosen the command:");
+        System.out.println(calls.get(choice-1).getCommand()+"\n");
+        calls.get(choice-1).call();
+    }
+
+    private static void editMenu(){
+        int choice=0;
+        System.out.println("The possible edit commands are:");
+        for (int i=3; i<6; i++) {
+            System.out.println(calls.get(i).getCommand());
+        }
+        System.out.println("Please choose a command:");
+        try {
+            choice = Integer.parseInt(input.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("illegal input");
+            return;
+        }
+        if(choice>3| choice<1){
+            System.out.println("no such command");
+            return;
+        }
+        System.out.println("you have chosen the command:");
+        System.out.println(calls.get(choice+2).getCommand()+"\n");
+        calls.get(choice+2).call();
+    }
+
+    private static void deleteMenu(){
+        int choice=0;
+        System.out.println("The possible delete commands are:");
+        for (int i=6; i<9; i++) {
+            System.out.println(calls.get(i).getCommand());
+        }
+        System.out.println("Please choose a command:");
+        try {
+            choice = Integer.parseInt(input.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("illegal input");
+            return;
+        }
+        if(choice>3| choice<1){
+            System.out.println("no such command");
+            return;
+        }
+        System.out.println("you have chosen the command:");
+        System.out.println(calls.get(choice+5).getCommand()+"\n");
+        calls.get(choice+5).call();
+    }
+
+    private static void searchMenu(){
+        int choice=0;
+        System.out.println("The possible delete commands are:");
+        for (int i=9; i<12; i++) {
+            System.out.println(calls.get(i).getCommand());
+        }
+        System.out.println("Please choose a command:");
+        try {
+            choice = Integer.parseInt(input.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("illegal input");
+            return;
+        }
+        if(choice>3| choice<1){
+            System.out.println("no such command");
+            return;
+        }
+        System.out.println("you have chosen the command:");
+        System.out.println(calls.get(choice+8).getCommand()+"\n");
+        calls.get(choice+8).call();
+    }
+
+    private static void reportMenu(){
+        int choice=0;
+        System.out.println("The possible delete commands are:");
+        for (int i=12; i<17; i++) {
+            System.out.println(calls.get(i).getCommand());
+        }
+        System.out.println("Please choose a command:");
+        try {
+            choice = Integer.parseInt(input.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("illegal input");
+            return;
+        }
+        if(choice>5| choice<1){
+            System.out.println("no such command");
+            return;
+        }
+        System.out.println("you have chosen the command:");
+        System.out.println(calls.get(choice+11).getCommand()+"\n");
+        calls.get(choice+11).call();
     }
 
     private static void initData()
     {
-        List<PresentWorker> workers=init_workers();
-        List<PresentShift> shifts=init_shifts();
-        List<PresentConstraint> constraints=init_constraints();
-        for (PresentWorker worker:workers)
+        List<InterfaceWorker> workers=init_workers();
+        List<InterfaceShift> shifts=init_shifts();
+        List<InterfaceConstraint> constraints=init_constraints();
+        for (InterfaceWorker worker:workers)
             Interface.addEmployee(worker);
-        for (PresentShift shift:shifts)
+        for (InterfaceShift shift:shifts)
             Interface.addShift(shift);
-        for (PresentConstraint constraint:constraints)
+        for (InterfaceConstraint constraint:constraints)
             Interface.addConstraint(constraint);
     }
 
-    private static List<PresentConstraint> init_constraints() {
-        List<PresentConstraint> constraints=new LinkedList<>();
+    private static List<InterfaceConstraint> init_constraints() {
+        List<InterfaceConstraint> constraints=new LinkedList<>();
         try {
-            PresentConstraint c1=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("30/04/2020"), false,  1, "wedding" );
-            PresentConstraint c2=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("20/5/2020"), true,  1, "surgery" );
-            PresentConstraint c3=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("19/6/2020"), true,  2, "doctor" );
-            PresentConstraint c4=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("7/5/2020"), false,  3, "vacation" );
-            PresentConstraint c5=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("7/5/2020"), true,  3, "vacation" );
-            PresentConstraint c6=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("8/5/2020"), false,  3, "vacation" );
-            PresentConstraint c7=new PresentConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("8/5/2020"), true,  3, "vacation" );
+            InterfaceConstraint c1=new InterfaceConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("30/04/2020"), false,  1, "wedding" );
+            InterfaceConstraint c2=new InterfaceConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("20/5/2020"), true,  1, "surgery" );
+            InterfaceConstraint c3=new InterfaceConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("19/6/2020"), true,  2, "doctor" );
+            InterfaceConstraint c4=new InterfaceConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("7/5/2020"), false,  3, "vacation" );
+            InterfaceConstraint c5=new InterfaceConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("7/5/2020"), true,  3, "vacation" );
+            InterfaceConstraint c6=new InterfaceConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("8/5/2020"), false,  3, "vacation" );
+            InterfaceConstraint c7=new InterfaceConstraint(new SimpleDateFormat("dd/MM/yyyy").parse("8/5/2020"), true,  3, "vacation" );
             constraints.add(c1);
             constraints.add(c2);
             constraints.add(c3);
@@ -86,16 +236,16 @@ public class main {
         return constraints;
     }
 
-    private static List<PresentWorker> init_workers()
+    private static List<InterfaceWorker> init_workers()
     {
-        List<PresentWorker> workers=new LinkedList<>();
+        List<InterfaceWorker> workers=new LinkedList<>();
         try
         {
-            PresentWorker w1 = new PresentWorker("avi levy", 1, 202, 2000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2015"), "manager");
-            PresentWorker w2 = new PresentWorker("shimon cohen", 2, 311, 1000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2018"), "manager");
-            PresentWorker w3 = new PresentWorker("dan panorama", 3, 157, 1700, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("12/01/2019"), "cashier");
-            PresentWorker w4 = new PresentWorker("ben biton", 4, 802, 900, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/01/2020"), "cashier");
-            PresentWorker w5 = new PresentWorker("avi bitter", 5, 171, 1300, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("18/03/2020"), "driver");
+            InterfaceWorker w1 = new InterfaceWorker("avi levy", 1, 202, 2000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2015"), "manager");
+            InterfaceWorker w2 = new InterfaceWorker("shimon cohen", 2, 311, 1000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2018"), "manager");
+            InterfaceWorker w3 = new InterfaceWorker("dan panorama", 3, 157, 1700, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("12/01/2019"), "cashier");
+            InterfaceWorker w4 = new InterfaceWorker("ben biton", 4, 802, 900, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/01/2020"), "cashier");
+            InterfaceWorker w5 = new InterfaceWorker("avi bitter", 5, 171, 1300, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("18/03/2020"), "driver");
             workers.add(w1);
             workers.add(w2);
             workers.add(w3);
@@ -105,36 +255,36 @@ public class main {
         return workers;
     }
 
-    private static List<PresentShift> init_shifts()
+    private static List<InterfaceShift> init_shifts()
     {
-        List<PresentShift> shifts=new LinkedList<>();
+        List<InterfaceShift> shifts=new LinkedList<>();
         try
         {
             List<Integer> workers_in_shift=new LinkedList<>();
             workers_in_shift.add(1);
             workers_in_shift.add(3);
             workers_in_shift.add(5);
-            PresentShift s1=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),true,1,workers_in_shift);
+            InterfaceShift s1=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),true,1,workers_in_shift);
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(2);
             workers_in_shift.add(4);
-            PresentShift s2=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),false,1,workers_in_shift);
+            InterfaceShift s2=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),false,1,workers_in_shift);
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(1);
             workers_in_shift.add(5);
-            PresentShift s3=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("16/08/2020"),true,1,workers_in_shift);
+            InterfaceShift s3=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("16/08/2020"),true,1,workers_in_shift);
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(1)
             ;workers_in_shift.add(2); workers_in_shift.add(3); workers_in_shift.add(4);workers_in_shift.add(5);
-            PresentShift s4=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),false,1,workers_in_shift);
+            InterfaceShift s4=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),false,1,workers_in_shift);
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(2);
             workers_in_shift.add(3);
-            PresentShift s5=new PresentShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),true,1,workers_in_shift);
+            InterfaceShift s5=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),true,1,workers_in_shift);
 
             shifts.add(s1);
             shifts.add(s2);
@@ -152,7 +302,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentWorker w=new PresentWorker();
+                InterfaceWorker w=new InterfaceWorker();
                 try {
                     System.out.println("please enter the details of the new employee");
                     System.out.print("id: ");
@@ -189,7 +339,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentShift shift = new PresentShift();
+                InterfaceShift shift = new InterfaceShift();
                 boolean finish = false;
                 String role;
                 try {
@@ -238,7 +388,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentConstraint c=new PresentConstraint();
+                InterfaceConstraint c=new InterfaceConstraint();
                 try {
                     System.out.println("please enter the details of the new constraint");
                     System.out.print("Employee's id: ");
@@ -264,7 +414,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentWorker w;
+                InterfaceWorker w;
                 int id;
                 int opt=0;
                 boolean finished=false;
@@ -346,7 +496,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentShift s;
+                InterfaceShift s;
                 Date oldDate;
                 boolean isMorning;
                 int opt=0;
@@ -440,8 +590,8 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentConstraint c;
-                List<PresentConstraint> constraints;
+                InterfaceConstraint c;
+                List<InterfaceConstraint> constraints;
                 Date oldDate;
                 boolean isMorning;
                 int id;
@@ -463,7 +613,7 @@ public class main {
                     }
                     System.out.println("The constraints the system found are:");
                     int i=1;
-                    for(PresentConstraint con: constraints){
+                    for(InterfaceConstraint con: constraints){
                         System.out.println(i+". "+ con.toString());
                         i++;
                     }
@@ -527,7 +677,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentWorker w;
+                InterfaceWorker w;
                 int id;
                 String ans;
                 try {
@@ -563,7 +713,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentShift s;
+                InterfaceShift s;
                 Date oldDate;
                 boolean isMorning;
                 String ans;
@@ -605,8 +755,8 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentConstraint c;
-                List<PresentConstraint> constraints;
+                InterfaceConstraint c;
+                List<InterfaceConstraint> constraints;
                 Date oldDate;
                 boolean isMorning;
                 int id;
@@ -627,7 +777,7 @@ public class main {
                     }
                     System.out.println("The constraints the system found are:");
                     int i=1;
-                    for(PresentConstraint con: constraints){
+                    for(InterfaceConstraint con: constraints){
                         System.out.println(i+". "+ con.toString());
                         i++;
                     }
@@ -664,7 +814,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentWorker w;
+                InterfaceWorker w;
                 int id;
                 String ans;
                 try {
@@ -687,7 +837,7 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentShift s;
+                InterfaceShift s;
                 Date oldDate;
                 boolean isMorning;
                 String ans;
@@ -715,8 +865,8 @@ public class main {
         calls.add(new Callback() {
             @Override
             public void call() {
-                PresentConstraint c;
-                List<PresentConstraint> constraints;
+                InterfaceConstraint c;
+                List<InterfaceConstraint> constraints;
                 Date oldDate;
                 boolean isMorning;
                 int id;
@@ -737,7 +887,7 @@ public class main {
                     }
                     System.out.println("The constraints the system found are:");
                     int i=1;
-                    for(PresentConstraint con: constraints){
+                    for(InterfaceConstraint con: constraints){
                         System.out.println(i+". "+ con.toString());
                         i++;
                     }
@@ -788,35 +938,25 @@ public class main {
             }
         });
 
-
-        //exit
-        calls.add(new Callback() {
-            @Override
-            public void call() {
-                quit=true;
-                System.out.println("Exiting.");
-            }
-        });
     }
     private static void initActions(List<Callback> actions){
         actions.get(0).setCommand("1. add new employee.");
         actions.get(1).setCommand("2. add new shift.");
         actions.get(2).setCommand("3. add new constraint.");
-        actions.get(3).setCommand("4. edit employee.");
-        actions.get(4).setCommand("5. edit shift.");
-        actions.get(5).setCommand("6. edit constraint.");
-        actions.get(6).setCommand("7. delete employee.");
-        actions.get(7).setCommand("8. delete shift.");
-        actions.get(8).setCommand("9. delete constraint.");
-        actions.get(9).setCommand("10. search employee.");
-        actions.get(10).setCommand("11. search shift.");
-        actions.get(11).setCommand("12. search constraint.");
-        actions.get(12).setCommand("13. present weekly shift report.");
-        actions.get(13).setCommand("14. present weekly constraint report.");
-        actions.get(14).setCommand("15. print all employees.");
-        actions.get(15).setCommand("16. print all shifts.");
-        actions.get(16).setCommand("17. print all constraints.");
-        actions.get(17).setCommand("18. Exit.");
+        actions.get(3).setCommand("1. edit employee.");
+        actions.get(4).setCommand("2. edit shift.");
+        actions.get(5).setCommand("3. edit constraint.");
+        actions.get(6).setCommand("1. delete employee.");
+        actions.get(7).setCommand("2. delete shift.");
+        actions.get(8).setCommand("3. delete constraint.");
+        actions.get(9).setCommand("1. search employee.");
+        actions.get(10).setCommand("2. search shift.");
+        actions.get(11).setCommand("3. search constraint.");
+        actions.get(12).setCommand("1. present weekly shift report.");
+        actions.get(13).setCommand("2. present weekly constraint report.");
+        actions.get(14).setCommand("3. print all employees.");
+        actions.get(15).setCommand("4. print all shifts.");
+        actions.get(16).setCommand("5. print all constraints.");
     }
 }
 

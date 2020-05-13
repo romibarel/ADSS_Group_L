@@ -1,13 +1,13 @@
 package Logic;
 
-import CLI.PresentConstraint;
+import InterfaceLayer.InterfaceConstraint;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ConstrainsRepo
+public class ConstrainsController
 {
 	public static List<Constraint> getConstraints()
 	{
@@ -17,13 +17,7 @@ public class ConstrainsRepo
 	private static List<Constraint> constraints=new LinkedList<>();
 	private static int id=0;
 
-	public static Result check(PresentConstraint c){
-		if(WorkersRepo.get_by_id(c.getId())==null)
-			return new Result(false,"Employee does not exist in the system");
-		if(ShiftRepo.is_worker_scheduled_at(c.getId(),c.getDate(),c.isMorning()))
-			return new Result(false,"Employee is already scheduled in a shift at the samr date and time");
-		return new Result(true,"");
-	}
+
 
 	public static boolean is_available(int worker_id, Date date, boolean morning)
 	{
@@ -57,8 +51,8 @@ public class ConstrainsRepo
 		return cons;
 	}
 
-	public static Result addConstraint(PresentConstraint c){
-		Result checking=check(c);
+	public static Result addConstraint(InterfaceConstraint c){
+		Result checking=Constraint.check(c);
 		if(!checking.success)
 			return checking;
 		Constraint con=new Constraint(c.getDate(),c.isMorning(),c.getId(),c.getReason(), id);
@@ -67,8 +61,8 @@ public class ConstrainsRepo
 		return new Result(true,"Constraint was added "+c.toString());
 	}
 
-	public static Result editConstraint(PresentConstraint c){
-		Result checking=check(c);
+	public static Result editConstraint(InterfaceConstraint c){
+		Result checking=Constraint.check(c);
 		if(!checking.success)
 			return checking;
 		for(Constraint con: constraints){
@@ -83,7 +77,7 @@ public class ConstrainsRepo
 		return new Result(false,"could not find matching constraint to edit");
 	}
 
-	public static Result deleteConstraint(PresentConstraint c){
+	public static Result deleteConstraint(InterfaceConstraint c){
 		for(Constraint con: constraints){
 			if(con.getCid()==c.getCid()){
 				constraints.remove(con);

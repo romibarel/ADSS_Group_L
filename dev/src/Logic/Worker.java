@@ -1,6 +1,6 @@
 package Logic;
 
-import CLI.PresentWorker;
+import InterfaceLayer.InterfaceWorker;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class Worker
 	private Date start_date;
 	private String role;
 
-	public Worker(PresentWorker worker)
+	public Worker(InterfaceWorker worker)
 	{
 		this.id=worker.getId();
 		this.name= worker.getName();
@@ -29,7 +29,7 @@ public class Worker
 		this.start_date=new Date(worker.getStart_date().getTime()); //deep copy the date
 	}
 
-	public static Result check_parameters(PresentWorker worker, boolean check_id)
+	public static Result check_parameters(InterfaceWorker worker, boolean check_id)
 	{
 
 		//check name
@@ -58,7 +58,7 @@ public class Worker
 
 		//check id
 		if (check_id)
-			if (WorkersRepo.get_by_id(worker.getId())!=null) return new Result (false,"id already exists");
+			if (WorkersController.get_by_id(worker.getId())!=null) return new Result (false,"id already exists");
 
 		return new Result(true,"success");
 	}

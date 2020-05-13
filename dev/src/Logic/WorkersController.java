@@ -1,18 +1,19 @@
 package Logic;
 
-import CLI.PresentWorker;
+import InterfaceLayer.InterfaceWorker;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WorkersRepo
+public class WorkersController
 {
 	private static List<Worker> workers= new LinkedList<>();
 
-	public static Result add_worker(PresentWorker worker)
+	public static Result add_worker(InterfaceWorker worker)
 	{
-		if (get_by_id(worker.getId())!=null) return new Result(false,"there is already a worker with that id");
+		if (get_by_id(worker.getId())!=null)
+			return new Result(false,"there is already a worker with that id");
 		Result result= Worker.check_parameters(worker,true);
 		if (result.success)
 		{
@@ -27,13 +28,13 @@ public class WorkersRepo
 		Worker worker=get_by_id(id);
 		if (worker==null)
 			return new Result(false,"worker doesnt exist");
-		if (ShiftRepo.is_worker_scheduled(id))
+		if (ShiftController.is_worker_scheduled(id))
 			return new Result(false,"cant delete worker that is scheduled for a shift");
 		workers.remove(worker);
 		return new Result(true,"success");
 	}
 
-	public static Result edit_worker(PresentWorker worker)
+	public static Result edit_worker(InterfaceWorker worker)
 	{
 		Result result;
 		Worker worker_to_edit=get_by_id(worker.getId());
@@ -60,7 +61,7 @@ public class WorkersRepo
 		for (Worker worker : workers)
 		{
 			if (!worker.getRole().equals(role)) continue;
-			if (!ConstrainsRepo.is_available(worker.getId(),date,morning)) continue;
+			if (!ConstrainsController.is_available(worker.getId(),date,morning)) continue;
 			return_list.add(worker);
 		}
 		return return_list;

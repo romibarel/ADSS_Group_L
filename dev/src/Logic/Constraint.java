@@ -1,5 +1,7 @@
 package Logic;
 
+import InterfaceLayer.InterfaceConstraint;
+
 import java.util.Date;
 
 public class Constraint {
@@ -16,6 +18,14 @@ public class Constraint {
         this.id = id;
         this.reason = reason;
         this.cid=cid;
+    }
+
+    public static Result check(InterfaceConstraint c){
+        if(WorkersController.get_by_id(c.getId())==null)
+            return new Result(false,"Employee does not exist in the system");
+        if(ShiftController.is_worker_scheduled_at(c.getId(),c.getDate(),c.isMorning()))
+            return new Result(false,"Employee is already scheduled in a shift at the same date and time");
+        return new Result(true,"");
     }
 
     public Date getDate() {

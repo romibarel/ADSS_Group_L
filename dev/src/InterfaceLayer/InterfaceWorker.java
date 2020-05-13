@@ -1,11 +1,11 @@
-package CLI;
+package InterfaceLayer;
 
 
 import Logic.Worker;
 
 import java.util.Date;
 
-public class PresentWorker {
+public class InterfaceWorker {
     private String name;
     private int id;
     private int bank_account_number;
@@ -16,7 +16,7 @@ public class PresentWorker {
     private Date start_date;
     private String role;
 
-    public PresentWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, Date start_date, String role) {
+    public InterfaceWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, Date start_date, String role) {
         this.name = name;
         this.id = id;
         this.bank_account_number = bank_account_number;
@@ -28,10 +28,10 @@ public class PresentWorker {
         this.role = role;
     }
 
-    public PresentWorker() {
+    public InterfaceWorker() {
     }
 
-    public PresentWorker(Worker worker) {
+    public InterfaceWorker(Worker worker) {
         this.name = worker.getName();
         this.id = worker.getId();
         this.bank_account_number = worker.getBank_account_number();

@@ -1,4 +1,4 @@
-package CLI;
+package InterfaceLayer;
 
 import Logic.Shift;
 
@@ -6,25 +6,25 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PresentShift {
+public class InterfaceShift {
 
     private Date date;
     private boolean morning;
     private int manager_id;
     private List<Integer> workers;
 
-    public PresentShift(Date date, boolean morning, int manager_id, List<Integer> workers) {
+    public InterfaceShift(Date date, boolean morning, int manager_id, List<Integer> workers) {
         this.date = date;
         this.morning = morning;
         this.manager_id = manager_id;
         this.workers = workers;
     }
 
-    public PresentShift() {
+    public InterfaceShift() {
         workers=new LinkedList<>();
     }
 
-    public PresentShift(Shift shift){
+    public InterfaceShift(Shift shift){
         this.date = shift.getDate();
         this.morning = shift.isMorning();
         this.manager_id = shift.getManager_id();

@@ -1,4 +1,4 @@
-package CLI;
+package InterfaceLayer;
 
 
 import Logic.Constraint;
@@ -6,14 +6,14 @@ import Logic.Worker;
 
 import java.util.Date;
 
-public class PresentConstraint {
+public class InterfaceConstraint {
     private Date date;
     private boolean morning;
     private int id;
     private String reason;
     private int cid;
 
-    public PresentConstraint(Date date, boolean morning, int id, String reason) {
+    public InterfaceConstraint(Date date, boolean morning, int id, String reason) {
         this.date = date;
         this.morning = morning;
         this.id = id;
@@ -21,7 +21,7 @@ public class PresentConstraint {
         this.cid=cid;
     }
 
-    public PresentConstraint(Date date, boolean morning, int id, String reason, int cid) {
+    public InterfaceConstraint(Date date, boolean morning, int id, String reason, int cid) {
         this.date = date;
         this.morning = morning;
         this.id = id;
@@ -29,10 +29,10 @@ public class PresentConstraint {
         this.cid = cid;
     }
 
-    public PresentConstraint() {
+    public InterfaceConstraint() {
     }
 
-    public PresentConstraint(Constraint c){
+    public InterfaceConstraint(Constraint c){
         this.date = c.getDate();
         this.morning = c.isMorning();
         this.id = c.getId();

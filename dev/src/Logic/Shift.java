@@ -1,6 +1,6 @@
 package Logic;
 
-import CLI.PresentShift;
+import InterfaceLayer.InterfaceShift;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -13,7 +13,7 @@ public class Shift
 	private int manager_id;
 	private List<Integer> workers;
 
-	public Shift(PresentShift shift)
+	public Shift(InterfaceShift shift)
 	{
 		this.morning=shift.isMorning();
 		this.manager_id=shift.getManager_id();
@@ -26,7 +26,7 @@ public class Shift
 
 	}
 
-	public static Result check_parameters(PresentShift shift,boolean check_date)
+	public static Result check_parameters(InterfaceShift shift, boolean check_date)
 	{
 		//check date
 		if (shift.getDate()==null)
@@ -36,16 +36,16 @@ public class Shift
 			return new Result(false,"shift date is in the past");
 		if (check_date)
 		{
-			if (ShiftRepo.is_shift_scheduled(shift.getDate(),shift.isMorning()))
+			if (ShiftController.is_shift_scheduled(shift.getDate(),shift.isMorning()))
 				return new Result(false,"a shift is already scheduled for this date");
 		}
 
 		//check manager_id
-		if (WorkersRepo.get_by_id(shift.getManager_id())==null)
+		if (WorkersController.get_by_id(shift.getManager_id())==null)
 			return new Result(false,"manager doest exist");
-		if (!WorkersRepo.get_by_id(shift.getManager_id()).is_manager())//no null pointer exception because manager is verified to exist
+		if (!WorkersController.get_by_id(shift.getManager_id()).is_manager())//no null pointer exception because manager is verified to exist
 			return new Result(false,"wrong manager id");
-		if (!ConstrainsRepo.is_available(shift.getManager_id(),shift.getDate(),shift.isMorning()))
+		if (!ConstrainsController.is_available(shift.getManager_id(),shift.getDate(),shift.isMorning()))
 			return new Result(false, "manager has constraint for that shift");
 
 		//check workers
@@ -53,9 +53,9 @@ public class Shift
 		{
 			for (Integer worker_id : shift.getWorkers())
 			{
-				if (WorkersRepo.get_by_id(worker_id) == null)
+				if (WorkersController.get_by_id(worker_id) == null)
 					return new Result(false, "worker number " + worker_id + " doesnt exist");
-				if (!ConstrainsRepo.is_available(worker_id, shift.getDate(), shift.isMorning()))
+				if (!ConstrainsController.is_available(worker_id, shift.getDate(), shift.isMorning()))
 					return new Result(false, "worker number " + worker_id + " has constraint for that shift");
 			}
 		}

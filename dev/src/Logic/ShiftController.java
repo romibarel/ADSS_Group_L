@@ -1,10 +1,10 @@
 package Logic;
 
-import CLI.PresentShift;
+import InterfaceLayer.InterfaceShift;
 
 import java.util.*;
 
-public class ShiftRepo
+public class ShiftController
 {
 	private static List<Logic.Shift> shifts=new LinkedList<>();
 
@@ -32,7 +32,7 @@ public class ShiftRepo
 		return false;
 	}
 
-	public static Result add_shift(PresentShift shift)
+	public static Result add_shift(InterfaceShift shift)
 	{
 		Result result=Shift.check_parameters(shift,true);
 		if (result.success)
@@ -43,7 +43,7 @@ public class ShiftRepo
 		return result;
 	}
 
-	public static Result edit_shift(PresentShift shift,Date previous_date,boolean previous_morning)
+	public static Result edit_shift(InterfaceShift shift, Date previous_date, boolean previous_morning)
 	{
 		Result result;
 		Shift shift_to_edit=get_shift(previous_date,previous_morning);
