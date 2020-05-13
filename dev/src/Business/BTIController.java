@@ -14,7 +14,6 @@ public class BTIController {
     private DeliveryArchive archive;
     private List<Supply> supplies;
     private List<DeliverDoc> documents;
-    private List<Driver> drivers;
     private Sections sections;
     private List<Location> locations;
     private List<Truck> trucks;
@@ -29,32 +28,14 @@ public class BTIController {
         return bti;
     }
 
-    public void set(ITBController itb, BTDController btd, List<String[]> supplies, List<String[]> drivers, List<String[]> sections, List<String[]> locations, List<String[]> trucks){
+    public void set(ITBController itb, BTDController btd, List<String[]> sections, List<String[]> locations, List<String[]> trucks){
         BTIController.itb = itb;
         BTIController.btd = btd;
         archive = new DeliveryArchive();
 
         this.supplies = new LinkedList<>();
-        //(String name, int quant)
-        for (String[] combo : supplies){
-            Supply sup = new Supply(combo[0], Integer.parseInt(combo[1]));
-            this.supplies.add(sup);
-        }
 
         documents = new LinkedList<>();
-
-        this.drivers = new LinkedList<>();
-        //drivers.add(new String[] {"Moshe", "Mazda", "Toyota"});
-        //(List<String> licenses, String name)
-        for (String[] combo : drivers){
-            String name = combo[0];
-            List<String> licenses= new LinkedList<>();
-            for (int i=1; i<combo.length; i++){
-                licenses.add(combo[i]);
-            }
-            Driver driver = new Driver(licenses, name);
-            this.drivers.add(driver);
-        }
 
         HashMap<Integer, List<String>> secs = new HashMap<>();
         for (String[] combo : sections){
@@ -68,10 +49,17 @@ public class BTIController {
         this.sections = new Sections(secs);
 
         this.locations = new LinkedList<>();
-        //(String address, int phone, String associate)
+        //(boolean type, String address, int phone, String associate)
         //"Super Lee", "052", "Haim"
         for (String[] combo : locations){
-            Location loc = new Location(combo[0], Integer.parseInt(combo[1]), combo[2]);
+            Location loc;
+            boolean isBranch = true;
+            if (combo[0].equals("0"))
+                isBranch = false;
+            if (isBranch)
+                loc = new Branch(combo[1], Integer.parseInt(combo[2]), combo[3]);
+            else
+                loc = new Supplier(combo[1], Integer.parseInt(combo[2]), combo[3]);
             this.locations.add(loc);
         }
 
@@ -87,7 +75,7 @@ public class BTIController {
 
     public void updateBTD() {
         btd = BTDController.getBTD();
-        btd.set(this.drivers, this.archive, this.sections , this.locations , this.trucks );
+   //     btd.set(this.archive, this.sections , this.locations , this.trucks);
 
     }
 
@@ -139,10 +127,10 @@ public class BTIController {
         if (truck.getMaxWeight() < truckWeight)
             return "The truck exceeds its max weight";
         Driver driver = null;
-        for(Driver d : drivers){
+   /*     for(Driver d : drivers){
             if (driverName.equals(d.getName()))
                 driver = d;
-        }
+        }*/
         if (driver == null)
             return "This driver doesn't exist.";
 
@@ -176,37 +164,13 @@ public class BTIController {
         }
         if (destinations.size() != docs.size())
             return "Some of the destinations weren't added.";
-        Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, truckWeight);
-        if(!(delivery.isApproved()))
+    //    Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, truckWeight);
+   //     if(!(delivery.isApproved()))
             return "The driver is unlicensed for the given truck.";
 
         //if we got here all is a ok
-        archive.add(delivery);
-        return "Delivery was created successfully!";
-    }
-
-    public void executeDelivery(int docNum){
-        Delivery del = null;
-        DeliverDoc doc = null;
-        for (DeliverDoc d : documents){
-            if (d.getNum() == docNum){
-                doc = d;
-                break;
-            }
-        }
-        for (Delivery d : archive.getDeliveries()){
-            if (d.getDocs().contains(doc)){
-                del = d;
-                break;
-            }
-        }
-        executeDelivery(del);
-    }
-
-    private void executeDelivery(Delivery del){
-        for (Location loc : del.getDestinations()){
-            itb.arriveAt(loc.getAddress());
-        }
+  //      archive.add(delivery);
+   //     return "Delivery was created successfully!";
     }
 
     public List<Supply> getSupplies() {
@@ -215,10 +179,6 @@ public class BTIController {
 
     public List<DeliverDoc> getDocuments() {
         return documents;
-    }
-
-    public List<Driver> getDrivers() {
-        return drivers;
     }
 
     public Sections getSections() {

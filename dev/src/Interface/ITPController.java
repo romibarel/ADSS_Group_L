@@ -43,12 +43,6 @@ public class ITPController {
         return itb.addSupply(name , num);
     }
 
-    public void arriveAt(String dest){
-        pti.arriveAt(dest);
-    }
 
-    public void execute(int docNum){
-        itb.execute(docNum);
-    }
 }
 

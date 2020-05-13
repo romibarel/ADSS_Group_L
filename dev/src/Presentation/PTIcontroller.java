@@ -16,7 +16,6 @@ public class PTIcontroller {
     private PTIcontroller(){
     }
 
-
     public static PTIcontroller getPTI(){
         if (ptIcontroller == null)
             ptIcontroller = new PTIcontroller();
@@ -29,41 +28,32 @@ public class PTIcontroller {
 
     public void setup(){
         boolean finish = false;
+        PTIcontroller pti = PTIcontroller.getPTI();
+        ITPController itp = ITPController.getITP();
+        ITBController itb = ITBController.getITB();
+        BTIController bti = BTIController.getBTI();
+        BTDController btd = BTDController.getBTD();
+        DTBController dtb = DTBController.getDTB();
         while(!finish) {
             System.out.println("Would you like to automatically setup? [y/n]");
             String input = scanner.nextLine();
             if (input.equals("y")){
                 finish = true;
-                PTIcontroller pti = PTIcontroller.getPTI();
-                ITPController itp = ITPController.getITP();
-                ITBController itb = ITBController.getITB();
-                BTIController bti = BTIController.getBTI();
-                BTDController btd = BTDController.getBTD();
-                DTBController dtb = DTBController.getDTB();
-                List<String[]> supplies = new LinkedList<>();
-                List<String[]> drivers = new LinkedList<>();
                 List<String[]> sections = new LinkedList<>();
                 List<String[]> locations = new LinkedList<>();
                 List<String[]> trucks = new LinkedList<>();
-
-                supplies.add(new String[] {"First", "2"});
-                supplies.add(new String[] {"Second", "5"});
-                supplies.add(new String[] {"Third", "10"});
-
-                drivers.add(new String[] {"Moshe", "Mazda", "Toyota"});
-                drivers.add(new String[] {"Joseph", "Mercedes"});
 
                 sections.add(new String[] {"1", "Super Lee", "Lee Office"});
                 sections.add(new String[] {"2", "Shufersal", "Max Stock", "Best Buy"});
                 sections.add(new String[] {"3", "Mega", "Costco"});
 
-                locations.add(new String[] {"Super Lee", "052", "Haim"});
-                locations.add(new String[] {"Lee Office", "058", "Romi"});
-                locations.add(new String[] {"Shufersal", "054", "Tony"});
-                locations.add(new String[] {"Max Stock", "050", "Ziv"});
-                locations.add(new String[] {"Best Buy", "055", "Tomer"});
-                locations.add(new String[] {"Mega", "053", "Sivan"});
-                locations.add(new String[] {"Costco", "057", "Gali"});
+                locations.add(new String[] {"1", "Super Lee", "052", "Haim"});
+                locations.add(new String[] {"1", "Lee Office", "058", "Romi"});
+                locations.add(new String[] {"1", "Shufersal", "054", "Tony"});
+                locations.add(new String[] {"1", "Max Stock", "050", "Ziv"});
+                locations.add(new String[] {"0", "Best Buy", "055", "Tomer"});
+                locations.add(new String[] {"0", "Mega", "053", "Sivan"});
+                locations.add(new String[] {"0", "Costco", "057", "Gali"});
 
                 //int truckNum, int plate, int weighNeto, int maxWeight, String type
                 trucks.add(new String[] {"1", "111", "1000", "4000", "Mazda"});
@@ -74,112 +64,109 @@ public class PTIcontroller {
                 pti.set(itp);
                 itp.set(pti, itb);
                 itb.set(bti, itp);
-                bti.set(itb, btd, supplies, drivers, sections, locations, trucks);
+                bti.set(itb, btd, sections, locations, trucks);
             }
             else if (input.equals("n")){
-                PTIcontroller pti = PTIcontroller.getPTI();
-                ITPController itp = ITPController.getITP();
-                ITBController itb = ITBController.getITB();
-                BTIController bti = BTIController.getBTI();
-                BTDController btd = BTDController.getBTD();
-                DTBController dtb = DTBController.getDTB();
-                List<String[]> supplies = new LinkedList<>();
-                List<String[]> drivers = new LinkedList<>();
                 List<String[]> sections = new LinkedList<>();
                 List<String[]> locations = new LinkedList<>();
                 List<String[]> trucks = new LinkedList<>();
 
                 while(!finish){
                     System.out.println("What would you like to add?\n" +
-                            "1) Supply\n" +
-                            "2) Driver\n" +
-                            "3) Section\n" +
-                            "4) Truck\n" +
-                            "5) Finish");
+                            "1) Section\n" +
+                            "2) Truck\n" +
+                            "3) Finish");
                     input = scanner.nextLine();
-                    switch (input){
-                        case("1"):
-                            System.out.println("Enter the name and quantity of the supply.\n");
+                    switch (input) {
+                        case ("1"):
+                            boolean moreLocations = true;
+                            List<String> locsPerArea = new LinkedList<>();
+                            System.out.println("Enter the number of section to create or add to.\n");
                             input = scanner.nextLine();
-                            String [] sup = input.split(" ", Integer.MAX_VALUE);
-                            if (sup.length != 2){
-                                System.out.println("Invalid supply.");
-                                break;
-                            }
+                            int area;
                             try {
-                                int i = Integer.parseInt(sup[1]);
-                            } catch (Exception e){
-                                System.out.println("Invalid supply.");
-                                break;
-                            }
-                            supplies.add(sup);
-                            break;
-                        case("2"):
-                            System.out.println("Enter the name of driver and all his/her types of licenses.\n");
-                            input = scanner.nextLine();
-                            String [] driver = input.split(" ", Integer.MAX_VALUE);
-                            drivers.add(driver);
-                            break;
-                        case("3"):
-                            System.out.println("Enter number of the section to add and all the locations that belong to it.\n");
-                            input = scanner.nextLine();
-                            String [] secs = input.split(" ", Integer.MAX_VALUE);
-                            try {
-                                int j = Integer.parseInt(secs[0]);
-                            } catch (Exception e){
+                                area = Integer.parseInt(input);
+                            } catch (Exception e) {
                                 System.out.println("Invalid area number.");
                                 break;
                             }
-                            sections.add(secs);
-                            for (int i=1; i<secs.length; i++){
-                                boolean exists = false;
-                                for (String[] s : locations) {
-                                    if (s[0].equals(secs[i]))
-                                        exists = true;
+                            while (moreLocations) {
+                                System.out.println("Enter the address of the location to add to area " + area + " or 'stop' if you're done.\n");
+                                input = scanner.nextLine();
+                                if (input == null || input.trim().equals("")) {
+                                    System.out.println("Address must not be empty, Please try again.\n");
                                 }
-                                 if(!exists) {
-                                     System.out.println("Enter the phone number and associate's name of " + secs[i] + ".\n");
-                                     input = scanner.nextLine();
-                                     String[] temp = input.split(" ", Integer.MAX_VALUE);
-                                     try {
-                                         int j = Integer.parseInt(temp[0]);
-                                     } catch (Exception e){
-                                         System.out.println("Invalid phone number.");
-                                         break;
-                                     }
-                                     String[] loc = new String[3];
-                                     loc[0] = secs[i];
-                                     try {
-                                         loc[1] = temp[0];
-                                         loc[2] = temp[1];
-                                     } catch (Exception e) {
-                                         System.out.println("invalid phone number and associate's name.\n");
-                                     }
-                                     locations.add(loc);
-                                 }
+                                else if (input.equals("stop")){
+                                    moreLocations = false;
+                                }
+                                else locsPerArea.add(input);
+                            }
+                            for (String location : locsPerArea){
+                                String[] newLocation = new String[4];
+                                newLocation[1] = location;
+                                boolean validInput = false;
+                                while(!validInput){
+                                    System.out.println("Enter 1 if the location with address '" + location + "' is one of the company's branches, or 0 if it's a supplier.\n");
+                                    String type = scanner.nextLine();
+                                    if ((type.equals("0") || type.equals("1"))){
+                                        newLocation[0] = type;
+                                        validInput = true;
+                                    }
+                                     else System.out.println("Invalid location type.\n");
+                                }
+                                validInput = false;
+                                while (!validInput){
+                                    System.out.println("Enter the phone number of the location with address '" + location + "'.\n");
+                                    String phone = scanner.nextLine();
+                                    try {
+                                        int check = Integer.parseInt(phone);
+                                        newLocation[2] = phone;
+                                        validInput = true;
+                                    } catch (Exception e){
+                                        System.out.println("Invalid phone number.");
+                                    }
+                                }
+                                validInput = false;
+                                while(!validInput){
+                                    System.out.println("Enter the associate's name of the location with address '" + location + "'.\n");
+                                    String associate = scanner.nextLine();
+                                    if (associate == null || associate.trim().equals(""))
+                                        System.out.println("Associate's name can't be empty.\n");
+                                    else {
+                                        newLocation[3] = associate;
+                                        locations.add(newLocation);
+                                        validInput = true;
+                                    }
+                                }
                             }
                             break;
-                        case("4"):
-                            System.out.println("Please enter the truck's number, plate, neto weight, maximum weight and type.\n");
+
+                        case("2"):
+                            System.out.println("Please enter the truck's number, plate, neto weight, maximum weight and type (type must be one word).\n");
                             input = scanner.nextLine();
                             String [] truck = input.split(" ", Integer.MAX_VALUE);
-                            try {
-                                int i = Integer.parseInt(truck[0]);
-                                i = Integer.parseInt(truck[1]);
-                                i = Integer.parseInt(truck[2]);
-                                i = Integer.parseInt(truck[3]);
-                            } catch (Exception e){
-                                System.out.println("Invalid truck details.");
-                                break;
+                            if (truck.length == 5) {
+                                try {
+                                    int i = Integer.parseInt(truck[0]);
+                                    i = Integer.parseInt(truck[1]);
+                                    i = Integer.parseInt(truck[2]);
+                                    i = Integer.parseInt(truck[3]);
+                                } catch (Exception e) {
+                                    System.out.println("Invalid truck details.\n");
+                                    break;
+                                }
+                                if (!(truck[4] == null || truck[4].equals("")))
+                                    trucks.add(truck);
+                                else System.out.println("Invalid truck type.\n");
                             }
-                            trucks.add(truck);
+                            else System.out.println("Insufficient information.\n");
                             break;
-                        case("5"):
+                        case("3"):
                             finish = true;
                             pti.set(itp);
                             itp.set(pti, itb);
                             itb.set(bti, itp);
-                            bti.set(itb, btd, supplies, drivers, sections, locations, trucks);
+                            bti.set(itb, btd, sections, locations, trucks);
                             break;
                         default:
                             break;
@@ -193,58 +180,20 @@ public class PTIcontroller {
         //docNum is the id of the delivery document
         boolean finish = false;
         int docNum = 0;
-        System.out.println("Welcome !");
+        System.out.println("Welcome to the delivery system!");
         while(!finish){
-            System.out.println("Please enter 1 for adding supplies, 2 for creating delivery and 3 for shut down.\n");
+            System.out.println("If you don't want to create any more deliveries please enter 'quit', otherwise press enter.\n");
             String input = scanner.nextLine();
-            switch (input){
-                case ("1"):
-                    System.out.println(addSupplies());
-                    break;
-                case ("2"):
-                    docNum = createDelivery(docNum);
-                    executeDelivery(docNum);
-                    break;
-                case ("3"):
-                    finish = true;
-                    break;
+            if (input.equals("quit"))
+                finish = true;
+            else{
+                createDelivery(docNum);
+                docNum++;
             }
         }
     }
 
-    private void executeDelivery(int docNum){
-        itp.execute(docNum);
-    }
 
-    private String addSupplies() {
-        System.out.println("Enter Supply name");
-        String name = scanner.nextLine();
-        while (name == null)
-        {
-            System.out.println("Enter Supply name");
-            name = scanner.nextLine();
-        }
-        System.out.println("Enter Supply quntity");
-        String number = null;
-        int num = 0 ;
-        boolean goodNumber = false;
-        while (!goodNumber) {
-            number = scanner.nextLine();
-            try {
-                num = Integer.parseInt(number);
-                goodNumber = true;
-            } catch (Exception e) {
-                System.out.println("Invalid number, please enter a number.");
-                goodNumber = false;
-            }
-            if (num < 0) // todo <=?
-            {
-                System.out.println("Invalid number, please enter a positive number.");
-                goodNumber = false;
-            }
-        }
-        return itp.addSupply(name, num);
-    }
 
     private int createDelivery(int docNum) {
         Date date;
@@ -335,20 +284,6 @@ public class PTIcontroller {
         }
 
         return docNums;
-    }
-
-    public void arriveAt(String dest){
-        System.out.println("The delivery arrived at "+ dest +", would you like to get supplies? [y/n]");
-        String ans = scanner.nextLine();
-        boolean goodAns = false;
-        while (!goodAns){
-            ans = scanner.nextLine();
-            if (ans.equals("y") || ans.equals("n"))
-                goodAns = true;
-        }
-        if (ans.equals("y")){
-            System.out.println(addSupplies());
-        }
     }
 
 }
