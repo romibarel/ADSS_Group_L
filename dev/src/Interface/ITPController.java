@@ -34,15 +34,9 @@ public class ITPController {
        return itb.createDoc(docNum, doc);
     }
 
-    public String createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs, int truckWeight){
-        return itb.createDelivery(date, time, truck, driver, source, docs, truckWeight);
+    public String createDelivery(Date date, Date time, int truck, int driverID, String source, List<Integer> docs, int truckWeight){
+        return itb.createDelivery(date, time, truck, driverID, source, docs, truckWeight);
     }
-
-    public String addSupply(String name, int num) {
-
-        return itb.addSupply(name , num);
-    }
-
 
 }
 

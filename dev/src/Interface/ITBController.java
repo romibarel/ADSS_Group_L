@@ -33,14 +33,8 @@ public class ITBController {
        return bti.createDoc(docNum, doc);
     }
 
-    public String createDelivery(Date date, Date time, int truck, String driver, String source, List<Integer> docs, int truckWeight){
-        return bti.createDelivery(date, time, truck, driver, source, docs, truckWeight);
+    public String createDelivery(Date date, Date time, int truck ,int driverID, String source, List<Integer> docs, int truckWeight){
+        return bti.createDelivery(date, time, truck, driverID, source, docs, truckWeight);
     }
-
-
-    public String addSupply(String name, int num) {
-        return bti.addSupply(name , num);
-    }
-
 
 }

@@ -50,7 +50,7 @@ public class BTIController {
 
         this.locations = new LinkedList<>();
         //(boolean type, String address, int phone, String associate)
-        //"Super Lee", "052", "Haim"
+        //"1", "Super Lee", "052", "Haim"
         for (String[] combo : locations){
             Location loc;
             boolean isBranch = true;
@@ -116,23 +116,18 @@ public class BTIController {
         return "Document created successfully.";
     }
 
-    public String createDelivery(Date date, Date time, int truckInt, String driverName, String sourceName, List<Integer> docNums, int truckWeight){
+    public String createDelivery(Date date, Date time, int truckInt, int driverID, String sourceName, List<Integer> docNums, int truckWeight){
         Truck truck = null;
         for (Truck t : trucks){
             if (t.getTruckNum() == truckInt)
                 truck = t;
         }
         if (truck == null)
-            return "This truck doesn't exist.";
+            return "The given truck doesn't exist.";
         if (truck.getMaxWeight() < truckWeight)
-            return "The truck exceeds its max weight";
-        Driver driver = null;
-   /*     for(Driver d : drivers){
-            if (driverName.equals(d.getName()))
-                driver = d;
-        }*/
-        if (driver == null)
-            return "This driver doesn't exist.";
+            return "The given truck exceeds its max weight";
+
+
 
         Location source = null;
         for (Location l : locations){
