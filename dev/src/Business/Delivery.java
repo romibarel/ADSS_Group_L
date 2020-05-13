@@ -39,6 +39,10 @@ public class Delivery {
         return docs;
     }
 
+    public void logDel(Delivery delivery) {
+        //todo
+    }
+
     public Date getDate() {
         return date;
     }

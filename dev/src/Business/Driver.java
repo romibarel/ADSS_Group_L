@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Driver {
     private List<String> licenses;
-    private String name;
+    private String name;    //remove ?
 
     public Driver(List<String> licenses, String name) {
         this.licenses = licenses;

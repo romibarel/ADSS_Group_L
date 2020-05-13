@@ -1,3 +1,4 @@
+/*
 package Tests;
 
 import Tests.Tests;
@@ -20,3 +21,4 @@ public class TestsMain
 	}
 
 }
+*/

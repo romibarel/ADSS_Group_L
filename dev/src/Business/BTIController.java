@@ -28,9 +28,9 @@ public class BTIController {
         return bti;
     }
 
-    public void set(ITBController itb, BTDController btd, List<String[]> sections, List<String[]> locations, List<String[]> trucks){
-        BTIController.itb = itb;
-        BTIController.btd = btd;
+    public void set( List<String[]> sections, List<String[]> locations, List<String[]> trucks){
+        BTIController.itb = ITBController.getITB();
+        BTIController.btd = BTDController.getBTD();
         archive = new DeliveryArchive();
 
         this.supplies = new LinkedList<>();
@@ -111,7 +111,7 @@ public class BTIController {
         }
         if (doc0 == null)
             return "The destination doesn't exist.";
-        DeliverDoc deliverDoc = new DeliverDoc(docNum, DocSupplies, doc0);
+        DeliverDoc deliverDoc = new DeliverDoc(docNum, DocSupplies, doc0);      //todo add date and time of arrival
         documents.add(deliverDoc);
         return "Document created successfully.";
     }
