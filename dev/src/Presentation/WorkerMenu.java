@@ -1,9 +1,9 @@
-package CLI;
+package Presentation;
 
-import InterfaceLayer.InterfaceConstraint;
-import InterfaceLayer.InterfaceShift;
-import InterfaceLayer.InterfaceWorker;
-import InterfaceLayer.Interface;
+import Interface.InterfaceConstraint;
+import Interface.InterfaceShift;
+import Interface.InterfaceWorker;
+import Interface.Interface;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,7 @@ public class WorkerMenu {
     private static Scanner input = new Scanner(System.in);
     private static List<Callback> calls=new LinkedList<>();
 
-    public static void main (String[] args){
+    public static void mainFunc (){
         int choice;
         String init;
         initCalls(calls);

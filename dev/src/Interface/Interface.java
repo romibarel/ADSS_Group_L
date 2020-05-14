@@ -1,6 +1,6 @@
-package InterfaceLayer;
+package Interface;
 
-import Logic.*;
+import Business.*;
 
 import java.util.Comparator;
 import java.util.Date;

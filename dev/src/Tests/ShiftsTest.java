@@ -1,19 +1,5 @@
 package Tests;
 
-import InterfaceLayer.InterfaceConstraint;
-import InterfaceLayer.InterfaceShift;
-import InterfaceLayer.InterfaceWorker;
-import Logic.ConstrainsController;
-import Logic.ShiftController;
-import Logic.WorkersController;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.junit.Test;
-import org.junit.After;
-import static org.junit.Assert.*;
-
 public class ShiftsTest
 {
 

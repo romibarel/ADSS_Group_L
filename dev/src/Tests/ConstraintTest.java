@@ -1,8 +1,11 @@
 package Tests;
-import InterfaceLayer.InterfaceConstraint;
-import InterfaceLayer.InterfaceShift;
-import InterfaceLayer.InterfaceWorker;
-import Logic.*;
+import Business.ConstrainsController;
+import Business.ShiftController;
+import Business.WorkersController;
+import Interface.InterfaceConstraint;
+import Interface.InterfaceShift;
+import Interface.InterfaceWorker;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package Logic;
+package Business;
 
-import InterfaceLayer.InterfaceConstraint;
+import Interface.InterfaceConstraint;
 
 import java.util.Calendar;
 import java.util.Date;

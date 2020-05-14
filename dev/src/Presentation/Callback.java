@@ -1,4 +1,4 @@
-package CLI;
+package Presentation;
 
 public abstract class Callback {
     String command;

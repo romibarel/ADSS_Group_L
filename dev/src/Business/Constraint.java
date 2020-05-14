@@ -1,19 +1,18 @@
-package InterfaceLayer;
+package Business;
 
-
-import Logic.Constraint;
-import Logic.Worker;
+import Interface.InterfaceConstraint;
 
 import java.util.Date;
 
-public class InterfaceConstraint {
+public class Constraint {
+
     private Date date;
     private boolean morning;
     private int id;
     private String reason;
     private int cid;
 
-    public InterfaceConstraint(Date date, boolean morning, int id, String reason) {
+    public Constraint(Date date, boolean morning, int id, String reason,int cid) {
         this.date = date;
         this.morning = morning;
         this.id = id;
@@ -21,23 +20,13 @@ public class InterfaceConstraint {
         this.cid=cid;
     }
 
-    public InterfaceConstraint(Date date, boolean morning, int id, String reason, int cid) {
-        this.date = date;
-        this.morning = morning;
-        this.id = id;
-        this.reason = reason;
-        this.cid = cid;
-    }
+    public static Result check(InterfaceConstraint c){
+        if(WorkersController.get_by_id(c.getId())==null)
+            return new Result(false,"Employee does not exist in the system");
 
-    public InterfaceConstraint() {
-    }
-
-    public InterfaceConstraint(Constraint c){
-        this.date = c.getDate();
-        this.morning = c.isMorning();
-        this.id = c.getId();
-        this.reason = c.getReason();
-        this.cid=c.getCid();
+        if(ShiftController.is_worker_scheduled_at(c.getId(),c.getDate(),c.isMorning(),WorkersController.get_by_id(c.getId()).getBranchAddress()))
+            return new Result(false,"Employee is already scheduled in a shift at the same date and time");
+        return new Result(true,"");
     }
 
     public Date getDate() {
@@ -78,14 +67,5 @@ public class InterfaceConstraint {
 
     public void setCid(int cid) {
         this.cid = cid;
-    }
-
-    @Override
-    public String toString() {
-        return  "cid=" + cid  +
-                "\ndate=" + date  +
-                "\nmorning=" + morning +
-                "\nid=" + id +
-                "\nreason=" + reason;
     }
 }

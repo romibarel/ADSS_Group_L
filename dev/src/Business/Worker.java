@@ -1,6 +1,6 @@
-package Logic;
+package Business;
 
-import InterfaceLayer.InterfaceWorker;
+import Interface.InterfaceWorker;
 
 import java.util.Date;
 

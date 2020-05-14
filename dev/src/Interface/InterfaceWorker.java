@@ -1,7 +1,7 @@
-package InterfaceLayer;
+package Interface;
 
 
-import Logic.Worker;
+import Business.Worker;
 
 import java.util.Date;
 

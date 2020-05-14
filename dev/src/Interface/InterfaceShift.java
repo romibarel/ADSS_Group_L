@@ -1,6 +1,6 @@
-package InterfaceLayer;
+package Interface;
 
-import Logic.Shift;
+import Business.Shift;
 
 import java.util.Date;
 import java.util.LinkedList;

@@ -1,12 +1,12 @@
-package Logic;
+package Business;
 
-import InterfaceLayer.InterfaceShift;
+import Interface.InterfaceShift;
 
 import java.util.*;
 
 public class ShiftController
 {
-	private static List<Logic.Shift> shifts=new LinkedList<>();
+	private static List<Shift> shifts=new LinkedList<>();
 
 	// checks if a worker is scheduled for any shift
 	public static boolean is_worker_scheduled(int worker_id)
