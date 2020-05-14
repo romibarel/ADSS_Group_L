@@ -21,11 +21,11 @@ public class PurchaseTransaction extends Transaction {
         this.purchseTransactions = purchseTransactions;
     }
 
-    public void purchase(int barCode, String productName, String supplier, double price, double discount, Date expirationDate, int amount, Date date, int location) {
+    public void purchase(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
         Singletone_Storage_Management.getInstance().getLocations().addProduct(barCode, expirationDate, location, amount); //add product to locations
-        Singletone_Storage_Management.getInstance().getInventory().purchaseProduct(barCode, productName, supplier, amount);
+        Singletone_Storage_Management.getInstance().getInventory().purchaseProduct(barCode, productName, supplierID, amount);
         //create new purchase product
-        ProductPurchase pp = new ProductPurchase(barCode, productName, supplier, price, discount, amount, expirationDate, location);
+        ProductPurchase pp = new ProductPurchase(barCode, productName, supplierID, price, discount, amount, expirationDate, location);
         this.purchseTransactions.put(barCode, pp);
     }
 

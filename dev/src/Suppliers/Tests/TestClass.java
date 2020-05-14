@@ -84,9 +84,9 @@ public class TestClass {
         sc.addSupplier(s2);
         sc.addSupplier(s3);
 
-        o1 = new Order("Rom", s1.getID(), LocalDateTime.now().plusDays(1), o1Products);
-        o2 = new Order("Adir", s2.getID(), LocalDateTime.now().plusDays(2), o2Products);
-        o3 = new Order("Din", s3.getID(), LocalDateTime.now().plusDays(3), o3Products);
+        o1 = new Order(s1.getID(), LocalDateTime.now().plusDays(1), o1Products);
+        o2 = new Order(s2.getID(), LocalDateTime.now().plusDays(2), o2Products);
+        o3 = new Order(s3.getID(), LocalDateTime.now().plusDays(3), o3Products);
         o1.setETA(s1.assessOrderETA());
         o2.setETA(s2.assessOrderETA());
         o3.setETA(s3.assessOrderETA());
@@ -146,7 +146,7 @@ public class TestClass {
 
     @Test
     public void testSetOrderETA2(){
-        Order o = new Order("Rom", 4, o1.getETA(), o1.getProducts());
+        Order o = new Order(4, o1.getETA(), o1.getProducts());
         Assert.assertFalse(sc.setOrderETA(o.getID(), o2.getETA()));
     }
 }

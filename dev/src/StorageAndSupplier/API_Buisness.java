@@ -4,14 +4,12 @@ import Storage.Buisness.Reports.DefectReport;
 import Storage.Buisness.Reports.ProductReport;
 import StorageAndSupplier.Presentation.PdataInventoryReport;
 import StorageAndSupplier.Presentation.Pdefect;
+import StorageAndSupplier.Presentation.Pproduct;
 import Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public interface API_Buisness {
@@ -30,7 +28,7 @@ public interface API_Buisness {
 
     List<String> getListOfCategoriesNames ();
 
-    void buyProduct(int barCode, String productName, String supplier,
+    void buyProduct(int barCode, String productName, int supplierID,
                     double price,double discount,Date expirationDate,
                     int amount, Date date, int location);
 
@@ -59,7 +57,7 @@ public interface API_Buisness {
 
     String getProducteName(Integer barcode);
 
-    String getProducteManufactor(Integer barcode);
+    int getProducteManufactor(Integer barcode);
 
     String getProducteAmount(Integer barcode);
 
@@ -67,7 +65,7 @@ public interface API_Buisness {
 
     String getProducteDate(Integer barcode);
 
-    void setManufactorforProduct(int barcode, String newName);
+    void setManufactorforProduct(int barcode, int supplierID);
 
     String getDataSaleName(Integer barcode);
 
@@ -105,13 +103,13 @@ public interface API_Buisness {
 
     void loadSystem();
 
-    void addOrder(Order order);
+    void addOrder(int orderID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products);
 
-    void addSupplier(Supplier supplier);
+    void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum);
 
-    boolean addAgreement(int supplierID, Agreement a);
+    boolean addAgreement(int supplierID, Pair<Pproduct, Pair<Integer, Integer>> agreementDetails);
 
-    void addProduct(int supplierID, Product p);
+    void addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration);
 
     boolean removeOrder(int orderID);
 

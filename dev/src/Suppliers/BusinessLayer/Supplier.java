@@ -147,6 +147,8 @@ public abstract class Supplier {
 
     public void setContacts(Pair<String, String> contact){ contacts.add(contact); }
 
+    public abstract boolean setProductAmount(int productID, int amount, Order o);
+
     public Agreement getAgreementByID(int agreementID){
         for(Agreement a : agreements){
             if(a.getAgreementID() == agreementID)

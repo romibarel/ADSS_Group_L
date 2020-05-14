@@ -3,10 +3,10 @@ package Storage.DAL.LocationsDAL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.sql.*;
 
 public class LocationControllerDAL {
     private Map<Integer , Map<Date, Map<Integer, Integer>>> productsLocationDAL; // <barcode, <expirationDate, <location, quantity>
@@ -108,9 +108,12 @@ public class LocationControllerDAL {
         boolean updateOrInsert = false; //update = true, insert = false
         //TODO: The date isn't good.
         try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String ts = sdf.format(new java.sql.Timestamp(expirationDate.getTime()));
+
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCT_LOCATIONS " +
                     " WHERE Barcode = " + barCode +
-                    " AND Expiration = '" + expirationDate +"'" +
+                    " AND Expiration = '" + ts +"'" +
                     " AND Location_id = " + location);
 
             ResultSet rs = stmt.executeQuery();
@@ -118,14 +121,16 @@ public class LocationControllerDAL {
             if(updateOrInsert) {
                 PreparedStatement stmt2 = conn.prepareStatement("UPDATE PRODUCT_LOCATIONS SET " +
                         " Location_id = " + location + " AND Quantity = " + quantity + " WHERE Barcode = " + barCode +
-                        " AND Expiration = '" + expirationDate + "'"
+                        " AND Expiration = '" + ts + "'"
                 );
+
+
                 stmt2.executeUpdate();
             }
             else{
                 PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO PRODUCT_LOCATIONS VALUES(?,?,?,?)");
                 stmt2.setInt(1, barCode);
-                stmt2.setDate(2, new java.sql.Date(expirationDate.getTime()));
+                stmt2.setString(2, ts);
                 stmt2.setInt(3, location);
                 stmt2.setInt(4, quantity);
                 stmt2.executeUpdate();

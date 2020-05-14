@@ -40,6 +40,10 @@ public class OrderOnlySupplier extends Supplier {
         return null;
     }
 
+    public boolean setProductAmount(int productID, int amount, Order o){
+        return o.setProductAmount(productID, amount);
+    }
+
     public LocalDateTime assessOrderETA(){
         return LocalDateTime.now().plusDays(3);
     }

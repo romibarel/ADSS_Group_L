@@ -1,8 +1,6 @@
 package Suppliers.BusinessLayer;
 
 import Suppliers.PersistenceLayer.DataController;
-import Suppliers.PersistenceLayer.LoanReport;
-import Suppliers.PersistenceLayer.LoanSupplier;
 import javafx.util.Pair;
 
 import java.time.LocalDateTime;
@@ -24,61 +22,36 @@ public class SystemController {
     private SystemController(){
         suppliers = new LinkedList<>();
         reports = new LinkedList<>();
-        for(LoanSupplier lp : dc.pullSupplierData()) {
-            switch (lp.getTag()){
-                case "FixedDays":
-                    suppliers.add(new FixedDaysSupplier(lp));
-                    break;
-                case "SelfPickup":
-                    suppliers.add(new SelfPickupSupplier(lp));
-                    break;
-                case "OrderOnly":
-                    suppliers.add(new OrderOnlySupplier(lp));
-                    break;
-            }
-        }
-
-        for(LoanReport lr : dc.pullReports()){
-            switch (lr.getTag()){
-                case "Arrival":
-                    reports.add(new ArrivalReport(lr));
-                    break;
-                case "Cancel":
-                    reports.add(new CancellationReport(lr));
-                    break;
-            }
-        }
+//        for(LoanSupplier lp : dc.pullSupplierData()) {
+//            switch (lp.getTag()){
+//                case "FixedDays":
+//                    suppliers.add(new FixedDaysSupplier(lp));
+//                    break;
+//                case "SelfPickup":
+//                    suppliers.add(new SelfPickupSupplier(lp));
+//                    break;
+//                case "OrderOnly":
+//                    suppliers.add(new OrderOnlySupplier(lp));
+//                    break;
+//            }
+//        }
+//
+//        for(LoanReport lr : dc.pullReports()){
+//            switch (lr.getTag()){
+//                case "Arrival":
+//                    reports.add(new ArrivalReport(lr));
+//                    break;
+//                case "Cancel":
+//                    reports.add(new CancellationReport(lr));
+//                    break;
+//            }
+//        }
 
 
     }
 
     public void loadSystem(){
-        /*LinkedList<LoanSupplier> loanSuppliers = dc.getLoanSuppliers();
-        LinkedList<LoanOrder> loanOrders = dc.getLoanOrders();
-        LinkedList<LoanAgreement> loanAgreements = dc.getLoanAgreements();
-        LinkedList<LoanProduct> loanProducts = dc.getLoanProducts();
-
-        suppliers.add(new FixedDaysSupplier(loanSuppliers.get(0)));
-        suppliers.add(new OrderOnlySupplier(loanSuppliers.get(1)));
-        suppliers.add(new SelfPickupSupplier(loanSuppliers.get(2)));
-
-        suppliers.get(0).addProduct(new Product(loanProducts.get(0)));
-        suppliers.get(0).addProduct(new Product(loanProducts.get(1)));
-        suppliers.get(1).addProduct(new Product(loanProducts.get(2)));
-        suppliers.get(1).addProduct(new Product(loanProducts.get(3)));
-        suppliers.get(2).addProduct(new Product(loanProducts.get(4)));
-
-        suppliers.get(0).addAgreement(new Agreement(loanAgreements.get(0)));
-        suppliers.get(1).addAgreement(new Agreement(loanAgreements.get(1)));
-        suppliers.get(2).addAgreement(new Agreement(loanAgreements.get(2)));
-
-        suppliers.get(0).addOrder(new Order(loanOrders.get(0)));
-        suppliers.get(0).getOrders().get(0).calcTotal(suppliers.get(0).getAgreements());
-        suppliers.get(1).addOrder(new Order(loanOrders.get(1)));
-        suppliers.get(1).getOrders().get(0).calcTotal(suppliers.get(1).getAgreements());
-        suppliers.get(2).addOrder(new Order(loanOrders.get(2)));
-        suppliers.get(2).getOrders().get(0).calcTotal(suppliers.get(2).getAgreements());
-         */
+        dc.loadSystem();
     }
 
     public LocalDateTime addOrder(Order order){
@@ -119,12 +92,21 @@ public class SystemController {
         }
     }
 
-    public boolean removeOrder(int orderID){
-        for(Supplier s : suppliers){
-            if(getOrder(orderID).getSupplierID() == s.getID()){
+    public boolean addSupplierContact(int supplierID, Pair<String, String> contact){
+        Supplier s = getSupplier(supplierID);
+        if(s == null)
+            return false;
+        s.addContact(contact);
+        dc.addSupplierContact(contact.getKey(), contact.getValue(), supplierID);
+        return true;
+    }
+
+    public boolean removeOrder(int orderID) {
+        for (Supplier s : suppliers) {
+            if (getOrder(orderID).getSupplierID() == s.getID()) {
                 dc.removeSupplierOrder(orderID);
                 Order o = s.removeOrder(orderID);
-                if(o != null)
+                if (o != null)
                     dc.addSupplierOrder(o.getLoan());
                 return true;
             }
@@ -217,7 +199,7 @@ public class SystemController {
         p = sup.getProductByID(barCode);
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         products.put(p, new Pair<>(amount, 0));
-        Order o = new Order(sup.getName(), sup.getID(), LocalDateTime.now(), products);
+        Order o = new Order(sup.getID(), LocalDateTime.now(), products);
         addOrder(o);
         return o.getETA();
     }
@@ -258,23 +240,15 @@ public class SystemController {
         return true;
     }
 
-    public boolean addSupplierContact(int supplierID, Pair<String, String> contact){
-        Supplier s = getSupplier(supplierID);
-        if(s == null)
-            return false;
-        s.addContact(contact);
-        dc.addSupplierContact(contact.getKey(), contact.getValue(), supplierID);
-        return true;
-    }
-
     public boolean setAmountOfProductInOrder(int orderID, int productID, int amount){
         Order o = getOrder(orderID);
         if(o == null)
             return false;
-        o.setProductAmount(productID, amount);
         for(Supplier s : suppliers){
-            if(s.getID() == o.getSupplierID())
+            if(s.getID() == o.getSupplierID()) {
+                s.setProductAmount(productID, amount, o);
                 o.calcTotal(s.getAgreements());
+            }
         }
         dc.updateAmountOfProductInOrder(orderID, productID, amount, o.getTotal());
         return true;

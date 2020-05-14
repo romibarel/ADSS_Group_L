@@ -1,14 +1,12 @@
-import StorageAndSupplier.API_Buisness;
 import Storage.Buisness.Locations.LocationController;
-import StorageAndSupplier.Presentation.Presentation;
 import Storage.Tests.CategoryTest;
-
 import Storage.Tests.LocationControllerTest;
 import Storage.Tests.ProductControllerTest;
 import Storage.Tests.PurchaseTransactionTest;
+import StorageAndSupplier.API_Buisness;
+import StorageAndSupplier.Presentation.Presentation;
 import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
 import Suppliers.BusinessLayer.SystemController;
-import Suppliers.PersistenceLayer.DataController;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -21,6 +19,7 @@ import java.util.Scanner;
 public class main {
 
     public static final String PATTERN = "dd/MM/yyyy";
+    public static final Integer SupplierID = 1;
 
     public static void main (String[] args){
         Scanner scanner = new Scanner(System.in);
@@ -120,10 +119,9 @@ public class main {
     }
 
     private static void runSuppliers(Scanner scanner){
-        DataController dc = DataController.getInstance();
         SystemController sc = SystemController.getInstance();
         Presentation p = new Presentation();
-        System.out.println("Would you like to load pre-made data or start from scratch? (y/n)");
+        System.out.println("Would you like to load pre-made data? (y/n)");
         if(scanner.next().equals("y"))
             sc.loadSystem();
         p.run();
@@ -163,7 +161,7 @@ public class main {
         set sale product info of Milk to be: 6.5 -> no discount
         */
 
-        manager.buyProduct(1, "Milk","tnuva",
+        manager.buyProduct(1, "Milk",SupplierID,
                 10,0,expiration1,
                 200, supply1, LocationController.SHELF);
         manager.moveProduct(1, expiration1, 50, 2, 3);
@@ -178,7 +176,7 @@ public class main {
         set sale product info of Tuna to be: 12.5 -> 2.5
         */
 
-        manager.buyProduct(2, "Tuna","StarKist",
+        manager.buyProduct(2, "Tuna",SupplierID,
                 6.5,2,expiration1,
                 800, supply1, LocationController.STORAGE);
         manager.moveProduct(2, expiration1, 600, 1, 2);
@@ -194,7 +192,7 @@ public class main {
         set sale product info of Shampoo to be: 25 -> 3
         */
 
-        manager.buyProduct(3, "Shampoo","Dove",
+        manager.buyProduct(3, "Shampoo",SupplierID,
                 20,5.5,expiration1,
                 900, supply1, LocationController.STORAGE);
         manager.moveProduct(3, expiration1, 600, 1, 2);
@@ -209,7 +207,7 @@ public class main {
         set sale product info of Cheese to be: 6 -> 0
         */
 
-        manager.buyProduct(4, "Cheese","tnuva",
+        manager.buyProduct(4, "Cheese",SupplierID,
                 8,3,expiration1,
                 1000, supply1, LocationController.STORAGE);
         manager.moveProduct(4, expiration1, 450, 1, 2);
@@ -224,7 +222,7 @@ public class main {
         set sale product info of Shocko to be: 14 -> 0
         */
 
-        manager.buyProduct(5, "Shocko","tnuva",
+        manager.buyProduct(5, "Shocko",SupplierID,
                 10,1.5,expiration1,
                 1000, supply1, LocationController.STORAGE);
         manager.moveProduct(5, expiration1, 555, 1, 2);

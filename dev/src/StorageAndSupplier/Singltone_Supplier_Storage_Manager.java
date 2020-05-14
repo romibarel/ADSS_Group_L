@@ -5,14 +5,13 @@ import Storage.Buisness.Reports.ProductReport;
 import Storage.Buisness.Singletone_Storage_Management;
 import StorageAndSupplier.Presentation.PdataInventoryReport;
 import StorageAndSupplier.Presentation.Pdefect;
+import StorageAndSupplier.Presentation.Pproduct;
 import Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.ZoneId;
+import java.util.*;
 
 
 public class Singltone_Supplier_Storage_Manager implements API_Buisness{
@@ -64,8 +63,8 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void buyProduct(int barCode, String productName, String supplier, double price, double discount, Date expirationDate, int amount, Date date, int location) {
-        this.storage_management.buyProduct(barCode, productName, supplier, price, discount, expirationDate, amount, date, location);
+    public void buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
+        this.storage_management.buyProduct(barCode, productName, supplierID, price, discount, expirationDate, amount, date, location);
     }
 
     @Override
@@ -73,10 +72,11 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         if (this.storage_management.sellProduct(date, barCode, amount, expirationDate)){ //need to make urgent order -> product under minimum
             LocalDateTime ETA = this.supplier_management.urgentOrder(barCode, Integer.parseInt(getProducteMinAmount(barCode))*2);
             //TODO: urgent order now returns the date ^^^^^
-             //TODO: change the supplier id from string to int
+            if (ETA!=null){
+                Date supplyTime = convertToDateViaSqlTimestamp(ETA);
+                this.storage_management.setNextSupply(barCode, supplyTime);
+            }
 
-            //this.storage_management.buyProduct(barCode, getProducteName(barCode), Integer.toString(orderDetails.getSupplierID()), orderDetails.getPrice(),
-                    //orderDetails.getDiscount(), orderDetails.getExpirationDate(),Integer.parseInt(getProducteMinAmount(barCode))*2 ,orderDetails.getExpirationDate(), STORAGE);
             return true; //need to alert to presentation
         }
         else{
@@ -140,7 +140,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public String getProducteManufactor(Integer barcode) {
+    public int getProducteManufactor(Integer barcode) {
         return this.storage_management.getProducteManufactor(barcode);
     }
 
@@ -160,8 +160,8 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void setManufactorforProduct(int barcode, String newName) {
-        this.storage_management.setManufactorforProduct(barcode, newName);
+    public void setManufactorforProduct(int barcode, int supplierID) {
+        this.storage_management.setManufactorforProduct(barcode, supplierID);
     }
 
     @Override
@@ -249,24 +249,34 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void addOrder(Order order){
+    public void addOrder(int orderID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
         //TODO: add order returns LocalDateTime or null if user entered an invalid order
-        LocalDateTime ETA = supplier_management.addOrder(order);
+        HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
+        for(Map.Entry<Pproduct, Pair<Integer, Integer>> e : pproducts.entrySet())
+            products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate()), e.getValue());
+        LocalDateTime ETA = supplier_management.addOrder(new Order(orderID, dateIssued, products));
     }
 
     @Override
-    public void addSupplier(Supplier supplier){
-        supplier_management.addSupplier(supplier);
+    public void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum){
+        if(tag.equals("FixedDays"))
+            supplier_management.addSupplier(new FixedDaysSupplier(name, id, bankAccNum, payCond, phoneNum));
+        else if(tag.equals("OrderOnly"))
+            supplier_management.addSupplier(new OrderOnlySupplier(name, id, bankAccNum, payCond, phoneNum));
+        else supplier_management.addSupplier(new SelfPickupSupplier(name, id, bankAccNum, payCond, phoneNum, ""));
     }
 
     @Override
-    public boolean addAgreement(int supplierID, Agreement a){
-        return supplier_management.addAgreement(supplierID, a);
+    public boolean addAgreement(int supplierID, Pair<Pproduct, Pair<Integer, Integer>> agreementDetails){
+        Pproduct pp = agreementDetails.getKey();
+        Product p = new Product(pp.getCatalogID(), pp.getPrice(), pp.getName(), pp.getManufacturer(), pp.getExpirationDate());
+        Pair<Product, Pair<Integer, Integer>> details = new Pair<>(p, agreementDetails.getValue());
+        return supplier_management.addAgreement(supplierID, new Agreement(details));
     }
 
     @Override
-    public void addProduct(int supplierID, Product p){
-        supplier_management.addProduct(supplierID, p);
+    public void addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration){
+        supplier_management.addProduct(supplierID, new Product(productID, price, name, manufacturer, expiration));
     }
 
     @Override
@@ -398,10 +408,34 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         }
         */
         LinkedList<Order> arrivedOrders = supplier_management.checkOrdersArrivalStatus();
+        for (Order o : arrivedOrders){
+            int supplierID = o.getSupplierID();
+            for (Map.Entry<Product, Pair<Integer, Integer>> e : o.getProducts().entrySet()){
+                int barcode = e.getKey().getCatalogID();
+                String productName = e.getKey().getName();
+                double price = e.getKey().getOriginalPrice();
+                Date expiration = convertToDateViaSqlTimestamp(e.getKey().getExpirationDate());
+                Date today = convertToDateViaSqlTimestamp(LocalDateTime.now());
+                int amount = e.getValue().getKey();
+                double discount = e.getValue().getValue();
+                this.storage_management.buyProduct(barcode, productName, supplierID, price, discount, expiration, amount, today, STORAGE);
+            }
+        }
     }
 
     @Override
     public void closeConnection(){
         supplier_management.closeConnection();
+    }
+
+
+    public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    public static Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+        return java.sql.Timestamp.valueOf(dateToConvert);
     }
 }

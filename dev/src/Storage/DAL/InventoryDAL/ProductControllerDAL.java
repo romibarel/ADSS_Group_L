@@ -1,6 +1,9 @@
 package Storage.DAL.InventoryDAL;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +47,7 @@ public class ProductControllerDAL {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProductDAL product = new ProductDAL(rs.getInt(1),
-                        rs.getString(2), rs.getString(3), rs.getInt(4),
+                        rs.getString(2), rs.getInt(3), rs.getInt(4),
                         rs.getInt(5), rs.getDate(6));
                 p.add(product);
             }
@@ -183,10 +186,13 @@ public class ProductControllerDAL {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO PRODUCTS VALUES (?,?,?,?,?,?)");
             stmt.setInt(1, productDAL.getBarCode());
             stmt.setString(2, productDAL.getProductName());
-            stmt.setString(3, productDAL.getManufactor());
+            stmt.setInt(3, productDAL.getManufactor());
             stmt.setInt(4, productDAL.getAmount());
             stmt.setInt(5, productDAL.getMinAmount());
-            stmt.setDate(6, (Date) productDAL.getNextSupplyTime());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String ts = sdf.format(new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime()));
+            stmt.setString(6, ts);
+
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
@@ -198,18 +204,30 @@ public class ProductControllerDAL {
         //ProductDAL p = searchProduct(productDAL.getBarCode());
         //p.setBarCode(productDAL.getBarCode());
         //p.setAmount(productDAL.getAmount());
-        //p.setManufactor(productDAL.getManufactor());
-        //p.setMinAmount(productDAL.getMinAmount());
+        //p.setManufactor(productDAL.getManufactor()); // productDAL.getNextSupplyTime()
+        //p.setMinAmount(productDAL.getMinAmount()); // productDAL.getManufactor()
         //p.setNextSupplyTime(productDAL.getNextSupplyTime());
-        //p.setProductName(productDAL.getProductName());
+        //p.setProductName(productDAL.getProductName())//new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime())
         try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUCTS SET" +
-                    " Name = " + productDAL.getProductName() +
-                    " Manufactor = " + productDAL.getManufactor() +
-                            " Amount = "+productDAL.getAmount() +
-                    " MinAmount = " + productDAL.getMinAmount()+
-                    " NextSupplyTime = " + productDAL.getNextSupplyTime()
+            PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUCTS " +
+                    "SET Name = ? "+
+                    ", Manufactor = ? " +
+                    ", Amount = ? " +
+                    ", MinAmount = ? " +
+                    ", NextSupplyTime = ?" +
+                    "WHERE Barcode = ?"
                     );
+            stmt.setString(1, productDAL.getProductName());
+            stmt.setInt(2 ,productDAL.getManufactor());
+            stmt.setInt(3,productDAL.getAmount());
+            stmt.setInt(4,productDAL.getMinAmount());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String ts = sdf.format(new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime()));
+
+            stmt.setString(5, ts);
+            //stmt.setDate(5, new java.sql.Date(productDAL.getNextSupplyTime().getTime()) , Calendar.getInstance());
+            stmt.setInt(6,productDAL.getBarCode());
+
             stmt.executeUpdate();
         }
         catch (Exception e){
@@ -229,7 +247,7 @@ public class ProductControllerDAL {
                     " Barcode = " + barCode);
             ResultSet rs = stmt.executeQuery();
             ret = new ProductDAL(rs.getInt(1), rs.getString(2),
-                    rs.getString(3), rs.getInt(4),
+                    rs.getInt(3), rs.getInt(4),
                     rs.getInt(5), rs.getDate(6));
         }
         catch (Exception e){
@@ -322,7 +340,7 @@ public class ProductControllerDAL {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProductDAL product = new ProductDAL(rs.getInt(1),
-                        rs.getString(2), rs.getString(3), rs.getInt(4),
+                        rs.getString(2), rs.getInt(3), rs.getInt(4),
                         rs.getInt(5), rs.getDate(6));
                 ret.add(product);
             }

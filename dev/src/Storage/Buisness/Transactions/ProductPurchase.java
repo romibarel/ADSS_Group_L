@@ -5,17 +5,17 @@ import java.util.Date;
 public class ProductPurchase {
     private int barCode;
     private String productName;
-    private String supplier;
+    private int supplierID;
     private double price;
     private double discount;
     private int amount;
     private Date expirationDate;
     private int location;
 
-    public ProductPurchase(int barCode, String productName, String supplier, double price, double discount, int amount, Date expirationDate, int location) {
+    public ProductPurchase(int barCode, String productName, int supplierID, double price, double discount, int amount, Date expirationDate, int location) {
         this.barCode = barCode;
         this.productName = productName;
-        this.supplier = supplier;
+        this.supplierID = supplierID;
         this.price = price;
         this.discount = discount;
         this.amount = amount;
@@ -39,12 +39,12 @@ public class ProductPurchase {
         this.productName = productName;
     }
 
-    public String getSupplier() {
-        return supplier;
+    public int getSupplier() {
+        return supplierID;
     }
 
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
+    public void setSupplier(int supplierID) {
+        this.supplierID = supplierID;
     }
 
     public double getPrice() {

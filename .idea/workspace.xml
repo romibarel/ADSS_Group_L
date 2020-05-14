@@ -7,7 +7,76 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5a0c68f-cb7a-4339-a500-2fe945ca3023" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Presentation/Pproduct.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/OrderOnlySupplier.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Pproduct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dev/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Singletone_Storage_Management.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Singletone_Storage_Management.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/ProductPurchase.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/ProductPurchase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/PurchaseTransaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/PurchaseTransaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/TransactionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductControllerDAL.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductDAL.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/CategoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/CategoryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/ProductControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/ProductControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/PurchaseTransactionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/PurchaseTransactionTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/API_Buisness.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/API_Buisness.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Presentation/Presentation.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Presentation/Presentation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Agreement.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Agreement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/ArrivalReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/ArrivalReport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/CancellationReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/CancellationReport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/FixedDaysSupplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/FixedDaysSupplier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/GiftAgreement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/InviteOnlySupplier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Report.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SaleAgreement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SelfPickupSupplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SelfPickupSupplier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Supplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Supplier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SystemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SystemController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/DataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/DataController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanAgreement.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanAgreement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanOrder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanProduct.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanProduct.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanReport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanSupplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanSupplier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/Tests/TestClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/Tests/TestClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/ProductPurchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/ProductPurchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/PurchaseTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/PurchaseTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductDAL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Tests/CategoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Tests/CategoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Tests/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Tests/ProductControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Tests/PurchaseTransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Tests/PurchaseTransactionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/Tests/TestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/Tests/TestClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/storage.db" beforeDir="false" afterPath="$PROJECT_DIR$/dev/storage.db" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/../" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,7 +89,7 @@
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -31,13 +100,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>show</find>
-      <find>showRecursiveFromMainCategoryDown</find>
-      <find>time report</find>
-      <find>getTime</find>
-      <find>getDe</find>
-      <find>getDefects</find>
-      <find>buy</find>
+      <find>buyProduct</find>
+      <find>che</find>
+      <find>category</find>
+      <find>date</find>
+      <find>INSERT</find>
+      <find>UPDATE</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -46,7 +114,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" />
+        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" />
+        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java" />
+        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java" />
       </list>
     </option>
   </component>
@@ -61,6 +133,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -73,25 +147,10 @@
               <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
               <item name="dev" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="StorageAndSupplier" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -104,7 +163,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589051404330" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589485503080" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -272,14 +331,7 @@
       <option name="project" value="LOCAL" />
       <updated>1587584524130</updated>
     </task>
-    <task id="LOCAL-00009" summary="Merge branch '206226581_316420132' of https://github.com/romibarel/ADSS_Group_L into 206226581_316420132&#10;&#10;# Conflicts:&#10;#&#9;.idea/ADSS_Group_L.iml">
-      <created>1588941808842</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1588941808842</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -311,7 +363,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.37813765" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32388663" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -320,15 +372,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.75488454" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.053285968" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.106571935" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.45115453" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.6927176" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.1811723" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.58792186" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -416,22 +468,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588873948306" />
-    <state width="1878" height="225" key="GridCell.Tab.0.bottom" timestamp="1588876108614">
+    <state width="1878" height="225" key="GridCell.Tab.0.bottom" timestamp="1589316594641">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588876108614" />
-    <state width="1878" height="225" key="GridCell.Tab.0.center" timestamp="1588876108614">
+    <state width="1878" height="225" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589316594641" />
+    <state width="1878" height="225" key="GridCell.Tab.0.center" timestamp="1589316594641">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588876108614" />
-    <state width="1878" height="225" key="GridCell.Tab.0.left" timestamp="1588876108614">
+    <state width="1878" height="225" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589316594641" />
+    <state width="1878" height="225" key="GridCell.Tab.0.left" timestamp="1589316594641">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588876108614" />
-    <state width="1878" height="225" key="GridCell.Tab.0.right" timestamp="1588876108614">
+    <state width="1878" height="225" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589316594641" />
+    <state width="1878" height="225" key="GridCell.Tab.0.right" timestamp="1589316594641">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588876108614" />
+    <state width="1878" height="225" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589316594641" />
     <state x="440" y="93" key="SettingsEditor" timestamp="1588873950194">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -453,26 +505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1819">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="474">
@@ -489,15 +521,242 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_192/src.zip!/java/net/URLClassLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="381" selection-start-line="381" selection-end-line="381" />
+        <state relative-caret-position="3801">
+          <caret line="361" column="50" selection-start-line="361" selection-start-column="38" selection-end-line="361" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="815" column="51" selection-start-line="815" selection-start-column="51" selection-end-line="815" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/DataSaleProductDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="20" column="54" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/TransactionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/SaleTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1129">
+          <caret line="220" selection-start-line="220" selection-end-line="220" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#701#702#0" expanded="true" />
+            <element signature="e#735#736#0" expanded="true" />
+            <element signature="e#769#770#0" expanded="true" />
+            <element signature="e#802#803#0" expanded="true" />
+            <element signature="e#832#833#0" expanded="true" />
+            <element signature="e#861#862#0" expanded="true" />
+            <element signature="e#926#927#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/Conn.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="182" selection-start-line="182" selection-end-line="182" />
+          <folding>
+            <element signature="e#6455#6456#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/Unused.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/RS.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/Stmt.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/PrepStmt.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/SQLiteErrorCode.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/DB.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="338" selection-start-line="338" selection-end-line="338" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/CategoryDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="66" column="19" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="19" />
+        <state relative-caret-position="5661">
+          <caret line="396" column="19" selection-start-line="396" selection-start-column="16" selection-end-line="396" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="249" selection-start-line="249" selection-end-line="249" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/DefectReportDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ProductRepDataDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ProductReportDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-39">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/DataAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2091">
+          <caret line="168" selection-start-line="168" selection-end-line="168" />
+          <folding>
+            <element signature="e#5641#5642#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="258" column="22" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1192">
+          <caret line="35" column="39" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1889">
+          <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
         </state>
       </provider>
     </entry>

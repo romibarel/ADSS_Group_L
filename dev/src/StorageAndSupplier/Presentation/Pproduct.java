@@ -1,17 +1,15 @@
-package Suppliers.PersistenceLayer;
+package StorageAndSupplier.Presentation;
 
 import java.time.LocalDateTime;
 
-public class LoanProduct {
+public class Pproduct {
     private int catalogID;
-    private int supplierID;
     private double price;
     private String name;
     private String manufacturer;
     private LocalDateTime expirationDate;
 
-    public LoanProduct(int supplierID, int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate){
-        this.supplierID = supplierID;
+    public Pproduct(int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate){
         this.catalogID = catalogID;
         this.price = price;
         this.name = name;
@@ -37,9 +35,5 @@ public class LoanProduct {
 
     public LocalDateTime getExpirationDate() {
         return expirationDate;
-    }
-
-    public int getSupplierID() {
-        return supplierID;
     }
 }
