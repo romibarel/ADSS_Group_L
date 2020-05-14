@@ -1,5 +1,7 @@
 package Business;
 
+import javafx.util.Pair;
+
 import java.sql.Time;
 import java.util.*;
 
@@ -12,17 +14,14 @@ public class Delivery {
     private HashMap<DeliverDoc, Location> docLoc;
     private boolean approved;
 
-    public Delivery(Date date, Date time, Truck truck, int driverID, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
-        if (!driver.getLicenses().contains(truck.getType())){
-            approved = false;
-        }
-        else if (truck.getMaxWeight()<truckWeight)
+    public Delivery(Date date, Date time, Truck truck, String driver, boolean goodLicenses, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
+        if (!goodLicenses)
             approved = false;
         else {
             this.date = date;
             this.departureTime = time;
             truckNum = truck.getTruckNum();
-            this.driver = driver.getName();
+            this.driver = driver;
             this.source = source;
             docLoc = new HashMap<>();
             for (DeliverDoc doc : docs) {
@@ -32,15 +31,54 @@ public class Delivery {
         }
     }
 
+    public Date[] getDuration(){
+        Date[] duration = new Date[4];
+        duration[0] = date;
+        duration[1] = departureTime;
+        duration[2] = getLastDateDoc().getEstimatedDayOfArrival();
+        duration[3] = getLastTime();
+        return duration;
+    }
+
+    private DeliverDoc getLastDateDoc(){
+        DeliverDoc ret = getDocs().get(0);
+        Date date = getDocs().get(0).getEstimatedDayOfArrival();
+        for (DeliverDoc doc : getDocs()){
+            if (date.compareTo(doc.getEstimatedDayOfArrival()) < 0) {
+                date = doc.getEstimatedDayOfArrival();
+                ret = doc;
+            }
+        }
+        return ret;
+    }
+
+    private Date getLastTime(){
+        Date time = getLastDateDoc().getEstimatedTimeOfArrival();
+        for (DeliverDoc doc : getDocs()){
+            if (doc.getEstimatedDayOfArrival().compareTo(getLastDateDoc().getEstimatedDayOfArrival()) == 0
+            && time.compareTo(doc.getEstimatedTimeOfArrival()) < 0)
+                time = doc.getEstimatedTimeOfArrival();
+        }
+        return time;
+    }
+
+    public List<Pair<String, Date[]>> getEstimatedArrivals(){
+        List<Pair<String, Date[]>> estimatedArrivals = new LinkedList<>();
+        for (DeliverDoc doc : getDocs()){
+            Date[] dateTime = new Date[2];
+            dateTime[0] = doc.getEstimatedDayOfArrival();
+            dateTime[1] = doc.getEstimatedTimeOfArrival();
+            Pair<String, Date[]> newPair = new Pair<>(doc.getDestination().getAddress(), dateTime);
+            estimatedArrivals.add(newPair);
+        }
+        return estimatedArrivals;
+    }
+
     public List<DeliverDoc> getDocs(){
         List<DeliverDoc> docs = new LinkedList<>();
         Iterator<DeliverDoc> iter = docLoc.keySet().iterator();
         docs.addAll(docLoc.keySet());
         return docs;
-    }
-
-    public void logDel(Delivery delivery) {
-        //todo
     }
 
     public Date getDate() {
