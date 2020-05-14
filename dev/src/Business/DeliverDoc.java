@@ -25,11 +25,6 @@ public class DeliverDoc {
     }
 
 
-
-    public DeliverDoc(int docNum, String s, List<Supply> supplies, Location destination) {
-
-    }
-
     public Location getDestination() {
         return destination;
     }
