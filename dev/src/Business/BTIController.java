@@ -1,6 +1,7 @@
 package Business;
 
-import Interface.ITBController;
+import Interface.ITBDelController;
+import javafx.util.Pair;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class BTIController {
     private static BTIController bti = null;
-    private static ITBController itb;
+    private static ITBDelController itb;
     private static BTDController btd;
     private DeliveryArchive archive;
     private List<Supply> supplies;
@@ -28,9 +29,9 @@ public class BTIController {
         return bti;
     }
 
-    public void set( List<String[]> sections, List<String[]> locations, List<String[]> trucks){
-        BTIController.itb = ITBController.getITB();
-        BTIController.btd = BTDController.getBTD();
+    public void set(List<String[]> sections, List<String[]> locations, List<String[]> trucks){
+        itb = ITBDelController.getITB();
+        btd = BTDController.getBTD();
         archive = new DeliveryArchive();
 
         this.supplies = new LinkedList<>();
@@ -56,8 +57,11 @@ public class BTIController {
             boolean isBranch = true;
             if (combo[0].equals("0"))
                 isBranch = false;
-            if (isBranch)
+            if (isBranch) {
                 loc = new Branch(combo[1], Integer.parseInt(combo[2]), combo[3]);
+                //todo: workers - which one of your controller should get this?
+                ???(loc.getAddress());
+            }
             else
                 loc = new Supplier(combo[1], Integer.parseInt(combo[2]), combo[3]);
             this.locations.add(loc);
@@ -81,7 +85,7 @@ public class BTIController {
 
     //destination, supplies&quants,
     //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
-    public String createDoc(int docNum, String[] doc){
+    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String[] doc){
         String[] data = doc[1].split(" ", Integer.MAX_VALUE);
         List<Supply> DocSupplies = new LinkedList<>();
         for (int i=0; i<data.length-1; i+=2){
@@ -111,7 +115,7 @@ public class BTIController {
         }
         if (doc0 == null)
             return "The destination doesn't exist.";
-        DeliverDoc deliverDoc = new DeliverDoc(docNum, DocSupplies, doc0);      //todo add date and time of arrival
+        DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, DocSupplies, doc0);      //todo add date and time of arrival
         documents.add(deliverDoc);
         return "Document created successfully.";
     }
@@ -127,6 +131,13 @@ public class BTIController {
         if (truck.getMaxWeight() < truckWeight)
             return "The given truck exceeds its max weight";
 
+        //todo: from workers - need this method that returns the driver if it exists and null otherwise.
+        String driver = ???(driverID);
+        if (driver == null)
+            return "The driver doesn't exist.";
+
+        //todo: from workers - need a method that returns true if the driver has the right license.
+        boolean goodLicenses = ???(driverID, truck.getType());
 
 
         Location source = null;
@@ -159,13 +170,31 @@ public class BTIController {
         }
         if (destinations.size() != docs.size())
             return "Some of the destinations weren't added.";
-    //    Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, truckWeight);
-   //     if(!(delivery.isApproved()))
+        Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, destinations, docs, truckWeight);
+        if(!(delivery.isApproved()))
             return "The driver is unlicensed for the given truck.";
 
+        Date[] driverHours = delivery.getDuration();
+        /*todo: workers - need function that checks availability of the driver at these times
+           driverHours[0] = day of departure,
+           driverHours[1] = time of departure,
+           driverHours[2] = day of arrival,
+           driverHours[3] = time of arrival
+         */
+        if(!???(driverID, driverHours))
+            return "The driver is unavailable for the delivery.";
+
+        List<Pair<String, Date[]>> estimatedArrivals = delivery.getEstimatedArrivals();
+        /*todo: workers - need function that puts a storekeeper at these times if the location is a branch
+           String = location name,
+           Date[0] = day of arrival,
+           Date[1] = time of arrival
+         */
+        ???(estimatedArrivals);
+
         //if we got here all is a ok
-  //      archive.add(delivery);
-   //     return "Delivery was created successfully!";
+        archive.add(delivery);
+        return "Delivery was created successfully!";
     }
 
     public List<Supply> getSupplies() {

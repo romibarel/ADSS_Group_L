@@ -3,36 +3,36 @@ package Presentation;
 import Business.BTDController;
 import Business.BTIController;
 import DataAccess.DTBController;
-import Interface.ITBController;
-import Interface.ITPController;
+import Interface.ITBDelController;
+import Interface.ITPDelController;
 
 import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class PTIcontroller {
-    private static PTIcontroller ptIcontroller = null;
-    private static ITPController itp;
+public class PTIDelController {
+    private static PTIDelController pti = null;
+    private static ITPDelController itp;
     private Scanner scanner = new Scanner(System.in);
 
-    private PTIcontroller(){
+    private PTIDelController(){
     }
 
-    public static PTIcontroller getPTI(){
-        if (ptIcontroller == null)
-            ptIcontroller = new PTIcontroller();
-        return ptIcontroller;
+    public static PTIDelController getPTI(){
+        if (pti == null)
+            pti = new PTIDelController();
+        return pti;
     }
 
-    public void set(ITPController itp){
-        PTIcontroller.itp = itp;
+    public void set(){
+        itp = ITPDelController.getITP();
     }
 
     public void setup(){
         boolean finish = false;
-        PTIcontroller pti = PTIcontroller.getPTI();
-        ITPController itp = ITPController.getITP();
-        ITBController itb = ITBController.getITB();
+        PTIDelController pti = PTIDelController.getPTI();
+        ITPDelController itp = ITPDelController.getITP();
+        ITBDelController itb = ITBDelController.getITB();
         BTIController bti = BTIController.getBTI();
         BTDController btd = BTDController.getBTD();
         DTBController dtb = DTBController.getDTB();
@@ -63,10 +63,10 @@ public class PTIcontroller {
                 trucks.add(new String[] {"3", "333", "1100", "5500", "Mercedes"});
                 trucks.add(new String[] {"4", "123", "2000", "4000", "Mazda"});
 
-                pti.set(itp);
-                itp.set(pti, itb);
-                itb.set(bti, itp);
-                bti.set(itb, btd, sections, locations, trucks);
+                pti.set();
+                itp.set();
+                itb.set();
+                bti.set(sections, locations, trucks);
             }
             else if (input.equals("n")){
                 List<String[]> sections = new LinkedList<>();
@@ -165,10 +165,10 @@ public class PTIcontroller {
                             break;
                         case("3"):
                             finish = true;
-                            pti.set(itp);
-                            itp.set(pti, itb);
-                            itb.set(bti, itp);
-                            bti.set(itb, btd, sections, locations, trucks);
+                            pti.set();
+                            itp.set();
+                            itb.set();
+                            bti.set(sections, locations, trucks);
                             break;
                         default:
                             break;
@@ -240,7 +240,7 @@ public class PTIcontroller {
         }
         System.out.println("Please enter the address for thr source of delivery.");
         source = scanner.nextLine();
-        if (input == null || input.trim().equals("")){
+        if (source == null || source.trim().equals("")){
             System.out.println("Source address can't be empty.");
             return docNum;
         }
@@ -269,14 +269,16 @@ public class PTIcontroller {
     private List<Integer> createDocuments(int docNum, String source){
         boolean finish = false;
         List<Integer> docNums = new LinkedList<>();
+        Date estimatedDayOfArrival;
+        Date estimatedTimeOfArrival;
 
+        String[] sourceDoc = new String[2];
+        sourceDoc[0] = source;
         System.out.println("What would you like to pick up from the source (address '" + source + "')?\n" +
                 "Enter in format: supply1 quant1 supply2 quant2...");
         String sourceSupplies = scanner.next();
-        String[] sourceDoc = new String[2];
-        sourceDoc[0] = source;
         sourceDoc[1] = sourceSupplies;
-        String out = itp.createDoc(docNum, sourceDoc);
+        String out = itp.createDoc(null, null, docNum, sourceDoc);
         System.out.println(out);
         if (!out.equals("Document created successfully."))
             return docNums;
@@ -298,6 +300,27 @@ public class PTIcontroller {
             doc[0] = destination;
             System.out.println("Please enter all the supplies and quantities to deliver in this format: supply1 quant1 supply2 quant2...");
             doc[1] = scanner.nextLine();
+
+            System.out.println("What is the estimated date of arrival to " +destination+ " in dd/mm/yyyy format?");
+            String input = scanner.nextLine();
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                estimatedDayOfArrival = format.parse(input);
+            } catch (Exception e) {
+                System.out.println("Invalid date, try again.");
+                return new LinkedList<>();
+            }
+
+            System.out.println("What is the estimated time of arrival to " +destination+ " in HH:mm format?");
+            input = scanner.nextLine();
+            format = new SimpleDateFormat("HH:mm");
+            try {
+                estimatedTimeOfArrival = format.parse(input);
+            } catch (Exception e) {
+                System.out.println("Invalid time, try again.");
+                return new LinkedList<>();
+            }
+
             System.out.println("Do you wish to add another destination? [y/n]");
             String yn = scanner.nextLine();
             if (yn.equals("n"))
@@ -306,7 +329,7 @@ public class PTIcontroller {
                 System.out.println("Invalid answer, the system will create the delivery with the current information now.");
                 finish = true;
             }
-            out = itp.createDoc(docNum, doc);
+            out = itp.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, doc);
             System.out.println(out);
             if (!out.equals("Document created successfully.")){
                 System.out.println("The creation of the delivery document failed. The Delivery will not be created.");

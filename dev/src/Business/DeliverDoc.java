@@ -49,7 +49,11 @@ public class DeliverDoc {
         this.deliveryList = deliveryList;
     }
 
+    public Date getEstimatedDayOfArrival() {
+        return estimatedDayOfArrival;
+    }
 
-
-
+    public Date getEstimatedTimeOfArrival() {
+        return estimatedTimeOfArrival;
+    }
 }
