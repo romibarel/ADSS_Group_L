@@ -1,6 +1,8 @@
 package Suppliers.BusinessLayer;
 
 import Suppliers.PersistenceLayer.DataController;
+import Suppliers.PersistenceLayer.LoanReport;
+import Suppliers.PersistenceLayer.LoanSupplier;
 import javafx.util.Pair;
 
 import java.time.LocalDateTime;
@@ -14,45 +16,35 @@ public class SystemController {
     private final DataController dc = DataController.getInstance();
 
     public static SystemController getInstance(){
-        if(instance == null)
+        if(instance == null) {
             return new SystemController();
+        }
         return instance;
     }
 
     private SystemController(){
         suppliers = new LinkedList<>();
         reports = new LinkedList<>();
-//        for(LoanSupplier lp : dc.pullSupplierData()) {
-//            switch (lp.getTag()){
-//                case "FixedDays":
-//                    suppliers.add(new FixedDaysSupplier(lp));
-//                    break;
-//                case "SelfPickup":
-//                    suppliers.add(new SelfPickupSupplier(lp));
-//                    break;
-//                case "OrderOnly":
-//                    suppliers.add(new OrderOnlySupplier(lp));
-//                    break;
-//            }
-//        }
-//
-//        for(LoanReport lr : dc.pullReports()){
-//            switch (lr.getTag()){
-//                case "Arrival":
-//                    reports.add(new ArrivalReport(lr));
-//                    break;
-//                case "Cancel":
-//                    reports.add(new CancellationReport(lr));
-//                    break;
-//            }
-//        }
-
-
     }
 
     public void loadSystem(){
         dc.loadSystem();
+        for(LoanSupplier lp : dc.getLoanSuppliers()) {
+            switch (lp.getTag()){
+                case "FixedDays":
+                    suppliers.add(new FixedDaysSupplier(lp));
+                    break;
+                case "SelfPickup":
+                    suppliers.add(new SelfPickupSupplier(lp));
+                    break;
+                case "OrderOnly":
+                    suppliers.add(new OrderOnlySupplier(lp));
+                    break;
+            }
+        }
     }
+
+    public void unloadSystem() { dc.unloadSystem(); }
 
     public LocalDateTime addOrder(Order order){
         for(Supplier s : suppliers){
@@ -286,13 +278,36 @@ public class SystemController {
             if (s.getID() == supplierID)
                 return s;
         }
-        return null;
+        LoanSupplier lp =  dc.getLoanSupplier(supplierID);
+        if(lp == null) return null;
+        Supplier s = null;
+        switch (lp.getTag()){
+            case "FixedDays":
+                s = new FixedDaysSupplier(lp);
+                suppliers.add(s);
+                break;
+            case "SelfPickup":
+                s = new SelfPickupSupplier(lp);
+                suppliers.add(s);
+                break;
+            case "OrderOnly":
+                s = new OrderOnlySupplier(lp);
+                suppliers.add(s);
+                break;
+        }
+        return s;
+    }
+
+    public LinkedList<Supplier> getSuppliers() {
+        return suppliers;
     }
 
     public Order getOrder(int orderID){
-        for(Order o : getAllOrders()) {
-            if (o.getID() == orderID)
-                return o;
+        for(Supplier s : suppliers){
+            for(Order o : s.getOrders()){
+                if(o.getID() == orderID)
+                    return o;
+            }
         }
         return null;
     }
@@ -307,15 +322,32 @@ public class SystemController {
         return null;
     }
 
-    public LinkedList<Supplier> getSuppliers() {
-        return suppliers;
-    }
-
     public LinkedList<Order> getAllOrders() {
         LinkedList<Order> orders = new LinkedList<>();
         for(Supplier s : suppliers)
             orders.addAll(s.getOrders());
         return orders;
+    }
+
+    public Report getReport(int reportID){
+        for(Report r : reports) {
+            if (r.getID() == reportID)
+                return r;
+        }
+        LoanReport lr = dc.getReport(reportID);
+        if(lr == null) return null;
+        Report r = null;
+        switch (lr.getTag()){
+            case "Cancel":
+                r = new CancellationReport(lr);
+                reports.add(r);
+                break;
+            case "Arrival":
+                r = new ArrivalReport(lr);
+                reports.add(r);
+                break;
+        }
+        return r;
     }
 
     public LinkedList<Report> getReports() {

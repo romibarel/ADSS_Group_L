@@ -54,7 +54,7 @@ public class Main {
 //        sc.addOrder(o1);
 //        sc.addOrder(o2);
 //        sc.addOrder(o3);
-
+        sc.loadSystem();
         for(Supplier s : sc.getSuppliers()){
             System.out.println("Class: " + s.getClass().getName());
             System.out.println("supplierID: " + s.getID());
@@ -66,6 +66,7 @@ public class Main {
             System.out.println(s.getAgreements().get(0).toString());
             System.out.println(s.getProducts().get(0).toString());
         }
+        sc.unloadSystem();
 
         sc.closeConnection();
 //        dc.addSupplier(s1.getLoan());

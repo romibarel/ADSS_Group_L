@@ -249,12 +249,15 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void addOrder(int orderID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
+    public void unloadSystem() { supplier_management.unloadSystem(); }
+
+    @Override
+    public void addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
         //TODO: add order returns LocalDateTime or null if user entered an invalid order
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         for(Map.Entry<Pproduct, Pair<Integer, Integer>> e : pproducts.entrySet())
             products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate()), e.getValue());
-        LocalDateTime ETA = supplier_management.addOrder(new Order(orderID, dateIssued, products));
+        LocalDateTime ETA = supplier_management.addOrder(new Order(supplierID, dateIssued, products));
     }
 
     @Override
@@ -386,6 +389,11 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     @Override
     public LinkedList<Order> getOrders(){
         return supplier_management.getAllOrders();
+    }
+
+    @Override
+    public Report getReport(int reportID){
+        return supplier_management.getReport(reportID);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class Agreement {
     public String toString(){
         return "If you order more than " + agreementDetails.getValue().getKey() + " "
                 + agreementDetails.getKey().getName() + ", you get "
-                + agreementDetails.getValue().getValue()+" percent off of it. ";
+                + agreementDetails.getValue().getValue()+" percent off of it.";
     }
 
     public HashMap<Product, Pair<Integer, Integer>> applyAgreement(HashMap<Product, Pair<Integer, Integer>> products) {
