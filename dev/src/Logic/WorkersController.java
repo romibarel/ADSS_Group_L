@@ -9,6 +9,7 @@ import java.util.List;
 public class WorkersController
 {
 	private static List<Worker> workers= new LinkedList<>();
+	private static List<String> branches;
 
 	public static Result add_worker(InterfaceWorker worker)
 	{
@@ -39,7 +40,7 @@ public class WorkersController
 		Result result;
 		Worker worker_to_edit=get_by_id(worker.getId());
 		if (worker_to_edit==null) return new Result(false,"worker doesnt exist");
-		result=Worker.check_parameters(worker,false);
+			result=Worker.check_parameters(worker,false);
 		if (result.success)
 		{
 			worker_to_edit.setStart_date(worker.getStart_date());
@@ -50,6 +51,7 @@ public class WorkersController
 			worker_to_edit.setSalary(worker.getSalary());
 			worker_to_edit.setSick_days(worker.getSick_days());
 			worker_to_edit.setVacation_days(worker.getVacation_days());
+			worker_to_edit.setBranchAddress(worker.getBranchAddress());
 		}
 		return result;
 	}
@@ -83,4 +85,11 @@ public class WorkersController
 		return workers;
 	}
 
+	public static List<String> getBranches() {
+		return branches;
+	}
+
+	public static void setBranches(List<String> branches) {
+		WorkersController.branches = branches;
+	}
 }

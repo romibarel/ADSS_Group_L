@@ -15,6 +15,7 @@ public class InterfaceWorker {
     private int sick_days;
     private Date start_date;
     private String role;
+    private String branchAddress;
 
     public InterfaceWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, Date start_date, String role) {
         this.name = name;
@@ -41,6 +42,7 @@ public class InterfaceWorker {
         this.sick_days = worker.getSick_days();
         this.start_date = worker.getStart_date();
         this.role = worker.getRole();
+        this.branchAddress=worker.getBranchAddress();
     }
 
     public String getName() {
@@ -115,6 +117,14 @@ public class InterfaceWorker {
         this.role = role;
     }
 
+    public String getBranchAddress() {
+        return branchAddress;
+    }
+
+    public void setBranchAddress(String branchAddress) {
+        this.branchAddress = branchAddress;
+    }
+
     @Override
     public String toString() {
         return "name=" + name +
@@ -125,6 +135,7 @@ public class InterfaceWorker {
                 "\nvacation_days=" + vacation_days +
                 "\nsick_days=" + sick_days +
                 "\nstart_date=" + start_date  +
-                "\nrole=" + role;
+                "\nrole=" + role+
+                "\nbranch=" + branchAddress;
     }
 }

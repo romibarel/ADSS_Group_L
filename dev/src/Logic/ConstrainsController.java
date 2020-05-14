@@ -17,8 +17,6 @@ public class ConstrainsController
 	private static List<Constraint> constraints=new LinkedList<>();
 	private static int id=0;
 
-
-
 	public static boolean is_available(int worker_id, Date date, boolean morning)
 	{
 		for(Constraint c: constraints){

@@ -302,6 +302,8 @@ public class WorkerMenu {
         calls.add(new Callback() {
             @Override
             public void call() {
+                int i=0;
+                List<String> branches=Interface.getBranches();
                 InterfaceWorker w=new InterfaceWorker();
                 try {
                     System.out.println("please enter the details of the new employee");
@@ -325,6 +327,12 @@ public class WorkerMenu {
                     w.setRole(input.nextLine());
                     System.out.print("bank account: ");
                     w.setBank_account_number(Integer.parseInt(input.nextLine()));
+                    System.out.println("please choose a branch from the list:");
+                    for(String branch: branches){
+                        System.out.println(i+") "+branch);
+                        i++;
+                    }
+                    w.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
                 }
                 catch (Exception e){
                     System.out.println("wrong parameter has been entered, exiting back to main menu");
@@ -339,6 +347,8 @@ public class WorkerMenu {
         calls.add(new Callback() {
             @Override
             public void call() {
+                int i=0;
+                List<String> branches=Interface.getBranches();
                 InterfaceShift shift = new InterfaceShift();
                 boolean finish = false;
                 String role;
@@ -359,6 +369,12 @@ public class WorkerMenu {
                     }
                     System.out.print("please enter the chosen manger's id");
                     shift.setManager_id(Integer.parseInt(input.nextLine()));
+                    System.out.println("please choose a branch from the list:");
+                    for(String branch: branches){
+                        System.out.println(i+") "+branch);
+                        i++;
+                    }
+                    shift.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
                     System.out.println("Do you need more employees? (y/n)");
                     if (input.nextLine().equals("n"))
                         finish = true;
@@ -414,6 +430,8 @@ public class WorkerMenu {
         calls.add(new Callback() {
             @Override
             public void call() {
+                int i=0;
+                List<String> branches=Interface.getBranches();
                 InterfaceWorker w;
                 int id;
                 int opt=0;
@@ -437,7 +455,8 @@ public class WorkerMenu {
                         System.out.println("6. start date");
                         System.out.println("7. role");
                         System.out.println("8. bank account");
-                        System.out.println("9. finished editing");
+                        System.out.println("9. branch");
+                        System.out.println("10. finished editing");
                         opt=Integer.parseInt(input.nextLine());
                         switch (opt){
                             case 1:
@@ -475,6 +494,14 @@ public class WorkerMenu {
                                 w.setBank_account_number(Integer.parseInt(input.nextLine()));
                                 break;
                             case 9:
+                                System.out.println("please choose a branch from the list:");
+                                for(String branch: branches){
+                                    System.out.println(i+") "+branch);
+                                    i++;
+                                }
+                                w.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
+                                break;
+                            case 10:
                                 System.out.print("updating...");
                                 finished=true;
                                 break;
@@ -496,6 +523,9 @@ public class WorkerMenu {
         calls.add(new Callback() {
             @Override
             public void call() {
+                int i=0;
+                List<String> branches=Interface.getBranches();
+                String oldBranch;
                 InterfaceShift s;
                 Date oldDate;
                 boolean isMorning;
@@ -508,7 +538,13 @@ public class WorkerMenu {
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift? (true/false)");
                     isMorning=Boolean.parseBoolean(input.nextLine());
-                    s=Interface.searchShift(oldDate,isMorning);
+                    System.out.println("please choose the old branch from the list:");
+                    for(String branch: branches){
+                        System.out.println(i+") "+branch);
+                        i++;
+                    }
+                    oldBranch=branches.get(Integer.parseInt(input.nextLine()));
+                    s=Interface.searchShift(oldDate,isMorning,oldBranch);
                     if(s==null){
                         System.out.println("Shift not found, Exiting to main menu");
                         return;
@@ -521,7 +557,8 @@ public class WorkerMenu {
                         System.out.println("3. manager_id");
                         System.out.println("4. add worker");
                         System.out.println("5. remove worker");
-                        System.out.println("6. finished editing");
+                        System.out.println("6. remove worker");
+                        System.out.println("7. finished editing");
                         opt=Integer.parseInt(input.nextLine());
                         switch (opt){
                             case 1:
@@ -568,6 +605,13 @@ public class WorkerMenu {
                                     System.out.println("wrong id");
                                 break;
                             case 6:
+                                System.out.println("please choose a branch from the list:");
+                                for(String branch: branches){
+                                    System.out.println(i+") "+branch);
+                                    i++;
+                                }
+                                s.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
+                            case 7:
                                 System.out.print("updating...");
                                 finished=true;
                                 break;
@@ -582,7 +626,7 @@ public class WorkerMenu {
                     return;
                 }
 
-                System.out.println(Interface.editShift(s,oldDate,isMorning ));
+                System.out.println(Interface.editShift(s,oldDate,isMorning, oldBranch));
             }});
 
 
@@ -713,6 +757,9 @@ public class WorkerMenu {
         calls.add(new Callback() {
             @Override
             public void call() {
+                int i=0;
+                List<String> branches=Interface.getBranches();
+                String oldBranch;
                 InterfaceShift s;
                 Date oldDate;
                 boolean isMorning;
@@ -724,7 +771,13 @@ public class WorkerMenu {
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift? (true/false)");
                     isMorning=Boolean.parseBoolean(input.nextLine());
-                    s=Interface.searchShift(oldDate,isMorning);
+                    System.out.println("please choose the shift's branch from the list:");
+                    for(String branch: branches){
+                        System.out.println(i+") "+branch);
+                        i++;
+                    }
+                    oldBranch=branches.get(Integer.parseInt(input.nextLine()));
+                    s=Interface.searchShift(oldDate,isMorning, oldBranch);
                     if(s==null){
                         System.out.println("Shift not found, Exiting to main menu");
                         return;
@@ -837,6 +890,9 @@ public class WorkerMenu {
         calls.add(new Callback() {
             @Override
             public void call() {
+                int i=0;
+                List<String> branches=Interface.getBranches();
+                String oldBranch;
                 InterfaceShift s;
                 Date oldDate;
                 boolean isMorning;
@@ -848,7 +904,14 @@ public class WorkerMenu {
                     oldDate=format.parse(input.nextLine());
                     System.out.println("is it a morning shift? (true/false)");
                     isMorning=Boolean.parseBoolean(input.nextLine());
-                    s=Interface.searchShift(oldDate,isMorning);
+                    System.out.println("please choose the shift's branch from the list:");
+                    for(String branch: branches){
+                        System.out.println(i+") "+branch);
+                        i++;
+                    }
+                    oldBranch=branches.get(Integer.parseInt(input.nextLine()));
+                    s=Interface.searchShift(oldDate,isMorning, oldBranch);
+                    s=Interface.searchShift(oldDate,isMorning, oldBranch);
                     if(s==null){
                         System.out.println("Shift not found, Exiting to main menu");
                         return;

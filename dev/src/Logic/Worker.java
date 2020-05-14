@@ -15,6 +15,7 @@ public class Worker
 	private int sick_days;
 	private Date start_date;
 	private String role;
+	private String branchAddress;
 
 	public Worker(InterfaceWorker worker)
 	{
@@ -27,6 +28,7 @@ public class Worker
 		this.sick_days=worker.getSick_days();
 		this.role=worker.getRole();
 		this.start_date=new Date(worker.getStart_date().getTime()); //deep copy the date
+		this.branchAddress=worker.getBranchAddress();
 	}
 
 	public static Result check_parameters(InterfaceWorker worker, boolean check_id)
@@ -59,6 +61,9 @@ public class Worker
 		//check id
 		if (check_id)
 			if (WorkersController.get_by_id(worker.getId())!=null) return new Result (false,"id already exists");
+
+		if(!WorkersController.getBranches().contains(worker.getBranchAddress()))
+			return new Result (false,"branch does not exit");
 
 		return new Result(true,"success");
 	}
@@ -163,6 +168,11 @@ public class Worker
 		this.role = role;
 	}
 
+	public String getBranchAddress() {
+		return branchAddress;
+	}
 
-
+	public void setBranchAddress(String branchAddress) {
+		this.branchAddress = branchAddress;
+	}
 }

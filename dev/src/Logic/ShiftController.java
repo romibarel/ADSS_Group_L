@@ -43,13 +43,13 @@ public class ShiftController
 		return result;
 	}
 
-	public static Result edit_shift(InterfaceShift shift, Date previous_date, boolean previous_morning)
+	public static Result edit_shift(InterfaceShift shift, Date previous_date, boolean previous_morning, String previous_branch)
 	{
 		Result result;
-		Shift shift_to_edit=get_shift(previous_date,previous_morning);
+		Shift shift_to_edit=get_shift(previous_date,previous_morning, previous_branch);
 		if (shift_to_edit==null) return new Result(false,"shift doesnt exist");
 		boolean check_date=true;
-		if (previous_date.equals(shift.getDate()) & previous_morning==shift.isMorning())  //if the date hasn't changed no need to check its validity
+		if (previous_date.equals(shift.getDate()) & previous_morning==shift.isMorning()& previous_branch.equals((shift.getBranchAddress())))  //if the date hasn't changed no need to check its validity
 			check_date=false;
 		result=Shift.check_parameters(shift,check_date);
 		if (result.success)
@@ -58,24 +58,25 @@ public class ShiftController
 			shift_to_edit.setManager_id(shift.getManager_id());
 			shift_to_edit.setMorning(shift.isMorning());
 			shift_to_edit.setWorkers(shift.getWorkers());
+			shift_to_edit.setBranchAddress(shift.getBranchAddress());
 		}
 		return result;
 	}
 
-	public static Result delete_shift(Date date, boolean morning)
+	public static Result delete_shift(Date date, boolean morning, String branch)
 	{
-		Shift shift= get_shift(date,morning);
+		Shift shift= get_shift(date,morning, branch);
 		if (shift==null)
 			return new Result(false,"shift doesnt exist");
 		shifts.remove(shift);
 		return new Result(true,"success");
 	}
 
-	public static Shift get_shift(Date date, boolean morning)
+	public static Shift get_shift(Date date, boolean morning, String branch)
 	{
 		for (Shift shift:shifts)
 		{
-			if (shift.getDate().equals(date) && shift.isMorning()==morning)
+			if (shift.getDate().equals(date) && shift.isMorning()==morning&& branch.equals(shift.getBranchAddress()))
 				return shift;
 		}
 		return null;
@@ -109,9 +110,9 @@ public class ShiftController
 	}
 
 	//check if worker is scheduled at specific date
-	public static boolean is_worker_scheduled_at(int id,Date date,boolean morning)
+	public static boolean is_worker_scheduled_at(int id,Date date,boolean morning, String branch)
 	{
-		Shift shift=get_shift(date,morning);
+		Shift shift=get_shift(date,morning, branch);
 		if (shift==null) return false;
 		return shift.getWorkers().contains(id) || shift.getManager_id() == id;
 	}

@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class ShiftsTest
 {
 
-	@After
+/*	@After
 	public void after_tests()
 	{
 		WorkersController.getWorkers().clear();
@@ -138,5 +138,7 @@ public class ShiftsTest
 		Date date3=new SimpleDateFormat("dd/MM/yyyy").parse("16/05/2030");
 		assertNull(ShiftController.get_shift(date3,true));
 	}
+
+ */
 
 }

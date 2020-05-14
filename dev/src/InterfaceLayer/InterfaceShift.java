@@ -12,6 +12,7 @@ public class InterfaceShift {
     private boolean morning;
     private int manager_id;
     private List<Integer> workers;
+    private String branchAddress;
 
     public InterfaceShift(Date date, boolean morning, int manager_id, List<Integer> workers) {
         this.date = date;
@@ -28,7 +29,8 @@ public class InterfaceShift {
         this.date = shift.getDate();
         this.morning = shift.isMorning();
         this.manager_id = shift.getManager_id();
-        this.workers = new LinkedList<>(shift.getWorkers());
+        this.workers = shift.getWorkers();
+        this.branchAddress=shift.getBranchAddress();
     }
 
 
@@ -64,12 +66,21 @@ public class InterfaceShift {
         this.workers = workers;
     }
 
+    public String getBranchAddress() {
+        return branchAddress;
+    }
+
+    public void setBranchAddress(String branchAddress) {
+        this.branchAddress = branchAddress;
+    }
+
     @Override
     public String toString() {
         return
                 "date=" + date  +
                 "\nmorning=" + morning +
                 "\nmanager_id=" + manager_id +
-                "\nworkers=" + workers ;
+                "\nworkers=" + workers+
+                "\nbranch=" + branchAddress;
     }
 }

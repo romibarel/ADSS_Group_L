@@ -23,7 +23,8 @@ public class Constraint {
     public static Result check(InterfaceConstraint c){
         if(WorkersController.get_by_id(c.getId())==null)
             return new Result(false,"Employee does not exist in the system");
-        if(ShiftController.is_worker_scheduled_at(c.getId(),c.getDate(),c.isMorning()))
+
+        if(ShiftController.is_worker_scheduled_at(c.getId(),c.getDate(),c.isMorning(),WorkersController.get_by_id(c.getId()).getBranchAddress()))
             return new Result(false,"Employee is already scheduled in a shift at the same date and time");
         return new Result(true,"");
     }

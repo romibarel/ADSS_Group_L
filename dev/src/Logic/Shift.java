@@ -12,6 +12,7 @@ public class Shift
 	private boolean morning;
 	private int manager_id;
 	private List<Integer> workers;
+	private String branchAddress;
 
 	public Shift(InterfaceShift shift)
 	{
@@ -23,6 +24,7 @@ public class Shift
 		if (shift.getWorkers()!=null)
 			for (int id:shift.getWorkers())
 				workers.add(id);
+		this.branchAddress=shift.getBranchAddress();
 
 	}
 
@@ -40,11 +42,16 @@ public class Shift
 				return new Result(false,"a shift is already scheduled for this date");
 		}
 
+		if(!WorkersController.getBranches().contains(shift.getBranchAddress()))
+			return new Result (false,"branch does not exit");
+
 		//check manager_id
 		if (WorkersController.get_by_id(shift.getManager_id())==null)
 			return new Result(false,"manager doest exist");
 		if (!WorkersController.get_by_id(shift.getManager_id()).is_manager())//no null pointer exception because manager is verified to exist
 			return new Result(false,"wrong manager id");
+		if (!WorkersController.get_by_id(shift.getManager_id()).getBranchAddress().equals(shift.getBranchAddress()))
+			return new Result(false,  "manager doesnt work in the right branch");
 		if (!ConstrainsController.is_available(shift.getManager_id(),shift.getDate(),shift.isMorning()))
 			return new Result(false, "manager has constraint for that shift");
 
@@ -55,6 +62,8 @@ public class Shift
 			{
 				if (WorkersController.get_by_id(worker_id) == null)
 					return new Result(false, "worker number " + worker_id + " doesnt exist");
+				if (!WorkersController.get_by_id(worker_id).getBranchAddress().equals(shift.getBranchAddress()))
+					return new Result(false, "worker number " + worker_id + " doesnt work in the right branch");
 				if (!ConstrainsController.is_available(worker_id, shift.getDate(), shift.isMorning()))
 					return new Result(false, "worker number " + worker_id + " has constraint for that shift");
 			}
@@ -100,6 +109,14 @@ public class Shift
 	{
 		if (workers==null) return new LinkedList<>();
 		return workers;
+	}
+
+	public String getBranchAddress() {
+		return branchAddress;
+	}
+
+	public void setBranchAddress(String branchAddress) {
+		this.branchAddress = branchAddress;
 	}
 
 	public void setWorkers(List<Integer> workers)

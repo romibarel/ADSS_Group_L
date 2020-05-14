@@ -39,8 +39,8 @@ public class Interface
 		return "The action have failed due to:\n "+r.msg;
 	}
 
-	public static String editShift(InterfaceShift shift, Date previous_date, boolean previous_morning){
-		Result r= ShiftController.edit_shift(shift, previous_date, previous_morning);
+	public static String editShift(InterfaceShift shift, Date previous_date, boolean previous_morning, String previous_branch){
+		Result r= ShiftController.edit_shift(shift, previous_date, previous_morning, previous_branch);
 		if(r.success)
 			return "shift was edited:\n"+shift.toString();
 		return "The action have failed due to:\n "+r.msg;
@@ -61,7 +61,7 @@ public class Interface
 	}
 
 	public static String deleteShift(InterfaceShift shift){
-		Result r= ShiftController.delete_shift(shift.getDate(),shift.isMorning());
+		Result r= ShiftController.delete_shift(shift.getDate(),shift.isMorning(), shift.getBranchAddress());
 		if(r.success)
 			return "shift was deleted\n"+shift.toString();
 		return "The action have failed due to:\n "+r.msg;
@@ -81,8 +81,8 @@ public class Interface
 		return new InterfaceWorker(w);
 	}
 
-	public static InterfaceShift searchShift(Date date, boolean morning){
-		Shift s= ShiftController.get_shift(date, morning);
+	public static InterfaceShift searchShift(Date date, boolean morning,  String branch){
+		Shift s= ShiftController.get_shift(date, morning, branch);
 		if(s==null)
 			return null;
 		return new InterfaceShift(s);
@@ -228,7 +228,6 @@ public class Interface
 		return ret;
 	}
 
-
 	public static String printEmployees(){
 		InterfaceWorker con=new InterfaceWorker();
 		List<Worker> workers= WorkersController.getWorkers();
@@ -246,5 +245,9 @@ public class Interface
 			count++;
 		}
 		return ret;
+	}
+
+	public static List<String> getBranches(){
+		return WorkersController.getBranches();
 	}
 }
