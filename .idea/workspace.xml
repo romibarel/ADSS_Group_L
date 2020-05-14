@@ -7,73 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5a0c68f-cb7a-4339-a500-2fe945ca3023" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Presentation/Pproduct.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/OrderOnlySupplier.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Pproduct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dev/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Invenrory/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Singletone_Storage_Management.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Singletone_Storage_Management.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/ProductPurchase.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/ProductPurchase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/PurchaseTransaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/PurchaseTransaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Buisness/Transactions/TransactionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductControllerDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductControllerDAL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductDAL.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/DAL/InventoryDAL/ProductDAL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/CategoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/CategoryTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/ProductControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/ProductControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/PurchaseTransactionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Storage/Tests/PurchaseTransactionTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/API_Buisness.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/API_Buisness.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Presentation/Presentation.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Presentation/Presentation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Agreement.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Agreement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/ArrivalReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/ArrivalReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/CancellationReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/CancellationReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/FixedDaysSupplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/FixedDaysSupplier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Report.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SelfPickupSupplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SelfPickupSupplier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Supplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/Supplier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SystemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/BusinessLayer/SystemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/DataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/DataController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanAgreement.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanAgreement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanOrder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanProduct.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanProduct.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanSupplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/PersistenceLayer/LoanSupplier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/Tests/TestClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/Suppliers/Tests/TestClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/out/production/dev/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev/out/production/dev/main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/ProductPurchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/ProductPurchase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/PurchaseTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/PurchaseTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Transactions/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Tests/CategoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Tests/CategoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Tests/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Tests/ProductControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Tests/PurchaseTransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Tests/PurchaseTransactionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/LoanProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/Tests/TestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/Tests/TestClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/storage.db" beforeDir="false" afterPath="$PROJECT_DIR$/dev/storage.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/../" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -160,7 +96,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589486186006" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589486784984" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -342,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589486001152</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Merge branch '206226581_316420132' of https://github.com/romibarel/ADSS_Group_L into 206226581_316420132&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1589486259771</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1589486259771</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -383,7 +326,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.053285968" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.053285968" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.106571935" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
