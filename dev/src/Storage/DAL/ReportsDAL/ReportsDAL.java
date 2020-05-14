@@ -6,6 +6,7 @@ import Storage.Buisness.Invenrory.Category;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +26,10 @@ public class ReportsDAL {
         for (List<ProductRepDataDAL> productRepDataDALList :productReportDAL.getReportData().values()) {
             for (ProductRepDataDAL p : productRepDataDALList ) {
                 try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String ts = sdf.format(new java.sql.Timestamp(productReportDAL.getDate().getTime()));
                     PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO PRODUCT_REPORT VALUES(?,?,?,?)");
-                    stmt2.setDate(1, new java.sql.Date(productReportDAL.getDate().getTime()));
+                    stmt2.setString(1, ts);
                     stmt2.setInt(2, p.getBarCode());
                     stmt2.setString(3, p.getProductName());
                     stmt2.setInt(4, p.getAmount());

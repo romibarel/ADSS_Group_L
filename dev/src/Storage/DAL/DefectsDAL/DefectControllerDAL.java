@@ -26,4 +26,6 @@ public class DefectControllerDAL {
         this.defects.add(defectDAL);
 
     }
+
+
 }
