@@ -9,7 +9,7 @@ import java.util.*;
 public class ProductController {
     public static final String DEFAULT = "Default category";
     public static final String PRODUCT_NOT_FOUND = "Product not found";
-    public static final int DEFAULT_MIN_AMOUNT = Integer.MAX_VALUE;
+    public static final int DEFAULT_MIN_AMOUNT = Integer.MIN_VALUE;
 
     private List<Category> categories;
 
@@ -21,9 +21,7 @@ public class ProductController {
         saleData = new HashMap<>();
         this.categories = new ArrayList<>();
         this.dataAccess = DataAccess.getInstance();
-      //  restore();
         setMainCategory(DEFAULT);
-
     }
 
     public void restore() {

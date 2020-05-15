@@ -28,13 +28,11 @@ public class SaleTransaction extends Transaction {
         boolean alert = Singletone_Storage_Management.getInstance().getInventory().sale(barCode, amount);
         DataSaleProduct dataSaleProduct = Singletone_Storage_Management.getInstance().getInventory().getDataSale(barCode);
         ProductSale productSale = new ProductSale(barCode, dataSaleProduct.getProductName(), dataSaleProduct.getPrice(),
-                dataSaleProduct.getDiscount(), amount); //create Buisness.Invenrory.Product sale using Buisness.Invenrory.DataSaleProduct
+                dataSaleProduct.getDiscount(), amount); //create Product sale using DataSaleProduct
         this.saleTransactions.put(barCode, productSale);
         if (alert){
             return 2;
         }
         return 1;
     }
-
-
 }

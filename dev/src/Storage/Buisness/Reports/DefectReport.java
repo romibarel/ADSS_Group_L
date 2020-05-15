@@ -9,6 +9,7 @@ import StorageAndSupplier.Presentation.Pdefect;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class DefectReport {
     private Date dateStart;
@@ -52,7 +53,6 @@ public class DefectReport {
         }
         this.defects = relevantReports;
         this.dateStart = fromDate;
-
     }
 
     public List<Pdefect> creatNewReport(Date fromDate){
@@ -83,4 +83,5 @@ public class DefectReport {
         DefectReportDAL defectReportDAL = new DefectReportDAL(this.dateStart, defectDALS);
         return defectReportDAL;
     }
+
 }

@@ -1,6 +1,5 @@
 package Storage.Buisness;
 
-
 import Storage.Buisness.Defects.DefectController;
 import Storage.Buisness.Invenrory.ProductController;
 import Storage.Buisness.Locations.LocationController;

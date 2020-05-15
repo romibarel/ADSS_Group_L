@@ -2,7 +2,6 @@ package Storage.Buisness.Reports;
 
 import Storage.Buisness.Invenrory.Category;
 import Storage.Buisness.Invenrory.Product;
-import Storage.Buisness.Invenrory.Category;
 import Storage.Buisness.Singletone_Storage_Management;
 import Storage.DAL.ReportsDAL.ProductRepDataDAL;
 import Storage.DAL.ReportsDAL.ProductReportDAL;

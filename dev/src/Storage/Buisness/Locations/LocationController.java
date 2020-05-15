@@ -61,16 +61,16 @@ public class LocationController {
     public void addProduct(int barCode, Date expirationDate, int location, int amount) {
         if (0>location || location>=locations.size()){return;}  //location isn't exists -> doesn't do nothing
         if (productsLocation.containsKey(barCode)){ //barcode exists in locations
-            if (productsLocation.get(barCode).containsKey(expirationDate)){ //barcode with expiration date exists
-                if (productsLocation.get(barCode).get(expirationDate).containsKey(location)){ //barcode with expiration date exists and the location exists
-                    int oldAmount = productsLocation.get(barCode).get(expirationDate).get(location);
-                    productsLocation.get(barCode).get(expirationDate).remove(location);
+            if (ContainsDate(productsLocation.get(barCode).keySet(), expirationDate)!=null){ //barcode with expiration date exists
+                if (productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expirationDate)).containsKey(location)){ //barcode with expiration date exists and the location exists
+                    int oldAmount = productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expirationDate)).get(location);
+                    productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expirationDate)).remove(location);
                     int newValue = oldAmount + amount;
-                    productsLocation.get(barCode).get(expirationDate).put(location, newValue);
+                    productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expirationDate)).put(location, newValue);
                     this.dataAccess.updateProductsQuantityInLocation(barCode, expirationDate, location, newValue);   //update DAL
                 }
                 else {  //barcode with expiration date exists but the location doesn't exists
-                    productsLocation.get(barCode).get(expirationDate).put(location, amount);
+                    productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expirationDate)).put(location, amount);
                     this.dataAccess.updateProductsQuantityInLocation(barCode, expirationDate, location, amount);   //update DAL
                 }
             }
@@ -92,12 +92,12 @@ public class LocationController {
         if (0>fromLocation || fromLocation>=locations.size()){return;}  //location isn't exists -> doesn't do nothing
         if (0>toLocation || toLocation>=locations.size()){return;}  //location isn't exists -> doesn't do nothing
         if (this.productsLocation.containsKey(barCode)&&
-                this.productsLocation.get(barCode).containsKey(expiration)&&
-                this.productsLocation.get(barCode).get(expiration).containsKey(fromLocation)&&
-                this.productsLocation.get(barCode).get(expiration).get(fromLocation)>=amount){//checks if this is legal
-            int oldValue = this.productsLocation.get(barCode).get(expiration).get(fromLocation);
+                this.productsLocation.get(barCode).containsKey(ContainsDate(productsLocation.get(barCode).keySet(), expiration))&&
+                this.productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expiration)).containsKey(fromLocation)&&
+                this.productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expiration)).get(fromLocation)>=amount){//checks if this is legal
+            int oldValue = this.productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expiration)).get(fromLocation);
             int newValue = oldValue - amount;
-            this.productsLocation.get(barCode).get(expiration).replace(fromLocation, newValue);
+            this.productsLocation.get(barCode).get(ContainsDate(productsLocation.get(barCode).keySet(), expiration)).replace(fromLocation, newValue);
             this.dataAccess.updateProductsQuantityInLocation(barCode, expiration, fromLocation, newValue);   //Update DAL
             addProduct(barCode, expiration, toLocation, amount);
         }
@@ -126,12 +126,12 @@ public class LocationController {
     }
 
     public List<Integer> getLocationsByDate(int barcode , Date date){
-        List<Integer> locationSet = new ArrayList(productsLocation.get(barcode).get(date).keySet());
+        List<Integer> locationSet = new ArrayList(productsLocation.get(barcode).get(ContainsDate(this.productsLocation.get(barcode).keySet(),date)).keySet());
         return locationSet;
     }
 
     public Integer getAmountByLocation(int barcode , Date date , Integer location){
-       Integer amount = productsLocation.get(barcode).get(date).get(location);
+       Integer amount = productsLocation.get(barcode).get(ContainsDate(this.productsLocation.get(barcode).keySet(),date)).get(location);
        return amount;
     }
 
