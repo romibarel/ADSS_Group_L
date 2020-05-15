@@ -1,5 +1,7 @@
 package DataAccess;
 
+import Business.Constraint;
+
 import java.util.Date;
 
 public class DALConstraint {
@@ -16,6 +18,14 @@ public class DALConstraint {
         this.id = id;
         this.reason = reason;
         this.cid = cid;
+    }
+
+    public DALConstraint(Constraint c){
+        this.date = c.getDate();
+        this.morning = c.isMorning();
+        this.id = c.getId();
+        this.reason = c.getReason();
+        this.cid=c.getCid();
     }
 
     public DALConstraint() {

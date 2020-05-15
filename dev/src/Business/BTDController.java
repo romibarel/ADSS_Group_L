@@ -1,8 +1,13 @@
 package Business;
 
 
+import DataAccess.DALConstraint;
 import DataAccess.DTBController;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +35,27 @@ public class BTDController {
         }
         return thisOne;
     }
+
+    public List<Constraint> loadConstraint(int id, java.util.Date date, boolean morning)  {
+        List<Constraint> constraints=new LinkedList<>();
+        for (DALConstraint c:  dataTb.loadConstraint(id, date,morning))
+            constraints.add(new Constraint(c));
+        return constraints;
+    }
+
+    public Result getMax()  {
+        return dataTb.getMax();
+    }
+
+    public Result updateConstraint(Constraint constraint) {
+        return dataTb.updateConstraint(new DALConstraint(constraint));
+    }
+
+    public Result saveConstraint(Constraint constraint) {
+        return dataTb.saveConstraint(new DALConstraint(constraint));
+    }
+
+
 
     //return all workers in specific role and branch
     public static List<Worker> upload_by_role_and_branch(String role, String branch)

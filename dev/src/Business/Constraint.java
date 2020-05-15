@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALConstraint;
 import Interface.InterfaceConstraint;
 
 import java.util.Date;
@@ -18,6 +19,14 @@ public class Constraint {
         this.id = id;
         this.reason = reason;
         this.cid=cid;
+    }
+
+    public Constraint(DALConstraint c){
+        this.date = c.getDate();
+        this.morning = c.isMorning();
+        this.id = c.getId();
+        this.reason = c.getReason();
+        this.cid=c.getCid();
     }
 
     public static Result check(InterfaceConstraint c){
