@@ -30,35 +30,13 @@ public class DataAccess {
     private ReportsDAL reportsDAL;
     private static DataAccess instance;
 
-    Connection conn;
+    private Connection conn;
 
     private DataAccess(){
         this.defectControllerDAL = new DefectControllerDAL();
         this.productControllerDAL = new ProductControllerDAL();
         this.locationControllerDAL = new LocationControllerDAL();
         this.reportsDAL = new ReportsDAL();
-
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:storage.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-
-            //System.out.println("Connection to SQLite has been established.");
-
-        } catch ( Exception e) {
-            //System.out.println(e.getMessage());
-            //System.out.println("failed to connect");
-        }// finally {
-         //   try {
-         //       if (conn != null) {
-         //           conn.close();
-         //       }
-         //   } catch (SQLException ex) {
-         //       System.out.println(ex.getMessage());
-         //   }
-         // }
     }
 
 
@@ -200,4 +178,7 @@ public class DataAccess {
         return this.productControllerDAL.getProductListDAL(name, conn);
     }
 
+    public void setConnection(Connection conn) {
+        this.conn = conn;
+    }
 }

@@ -14,11 +14,11 @@ import java.util.Scanner;
 
 public class main {
 
-    public static final String PATTERN = "yyyy/MM/dd"; // comment
-    public static final Integer SupplierID = 1;
+    //public static final String PATTERN = "yyyy/MM/dd"; // comment
+    //public static final Integer SupplierID = 1;
 
     public static void main (String[] args){
-        Scanner scanner = new Scanner(System.in);
+        /*Scanner scanner = new Scanner(System.in);
         System.out.println("1)Run system of 'Storage'");
         System.out.println("2)Run system of 'Suppliers'");
         System.out.println("4)Exit");
@@ -45,15 +45,69 @@ public class main {
             else {
                 break;
             }
+        }*/
+        Presentation p = new Presentation();
+        boolean isLoad = false;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1)Initialize system");
+        System.out.println("2)Uninitialized system");
+        System.out.println("3)Exit");
+        int selected = 0;
+        boolean error = false;
+        do {
+            try {
+                selected = Integer.parseInt(scanner.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        while (true) {
+            if (selected == 1) {
+                initialize();
+                isLoad = true;
+                break;
+            } else if (selected == 2) {
+                break;
+            }
+            else {
+                break;
+            }
+        }
+        System.out.println("1)Storage system");
+        System.out.println("2)Suppliers system");
+        System.out.println("3)Exit");
+        do {
+            try {
+                selected = Integer.parseInt(scanner.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        while (true) {
+            if (selected == 1) {
+                runStorage(scanner, p);
+                break;
+            } else if (selected == 2) {
+                runSuppliers(isLoad, p);
+                break;
+            }
+            else {
+                break;
+            }
         }
     }
 
-    private static void runStorage(Scanner scanner) {
+    private static void runStorage(Scanner scanner, Presentation p) {
         while(true){
-            System.out.println("1)Program with initialized data");
-            System.out.println("2)Program without initializing data");
-            System.out.println("3)Run tests");
-            System.out.println("4)Exit");
+            System.out.println("1)Run System");
+            System.out.println("2)Run tests");
+            System.out.println("3)Exit");
             int initialized = 0;
             boolean error = false;
             do {
@@ -68,14 +122,11 @@ public class main {
             }while (error);
 
             if(initialized == 1){
-                initialize();
-                break;
-            }
-            else if(initialized ==2){
+                p.startProgramMenu();
                 break;
             }
 
-            else if(initialized ==3){
+            else if(initialized ==2){
                 Result result1 = JUnitCore.runClasses(CategoryTest.class);
                 System.out.println("Run category test: " + result1.getRunCount());
                 for(Failure failure : result1.getFailures()){
@@ -103,23 +154,18 @@ public class main {
                 System.exit(0);
 
             }
-            else if(initialized ==4){
+            else if(initialized ==3){
                 System.exit(0);
             }
         }
-
-
-        Presentation p = new Presentation();
-        p.startProgramMenu();
     }
 
-    private static void runSuppliers(Scanner scanner){
+    private static void runSuppliers(boolean isLoad, Presentation p){
         //SystemController sc = SystemController.getInstance();
-        Presentation p = new Presentation();
         //System.out.println("Would you like to load pre-made data? (y/n)");
         //if(scanner.next().equals("y"))
             //sc.loadSystem();
-        p.run();
+        p.run(isLoad);
         //System.out.println("NO");
         //sc.unloadSystem();
         //sc.closeConnection();
@@ -127,9 +173,9 @@ public class main {
 
     private static void initialize(){
 
-
         API_Buisness manager = Singltone_Supplier_Storage_Manager.getInstance();
         manager.initialize();
+        manager.loadSystem();
 
        /* Date expiration1 = null;
         Date supply1 = null;

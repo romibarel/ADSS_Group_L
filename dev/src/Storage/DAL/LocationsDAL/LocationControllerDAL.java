@@ -57,7 +57,7 @@ public class LocationControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
 
@@ -81,7 +81,7 @@ public class LocationControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
     }
@@ -138,7 +138,7 @@ public class LocationControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 }

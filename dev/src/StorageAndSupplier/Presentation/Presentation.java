@@ -23,13 +23,13 @@ public class Presentation {
         this.businessManager = Singltone_Supplier_Storage_Manager.getInstance();
         option = 0;
         in = new Scanner(System.in);
-        pattern = "dd/MM/yyyy";
+        pattern = "yyyy-mm-dd";
         simpleDateFormat = new SimpleDateFormat(pattern);
         //get today's date
         String date = simpleDateFormat.format(new Date());
         today = null;
         try {
-            today = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            today = new SimpleDateFormat("yyyy-mm-dd").parse(date);
         } catch (Exception e) {}
     }
 
@@ -321,11 +321,11 @@ public class Presentation {
             try {
                 System.out.print("  Type barcode number of the " + i + " item: ");
                 int barcode = Integer.parseInt(in.nextLine());
-                System.out.print("  Type expiration date of the " + i + " item (dd/MM/yyyy format): ");
+                System.out.print("  Type expiration date of the " + i + " item (yyyy-mm-dd format): ");
                 Date expirationDate = null;
 
                 String expiDate = in.nextLine();
-                expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+                expirationDate = simpleDateFormat.parse(expiDate);
 
                 System.out.print("  Type amount of the " + i + " item: ");
                 int amount = Integer.parseInt(in.nextLine());
@@ -377,11 +377,11 @@ public class Presentation {
                 double price = Double.parseDouble(in.nextLine());
                 System.out.print("  Type discount of the " + i + " item (if doesn't exists type 0): ");
                 double discount = Double.parseDouble(in.nextLine());
-                System.out.print("  Type expiration date of the " + i + " item (dd/MM/yyyy format): ");
+                System.out.print("  Type expiration date of the " + i + " item (yyyy-mm-dd format): ");
                 Date expirationDate = null;
 
                 String expiDate = in.nextLine();
-                expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+                expirationDate = new SimpleDateFormat("yyyy-mm-dd").parse(expiDate);
 
                 System.out.print("  Type amount of the " + i + " item: ");
                 int amount = Integer.parseInt(in.nextLine());
@@ -597,7 +597,7 @@ public class Presentation {
                 Date nextSupply = null;
 
                 String expiDate = in.nextLine();
-                nextSupply = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+                nextSupply = new SimpleDateFormat("yyyy-mm-dd").parse(expiDate);
 
                 businessManager.setNextSupply(barcode, nextSupply);
             } catch (Exception e) {
@@ -770,7 +770,7 @@ public class Presentation {
                 Date expirationDate = null;
 
                 String expiDate = in.nextLine();
-                expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+                expirationDate = new SimpleDateFormat("yyyy-mm-dd").parse(expiDate);
 
                 System.out.print("\n");
                 businessManager.addDefect(today, barcode, amount, reason, creator, location, expirationDate);
@@ -790,11 +790,11 @@ public class Presentation {
     private void getDefectsReports() {
         boolean error = false;
         System.out.print("  Defect report:\n");
-        System.out.print("  Type date to from which you wish to find defects (dd/MM/yyyy format): ");
+        System.out.print("  Type date to from which you wish to find defects (yyyy-mm-dd format): ");
         Date fromDate = null;
         try {
             String fromDateS = in.nextLine();
-            fromDate = new SimpleDateFormat("dd/MM/yyyy").parse(fromDateS);
+            fromDate = new SimpleDateFormat(pattern).parse(fromDateS);
             List<Pdefect> defectsToShow = businessManager.creatDefectReport(today, fromDate); //THE END ISN'T RELEVANT
             showPdefects(defectsToShow , fromDate);
         } catch (Exception e) {
@@ -968,7 +968,7 @@ public class Presentation {
             Date expirationDate = null;
 
                 String expiDate = in.nextLine();
-                expirationDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiDate);
+                expirationDate = new SimpleDateFormat("YYYY/MM/DD").parse(expiDate);
 
             System.out.print("  " + i + ". amount of items to move: ");
             int amount = Integer.parseInt(in.nextLine());
@@ -1098,14 +1098,14 @@ public class Presentation {
     * Suppliers Section
     * */
 
-    public void run(){
-        boolean isTerminated = false, isLoad = false;
+    public void run(boolean isLoad){
+        boolean isTerminated = false;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Would you like to load pre-made data? (y/n)");
-        if(scanner.next().equals("y")) {
-            businessManager.loadSystem();
-            isLoad = true;
-        }
+        //System.out.println("Would you like to load pre-made data? (y/n)");
+        //if(scanner.next().equals("y")) {
+        //    businessManager.loadSystem();
+        //    isLoad = true;
+        //}
 
         while(!isTerminated){
             System.out.println("Choose 1 for suppliers");

@@ -12,6 +12,7 @@ import Storage.DAL.DataAccess;
 import StorageAndSupplier.Presentation.PdataInventoryReport;
 import StorageAndSupplier.Presentation.Pdefect;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 import java.util.*;
@@ -245,6 +246,10 @@ public class Singletone_Storage_Management {
     public void exit(){
         DataAccess.getInstance().close();
         System.exit(0);
+    }
+
+    public void setConnection(Connection conn) {
+        DataAccess.getInstance().setConnection(conn);
     }
 }
 

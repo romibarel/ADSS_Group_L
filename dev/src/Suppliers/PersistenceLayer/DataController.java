@@ -1,5 +1,6 @@
 package Suppliers.PersistenceLayer;
 
+import Storage.DAL.DataAccess;
 import javafx.util.Pair;
 
 import java.sql.*;
@@ -20,19 +21,19 @@ public class DataController {
     private PreparedStatement p;
 
     public static DataController getInstance(){
-        if(instance == null)
-            return new DataController();
+        if (instance == null)
+            instance = new DataController();
         return instance;
     }
 
     private DataController(){
-        try {
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\dev\\storage.db";
-            con = DriverManager.getConnection(url);
-        } catch ( Exception e) {
-            e.printStackTrace();
-        }
+        //try {
+        //    Class.forName("org.sqlite.JDBC");
+        //    String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\dev\\storage.db";
+        //    con = DriverManager.getConnection(url);
+        //} catch ( Exception e) {
+        //    e.printStackTrace();
+        //}
 
         loanSuppliers = new LinkedList<>();
         loanOrders = new LinkedList<>();
@@ -575,5 +576,9 @@ public class DataController {
             e.printStackTrace();
         }
         return lr;
+    }
+
+    public void setConnection(Connection conn) {
+        this.con = conn;
     }
 }

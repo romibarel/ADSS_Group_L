@@ -58,7 +58,7 @@ public class CategoryDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 

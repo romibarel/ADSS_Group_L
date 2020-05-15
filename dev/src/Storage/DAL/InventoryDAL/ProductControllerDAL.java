@@ -26,7 +26,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
 
@@ -59,7 +59,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         for (String name : cNames){
             CategoryDAL cat = createCategoryDALByName(name, conn);
@@ -88,7 +88,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
     }
@@ -130,7 +130,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 
@@ -144,7 +144,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 
@@ -159,7 +159,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 
@@ -172,7 +172,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 
@@ -195,7 +195,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }//in this case we don't ave to do something, but whenever we'll add database so we use this function
 
@@ -230,7 +230,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
     public ProductDAL searchProduct (int barCode, Connection conn){
@@ -251,7 +251,7 @@ public class ProductControllerDAL {
                     rs.getInt(5), date);
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
     }
@@ -281,7 +281,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 
@@ -305,7 +305,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 
@@ -322,7 +322,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         for (String n : cNames){
             CategoryDAL cat = createCategoryDALByName(n, conn);
@@ -349,7 +349,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
 

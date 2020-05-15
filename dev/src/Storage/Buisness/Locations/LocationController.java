@@ -36,7 +36,7 @@ public class LocationController {
                 for (Integer location: this.dataAccess.getProductsLocationDAL().get(barcode).get(date).keySet()){
                     m2.putIfAbsent(location, this.dataAccess.getProductsLocationDAL().get(barcode).get(date).get(location)); //put the location and quantity
                 }
-                m1.putIfAbsent(date, m2);   //put date and it's map
+                m1.putIfAbsent(date, m2);    //put date and it's map
             }
             this.productsLocation.putIfAbsent(barcode, m1); // put for every barcode it's map
         }
@@ -105,13 +105,13 @@ public class LocationController {
 
     public boolean reduceFromShelf(int barCode, int amount, Date expiration){
         if(this.productsLocation.containsKey(barCode)&&
-                this.productsLocation.get(barCode).containsKey(expiration)&&
-                this.productsLocation.get(barCode).get(expiration).containsKey(SHELF)&&
-                this.productsLocation.get(barCode).get(expiration).get(SHELF)>=amount){//Check if this is legal, otherwise doesn't do anything
-            int oldValue = this.productsLocation.get(barCode).get(expiration).get(SHELF);
+                ContainsDate(this.productsLocation.get(barCode).keySet(),expiration)!=null&&
+                this.productsLocation.get(barCode).get(ContainsDate(this.productsLocation.get(barCode).keySet(),expiration)).containsKey(SHELF)&&
+                this.productsLocation.get(barCode).get(ContainsDate(this.productsLocation.get(barCode).keySet(),expiration)).get(SHELF)>=amount){//Check if this is legal, otherwise doesn't do anything
+            int oldValue = this.productsLocation.get(barCode).get(ContainsDate(this.productsLocation.get(barCode).keySet(),expiration)).get(SHELF);
             int newValue = oldValue - amount;
-            this.productsLocation.get(barCode).get(expiration).replace(SHELF, newValue);
-            this.dataAccess.updateProductsQuantityInLocation(barCode, expiration, SHELF, newValue);   //Update DAL
+            this.productsLocation.get(barCode).get(ContainsDate(this.productsLocation.get(barCode).keySet(),expiration)).replace(SHELF, newValue);
+            this.dataAccess.updateProductsQuantityInLocation(barCode, ContainsDate(this.productsLocation.get(barCode).keySet(),expiration), SHELF, newValue);   //Update DAL
             return true;
         }
         return false;
@@ -142,5 +142,15 @@ public class LocationController {
         locations.put(STORAGE, "Storage");
         locations.put(SHELF, "Shelf");
         locations.put(MINOR_STORAGE, "Minor Storage");
+    }
+
+    private static Date ContainsDate(Set<Date> set, Date date){
+        for (Date date2:set) {
+            if(date2.getDay() == date.getDay() &&
+                    date2.getMonth() == date.getMonth() &&
+                    date2.getYear() == date.getYear())
+                return date2;
+        }
+        return null;
     }
 }

@@ -9,12 +9,20 @@ import StorageAndSupplier.Presentation.Pproduct;
 import Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
 
 public class Singltone_Supplier_Storage_Manager implements API_Buisness{
+
+    public static  final int MILK = 1;
+    public static  final int TUNA = 2;
+    public static  final int SHAMPOO = 3;
+    public static  final int CHEESE = 4;
+    public static  final int SHOCKO = 5;
 
     public static final int STORAGE = 1;
 
@@ -25,6 +33,17 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     private Singltone_Supplier_Storage_Manager() {
         this.storage_management = Singletone_Storage_Management.getInstance();
         this.supplier_management = SystemController.getInstance();
+        Connection conn=null;
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:storage.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+
+        } catch ( Exception e) { }
+        storage_management.setConnection(conn);
+        supplier_management.setConnection(conn);
     }
 
     public static Singltone_Supplier_Storage_Manager getInstance(){

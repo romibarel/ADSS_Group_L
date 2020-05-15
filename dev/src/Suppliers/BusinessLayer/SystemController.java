@@ -5,6 +5,7 @@ import Suppliers.PersistenceLayer.LoanReport;
 import Suppliers.PersistenceLayer.LoanSupplier;
 import javafx.util.Pair;
 
+import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,7 +14,8 @@ public class SystemController {
     private static SystemController instance = null;
     private LinkedList<Supplier> suppliers;
     private LinkedList<Report> reports;
-    private final DataController dc = DataController.getInstance();
+    //private final DataController dc = DataController.getInstance();
+    private DataController dc;
 
     public static SystemController getInstance(){
         if(instance == null) {
@@ -25,6 +27,7 @@ public class SystemController {
     private SystemController(){
         suppliers = new LinkedList<>();
         reports = new LinkedList<>();
+        dc = DataController.getInstance();
     }
 
     public void loadSystem(){
@@ -367,5 +370,9 @@ public class SystemController {
 
     public void closeConnection(){
         dc.close();
+    }
+
+    public void setConnection(Connection conn) {
+        DataController.getInstance().setConnection(conn);
     }
 }

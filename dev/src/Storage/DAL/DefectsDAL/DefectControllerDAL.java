@@ -47,7 +47,7 @@ public class DefectControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 }

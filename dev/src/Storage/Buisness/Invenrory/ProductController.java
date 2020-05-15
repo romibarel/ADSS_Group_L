@@ -186,7 +186,7 @@ public class ProductController {
                 }
             }
         }
-        else{       //TODO: decide what happens when the product exists in some category and now a purchase happened
+        else{       //decide what happens when the product exists in some category and now a purchase happened
             searchProduct(barCode).setAmount(searchProduct(barCode).getAmount()+amount);
             searchProduct(barCode).setManufactor(supplierID);
         }

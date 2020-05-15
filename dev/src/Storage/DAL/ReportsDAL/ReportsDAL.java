@@ -20,15 +20,11 @@ public class ReportsDAL {
     }
 
     public void addNewProductReport (ProductReportDAL productReportDAL, Connection conn){
-        //this.productReportDALList.add(productReportDAL);
+
         for (List<ProductRepDataDAL> productRepDataDALList :productReportDAL.getReportData().values()) {
             for (ProductRepDataDAL p : productRepDataDALList ) {
                 try {
-<<<<<<< HEAD
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-=======
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
->>>>>>> cb44f3a68238af30a592debac5dcb90c00264057
                     String ts = sdf.format(new java.sql.Timestamp(productReportDAL.getDate().getTime()));
                     PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO PRODUCT_REPORT VALUES(?,?,?,?)");
                     stmt2.setString(1, ts);
@@ -38,7 +34,7 @@ public class ReportsDAL {
                     stmt2.executeUpdate();
                 }
                 catch (Exception e){
-                    System.out.println("failed");
+                    //System.out.println("failed");
                 }
             }
         }
@@ -60,20 +56,14 @@ public class ReportsDAL {
                 String checkDate = rs2.getString(1);
                 if (checkDate != null) {
                     //checkDate = checkDate.replace('-','/');
-<<<<<<< HEAD
                     Date date =  new SimpleDateFormat("yyyy-MM-dd").parse(checkDate);
-=======
-                    Date date =  new SimpleDateFormat("yyyy-mm-dd").parse(checkDate);
->>>>>>> cb44f3a68238af30a592debac5dcb90c00264057
+
                     DefectReportDAL defectReportDAL = new DefectReportDAL(date, new ArrayList<>());
                     ret.add(defectReportDAL);
                 }
             }
-<<<<<<< HEAD
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-=======
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
->>>>>>> cb44f3a68238af30a592debac5dcb90c00264057
+
 
             for (DefectReportDAL d: ret) {
                 List <DefectDAL> defects = new ArrayList<>();
@@ -81,13 +71,9 @@ public class ReportsDAL {
                 PreparedStatement stmt3 = conn.prepareStatement("SELECT * From DEFECT_REPORTS WHERE Date_Of_Feed > " + myStartDate);
                 ResultSet rs3 = stmt3.executeQuery();
                 while (rs3.next()) {
-<<<<<<< HEAD
                     Date dateOfFeed = new SimpleDateFormat("yyyy-MM-dd").parse(rs3.getString(3));
                     Date expiration = new SimpleDateFormat("yyyy-MM-dd").parse(rs3.getString(1));
-=======
-                    Date dateOfFeed = new SimpleDateFormat("yyyy-mm-dd").parse(rs3.getString(3));
-                    Date expiration = new SimpleDateFormat("yyyy-mm-dd").parse(rs3.getString(1));
->>>>>>> cb44f3a68238af30a592debac5dcb90c00264057
+
                     DefectDAL defectDAL= new DefectDAL(dateOfFeed,rs3.getInt(2),
                             rs3.getInt(4), rs3.getString(5), rs3.getString(6), rs3.getInt(7),
                             expiration);
@@ -97,7 +83,7 @@ public class ReportsDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
     }
@@ -112,10 +98,11 @@ public class ReportsDAL {
             PreparedStatement stmt2 = conn.prepareStatement("SELECT * " +
                     "FROM PRODUCT_REPORT ");
             ResultSet rs2 = stmt2.executeQuery();
+            Date date = null;
             while (rs2.next()) {
                 String dateS = rs2.getString(1);
                 DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-                Date date = formatter.parse(dateS);
+                date = formatter.parse(dateS);
 
                 ProductRepDataDAL p = new ProductRepDataDAL(rs2.getInt(2),rs2.getString(3),rs2.getInt(4));
                 l.add(p);
@@ -123,11 +110,11 @@ public class ReportsDAL {
             hir = restoreHierarchy(conn);
             reportData = createMapByCategories(l, conn);
             //TODO: convert the date
-            ProductReportDAL addedReport = new ProductReportDAL(rs2.getDate(1), hir, reportData);
+            ProductReportDAL addedReport = new ProductReportDAL(date, hir, reportData);
             ret.add(addedReport);
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
     }
@@ -150,7 +137,7 @@ public class ReportsDAL {
                     ret.put(catName, toAdd);
                 }
             } catch (Exception e) {
-                System.out.println("failed");
+                //System.out.println("failed");
             }
         }
         return ret;
@@ -179,19 +166,14 @@ public class ReportsDAL {
             }
         }
         catch (Exception e){
-            System.out.println("failed");
+            //System.out.println("failed");
         }
         return ret;
     }
 
     public void addDefectReport(DefectReportDAL defectReportDAL, Connection conn) {
         try {
-<<<<<<< HEAD
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-=======
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
->>>>>>> cb44f3a68238af30a592debac5dcb90c00264057
             String startDateOfReport = sdf.format(new java.sql.Timestamp(defectReportDAL.getDateStart().getTime()));
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO DEFECT_REPORTS VALUES (?,?,?,?,?,?,?,?)");
             stmt.setString(1, null);
@@ -205,7 +187,7 @@ public class ReportsDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            System.out.println("failed");
+            //System.out.println("failed");
         }
     }
 }
