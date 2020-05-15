@@ -131,13 +131,12 @@ public class BTIController {
         if (truck.getMaxWeight() < truckWeight)
             return "The given truck exceeds its max weight";
 
-        //todo: from workers - need this method that returns the driver if it exists and null otherwise.
-        String driver=null ; //TODO String WorkerController.get_driver_name(int id)
+        String driver = WorkersController.get_driver_name(driverID);
         if (driver == null)
             return "The driver doesn't exist.";
 
         //todo: from workers - need a method that returns true if the driver has the right license.
-        boolean goodLicenses =true ;//TODO boolean WorkerController.canDriveTruck(int driver_id,String truckType)
+        boolean goodLicenses = WorkersController.canDriveTruck(driverID, truck.getType()) ;//TODO boolean WorkerController.canDriveTruck(int driver_id,String truckType)
 
 
         Location source = null;
