@@ -10,7 +10,7 @@ import java.util.List;
 public class WorkersController
 {
 	private static List<Worker> workers= new LinkedList<>();
-	private static List<String> branches;
+	private static List<String> branches=new LinkedList<>();
 
 	public static String get_driver_name(int id)
 	{
@@ -109,8 +109,8 @@ public class WorkersController
 		return false;
 	}
 
-	public static void setBranches(List<String> branches) {
-		WorkersController.branches = branches;
+	public static void addBranch(String branch) {
+		WorkersController.branches.add(branch);
 	}
 
 	//returns all workers in the given role that works in the given branch
