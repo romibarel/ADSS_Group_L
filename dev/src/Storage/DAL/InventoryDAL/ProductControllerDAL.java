@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ProductControllerDAL {
     private List<CategoryDAL> categoryDALS;
@@ -46,10 +43,11 @@ public class ProductControllerDAL {
                     "WHERE CATEGORIES_OF_PRODUCTS.CName = '"+categoryName+"'");
             ResultSet rs = stmt.executeQuery();
             //TODO: convert the date
+            Date date = new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString(6));
             while (rs.next()) {
                 ProductDAL product = new ProductDAL(rs.getInt(1),
                         rs.getString(2), rs.getInt(3), rs.getInt(4),
-                        rs.getInt(5), rs.getDate(6));
+                        rs.getInt(5), date);
                 p.add(product);
             }
             PreparedStatement stmt2 = conn.prepareStatement("SELECT SUB_CATEGORIES.Sub " +
@@ -190,7 +188,7 @@ public class ProductControllerDAL {
             stmt.setInt(3, productDAL.getManufactor());
             stmt.setInt(4, productDAL.getAmount());
             stmt.setInt(5, productDAL.getMinAmount());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             String ts = sdf.format(new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime()));
             stmt.setString(6, ts);
 
@@ -222,7 +220,7 @@ public class ProductControllerDAL {
             stmt.setInt(2 ,productDAL.getManufactor());
             stmt.setInt(3,productDAL.getAmount());
             stmt.setInt(4,productDAL.getMinAmount());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             String ts = sdf.format(new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime()));
 
             stmt.setString(5, ts);
@@ -247,9 +245,10 @@ public class ProductControllerDAL {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCTS WHERE " +
                     " Barcode = " + barCode);
             ResultSet rs = stmt.executeQuery();
+            Date date = new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString(6));
             ret = new ProductDAL(rs.getInt(1), rs.getString(2),
                     rs.getInt(3), rs.getInt(4),
-                    rs.getInt(5), rs.getDate(6));
+                    rs.getInt(5), date);
         }
         catch (Exception e){
             System.out.println("failed");
@@ -340,10 +339,12 @@ public class ProductControllerDAL {
                     "WHERE CATEGORIES_OF_PRODUCTS.CName = '"+name+"'");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+
+                Date date = new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString(6));
                 ProductDAL product = new ProductDAL(rs.getInt(1),
                         rs.getString(2), rs.getInt(3), rs.getInt(4),
                         //TODO: convert the date
-                        rs.getInt(5), rs.getDate(6));
+                        rs.getInt(5), date);
                 ret.add(product);
             }
         }

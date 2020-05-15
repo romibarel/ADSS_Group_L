@@ -17,6 +17,7 @@ public interface API_Buisness {
     /*
      * Storage section
      * */
+    void initialize();
 
     void moveProduct(int barCode, Date expiration, int amount, int fromLocation, int toLocation);
 

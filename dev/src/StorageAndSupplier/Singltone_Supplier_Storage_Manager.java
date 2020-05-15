@@ -37,6 +37,10 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
      * Storage section
      * */
 
+    public void initialize(){
+        this.storage_management.restor();
+    }
+
     @Override
     public void moveProduct(int barCode, Date expiration, int amount, int fromLocation, int toLocation) {
         this.storage_management.moveProduct(barCode, expiration, amount, fromLocation, toLocation);

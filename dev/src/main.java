@@ -1,4 +1,3 @@
-import Storage.Buisness.Locations.LocationController;
 import Storage.Tests.CategoryTest;
 import Storage.Tests.LocationControllerTest;
 import Storage.Tests.ProductControllerTest;
@@ -10,14 +9,12 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 
 public class main {
 
-    public static final String PATTERN = "dd/MM/yyyy"; // comment
+    public static final String PATTERN = "yyyy/MM/dd"; // comment
     public static final Integer SupplierID = 1;
 
     public static void main (String[] args){
@@ -129,7 +126,12 @@ public class main {
     }
 
     private static void initialize(){
-        Date expiration1 = null;
+
+
+        API_Buisness manager = Singltone_Supplier_Storage_Manager.getInstance();
+        manager.initialize();
+
+       /* Date expiration1 = null;
         Date supply1 = null;
         Date defect1 = null;
         Date sell1 = null;
@@ -140,19 +142,23 @@ public class main {
             sell1 = new SimpleDateFormat(PATTERN).parse("15/01/2020");
 
         }
-        catch (Exception ignored){}
+        catch (Exception ignored){}*/
 
-        API_Buisness manager = Singltone_Supplier_Storage_Manager.getInstance();
+
+
         /*
         set 3 main categories: 'Dairy' 'Canning' 'Personal care'
         set sub categories 'Milk' under 'Dairy',  'Large' under 'Milk' and 'Shower' under 'Personal care'
         */
+
+            /*
         manager.setMainCategory("Dairy");
         manager.setMainCategory("Canning");
         manager.setMainCategory("Personal care");
         manager.setNewSubCategory("Milk", "Dairy");
         manager.setNewSubCategory("Large", "Milk");
         manager.setNewSubCategory("Shower", "Personal care");
+        */
 
         /*  story:
         Milk: barcode 1 tnuva price:10 discount:0 expiration:"17/05/2020" amount:200 supplyTime: 10/05/2020
@@ -161,14 +167,14 @@ public class main {
         connect Milk to 'Large'
         set sale product info of Milk to be: 6.5 -> no discount
         */
-
+        /*
         manager.buyProduct(1, "Milk",SupplierID,
                 10,0,expiration1,
                 200, supply1, LocationController.SHELF);
         manager.moveProduct(1, expiration1, 50, 2, 3);
         manager.connectProductToCategory("Large",1 );
         manager.setSaleInfoOfNewProduct(1, "Milk", 6.5, 0);
-
+        */
         /*  story:
         Tuna: barcode 2 StarKist price:6.5 discount:2 expiration:"17/05/2020" amount:800 supplyTime: 10/05/2020
                location: STORAGE (1)
@@ -176,14 +182,14 @@ public class main {
         connect Tuna to 'Canning'
         set sale product info of Tuna to be: 12.5 -> 2.5
         */
-
+        /*
         manager.buyProduct(2, "Tuna",SupplierID,
                 6.5,2,expiration1,
                 800, supply1, LocationController.STORAGE);
         manager.moveProduct(2, expiration1, 600, 1, 2);
         manager.connectProductToCategory("Canning",2 );
         manager.setSaleInfoOfNewProduct(2, "Tuna", 12.5, 2.5);
-
+        */
 
         /*  story:
         Tuna: barcode 3 Dove price:20 discount:5.5 expiration:"17/05/2020" amount:900 supplyTime: 10/05/2020
@@ -192,14 +198,14 @@ public class main {
         connect Shampoo to 'Shower'
         set sale product info of Shampoo to be: 25 -> 3
         */
-
+        /*
         manager.buyProduct(3, "Shampoo",SupplierID,
                 20,5.5,expiration1,
                 900, supply1, LocationController.STORAGE);
         manager.moveProduct(3, expiration1, 600, 1, 2);
         manager.connectProductToCategory("Shower",3 );
         manager.setSaleInfoOfNewProduct(3, "Shampoo", 25, 3);
-
+        */
         /*  story:
         Tuna: barcode 4 tnuva price:8 discount:3 expiration:"17/05/2020" amount:1000 supplyTime: 10/05/2020
                location: STORAGE (1)
@@ -207,14 +213,14 @@ public class main {
         connect cheese to 'Dairy'
         set sale product info of Cheese to be: 6 -> 0
         */
-
+        /*
         manager.buyProduct(4, "Cheese",SupplierID,
                 8,3,expiration1,
                 1000, supply1, LocationController.STORAGE);
         manager.moveProduct(4, expiration1, 450, 1, 2);
         manager.connectProductToCategory("Dairy",4 );
         manager.setSaleInfoOfNewProduct(4, "Dairy", 6, 0);
-
+        */
         /*  story:
         Tuna: barcode 5 tnuva price:10 discount:1.5 expiration:"17/05/2020" amount:1000 supplyTime: 10/05/2020
                location: STORAGE (1)
@@ -222,27 +228,29 @@ public class main {
         connect Shocko to 'Milk'
         set sale product info of Shocko to be: 14 -> 0
         */
-
+         /*
         manager.buyProduct(5, "Shocko",SupplierID,
                 10,1.5,expiration1,
                 1000, supply1, LocationController.STORAGE);
         manager.moveProduct(5, expiration1, 555, 1, 2);
         manager.connectProductToCategory("Milk",5 );
         manager.setSaleInfoOfNewProduct(5, "Shocko", 14, 0);
-
+        */
         /*
          * Set defects: a lot of products dropped from track because the driver was drunk :\
          * */
-
+        /*
         manager.addDefect(supply1, 5, 200, "dropped from track", "Avi Ferdman", 1, expiration1);
         manager.addDefect(supply1, 4, 50, "dropped from track", "Avi Ferdman", 1, expiration1);
         manager.addDefect(supply1, 3, 155, "dropped from track", "Avi Ferdman", 1, expiration1);
         manager.addDefect(supply1, 2, 40, "dropped from track", "Avi Ferdman", 1, expiration1);
         manager.addDefect(defect1, 2, 5, "costumer dropped from shelf", "Avi Ferdman", 2, expiration1);
-
+        */
         /*
          * Sell products: Milk sold 12, Tuna Sold 21, Shocko sold 22
          * */
+
+        /*
 
         manager.sellProduct(sell1, 1, 3, expiration1);
         manager.sellProduct(sell1, 1, 2, expiration1);
@@ -253,6 +261,8 @@ public class main {
         manager.sellProduct(sell1, 5, 3, expiration1);
         manager.sellProduct(sell1, 5, 3, expiration1);
         manager.sellProduct(sell1, 5, 2, expiration1);
+
+        */
 
 
     }
