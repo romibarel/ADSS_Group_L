@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import static Business.ShiftController.assign_Driver;
+import static Business.ShiftController.assign_storekeeper;
+
 public class BTIController {
     private static BTIController bti = null;
     private static ITBDelController itb;
@@ -59,8 +62,7 @@ public class BTIController {
                 isBranch = false;
             if (isBranch) {
                 loc = new Branch(combo[1], Integer.parseInt(combo[2]), combo[3]);
-                //todo: workers - which one of your controller should get this?
-                //TODO ???(loc.getAddress());
+                WorkersController.addBranch(loc.getAddress());
             }
             else
                 loc = new Supplier(combo[1], Integer.parseInt(combo[2]), combo[3]);
@@ -115,7 +117,7 @@ public class BTIController {
         }
         if (doc0 == null)
             return "The destination doesn't exist.";
-        DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, DocSupplies, doc0);      //todo add date and time of arrival
+        DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, DocSupplies, doc0);
         documents.add(deliverDoc);
         return "Document created successfully.";
     }
@@ -131,13 +133,11 @@ public class BTIController {
         if (truck.getMaxWeight() < truckWeight)
             return "The given truck exceeds its max weight";
 
-        //todo: from workers - need this method that returns the driver if it exists and null otherwise.
-        String driver=null ; //TODO String WorkerController.get_driver_name(int id)
+        String driver = WorkersController.get_driver_name(driverID);
         if (driver == null)
             return "The driver doesn't exist.";
 
-        //todo: from workers - need a method that returns true if the driver has the right license.
-        boolean goodLicenses =true ;//TODO boolean WorkerController.canDriveTruck(int driver_id,String truckType)
+        boolean goodLicenses = WorkersController.canDriveTruck(driverID, truck.getType()) ;
 
 
         Location source = null;
@@ -174,24 +174,25 @@ public class BTIController {
         if(!(delivery.isApproved()))
             return "The driver is unlicensed for the given truck.";
 
-        Date[] driverHours = delivery.getDuration();
-        /*todo: workers - need function that checks availability of the driver at these times
-           driverHours[0] = day of departure,
+        /*driverHours[0] = day of departure,
            driverHours[1] = time of departure,
            driverHours[2] = day of arrival,
            driverHours[3] = time of arrival
          */
+        Date[] driverHours = delivery.getDuration();
 
-        if(true)//TODO Result assign_Driver(int driver_id,Date departure_date,Date departure_hours,Date arrival_day,Date arrival_hour)
+        if(!assign_Driver(driverID, driverHours[0], driverHours[1], driverHours[2], driverHours[3]).success)
             return "The driver is unavailable for the delivery.";
 
         List<Pair<String, Date[]>> estimatedArrivals = delivery.getEstimatedArrivals();
-        /*todo: workers - need function that puts a storekeeper at these times if the location is a branch
-           String = location name,
+        /*String = location name,
            Date[0] = day of arrival,
            Date[1] = time of arrival
          */
-        //TODO Result assign_storekeeper(Date date,Date hour,String branch)
+        //Result assign_storekeeper(Date date,Date hour,String branch)
+        for (Pair<String, Date[]> p : estimatedArrivals){
+            assign_storekeeper(p.getValue()[0], p.getValue()[1], p.getKey());
+        }
 
         //if we got here all is a ok
         archive.add(delivery);
