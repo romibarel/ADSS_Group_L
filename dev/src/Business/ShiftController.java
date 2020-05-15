@@ -1,6 +1,7 @@
 package Business;
 
 import Interface.InterfaceShift;
+import javafx.util.Pair;
 
 import java.util.*;
 
@@ -117,4 +118,71 @@ public class ShiftController
 		return shift.getWorkers().contains(id) || shift.getManager_id() == id;
 	}
 
+	public static Result assign_storekeeper(Date date,Date hour,String branch)
+	{
+		if (date.before(new Date())) return new Result(false,"cant assign storekeeper in the past");
+		boolean morning=Shift.is_morning_shift(hour);
+		Shift shift=get_shift(date,morning,branch);
+		int storekeeper_id=WorkersController.find_available_storekeeper(date,morning,branch);
+		if (storekeeper_id==-1) return new Result(false,"no available storekeepers in this date");
+		if (shift==null) //if shift doesnt exist create new shift with a random available manager and a random available storekeeper
+		{
+			int manager_id=WorkersController.find_available_manager(date,morning,branch);
+			if (manager_id==-1) return new Result(false,"no available manager in this date");
+			List<Integer> workers_in_shift=new LinkedList<>();
+			workers_in_shift.add(storekeeper_id);
+			shift=new Shift(date,morning,manager_id,workers_in_shift,branch);
+			ShiftController.add_shift(new InterfaceShift(shift));
+		}
+		else
+		{ //if shift exist ensure there is a storekeeper in it
+			for (Integer worker: shift.getWorkers())
+			{
+				if (WorkersController.get_by_id(worker).getRole().equals("storekeeper")) return new Result(true,"storekeeper assigned");
+			}
+			shift.getWorkers().add(storekeeper_id);
+			edit_shift(new InterfaceShift(shift),date,morning,branch);
+		}
+		return new Result(true,"storekeeper assigned successfully");
+	}
+
+
+	// assigns driver to all shifts between shift departure time to shift arrival time
+	//if there is a missing shift in this interval the functions creates shift automatically and assigns the driver and an available manager
+	public static Result assign_Driver(int driver_id,Date departure_date,Date departure_hours,Date arrival_day,Date arrival_hour)
+	{
+		List<Shift> assigned_shifts=new LinkedList<>();
+		if (departure_date.before(new Date())) return new Result(false,"cant set delivery to the past");
+		boolean current_morning=Shift.is_morning_shift(departure_hours); // indicates if the current shift we are adding is morning shift, we start from departure_hours
+		boolean arrival_morning=Shift.is_morning_shift(arrival_hour); // indicates if the time of arrival is in morning shift
+		Calendar current_date= Calendar.getInstance(); // date of the current shift we are adding
+		Calendar arrive_date=Calendar.getInstance();
+		current_date.setTime(departure_date);
+		arrive_date.setTime(arrival_day);
+		Worker driver=WorkersController.get_by_id(driver_id);
+		if (driver==null || !driver.getRole().equals("driver")) return new Result(false,"Driver doesnt exist");
+		do
+		{
+			if (!ConstrainsController.isDriverAvailable(driver_id,departure_date,departure_hours,arrival_day,arrival_hour)) return new Result(false,"Driver has constraint in this dates");
+			Shift shift=get_shift(current_date.getTime(),current_morning,driver.getBranchAddress());
+			if (shift==null) //if shift doesnt exist create new shift with a random available manager and the driver
+			{
+				int manager_id=WorkersController.find_available_manager(current_date.getTime(),current_morning,driver.getBranchAddress());
+				if (manager_id==-1) return new Result(false,"no manager is available in this dates");
+				List<Integer> workers_in_shift=new LinkedList<>();
+				workers_in_shift.add(driver_id);
+				assigned_shifts.add(new Shift(current_date.getTime(),current_morning,manager_id,workers_in_shift,driver.getBranchAddress()));
+			}
+			else //if shift exist edit it by adding the driver to its workers list
+			{
+				if (shift.getWorkers().contains(driver_id)) return new Result(false,"driver is already assigned to delivery");
+				shift.getWorkers().add(driver_id);
+				ShiftController.edit_shift(new InterfaceShift(shift),current_date.getTime(),current_morning,driver.getBranchAddress());
+			}
+			current_morning=!current_morning;
+			if (current_morning==true) current_date.add(Calendar.DATE,1);
+		} while (current_date.get(Calendar.DAY_OF_YEAR)!=arrive_date.get(Calendar.DAY_OF_YEAR) | current_morning!=arrival_morning);
+		shifts.addAll(assigned_shifts);
+		return new Result(true,"driver assigned successfully");
+	}
 }

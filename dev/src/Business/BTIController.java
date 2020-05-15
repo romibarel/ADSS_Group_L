@@ -60,7 +60,7 @@ public class BTIController {
             if (isBranch) {
                 loc = new Branch(combo[1], Integer.parseInt(combo[2]), combo[3]);
                 //todo: workers - which one of your controller should get this?
-                ???(loc.getAddress());
+                //TODO ???(loc.getAddress());
             }
             else
                 loc = new Supplier(combo[1], Integer.parseInt(combo[2]), combo[3]);
@@ -132,12 +132,12 @@ public class BTIController {
             return "The given truck exceeds its max weight";
 
         //todo: from workers - need this method that returns the driver if it exists and null otherwise.
-        String driver = ???(driverID);
+        String driver=null ; //TODO String WorkerController.get_driver_name(int id)
         if (driver == null)
             return "The driver doesn't exist.";
 
         //todo: from workers - need a method that returns true if the driver has the right license.
-        boolean goodLicenses = ???(driverID, truck.getType());
+        boolean goodLicenses =true ;//TODO boolean WorkerController.canDriveTruck(int driver_id,String truckType)
 
 
         Location source = null;
@@ -181,7 +181,8 @@ public class BTIController {
            driverHours[2] = day of arrival,
            driverHours[3] = time of arrival
          */
-        if(!???(driverID, driverHours))
+
+        if(true)//TODO (!???(driverID, driverHours))
             return "The driver is unavailable for the delivery.";
 
         List<Pair<String, Date[]>> estimatedArrivals = delivery.getEstimatedArrivals();
@@ -190,7 +191,7 @@ public class BTIController {
            Date[0] = day of arrival,
            Date[1] = time of arrival
          */
-        ???(estimatedArrivals);
+        //TODO ???(estimatedArrivals);
 
         //if we got here all is a ok
         archive.add(delivery);

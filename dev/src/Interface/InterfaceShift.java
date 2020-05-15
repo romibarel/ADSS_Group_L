@@ -14,11 +14,12 @@ public class InterfaceShift {
     private List<Integer> workers;
     private String branchAddress;
 
-    public InterfaceShift(Date date, boolean morning, int manager_id, List<Integer> workers) {
+    public InterfaceShift(Date date, boolean morning, int manager_id, List<Integer> workers,String branchAddress) {
         this.date = date;
         this.morning = morning;
         this.manager_id = manager_id;
         this.workers = workers;
+        this.branchAddress=branchAddress;
     }
 
     public InterfaceShift() {

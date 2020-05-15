@@ -1,14 +1,17 @@
 package Business;
 
+import Interface.InterfaceWorker;
+
 import java.util.List;
 
-public class Driver {
+public class Driver extends Worker
+{
     private List<String> licenses;
-    private String name;    //remove ?
 
-    public Driver(List<String> licenses, String name) {
+    public Driver(InterfaceWorker worker,List<String> licenses)
+    {
+        super(worker);
         this.licenses = licenses;
-        this.name = name;
     }
 
     public boolean canDriveTruck(String truckType)
@@ -16,15 +19,14 @@ public class Driver {
         return licenses.contains(truckType);
     }
 
-    public List<String> getLicenses() {
+    public List<String> getLicenses()
+    {
         return licenses;
     }
 
-    public void setLicenses(List<String> licenses) {
+    public void setLicenses(List<String> licenses)
+    {
         this.licenses = licenses;
     }
 
-    public String getName() {
-        return name;
-    }
 }
