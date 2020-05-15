@@ -22,7 +22,7 @@ public class LocationController {
         locations.put(SHELF, "Shelf");
         locations.put(MINOR_STORAGE, "Minor Storage");
         this.dataAccess = DataAccess.getInstance();
-        //restore();
+      //  restore();
     }
 
     public void restore(){

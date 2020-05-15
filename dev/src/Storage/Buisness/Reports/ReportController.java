@@ -20,7 +20,7 @@ public class ReportController {
         //restore();  //get from DAL all the previous date
     }
 
-    private void restore() {
+    public void restore() {
         List <DefectReportDAL> def =  dataAccess.restoreDefectsReportsList();
         List <ProductReportDAL> rep = dataAccess.restoreProductsReportList();
         for (DefectReportDAL defectReportDAL : def){

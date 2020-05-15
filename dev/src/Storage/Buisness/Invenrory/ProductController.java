@@ -21,12 +21,12 @@ public class ProductController {
         saleData = new HashMap<>();
         this.categories = new ArrayList<>();
         this.dataAccess = DataAccess.getInstance();
-        //restore();
+      //  restore();
         setMainCategory(DEFAULT);
 
     }
 
-    private void restore() {
+    public void restore() {
         List <CategoryDAL> l = dataAccess.getCategoryDALS();
         for (CategoryDAL categoryDAL: l){
             Category c = new Category(categoryDAL);

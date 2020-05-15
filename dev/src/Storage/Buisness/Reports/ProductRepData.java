@@ -7,10 +7,12 @@ public class ProductRepData {
     private String productName;
     private int amount;
 
-    public ProductRepData(int barCode, String productName, int amount) {
+
+    public ProductRepData( int barCode, String productName, int amount) {
         this.barCode = barCode;
         this.productName = productName;
         this.amount = amount;
+
     }
 
     public ProductRepData (ProductRepDataDAL productRepDataDAL){

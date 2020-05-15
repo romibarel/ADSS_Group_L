@@ -5,10 +5,12 @@ public class ProductRepDataDAL {
     private String productName;
     private int amount;
 
+
     public ProductRepDataDAL(int barCode, String productName, int amount) {
         this.barCode = barCode;
         this.productName = productName;
         this.amount = amount;
+
     }
 
     public int getBarCode() {

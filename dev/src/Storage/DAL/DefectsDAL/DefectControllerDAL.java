@@ -1,6 +1,4 @@
 package Storage.DAL.DefectsDAL;
-import Storage.DAL.ReportsDAL.DefectReportDAL;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
@@ -14,12 +12,12 @@ public class DefectControllerDAL {
     Date today;
     public DefectControllerDAL(){
         this.defects = new ArrayList<>();
-        String pattern = "dd/MM/yyyy";
+        String pattern = "yyyy-mm-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
         today = null;
         try {
-            today = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            today = new SimpleDateFormat("yyyy-mm-dd").parse(date);
         } catch (Exception e) {}
     }
 
@@ -33,7 +31,7 @@ public class DefectControllerDAL {
 
     public void addDefect (DefectDAL defectDAL, Connection conn){
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             String expiration = sdf.format(new java.sql.Timestamp(defectDAL.getExpiration().getTime()));
             String insertToday = sdf.format(new java.sql.Timestamp(today.getTime()));
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO DEFECT_REPORTS VALUES (?,?,?,?,?,?,?,?)");

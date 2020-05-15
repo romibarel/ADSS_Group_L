@@ -33,6 +33,13 @@ public class Singletone_Storage_Management {
         this.inventory = new ProductController();
     }
 
+    public void restor(){
+        defects.restore();
+        report.restore();
+        locations.restore();
+        inventory.restore();
+    }
+
     public static Singletone_Storage_Management getInstance(){
 
         if (instance == null)

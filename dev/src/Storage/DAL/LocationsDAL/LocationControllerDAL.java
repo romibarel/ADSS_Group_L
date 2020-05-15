@@ -28,7 +28,8 @@ public class LocationControllerDAL {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int barcode = rs.getInt(1);
-                Date expiration = rs.getDate(2);
+               // Date expiration = rs.getDate(2);
+                Date expiration = new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString(2));
                 int location_id = rs.getInt(3);
                 int quantity = rs.getInt(4);
                 if (ret.containsKey(barcode)){  //has already this barcode
@@ -108,7 +109,7 @@ public class LocationControllerDAL {
         boolean updateOrInsert = false; //update = true, insert = false
         //TODO: The date isn't good.
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             String ts = sdf.format(new java.sql.Timestamp(expirationDate.getTime()));
 
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCT_LOCATIONS " +

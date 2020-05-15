@@ -1,7 +1,6 @@
 package Storage.Buisness.Defects;
 
 import Storage.DAL.DataAccess;
-import Storage.DAL.DefectsDAL.DefectControllerDAL;
 import Storage.DAL.DefectsDAL.DefectDAL;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class DefectController {
         //restore();
     }
 
-    private void restore() {
+    public void restore() {
         for (DefectDAL defectDAL:this.dataAccess.getDefects()) {
             Defect defect = new Defect(defectDAL);
             this.defects.add(defect);
