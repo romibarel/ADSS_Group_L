@@ -31,6 +31,13 @@ public class BTDController {
         return thisOne;
     }
 
+    //return all workers in specific role and branch
+    public static List<Worker> upload_by_role_and_branch(String role, String branch)
+    {
+        //TODO
+        return null;
+    }
+
     /**
      * Sections and Archive must be given all other can be null for not changeing
      * @param drivers

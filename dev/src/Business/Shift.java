@@ -2,6 +2,7 @@ package Business;
 
 import Interface.InterfaceShift;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,19 @@ public class Shift
 			for (int id:shift.getWorkers())
 				workers.add(id);
 		this.branchAddress=shift.getBranchAddress();
+
+	}
+	public Shift(Date date,boolean morning,int manager_id,List<Integer> workers,String branchAddress)
+	{
+		this.morning=morning;
+		this.manager_id=manager_id;
+		this.date=new Date(date.getTime()); //deep copy the date
+		this.workers= new LinkedList<>();
+		//deep copy the list
+		if (workers!=null)
+			for (int id:workers)
+				this.workers.add(id);
+		this.branchAddress=branchAddress;
 
 	}
 
@@ -72,7 +86,16 @@ public class Shift
 		return new Result(true,"success");
 	}
 
-
+	//returns true if the hour is part of morning shift and false if it part of evening shift
+	public static boolean is_morning_shift(Date hour)
+	{
+		int morning_start=700; //07:00
+		int morning_end=2300; //15:00
+		Calendar date=Calendar.getInstance();
+		date.setTime(hour);
+		int t = date.get(Calendar.HOUR_OF_DAY) * 100 + date.get(Calendar.MINUTE);
+		return t >= morning_start && t <= morning_end;
+	}
 	/*-------------------- Getters and Setters ---------------------------------*/
 
 	public boolean isMorning()
@@ -126,5 +149,7 @@ public class Shift
 			for( int id:workers) //deep copy the list
 				this.workers.add(id);
 	}
+
+
 
 }

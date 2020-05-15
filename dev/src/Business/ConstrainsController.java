@@ -26,6 +26,11 @@ public class ConstrainsController
 		return true;
 	}
 
+	public static boolean isDriverAvailable(int id,Date departureDate,Date departureTime, Date arrivalDate,Date arrivalTime)
+	{
+		//TODO inbar
+		return true;
+	}
 	public static List<Constraint> getConstraint(int id,Date date,  boolean morning){
 		List<Constraint> cons=new LinkedList<>();
 		for(Constraint c: constraints){

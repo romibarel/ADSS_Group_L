@@ -2,6 +2,7 @@ package Business;
 
 import Interface.InterfaceWorker;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,14 +12,25 @@ public class WorkersController
 	private static List<Worker> workers= new LinkedList<>();
 	private static List<String> branches;
 
-	public static Result add_worker(InterfaceWorker worker)
+	public static String get_driver_name(int id)
+	{
+		Worker worker=get_by_id(id);
+		if (worker!=null && worker.getRole().equals("driver"))
+			return worker.getName();
+		return null;
+	}
+
+	public static Result add_worker(InterfaceWorker worker,List<String> licenses)
 	{
 		if (get_by_id(worker.getId())!=null)
 			return new Result(false,"there is already a worker with that id");
 		Result result= Worker.check_parameters(worker,true);
 		if (result.success)
 		{
-			Worker new_worker=new Worker(worker);
+			Worker new_worker;
+			if (worker.getRole().equals("driver"))
+				new_worker=new Driver(worker,licenses);
+			else new_worker=new Worker(worker);
 			workers.add(new_worker);
 		}
 		return result;
@@ -89,7 +101,45 @@ public class WorkersController
 		return branches;
 	}
 
+	public static boolean canDriveTruck(int driver_id,String truckType)
+	{
+		Worker w=get_by_id(driver_id);
+		if (w!=null && w.getRole().equals("driver"))
+			return ((Driver)w).canDriveTruck(truckType);
+		return false;
+	}
+
 	public static void setBranches(List<String> branches) {
 		WorkersController.branches = branches;
+	}
+
+	//returns all workers in the given role that works in the given branch
+	public static List<Worker> get_by_role_and_branch(String role,String branch)
+	{
+		workers=BTDController.upload_by_role_and_branch(role,branch);
+		return workers;
+	}
+
+	//checks if there is an available manager in the given branch and the given date
+	//returns -1 if no manager is available
+	public static int find_available_manager(Date date, boolean morning,String branch)
+	{
+		List<Worker> managers=get_by_role_and_branch("manager",branch);
+		for (Worker manager: managers)
+		{
+			if (ConstrainsController.is_available(manager.getId(),date,morning)) return manager.getId();
+		}
+		return -1;
+	}
+
+
+	public static int find_available_storekeeper(Date date, boolean morning,String branch)
+	{
+		List<Worker> storekeepres=get_by_role_and_branch("storekeeper",branch);
+		for (Worker storekeeper: storekeepres)
+		{
+			if (ConstrainsController.is_available(storekeeper.getId(),date,morning)) return storekeeper.getId();
+		}
+		return -1;
 	}
 }

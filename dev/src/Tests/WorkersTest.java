@@ -1,4 +1,6 @@
+/*
 package Tests;
+
 
 import Interface.InterfaceConstraint;
 import Interface.InterfaceShift;
@@ -280,3 +282,4 @@ public class WorkersTest
 
 
 }
+*/
