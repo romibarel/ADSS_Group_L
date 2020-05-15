@@ -25,7 +25,7 @@ public class ReportsDAL {
         for (List<ProductRepDataDAL> productRepDataDALList :productReportDAL.getReportData().values()) {
             for (ProductRepDataDAL p : productRepDataDALList ) {
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String ts = sdf.format(new java.sql.Timestamp(productReportDAL.getDate().getTime()));
                     PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO PRODUCT_REPORT VALUES(?,?,?,?)");
                     stmt2.setString(1, ts);
@@ -57,12 +57,12 @@ public class ReportsDAL {
                 String checkDate = rs2.getString(1);
                 if (checkDate != null) {
                     //checkDate = checkDate.replace('-','/');
-                    Date date =  new SimpleDateFormat("dd/MM/yyyy").parse(checkDate);
+                    Date date =  new SimpleDateFormat("yyyy-MM-dd").parse(checkDate);
                     DefectReportDAL defectReportDAL = new DefectReportDAL(date, new ArrayList<>());
                     ret.add(defectReportDAL);
                 }
             }
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
             for (DefectReportDAL d: ret) {
                 List <DefectDAL> defects = new ArrayList<>();
@@ -70,8 +70,8 @@ public class ReportsDAL {
                 PreparedStatement stmt3 = conn.prepareStatement("SELECT * From DEFECT_REPORTS WHERE Date_Of_Feed > " + myStartDate);
                 ResultSet rs3 = stmt3.executeQuery();
                 while (rs3.next()) {
-                    Date dateOfFeed = new SimpleDateFormat("dd/MM/yyyy").parse(rs3.getString(3));
-                    Date expiration = new SimpleDateFormat("dd/MM/yyyy").parse(rs3.getString(1));
+                    Date dateOfFeed = new SimpleDateFormat("yyyy-MM-dd").parse(rs3.getString(3));
+                    Date expiration = new SimpleDateFormat("yyyy-MM-dd").parse(rs3.getString(1));
                     DefectDAL defectDAL= new DefectDAL(dateOfFeed,rs3.getInt(2),
                             rs3.getInt(4), rs3.getString(5), rs3.getString(6), rs3.getInt(7),
                             expiration);
@@ -166,8 +166,7 @@ public class ReportsDAL {
 
     public void addDefectReport(DefectReportDAL defectReportDAL, Connection conn) {
         try {
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String startDateOfReport = sdf.format(new java.sql.Timestamp(defectReportDAL.getDateStart().getTime()));
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO DEFECT_REPORTS VALUES (?,?,?,?,?,?,?,?)");
             stmt.setString(1, null);
@@ -178,7 +177,6 @@ public class ReportsDAL {
             stmt.setString(6, null);
             stmt.setInt(7, 0);
             stmt.setString(8, startDateOfReport);
-
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
