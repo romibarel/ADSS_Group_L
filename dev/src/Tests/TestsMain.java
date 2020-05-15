@@ -6,7 +6,7 @@ import org.junit.runner.notification.Failure;
 
 public class TestsMain
 {
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		JUnitCore jUnitCore = new JUnitCore();
 
@@ -25,6 +25,6 @@ public class TestsMain
 			System.out.println(failure.toString());
 		System.out.println("ConstraintTest: Successful: " + result.wasSuccessful() + " run of " + result.getRunCount() + " tests");
 
-	}
+	}*/
 
 }

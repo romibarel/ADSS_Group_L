@@ -181,7 +181,7 @@ public class BTIController {
            driverHours[3] = time of arrival
          */
 
-        if(true)//TODO (!???(driverID, driverHours))
+        if(true)//TODO Result assign_Driver(int driver_id,Date departure_date,Date departure_hours,Date arrival_day,Date arrival_hour)
             return "The driver is unavailable for the delivery.";
 
         List<Pair<String, Date[]>> estimatedArrivals = delivery.getEstimatedArrivals();
@@ -190,7 +190,7 @@ public class BTIController {
            Date[0] = day of arrival,
            Date[1] = time of arrival
          */
-        //TODO ???(estimatedArrivals);
+        //TODO Result assign_storekeeper(Date date,Date hour,String branch)
 
         //if we got here all is a ok
         archive.add(delivery);

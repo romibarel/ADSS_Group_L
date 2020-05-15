@@ -26,11 +26,36 @@ public class ConstrainsController
 		return true;
 	}
 
-	public static boolean isDriverAvailable(int id,Date departureDate,Date departureTime, Date arrivalDate,Date arrivalTime)
-	{
-		//TODO inbar
+	public static boolean isDriverAvailable(int id, Date departureDate, Date departureTime ,Date arrivalDate, Date arrivalTime){
+		Calendar c = Calendar.getInstance();
+		if(!getConstraint(id, departureDate, Shift.is_morning_shift(departureTime)).isEmpty())
+			return false;
+		if(Shift.is_morning_shift(departureTime)){
+			if(!departureDate.equals(arrivalDate)){
+				if(!getConstraint(id, departureDate, false).isEmpty())
+					return false;
+			}
+		}
+		if(!getConstraint(id, arrivalDate, Shift.is_morning_shift(arrivalDate)).isEmpty())
+			return false;
+		if(!Shift.is_morning_shift(arrivalTime)){
+			if(!departureDate.equals(arrivalDate)){
+				if(!getConstraint(id, departureDate, true).isEmpty())
+					return false;
+			}
+		}
+		c.setTime(departureDate);
+		c.add(Calendar.DAY_OF_MONTH, 1);
+		while(!c.getTime().equals(arrivalDate)){
+			if(!getConstraint(id, c.getTime(), false).isEmpty())
+				return false;
+			if(!getConstraint(id, c.getTime(), true).isEmpty())
+				return false;
+			c.add(Calendar.DAY_OF_MONTH, 1);
+		}
 		return true;
 	}
+
 	public static List<Constraint> getConstraint(int id,Date date,  boolean morning){
 		List<Constraint> cons=new LinkedList<>();
 		for(Constraint c: constraints){

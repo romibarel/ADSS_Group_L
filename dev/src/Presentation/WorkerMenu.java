@@ -208,7 +208,7 @@ public class WorkerMenu {
         List<InterfaceShift> shifts=init_shifts();
         List<InterfaceConstraint> constraints=init_constraints();
         for (InterfaceWorker worker:workers)
-            Interface.addEmployee(worker);
+            //Interface.addEmployee(worker);
         for (InterfaceShift shift:shifts)
             Interface.addShift(shift);
         for (InterfaceConstraint constraint:constraints)
@@ -264,27 +264,27 @@ public class WorkerMenu {
             workers_in_shift.add(1);
             workers_in_shift.add(3);
             workers_in_shift.add(5);
-            InterfaceShift s1=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),true,1,workers_in_shift);
+            InterfaceShift s1=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),true,1,workers_in_shift, "Super Lee");
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(2);
             workers_in_shift.add(4);
-            InterfaceShift s2=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),false,1,workers_in_shift);
+            InterfaceShift s2=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("14/08/2020"),false,1,workers_in_shift,"Super Lee");
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(1);
             workers_in_shift.add(5);
-            InterfaceShift s3=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("16/08/2020"),true,1,workers_in_shift);
+            InterfaceShift s3=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("16/08/2020"),true,1,workers_in_shift,"Super Lee");
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(1)
             ;workers_in_shift.add(2); workers_in_shift.add(3); workers_in_shift.add(4);workers_in_shift.add(5);
-            InterfaceShift s4=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),false,1,workers_in_shift);
+            InterfaceShift s4=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),false,1,workers_in_shift,"Super Lee");
 
             workers_in_shift=new LinkedList<>();
             workers_in_shift.add(2);
             workers_in_shift.add(3);
-            InterfaceShift s5=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),true,1,workers_in_shift);
+            InterfaceShift s5=new InterfaceShift(new SimpleDateFormat("dd/MM/yyyy").parse("19/10/2020"),true,1,workers_in_shift,"Super Lee");
 
             shifts.add(s1);
             shifts.add(s2);
@@ -302,8 +302,11 @@ public class WorkerMenu {
         calls.add(new Callback() {
             @Override
             public void call() {
+                boolean finish=false;
+                String lic;
                 int i=0;
                 List<String> branches=Interface.getBranches();
+                List<String> licenses=new LinkedList<>();
                 InterfaceWorker w=new InterfaceWorker();
                 try {
                     System.out.println("please enter the details of the new employee");
@@ -333,13 +336,23 @@ public class WorkerMenu {
                         i++;
                     }
                     w.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
+                    if(w.getRole().equals("driver")){
+                        while (!finish) {
+                            System.out.println("please enter the license the driver has:");
+                            lic = input.nextLine();
+                            licenses.add(lic);
+                            System.out.println("Do you want to enter more licenses? (y/n)");
+                            if (input.nextLine().equals("n"))
+                                finish = true;
+                        }
+                    }
                 }
                 catch (Exception e){
                     System.out.println("wrong parameter has been entered, exiting back to main menu");
                     return;
                 }
 
-                System.out.println(Interface.addEmployee(w));
+                System.out.println(Interface.addEmployee(w, licenses));
         }});
 
         //add new shift
