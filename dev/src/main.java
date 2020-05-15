@@ -21,7 +21,7 @@ public class main {
             System.out.println("Hello, please choose the system you want to use:");
             System.out.println("1. Delivery System");
             System.out.println("2. HR System");
-            System.out.println("3. HR System");
+            System.out.println("3. Exit");
             try {
                 choice = Integer.parseInt(input.nextLine());
             }
@@ -29,7 +29,7 @@ public class main {
                 System.out.println("illegal input");
                 continue;
             }
-            if(choice>2| choice<1){
+            if(choice>3| choice<1){
                 System.out.println("no such menu");
                 continue;
             }

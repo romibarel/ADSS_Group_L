@@ -11,8 +11,8 @@ public class Interface
 {
 
 
-	public static String addEmployee(InterfaceWorker worker){
-		Result r= WorkersController.add_worker(worker);
+	public static String addEmployee(InterfaceWorker worker, List<String> licenses){
+		Result r= WorkersController.add_worker(worker, licenses);
 		if(r.success)
 			return "employee was added:\n"+worker.toString();
 		return "The action have failed due to:\n "+r.msg;
