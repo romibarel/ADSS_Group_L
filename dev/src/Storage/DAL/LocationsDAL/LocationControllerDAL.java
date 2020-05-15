@@ -108,7 +108,7 @@ public class LocationControllerDAL {
         boolean updateOrInsert = false; //update = true, insert = false
         //TODO: The date isn't good.
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             String ts = sdf.format(new java.sql.Timestamp(expirationDate.getTime()));
 
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCT_LOCATIONS " +

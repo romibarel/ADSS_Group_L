@@ -85,7 +85,6 @@ public class main {
                     System.out.println(failure.toString());
                 }
 
-
                 Result result2 = JUnitCore.runClasses(LocationControllerTest.class);
                 System.out.println("Run Location Controller Tests: " + result2.getRunCount());
                 for(Failure failure : result2.getFailures()){

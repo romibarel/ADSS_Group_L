@@ -1,16 +1,15 @@
 package Storage.DAL.ReportsDAL;
 
 
+import Storage.Buisness.Defects.Defect;
 import Storage.Buisness.Invenrory.Category;
+import Storage.DAL.DefectsDAL.DefectDAL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ReportsDAL {
     private List <DefectReportDAL> defectReportDALList;
@@ -26,7 +25,7 @@ public class ReportsDAL {
         for (List<ProductRepDataDAL> productRepDataDALList :productReportDAL.getReportData().values()) {
             for (ProductRepDataDAL p : productRepDataDALList ) {
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                     String ts = sdf.format(new java.sql.Timestamp(productReportDAL.getDate().getTime()));
                     PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO PRODUCT_REPORT VALUES(?,?,?,?)");
                     stmt2.setString(1, ts);
@@ -46,10 +45,49 @@ public class ReportsDAL {
         this.defectReportDALList.add(defectReportDAL);
     }
 
-    public List <DefectReportDAL> restoreDefectsReportsList (){return this.defectReportDALList;}
+    public List <DefectReportDAL> restoreDefectsReportsList (Connection conn){
+        //return this.defectReportDALList;
+
+        List <DefectReportDAL> ret = new ArrayList<>();
+        try {
+            PreparedStatement stmt2 = conn.prepareStatement("SELECT Date_Of_Report " +
+                    "FROM DEFECT_REPORTS");
+            ResultSet rs2 = stmt2.executeQuery();
+            while (rs2.next()) {
+                String checkDate = rs2.getString(1);
+                if (checkDate != null) {
+                    //checkDate = checkDate.replace('-','/');
+                    Date date =  new SimpleDateFormat("dd/MM/yyyy").parse(checkDate);
+                    DefectReportDAL defectReportDAL = new DefectReportDAL(date, new ArrayList<>());
+                    ret.add(defectReportDAL);
+                }
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+            for (DefectReportDAL d: ret) {
+                List <DefectDAL> defects = new ArrayList<>();
+                String myStartDate = sdf.format(new java.sql.Timestamp(d.getDateStart().getTime()));
+                PreparedStatement stmt3 = conn.prepareStatement("SELECT * From DEFECT_REPORTS WHERE Date_Of_Feed > " + myStartDate);
+                ResultSet rs3 = stmt3.executeQuery();
+                while (rs3.next()) {
+                    Date dateOfFeed = new SimpleDateFormat("dd/MM/yyyy").parse(rs3.getString(3));
+                    Date expiration = new SimpleDateFormat("dd/MM/yyyy").parse(rs3.getString(1));
+                    DefectDAL defectDAL= new DefectDAL(dateOfFeed,rs3.getInt(2),
+                            rs3.getInt(4), rs3.getString(5), rs3.getString(6), rs3.getInt(7),
+                            expiration);
+                    defects.add(defectDAL);
+                }
+                d.setDefects(defects);
+            }
+        }
+        catch (Exception e){
+            System.out.println("failed");
+        }
+        return ret;
+    }
 
     public List <ProductReportDAL> restoreProductsReportList(Connection conn){
-        //return this.productReportDALList;
+
         List<ProductReportDAL> ret= new ArrayList<>();
         Map<String, List<String>> hir = new HashMap<>();
         Map<String, List<ProductRepDataDAL>> reportData = new HashMap<>();
@@ -64,6 +102,7 @@ public class ReportsDAL {
             }
             hir = restoreHierarchy(conn);
             reportData = createMapByCategories(l, conn);
+            //TODO: convert the date
             ProductReportDAL addedReport = new ProductReportDAL(rs2.getDate(1), hir, reportData);
             ret.add(addedReport);
         }
@@ -123,5 +162,27 @@ public class ReportsDAL {
             System.out.println("failed");
         }
         return ret;
+    }
+
+    public void addDefectReport(DefectReportDAL defectReportDAL, Connection conn) {
+        try {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            String startDateOfReport = sdf.format(new java.sql.Timestamp(defectReportDAL.getDateStart().getTime()));
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO DEFECT_REPORTS VALUES (?,?,?,?,?,?,?,?)");
+            stmt.setString(1, null);
+            stmt.setInt(2, 0);
+            stmt.setString(3, null);
+            stmt.setInt(4, 0);
+            stmt.setString(5, null);
+            stmt.setString(6, null);
+            stmt.setInt(7, 0);
+            stmt.setString(8, startDateOfReport);
+
+            stmt.executeUpdate();
+        }
+        catch (Exception e){    /*try to insert, if its exists reach also here*/
+            System.out.println("failed");
+        }
     }
 }

@@ -39,8 +39,7 @@ public class ReportController {
         this.defectivesReports.putIfAbsent(today, defectReport); //only one report per day
         //DAL issues
         DefectReportDAL defectReportDAL = defectReport.createDAL();
-        this.dataAccess.addNewDefectReport(defectReportDAL );
-
+        this.dataAccess.addDefectReport(defectReportDAL);
         return this.defectivesReports.get(today);
     }
 
@@ -51,7 +50,7 @@ public class ReportController {
        this.defectivesReports.putIfAbsent(today, defectReport); //only one report per day
        //DAL issues
        DefectReportDAL defectReportDAL = defectReport.createDAL();
-       this.dataAccess.addNewDefectReport(defectReportDAL);
+       this.dataAccess.addDefectReport(defectReportDAL);
 
         return toRet;
     }

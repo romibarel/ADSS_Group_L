@@ -84,12 +84,12 @@ public class DataAccess {
         this.reportsDAL.addNewProductReport (productReportDAL, conn);
     }
 
-    public void addNewDefectReport (DefectReportDAL defectReportDAL){
-        this.reportsDAL.addNewDefectReport (defectReportDAL);
+    public void addDefectReport(DefectReportDAL defectReportDAL){
+        this.reportsDAL.addDefectReport(defectReportDAL, conn);
     }
 
     public List<DefectReportDAL> restoreDefectsReportsList (){
-        return this.reportsDAL.restoreDefectsReportsList();
+        return this.reportsDAL.restoreDefectsReportsList(conn);
     }
 
     public List <ProductReportDAL> restoreProductsReportList(){
@@ -167,6 +167,7 @@ public class DataAccess {
     public void updateProduct(ProductDAL productDAL){
         this.productControllerDAL.updateProduct(productDAL, conn);
     }
+
     public ProductDAL searchProduct (int barCode){
         return this.productControllerDAL.searchProduct(barCode, conn);
     }
@@ -188,7 +189,7 @@ public class DataAccess {
     }
 
     public void addDefect (DefectDAL defectDAL){
-        this.defectControllerDAL.addDefect(defectDAL);
+        this.defectControllerDAL.addDefect(defectDAL, conn);
     }
 
     public List<CategoryDAL> getMySubCategoriesDAL(String name) {
@@ -198,4 +199,5 @@ public class DataAccess {
     public List<ProductDAL>  getProductListDAL(String name) {
         return this.productControllerDAL.getProductListDAL(name, conn);
     }
+
 }

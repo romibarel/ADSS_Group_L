@@ -45,6 +45,7 @@ public class ProductControllerDAL {
                     "FROM CATEGORIES_OF_PRODUCTS INNER JOIN PRODUCTS ON CATEGORIES_OF_PRODUCTS.Barcode = PRODUCTS.Barcode " +
                     "WHERE CATEGORIES_OF_PRODUCTS.CName = '"+categoryName+"'");
             ResultSet rs = stmt.executeQuery();
+            //TODO: convert the date
             while (rs.next()) {
                 ProductDAL product = new ProductDAL(rs.getInt(1),
                         rs.getString(2), rs.getInt(3), rs.getInt(4),
@@ -189,7 +190,7 @@ public class ProductControllerDAL {
             stmt.setInt(3, productDAL.getManufactor());
             stmt.setInt(4, productDAL.getAmount());
             stmt.setInt(5, productDAL.getMinAmount());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM/dd");
             String ts = sdf.format(new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime()));
             stmt.setString(6, ts);
 
@@ -221,7 +222,7 @@ public class ProductControllerDAL {
             stmt.setInt(2 ,productDAL.getManufactor());
             stmt.setInt(3,productDAL.getAmount());
             stmt.setInt(4,productDAL.getMinAmount());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM-dd");
             String ts = sdf.format(new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime()));
 
             stmt.setString(5, ts);
@@ -341,6 +342,7 @@ public class ProductControllerDAL {
             while (rs.next()) {
                 ProductDAL product = new ProductDAL(rs.getInt(1),
                         rs.getString(2), rs.getInt(3), rs.getInt(4),
+                        //TODO: convert the date
                         rs.getInt(5), rs.getDate(6));
                 ret.add(product);
             }
