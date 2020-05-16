@@ -13,7 +13,7 @@ public class DALWorker
 	private int pension;
 	private int vacation_days;
 	private int sick_days;
-	private Date start_date;
+	private java.util.Date start_date;
 	private String role;
 	private String branchAddress;
 
@@ -44,6 +44,8 @@ public class DALWorker
 		this.role=role;
 		this.branchAddress=branchAddress;
 	}
+
+	public DALWorker(){}
 
 	public String getName()
 	{
@@ -93,5 +95,55 @@ public class DALWorker
 	public String getBranchAddress()
 	{
 		return branchAddress;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+	public void setBank_account_number(int bank_account_number)
+	{
+		this.bank_account_number = bank_account_number;
+	}
+
+	public void setSalary(int salary)
+	{
+		this.salary = salary;
+	}
+
+	public void setPension(int pension)
+	{
+		this.pension = pension;
+	}
+
+	public void setVacation_days(int vacation_days)
+	{
+		this.vacation_days = vacation_days;
+	}
+
+	public void setSick_days(int sick_days)
+	{
+		this.sick_days = sick_days;
+	}
+
+	public void setStart_date(java.util.Date start_date)
+	{
+		this.start_date = start_date;
+	}
+
+	public void setRole(String role)
+	{
+		this.role = role;
+	}
+
+	public void setBranchAddress(String branchAddress)
+	{
+		this.branchAddress = branchAddress;
 	}
 }

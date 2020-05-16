@@ -2,18 +2,14 @@ package Business;
 
 
 import DataAccess.DALConstraint;
-import DataAccess.DTBController;
+import DataAccess.DALController;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BTDController {
     private static BTDController thisOne;
-    private static DTBController dataTb;
+    private static DALController dataTb;
     private static BTIController bti;
     private List<Driver> drivers;
     private DeliveryArchive archive ;
@@ -30,7 +26,7 @@ public class BTDController {
     public static BTDController getBTD(){
         if (thisOne == null) {
             thisOne = new BTDController();
-            BTDController.dataTb = DTBController.getDTB();
+            BTDController.dataTb = DALController.getDTB();
             BTDController.bti = BTIController.getBTI();
         }
         return thisOne;

@@ -1,7 +1,6 @@
 package DataAccess;
 
 import Business.BTDController;
-import Business.BTIController;
 import Business.Result;
 
 import java.io.File;
@@ -9,9 +8,10 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DTBController {
+public class DALController
+{
     private static BTDController btdController;
-    private static DTBController thisOne;
+    private static DALController thisOne;
     private List<Driver> drivers;
     private DeliveryArchive archive;
     private List<Truck> trucks;
@@ -19,12 +19,12 @@ public class DTBController {
     private Sections sections;
     private Connection conn;
 
-    private DTBController() {
+    private DALController() {
     }
 
-    public static DTBController getDTB() {
+    public static DALController getDTB() {
         if (thisOne == null) {
-            thisOne = new DTBController();
+            thisOne = new DALController();
             btdController = BTDController.getBTD();
         }
         return thisOne;
@@ -160,8 +160,6 @@ public class DTBController {
         }
         return constraint;
     }
-
-
 
     public Result getMax()  {
         int ret=0;
@@ -306,7 +304,7 @@ public class DTBController {
         return result;
     }
 
-    public Result updateShift(DALShift shift,Date previous_date,boolean previous_morning,String previous_branch)
+    public Result updateShift(DALShift shift, java.util.Date previous_date, boolean previous_morning, String previous_branch)
     {
         Result result;
         openConn();
@@ -325,14 +323,18 @@ public class DTBController {
             resultSet.close();
 
             conn.setAutoCommit(false);
+
             //---------------------delete all workers that was removed from the shift---------------//
             for (Integer worker : workers_before_update)
             {
                 if (!shift.getWorkers().contains(worker))
                 {
-                    sql="DELETE FROM WorkersInShift WHERE worker_id=?";
+                    sql="DELETE FROM WorkersInShift WHERE worker_id=? and date=? and morning=? and branch=?";
                     statement = conn.prepareStatement(sql);
                     statement.setInt(1,worker);
+                    statement.setDate(2,new java.sql.Date(previous_date.getTime()));
+                    statement.setInt(3,previous_morning? 1 : 0);
+                    statement.setString(4,previous_branch);
                     statement.executeUpdate(sql);
                 }
             }
@@ -418,6 +420,104 @@ public class DTBController {
             } catch (SQLException ignored) { }
         }
         return result;
+    }
+
+    public DALWorker selectWorker(int worker_id)
+    {
+        DALWorker worker=null;
+        openConn();
+        String sql = "SELECT* FROM Workers WHERE id=?";
+        ResultSet resultSet = null;
+        try
+        {
+            PreparedStatement statement  = conn.prepareStatement(sql);
+            statement.setInt(1, worker_id);
+            resultSet = statement.executeQuery();
+            if (resultSet.next())
+                worker=setDalWorkerFromResultSet(resultSet);
+        } 
+        catch (SQLException ignored) { }
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return worker;
+    }
+
+    public DALShift selectShift(java.util.Date date,boolean morning, String branch)
+    {
+        DALShift shift=null;
+        openConn();
+        String sql = "SELECT* FROM Shifts WHERE date=? and morning=? and branch=?";
+        ResultSet resultSet = null;
+        try
+        {
+            PreparedStatement statement  = conn.prepareStatement(sql);
+            statement.setDate(1, new java.sql.Date(date.getTime()));
+            statement.setInt(2, morning ? 1 : 0);
+            statement.setString(3, branch);
+            resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+
+                shift = setDalShiftFromResultSet(resultSet);
+                resultSet.close();
+                List<Integer> workers_in_shift=new LinkedList<>();
+                sql="SELECT worker_id FROM WorkersInShift where date=? and morning=? and branch=?";
+                statement.setDate(1, new java.sql.Date(date.getTime()));
+                statement.setInt(2, morning ? 1 : 0);
+                statement.setString(3, branch);
+                resultSet = statement.executeQuery();
+                while (resultSet.next())
+                    workers_in_shift.add(resultSet.getInt("worker_id"));
+            }
+
+        }
+        catch (SQLException ignored) { }
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return shift;
+    }
+
+    private DALShift setDalShiftFromResultSet(ResultSet resultSet)
+    {
+        DALShift shift=new DALShift();
+        try
+        {
+            shift.setDate(new java.util.Date(resultSet.getDate("date").getTime()));
+            shift.setMorning(resultSet.getBoolean("morning"));
+            shift.setBranchAddress(resultSet.getString("branch"));
+            shift.setManager_id(resultSet.getInt("manager_id"));
+        }
+        catch (SQLException ignored){}
+        return shift;
+    }
+
+    private DALWorker setDalWorkerFromResultSet(ResultSet resultSet)
+    {
+        DALWorker worker=new DALWorker();
+        try
+        {
+            worker.setId(resultSet.getInt("id"));
+            worker.setName(resultSet.getString("name"));
+            worker.setSalary(resultSet.getInt("salary"));
+            worker.setBank_account_number(resultSet.getInt("bank_account_number"));
+            worker.setPension(resultSet.getInt("pension"));
+            worker.setVacation_days(resultSet.getInt("vacation_days"));
+            worker.setSick_days(resultSet.getInt("sick_days"));
+            worker.setStart_date(new java.util.Date(resultSet.getDate("start_date").getTime()));
+            worker.setRole(resultSet.getString("role"));
+            worker.setBranchAddress(resultSet.getString("branchAddress"));
+        } catch (SQLException ignored) { }
+        return worker;
     }
 
 

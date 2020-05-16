@@ -31,6 +31,8 @@ public class DALShift
 		this.branchAddress=branchAddress;
 	}
 
+	public DALShift(){}
+
 	public Date getDate()
 	{
 		return date;
@@ -54,5 +56,30 @@ public class DALShift
 	public String getBranchAddress()
 	{
 		return branchAddress;
+	}
+
+	public void setDate(Date date)
+	{
+		this.date = date;
+	}
+
+	public void setMorning(boolean morning)
+	{
+		this.morning = morning;
+	}
+
+	public void setManager_id(int manager_id)
+	{
+		this.manager_id = manager_id;
+	}
+
+	public void setWorkers(List<Integer> workers)
+	{
+		this.workers = workers;
+	}
+
+	public void setBranchAddress(String branchAddress)
+	{
+		this.branchAddress = branchAddress;
 	}
 }

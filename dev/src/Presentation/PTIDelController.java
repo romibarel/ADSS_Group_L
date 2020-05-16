@@ -2,11 +2,10 @@ package Presentation;
 
 import Business.BTDController;
 import Business.BTIController;
-import DataAccess.DTBController;
+import DataAccess.DALController;
 import Interface.ITBDelController;
 import Interface.ITPDelController;
 
-import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -35,7 +34,7 @@ public class PTIDelController {
         ITBDelController itb = ITBDelController.getITB();
         BTIController bti = BTIController.getBTI();
         BTDController btd = BTDController.getBTD();
-        DTBController dtb = DTBController.getDTB();
+        DALController dtb = DALController.getDTB();
         while(!finish) {
             System.out.println("Would you like to automatically setup? [y/n]");
             String input = scanner.nextLine();
