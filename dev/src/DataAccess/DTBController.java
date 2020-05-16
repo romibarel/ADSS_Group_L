@@ -182,6 +182,245 @@ public class DTBController {
         return new Result(true, String.valueOf(ret+1));
     }
 
+    public Result insertWorker(DALWorker worker)
+    {
+        Result result;
+        openConn();
+        String sql = "INSERT INTO Workers(name,id,bank_account_number,salary,pension,vacation_days,sick_days,start_date,role,branchAddress) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        try (PreparedStatement statement = conn.prepareStatement(sql))
+        {
+            statement.setString(1,worker.getName());
+            statement.setInt(2,worker.getId());
+            statement.setInt(3,worker.getBank_account_number());
+            statement.setInt(4,worker.getSalary());
+            statement.setInt(5,worker.getPension());
+            statement.setInt(6,worker.getVacation_days());
+            statement.setInt(7,worker.getSick_days());
+            statement.setDate(8, new java.sql.Date(worker.getStart_date().getTime()));
+            statement.setString(9,worker.getRole());
+            statement.setString(10,worker.getBranchAddress());
+            statement.executeUpdate();
+            result=new Result(true, "worker inserted");
+        }
+        catch (SQLException e) { result= new Result(false, "worker insert failed"); }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException ignored) { }
+        }
+
+        return result;
+    }
+
+    public Result updateWorker(DALWorker worker)
+    {
+        Result result;
+        openConn();
+        String sql = "UPDATE Workers SET name=?,bank_account_number=?,salary=?,pension=?,vacation_days=?,sick_days=?,start_date=?,role=?,branchAddress=? Where id=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql))
+        {
+            statement.setString(1,worker.getName());
+            statement.setInt(2,worker.getBank_account_number());
+            statement.setInt(3,worker.getSalary());
+            statement.setInt(4,worker.getPension());
+            statement.setInt(5,worker.getVacation_days());
+            statement.setInt(6,worker.getSick_days());
+            statement.setDate(7, new java.sql.Date(worker.getStart_date().getTime()));
+            statement.setString(8,worker.getRole());
+            statement.setString(9,worker.getBranchAddress());
+            statement.setInt(10,worker.getId());
+            statement.executeUpdate();
+            result=new Result(true, "worker updated");
+        }
+        catch (SQLException e) { result= new Result(false, "update worker failed"); }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException ignored) { }
+        }
+        return result;
+    }
+
+    public Result deleteWorker(int id)
+    {
+        Result result;
+        openConn();
+        String sql = "Delete FROM Workers where id=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql))
+        {
+            statement.setInt(1,id);
+            statement.executeUpdate();
+            result=new Result(true, "worker deleted");
+        } catch (SQLException e) { result= new Result(false, "Delete worker failed"); }
+        finally
+        {
+            try {
+                conn.close();
+            } catch (SQLException ignored) { }
+        }
+        return result;
+    }
+
+    public Result insertShift(DALShift shift)
+    {
+        Result result;
+        openConn();
+        try
+        {
+            conn.setAutoCommit(false);
+            String sql="INSERT INTO Shifts(date,morning,manager_id,branch) VALUES(?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setDate(1,new java.sql.Date(shift.getDate().getTime()));
+            statement.setInt(2,shift.isMorning() ? 1 : 0);
+            statement.setInt(3,shift.getManager_id());
+            statement.setString(4,shift.getBranchAddress());
+            statement.executeUpdate(sql);
+            for (Integer worker: shift.getWorkers())
+            {
+                sql="INSERT INTO WorkersInShift(date,morning,worker_id) VALUES(?,?,?)";
+                statement = conn.prepareStatement(sql);
+                statement.setDate(1,new java.sql.Date(shift.getDate().getTime()));
+                statement.setInt(2, shift.isMorning() ? 1 : 0);
+                statement.setInt(3,worker);
+                statement.executeUpdate(sql);
+            }
+            conn.commit();
+            result=new Result(true,"shift inserted");
+
+        }
+        catch (Exception e)
+        {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) { ex.printStackTrace(); }
+            result= new Result(false,"insert shift failed");
+        }
+        finally
+        {
+            try
+            {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return result;
+    }
+
+    public Result updateShift(DALShift shift,Date previous_date,boolean previous_morning,String previous_branch)
+    {
+        Result result;
+        openConn();
+        try
+        {
+            LinkedList<Integer> workers_before_update=new LinkedList<>();
+
+            //-----------------------get all workers in this shift before update---------------------//
+            String sql="SELECT id FROM WorkersInShift WHERE date=? and morning=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setDate(1,new java.sql.Date(shift.getDate().getTime()));
+            statement.setInt(2,shift.isMorning() ? 1 : 0);
+            ResultSet resultSet=statement.executeQuery();
+            while (resultSet.next())
+                workers_before_update.add(resultSet.getInt("id"));
+            resultSet.close();
+
+            conn.setAutoCommit(false);
+            //---------------------delete all workers that was removed from the shift---------------//
+            for (Integer worker : workers_before_update)
+            {
+                if (!shift.getWorkers().contains(worker))
+                {
+                    sql="DELETE FROM WorkersInShift WHERE worker_id=?";
+                    statement = conn.prepareStatement(sql);
+                    statement.setInt(1,worker);
+                    statement.executeUpdate(sql);
+                }
+            }
+
+            //------------------update the shift -------------------------------------------------//
+
+            sql="UPDATE Shifts SET date=?,morning=?,manager_id=?,branch=? Where date=? and morning=? and branch=? ";
+            statement = conn.prepareStatement(sql);
+            statement.setDate(1,new java.sql.Date(shift.getDate().getTime()));
+            statement.setInt(2,shift.isMorning()? 1 : 0);
+            statement.setInt(3 , shift.getManager_id());
+            statement.setString(4,shift.getBranchAddress());
+            statement.setDate(5,new java.sql.Date(previous_date.getTime()));
+            statement.setInt(6,previous_morning? 1 : 0);
+            statement.setString(7,previous_branch);
+            statement.executeUpdate(sql);
+
+            //---------------------insert the new workers in shift-----------------------------------//
+            for (Integer worker_id : shift.getWorkers())
+            {
+                if (!workers_before_update.contains(worker_id))
+                {
+                    sql="INSERT INTO WorkersInShift(date,morning,worker_id,branch) VALUES(?,?,?,?)";
+                    statement = conn.prepareStatement(sql);
+                    statement.setDate(1,new java.sql.Date(shift.getDate().getTime()));
+                    statement.setInt(2,shift.isMorning() ? 1 : 0);
+                    statement.setInt(3,worker_id);
+                    statement.setString(4,shift.getBranchAddress());
+                    statement.executeUpdate(sql);
+                }
+            }
+            conn.commit();
+            result = new Result(true,"shift updated");
+        }
+        catch (Exception e)
+        {
+            try {
+                conn.rollback();
+            } catch (SQLException ignored) {  }
+            result= new Result(false,"update shift failed");
+        }
+        finally
+        {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException ignored) { }
+        }
+        return result;
+    }
+
+    public Result deleteShift(Date date, boolean morning, String branch)
+    {
+        Result result;
+        openConn();
+        String sql = "Delete FROM Shifts WHERE morning=? and branch=? and date=?";
+        try
+        {
+            //delete shift
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,morning? 1 : 0);
+            statement.setString(2,branch);
+            statement.setDate(3, new java.sql.Date(date.getTime()));
+            statement.executeUpdate();
+
+            //delete workers in shift
+            sql = "Delete FROM WorkersInShift WHERE morning=? and branch=? and date=?";
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1,morning? 1 : 0);
+            statement.setString(2,branch);
+            statement.setDate(3, new java.sql.Date(date.getTime()));
+            statement.executeUpdate();
+
+            conn.commit();
+            result=new Result(true, "shift deleted");
+        }
+        catch (SQLException e) { result= new Result(false, "Delete shift failed"); }
+        finally
+        {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException ignored) { }
+        }
+        return result;
+    }
+
+
 /*
     public void save(List<Business.Driver> drivers, Business.DeliveryArchive archive, List<Business.Truck> trucks, List<Business.Location> locations, Business.Sections sections) {
         this.drivers = save(drivers);

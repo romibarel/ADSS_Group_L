@@ -26,7 +26,6 @@ public class Shift
 			for (int id:shift.getWorkers())
 				workers.add(id);
 		this.branchAddress=shift.getBranchAddress();
-
 	}
 	public Shift(Date date,boolean morning,int manager_id,List<Integer> workers,String branchAddress)
 	{
