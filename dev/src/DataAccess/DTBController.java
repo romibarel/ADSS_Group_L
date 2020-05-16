@@ -101,6 +101,68 @@ public class DTBController {
         return constraints;
     }
 
+    public List<DALConstraint> loadConstraintByWeek(java.util.Date datestart, java.util.Date dateend)  {
+        List<DALConstraint> constraints=new LinkedList<>();
+        DALConstraint constraint;
+        openConn();
+        String sql = "SELECT* FROM Constraints WHERE AND date<? AND date>?";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            pstmt.setDate(1, new Date(dateend.getYear(),dateend.getMonth(),dateend.getDay()));
+            pstmt.setDate(1, new Date(datestart.getYear(),datestart.getMonth(),datestart.getDay()));
+            ResultSet rs  = pstmt.executeQuery();
+            while (rs.next()) {
+                constraint=new DALConstraint();
+                constraint.setCid(rs.getInt("cid"));
+                constraint.setId(rs.getInt("wid"));
+                constraint.setDate(rs.getDate("date"));
+                constraint.setMorning(Boolean.valueOf(rs.getString("morning")));
+                constraint.setReason(rs.getString("reason"));
+                constraints.add(constraint);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return constraints;
+    }
+
+    public Result deleteConstraint(DALConstraint constraint) {
+        openConn();
+        String sql = "DELETE FROM Constraints WHERE cid=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, constraint.getCid());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            return new Result(false, "deleting from data base has failed");
+        }
+        return new Result(true, "constraint deleted");
+    }
+
+    public DALConstraint loadConstraint(int cid)  {
+        DALConstraint constraint=null;
+        openConn();
+        String sql = "SELECT* FROM Constraints WHERE cid=?";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, cid);
+            ResultSet rs  = pstmt.executeQuery();
+            if (rs.next()) {
+                constraint=new DALConstraint();
+                constraint.setCid(rs.getInt("cid"));
+                constraint.setId(rs.getInt("wid"));
+                constraint.setDate(rs.getDate("date"));
+                constraint.setMorning(Boolean.valueOf(rs.getString("morning")));
+                constraint.setReason(rs.getString("reason"));
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return constraint;
+    }
+
+
+
     public Result getMax()  {
         int ret=0;
         openConn();

@@ -15,14 +15,13 @@ public class ConstrainsController
 	}
 
 	private static List<Constraint> constraints=new LinkedList<>();
-	private static int id=0;
+	private static BTDController btd=BTDController.getBTD();
+	private static int id=Integer.parseInt(btd.getMax().msg);
 
 	public static boolean is_available(int worker_id, Date date, boolean morning)
 	{
-		for(Constraint c: constraints){
-			if(c.getDate().equals(date)&& worker_id==c.getId()&& morning==c.isMorning())
+		if(!getConstraint(id,date,morning).isEmpty())
 				return false;
-		}
 		return true;
 	}
 
@@ -58,10 +57,7 @@ public class ConstrainsController
 
 	public static List<Constraint> getConstraint(int id,Date date,  boolean morning){
 		List<Constraint> cons=new LinkedList<>();
-		for(Constraint c: constraints){
-			if(c.getDate().equals(date)&& c.getId()==id&& morning==c.isMorning())
-				cons.add(c);
-		}
+		cons=btd.loadConstraint(id, date, morning);
 		return cons;
 	}
 
@@ -72,11 +68,7 @@ public class ConstrainsController
 		Date currentWeekStart = calendar.getTime();
 		calendar.add(Calendar.DATE, 6);
 		Date currentWeekEnd = calendar.getTime();
-		for(Constraint c: constraints){
-			if(c.getDate().after(currentWeekStart)&& c.getDate().before(currentWeekEnd))
-				cons.add(c);
-		}
-		return cons;
+		return btd.loadConstraintByWeek(currentWeekStart, currentWeekEnd);
 	}
 
 	public static Result addConstraint(InterfaceConstraint c){
@@ -86,32 +78,46 @@ public class ConstrainsController
 		Constraint con=new Constraint(c.getDate(),c.isMorning(),c.getId(),c.getReason(), id);
 		id++;
 		constraints.add(con);
+		if(!btd.saveConstraint(con).success)
+			return new Result(false,"could not save constraint to data base");
 		return new Result(true,"Constraint was added "+c.toString());
 	}
 
 	public static Result editConstraint(InterfaceConstraint c){
 		Result checking=Constraint.check(c);
+		Constraint constraint=null;
 		if(!checking.success)
 			return checking;
 		for(Constraint con: constraints){
 			if(con.getCid()==c.getCid()){
-				con.setDate(c.getDate());
-				con.setId(c.getId());
-				con.setMorning(c.isMorning());
-				con.setReason(c.getReason());
-				return new Result(true,"Constraint was edited "+c.toString());
+				constraint=con;
 			}
 		}
-		return new Result(false,"could not find matching constraint to edit");
+		if(constraint==null){
+			constraint=btd.loadConstraint(c.getCid());
+			if(constraint!=null)
+				constraints.add(constraint);
+		}
+		if(constraint==null)
+			return new Result(false,"could not find matching constraint to edit");
+		constraint.setDate(c.getDate());
+		constraint.setId(c.getId());
+		constraint.setMorning(c.isMorning());
+		constraint.setReason(c.getReason());
+		if(!btd.updateConstraint(constraint).success)
+			return new Result(false,"could not update data base");
+		return new Result(true,"Constraint was edited "+c.toString());
+
 	}
 
 	public static Result deleteConstraint(InterfaceConstraint c){
 		for(Constraint con: constraints){
 			if(con.getCid()==c.getCid()){
 				constraints.remove(con);
-				return new Result(true,"Constraint was deleted");
 			}
 		}
+		if(btd.deleteConstraint(new Constraint(c)).success)
+			return new Result(true,"Constraint was deleted");
 		return new Result(false,"could not find matching constraint to delete");
 	}
 

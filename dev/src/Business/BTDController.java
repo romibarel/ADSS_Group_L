@@ -43,6 +43,21 @@ public class BTDController {
         return constraints;
     }
 
+    public Constraint loadConstraint(int cid)  {
+        return new Constraint(dataTb.loadConstraint(cid));
+    }
+
+    public List<Constraint> loadConstraintByWeek(java.util.Date datestart, java.util.Date dateend) {
+        List<Constraint> constraints=new LinkedList<>();
+        for (DALConstraint c:  dataTb.loadConstraintByWeek(datestart, dateend))
+            constraints.add(new Constraint(c));
+        return constraints;
+    }
+
+    public Result deleteConstraint(Constraint constraint) {
+        return dataTb.deleteConstraint(new DALConstraint(constraint));
+    }
+
     public Result getMax()  {
         return dataTb.getMax();
     }

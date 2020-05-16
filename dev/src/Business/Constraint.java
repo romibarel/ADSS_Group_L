@@ -28,6 +28,13 @@ public class Constraint {
         this.reason = c.getReason();
         this.cid=c.getCid();
     }
+    public Constraint(InterfaceConstraint c){
+        this.date = c.getDate();
+        this.morning = c.isMorning();
+        this.id = c.getId();
+        this.reason = c.getReason();
+        this.cid=c.getCid();
+    }
 
     public static Result check(InterfaceConstraint c){
         if(WorkersController.get_by_id(c.getId())==null)
