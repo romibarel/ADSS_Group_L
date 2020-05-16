@@ -1098,7 +1098,7 @@ public class Presentation {
     * Suppliers Section
     * */
 
-    public void run(boolean isLoad){
+    public void run(){
         boolean isTerminated = false;
         Scanner scanner = new Scanner(System.in);
         //System.out.println("Would you like to load pre-made data? (y/n)");
@@ -1146,6 +1146,7 @@ public class Presentation {
                                 System.out.print("Contacts: ");
                                 for (Pair<String, String> contact : s.getContacts())
                                     System.out.print("<" + contact.getKey() + ", " + contact.getValue() + "> ");
+                                System.out.println();
                             }
                             System.out.println();
                             break;
@@ -1542,7 +1543,6 @@ public class Presentation {
             }
         }
         System.out.println("\nThanks for using our system, looking forward to seeing you again!");
-        if(isLoad) businessManager.unloadSystem();
     }
 
     private boolean checkValidName(String name){

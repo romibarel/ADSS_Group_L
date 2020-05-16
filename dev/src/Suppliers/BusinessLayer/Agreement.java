@@ -17,6 +17,7 @@ public class Agreement {
     }
 
     public Agreement(LoanAgreement la){
+        statID++;
         agreementID = la.getAgreementID();
         Pair<LoanProduct, Pair<Integer, Integer>> ad = la.getAgreementDetails();
         agreementDetails = new Pair<>(new Product(ad.getKey()), new Pair<>(ad.getValue().getKey(), ad.getValue().getValue()));

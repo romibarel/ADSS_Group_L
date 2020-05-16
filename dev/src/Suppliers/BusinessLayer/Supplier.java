@@ -36,6 +36,7 @@ public abstract class Supplier {
     }
 
     public Supplier(LoanSupplier la){
+        statID++;
         agreements = new LinkedList<>();
         products = new LinkedList<>();
         orders = new LinkedList<>();
@@ -109,6 +110,10 @@ public abstract class Supplier {
         for(Agreement a : agreements){
             if(a.getProduct().getCatalogID() == productID)
                 return a.applyAgreementOnProduct(amount);
+        }
+        for(Product p : products){
+            if(p.getCatalogID() == productID)
+                return p.getOriginalPrice();
         }
         return -1;
     }

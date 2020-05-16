@@ -47,7 +47,6 @@ public class main {
             }
         }*/
         Presentation p = new Presentation();
-        boolean isLoad = false;
         Scanner scanner = new Scanner(System.in);
         System.out.println("1)Initialize system");
         System.out.println("2)Uninitialized system");
@@ -67,7 +66,6 @@ public class main {
         while (true) {
             if (selected == 1) {
                 initialize();
-                isLoad = true;
                 break;
             } else if (selected == 2) {
                 break;
@@ -94,7 +92,7 @@ public class main {
                 runStorage(scanner, p);
                 break;
             } else if (selected == 2) {
-                runSuppliers(isLoad, p);
+                runSuppliers(p);
                 break;
             }
             else {
@@ -160,12 +158,12 @@ public class main {
         }
     }
 
-    private static void runSuppliers(boolean isLoad, Presentation p){
+    private static void runSuppliers(Presentation p){
         //SystemController sc = SystemController.getInstance();
         //System.out.println("Would you like to load pre-made data? (y/n)");
         //if(scanner.next().equals("y"))
             //sc.loadSystem();
-        p.run(isLoad);
+        p.run();
         //System.out.println("NO");
         //sc.unloadSystem();
         //sc.closeConnection();

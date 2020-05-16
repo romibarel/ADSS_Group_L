@@ -66,7 +66,6 @@ public class Main {
             System.out.println(s.getAgreements().get(0).toString());
             System.out.println(s.getProducts().get(0).toString());
         }
-        sc.unloadSystem();
 
         sc.closeConnection();
 //        dc.addSupplier(s1.getLoan());

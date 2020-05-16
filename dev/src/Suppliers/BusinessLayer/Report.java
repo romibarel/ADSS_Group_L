@@ -17,6 +17,7 @@ public abstract class Report {
     }
 
     public Report(LoanReport lr){
+        statID++;
         reportID = lr.getReportID();
         dateReported = lr.getDateReported();
         reportedOrder = new Order(lr.getReportedOrder());

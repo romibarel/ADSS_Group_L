@@ -33,17 +33,16 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     private Singltone_Supplier_Storage_Manager() {
         this.storage_management = Singletone_Storage_Management.getInstance();
         this.supplier_management = SystemController.getInstance();
-        Connection conn=null;
+        Connection conn;
         try {
             // db parameters
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:storage.db";
+            String url = "jdbc:sqlite:" + System.getProperty("user.dir") +"\\dev\\data\\storage.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
-
+            storage_management.setConnection(conn);
+            supplier_management.setConnection(conn);
         } catch ( Exception e) { }
-        storage_management.setConnection(conn);
-        supplier_management.setConnection(conn);
     }
 
     public static Singltone_Supplier_Storage_Manager getInstance(){
@@ -270,9 +269,6 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     public void loadSystem(){
         supplier_management.loadSystem();
     }
-
-    @Override
-    public void unloadSystem() { supplier_management.unloadSystem(); }
 
     @Override
     public void addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){

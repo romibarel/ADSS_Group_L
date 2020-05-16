@@ -7,25 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5a0c68f-cb7a-4339-a500-2fe945ca3023" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Defects/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Defects/DefectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Locations/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Locations/LocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ProductRepData.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ProductRepData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ProductRepDataDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ProductRepDataDAL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage.db" beforeDir="false" afterPath="$PROJECT_DIR$/storage.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/storage" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/storage.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage.db" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/../" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,9 +31,6 @@
   </component>
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -55,87 +50,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ReportController.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/Buisness/Locations/LocationController.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/Buisness/Defects/DefectController.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java" />
-        <option value="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" />
-        <option value="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" />
-        <option value="$PROJECT_DIR$/dev/src/main.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ProductRepDataDAL.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ProductRepData.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java" />
-        <option value="$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="width" value="975" />
-    <option name="height" value="1047" />
-  </component>
   <component name="ProjectId" id="1babZmIvERHTBeXcroyxMfow84W" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-              <item name="DAL" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ADSS_Group_L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ADSS_Group_L" type="462c0819:PsiDirectoryNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-              <item name="DAL" type="462c0819:PsiDirectoryNode" />
-              <item name="ReportsDAL" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-    </panes>
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -147,22 +62,10 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589546763463" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dev/lib/sqlite-jdbc-3.27.2.1.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -350,50 +253,12 @@
       <configuration name="CategoryTest" configurationId="JUnit" />
     </history-entry>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23481782" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.11190053" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.11900533" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.77442276" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3285968" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Capture Analysis" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-    </layout>
-  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -412,6 +277,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge branch '206226581_316420132' of https://github.com/romibarel/ADSS_Group_L into 206226581_316420132&#10;&#10;# Conflicts:&#10;#&#9;.idea/ADSS_Group_L.iml" />
@@ -426,30 +292,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588873442069" />
-    <state x="656" y="260" key="FileChooserDialogImpl" timestamp="1588873948306">
+    <state x="656" y="260" key="FileChooserDialogImpl" timestamp="1589624923306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588873948306" />
-    <state width="1878" height="225" key="GridCell.Tab.0.bottom" timestamp="1589401071833">
+    <state x="656" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589624923306" />
+    <state width="1878" height="170" key="GridCell.Tab.0.bottom" timestamp="1589635053690">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589401071833" />
-    <state width="1878" height="225" key="GridCell.Tab.0.center" timestamp="1589401071833">
+    <state width="1878" height="170" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
+    <state width="1878" height="170" key="GridCell.Tab.0.center" timestamp="1589635053690">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589401071833" />
-    <state width="1878" height="225" key="GridCell.Tab.0.left" timestamp="1589401071833">
+    <state width="1878" height="170" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
+    <state width="1878" height="170" key="GridCell.Tab.0.left" timestamp="1589635053690">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589401071833" />
-    <state width="1878" height="225" key="GridCell.Tab.0.right" timestamp="1589401071833">
+    <state width="1878" height="170" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
+    <state width="1878" height="170" key="GridCell.Tab.0.right" timestamp="1589635053690">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="225" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589401071833" />
-    <state x="440" y="93" key="SettingsEditor" timestamp="1588873950194">
+    <state width="1878" height="170" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
+    <state width="1878" height="370" key="GridCell.Tab.1.bottom" timestamp="1589631348061">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588873950194" />
+    <state width="1878" height="370" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589631348061" />
+    <state width="1878" height="370" key="GridCell.Tab.1.center" timestamp="1589631348061">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="370" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589631348061" />
+    <state width="1878" height="370" key="GridCell.Tab.1.left" timestamp="1589631348061">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="370" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589631348061" />
+    <state width="1878" height="370" key="GridCell.Tab.1.right" timestamp="1589631348061">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="370" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589631348061" />
+    <state x="440" y="93" key="SettingsEditor" timestamp="1589624927094">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589624927094" />
     <state x="678" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1588873475785">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -458,226 +340,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588875205340" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/Category.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="25" column="2" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Invenrory/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Locations/LocationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_192/src.zip!/java/time/LocalDate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="163" column="84" lean-forward="true" selection-start-line="163" selection-start-column="84" selection-end-line="163" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#1258#1259#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Defects/DefectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Singletone_Storage_Management.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/DataAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="95" selection-start-line="95" selection-end-line="95" />
-          <folding>
-            <element signature="e#3888#3889#0" expanded="true" />
-            <element signature="e#3958#3959#0" expanded="true" />
-            <element signature="e#6160#6161#0" expanded="true" />
-            <element signature="e#6220#6221#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/PrepStmt.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ReportController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ProductReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="75" column="125" selection-start-line="75" selection-start-column="124" selection-end-line="75" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/Buisness/Reports/ProductRepData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding>
-            <element signature="e#1113#1114#0" expanded="true" />
-            <element signature="e#1186#1187#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/Conn.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="353" selection-start-line="353" selection-end-line="353" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ProductReportDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-226">
-          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/DataSaleProductDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-110">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/CategoryDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="e#699#700#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-430">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar!/org/sqlite/RS.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="289" selection-start-line="289" selection-end-line="289" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/DefectsDAL/DefectControllerDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="33" column="61" selection-start-line="33" selection-start-column="57" selection-end-line="33" selection-end-column="61" />
-          <folding>
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#749#750#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/InventoryDAL/ProductControllerDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="45" column="50" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/LocationsDAL/LocationControllerDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="31" column="60" selection-start-line="31" selection-start-column="56" selection-end-line="31" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ProductRepDataDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/ReportsDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="74" column="31" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/src/Storage/DAL/ReportsDAL/DefectReportDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

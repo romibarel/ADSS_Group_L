@@ -31,8 +31,8 @@ public class SystemController {
     }
 
     public void loadSystem(){
-        dc.loadSystem();
-        for(LoanSupplier lp : dc.getLoanSuppliers()) {
+//        dc.loadSystem();
+        for(LoanSupplier lp : dc.pullSupplierData()) {
             switch (lp.getTag()){
                 case "FixedDays":
                     suppliers.add(new FixedDaysSupplier(lp));
@@ -46,8 +46,6 @@ public class SystemController {
             }
         }
     }
-
-    public void unloadSystem() { dc.unloadSystem(); }
 
     public LocalDateTime addOrder(Order order){
         for(Supplier s : suppliers){
@@ -189,12 +187,13 @@ public class SystemController {
                 }
             }
         }
-        if(sup == null)
+        if(sup == null || minPrice == -1)
             return null;
         p = sup.getProductByID(barCode);
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         products.put(p, new Pair<>(amount, 0));
         Order o = new Order(sup.getID(), LocalDateTime.now(), products);
+        o.setETA(sup.assessOrderETA());
         addOrder(o);
         return o.getETA();
     }

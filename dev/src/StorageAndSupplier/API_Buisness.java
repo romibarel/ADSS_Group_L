@@ -104,8 +104,6 @@ public interface API_Buisness {
 
     void loadSystem();
 
-    void unloadSystem();
-
     void addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products);
 
     void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum);

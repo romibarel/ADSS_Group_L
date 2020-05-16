@@ -32,6 +32,7 @@ public class Order {
     }
 
     public Order(LoanOrder lo){
+        statID++;
         orderID = lo.getOrderID();
         supplierID = lo.getSupplierID();
         total = lo.getTotal();
