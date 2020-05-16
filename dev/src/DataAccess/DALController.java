@@ -101,6 +101,29 @@ public class DALController
         return constraints;
     }
 
+    public List<DALConstraint> loadALLConstraint()  {
+        List<DALConstraint> constraints=new LinkedList<>();
+        DALConstraint constraint;
+        openConn();
+        String sql = "SELECT* FROM Constraints";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            ResultSet rs  = pstmt.executeQuery();
+            while (rs.next()) {
+                constraint=new DALConstraint();
+                constraint.setCid(rs.getInt("cid"));
+                constraint.setId(rs.getInt("wid"));
+                constraint.setDate(rs.getDate("date"));
+                constraint.setMorning(Boolean.valueOf(rs.getString("morning")));
+                constraint.setReason(rs.getString("reason"));
+                constraints.add(constraint);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return constraints;
+    }
+
     public List<DALConstraint> loadConstraintByWeek(java.util.Date datestart, java.util.Date dateend)  {
         List<DALConstraint> constraints=new LinkedList<>();
         DALConstraint constraint;

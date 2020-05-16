@@ -39,6 +39,13 @@ public class BTDController {
         return constraints;
     }
 
+    public List<Constraint> loadAllConstraint()  {
+        List<Constraint> constraints=new LinkedList<>();
+        for (DALConstraint c:  dataTb.loadALLConstraint())
+            constraints.add(new Constraint(c));
+        return constraints;
+    }
+
     public Constraint loadConstraint(int cid)  {
         return new Constraint(dataTb.loadConstraint(cid));
     }

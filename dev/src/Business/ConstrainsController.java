@@ -14,7 +14,7 @@ public class ConstrainsController
 		return constraints;
 	}
 
-	private static List<Constraint> constraints=new LinkedList<>();
+	private static List<Constraint> constraintsNew=new LinkedList<>();
 	private static BTDController btd=BTDController.getBTD();
 	private static int id=Integer.parseInt(btd.getMax().msg);
 
