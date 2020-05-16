@@ -20,7 +20,8 @@ public class WorkerMenu {
         initCalls(calls);
         initActions(calls);
         System.out.println("Welcome to Super-Li HR System");
-        System.out.println("Do you want to initialize the system with data?(y/n)");
+        // not relevant keeping these function and this code just in case i need it in the future
+        /*System.out.println("Do you want to initialize the system with data?(y/n)");
         init=input.nextLine();
         if(init.equals("y")){
             initData();
@@ -29,7 +30,7 @@ public class WorkerMenu {
             System.out.println(Interface.printShifts()+"\n");
             System.out.println(Interface.printConstraints()+"\n");;
         }
-
+*/
         while(!quit){
 
             System.out.println("Please choose from the following menus");
