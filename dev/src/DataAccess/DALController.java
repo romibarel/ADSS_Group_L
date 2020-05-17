@@ -656,7 +656,6 @@ public class DALController
         return sections;
     }
 
-    //todo: deliveries - not sure how to save multiple destinations
     public boolean saveDelivery(Delivery delivery) {
         openConn();
         String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source) VALUES(?,?,?,?,?,?)";
@@ -698,13 +697,12 @@ public class DALController
         return delivery;
     }
 
-    //todo: deliveries - not sure how to save multiple supplies
     public boolean saveDoc(int deliveryID, DALDeliveryDoc doc) {
         openConn();
-        String sql = "INSERT INTO DeliveryDocs(deliveryID, docID, destination, estimatedTimeOfArrival, estimatedDayOfArrival) VALUES(?,?,?.?,?)";
+        String sql = "INSERT INTO DeliveryDocs(deliveryID, docID, destination, estimatedTimeOfArrival, estimatedDayOfArrival) VALUES(?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, doc.getNum());
-            pstmt.(2, );
+            pstmt.setInt(1, deliveryID);
+            pstmt.setInt(2, doc.getNum());
             pstmt.setString(3 , doc.getDestination());
             pstmt.setTime(4, new Time(doc.getEstimatedTimeOfArrival().getHours(), doc.getEstimatedTimeOfArrival().getMinutes(), 0));
             pstmt.setDate(5, new Date((doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
@@ -713,30 +711,71 @@ public class DALController
         } catch (SQLException e) {
             return false;
         }
+        for (Supply supply : doc.getDeliveryList()){
+            saveSupply(doc.getNum(), doc.getDestination(), supply);
+        }
         return true;
     }
 
-    //todo: deliveries - IDKKKKKKK
-    public DALDeliveryDoc loadDoc(int id) {
+    public DALDeliveryDoc loadDoc(int docNum) {
         DALDeliveryDoc doc = null;
         openConn();
-        String sql = "SELECT* FROM DeliveryDocs WHERE id=?";
+        String sql = "SELECT* FROM DeliveryDocs WHERE docNum=?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, docNum);
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
                 doc = new DALDeliveryDoc();
-                doc.setNum(rs.getInt("id"));
-                doc.setEstimatedDayOfArrival(rs.getDate("estimatedDayOfArrival"));
-                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
-                doc.setDeliveryList(rs.getInt("truckNum"));
+                doc.setNum(rs.getInt("docNum"));
                 doc.setDestination(rs.getString("destination"));
+                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
+                doc.setEstimatedDayOfArrival(rs.getTime("setEstimatedDayOfArrival"));
             }
             conn.close();
+            List<Supply> supplies = loadSupplies(doc.getNum());
+            doc.setDeliveryList(supplies);
+
         } catch (SQLException e) {
             return null;
         }
         return doc;
+    }
+
+    public boolean saveSupply(int docNum, String destination, Supply supply) {
+        openConn();
+        String sql = "INSERT INTO DeliveryDocs(docID, destination, supName, quant) VALUES(?,?,?,?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, docNum);
+            pstmt.setString(2, destination);
+            pstmt.setString(3, supply.getName());
+            pstmt.setInt(4 , supply.getQuant());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public List<Supply> loadSupplies(int docNum) {
+        List<Supply> supplies = new LinkedList<>();
+        openConn();
+        String sql = "SELECT* FROM Supplies WHERE docNum=?";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, docNum);
+            ResultSet rs  = pstmt.executeQuery();
+            while (rs.next()) {
+                Supply supply = new Supply();
+                supply.setName(rs.getString("supName"));
+                supply.setQuant(rs.getInt("quant"));
+                supplies.add(supply);
+            }
+            conn.close();
+
+        } catch (SQLException e) {
+            return null;
+        }
+        return supplies;
     }
 
     /*public void save(List<Business.Location> bLocations) {
