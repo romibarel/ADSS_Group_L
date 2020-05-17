@@ -122,7 +122,7 @@ public class BTIController {
         return "Document created successfully.";
     }
 
-    public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<DeliverDoc> docNums, int truckWeight){
+    public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
         Truck truck = btd.getTruck(truckID);
         if (truck == null)
             return "The given truck doesn't exist.";
@@ -187,6 +187,7 @@ public class BTIController {
         }
 
         //if we got here all is a ok
+        //addDelivery saves all the deliveryDocs of this delivery as well
         btd.addDelivery(delivery);
         archive.add(delivery);
         return "Delivery was created successfully!";

@@ -28,24 +28,6 @@ public class PTIDelController {
     }
 
     public void setup(){
-        PTIDelController pti = PTIDelController.getPTI();
-        ITPDelController itp = ITPDelController.getITP();
-        ITBDelController itb = ITBDelController.getITB();
-        BTIController bti = BTIController.getBTI();
-        BTDController btd = BTDController.getBTD();
-        DALController dtb = DALController.getDTB();
-
-        List<String[]> sections = new LinkedList<>();
-        List<String[]> locations = new LinkedList<>();
-        List<String[]> trucks = new LinkedList<>();
-
-        pti.set();
-        itp.set();
-        itb.set();
-        bti.set(sections, locations, trucks);
-    }
-
-    public void oldSetup(){
         boolean finish = false;
         PTIDelController pti = PTIDelController.getPTI();
         ITPDelController itp = ITPDelController.getITP();
@@ -283,7 +265,7 @@ public class PTIDelController {
         return docNum + docs.size();
     }
 
-    private List<String[]> createDocuments(int docNum, String source){
+    private List<Integer> createDocuments(int docNum, String source){
         boolean finish = false;
         List<Integer> docNums = new LinkedList<>();
         Date estimatedDayOfArrival;
@@ -306,9 +288,8 @@ public class PTIDelController {
 
         while (!finish) {
             //destination, supplies&quants,
-            //0=docNum 1=long string of format: supply1 quant1, supply2, quant2... 2=destination 3=ArrivalTime 4=ArrivalDate
-            String[] doc = new String[5];
-            doc[0] = ((Integer)docNum).toString();
+            //0=destination 1=long string of format: supply1 quant1, supply2, quant2...
+            String[] doc = new String[2];
             System.out.println("Let's create the delivery document for the next Destination. Where would you like to deliver?");
             String destination = scanner.nextLine();
             if (destination == null || destination.trim().equals("")){
@@ -328,7 +309,6 @@ public class PTIDelController {
                 System.out.println("Invalid date, try again.");
                 return new LinkedList<>();
             }
-            doc[4] = estimatedDayOfArrival.toString();
 
             System.out.println("What is the estimated time of arrival to " +destination+ " in HH:mm format?");
             input = scanner.nextLine();
