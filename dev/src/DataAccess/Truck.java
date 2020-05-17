@@ -1,4 +1,5 @@
 package DataAccess;
+//import Business.Truck;
 
 public class Truck {
     private int truckNum;
@@ -19,6 +20,15 @@ public class Truck {
         this.maxWeight = maxWeight;
         this.type = type;
     }
+
+    public Truck(Truck truck) {
+        this.truckNum = truck.getTruckNum();
+        this.plate = truck.getPlate();
+        this.weighNeto = truck.getWeighNeto();
+        this.maxWeight = truck.getMaxWeight();
+        this.type = truck.getType();
+    }
+
 
     public String getType() {
         return type;
