@@ -20,10 +20,6 @@ public class main {
                 System.out.println("illegal input");
                 continue;
             }
-            if(choice>3| choice<1){
-                System.out.println("no such menu");
-                continue;
-            }
             switch (choice){
                 case 1:
                     PTIDelController pti = PTIDelController.getPTI();
@@ -37,9 +33,8 @@ public class main {
                     quit=true;
                     break;
                 default:
-                    System.out.println("Error");
+                    System.out.println("no such option");
                     break;
-
             }
 
         }

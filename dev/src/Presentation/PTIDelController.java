@@ -28,6 +28,10 @@ public class PTIDelController {
     }
 
     public void setup(){
+
+    }
+
+    public void oldSetup(){
         boolean finish = false;
         PTIDelController pti = PTIDelController.getPTI();
         ITPDelController itp = ITPDelController.getITP();
