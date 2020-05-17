@@ -140,6 +140,17 @@ public class BTDController {
         dataTb.saveDoc(delId , new DALDeliveryDoc(deliveryDoc));
     }
 
+    public boolean saveDelivery(Delivery delivery) {
+        return dataTb.saveDelivery(new DalDelivery(delivery));
+    }
+
+
+
+        public Sections loadSections(){
+
+        return new Sections(dataTb.loadSections());
+    }
+
 //    public boolean addTruck(DalTruck truck)
 //    {
 //        if (trucks == null)

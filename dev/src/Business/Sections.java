@@ -2,6 +2,7 @@ package Business;
 
 
 import DataAccess.DalLocation;
+import DataAccess.DalSections;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,6 +13,10 @@ public class Sections {
 
     public Sections(HashMap<Integer, List<String>> areas){
         this.areas = areas;
+    }
+
+    public Sections(DalSections sections) {
+        areas = sections.getAreas();
     }
 
     public int getSection(Location location){

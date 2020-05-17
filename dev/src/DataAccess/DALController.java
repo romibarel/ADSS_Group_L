@@ -717,9 +717,18 @@ public class DALController
         return sections;
     }
 
+//
+//    id
+//            date
+//    departureTime
+//            truckNum
+//    driver
+//            source
+//    docToLocation
+
     public boolean saveDelivery(DalDelivery delivery) {
         openConn();
-        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source, truckWeight) VALUES(?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, delivery.getId());
             pstmt.setDate(2, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
@@ -727,6 +736,7 @@ public class DALController
             pstmt.setInt(4 , delivery.getTruckNum());
             pstmt.setString(5, delivery.getDriver());
             pstmt.setString(6, delivery.getSource());
+            pstmt.setString(6, delivery.getTruckWeight());
 //            delivery.getDriver()
 //            delivery.getDocs()
 //            delivery.getDestinations()

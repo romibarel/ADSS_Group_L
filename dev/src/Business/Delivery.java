@@ -9,27 +9,46 @@ public class Delivery {
     private Date date;
     private Date departureTime;
     private int truckNum;
+    private int truckWeight;
     private String driver;
     private Location source;
     private HashMap<DeliverDoc, Location> docLoc;
     private boolean approved;
 
-    public Delivery(Date date, Date time, Truck truck, String driver, boolean goodLicenses, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
-        if (!goodLicenses)
-            approved = false;
-        else {
-            this.date = date;
-            this.departureTime = time;
-            truckNum = truck.getTruckNum();
-            this.driver = driver;
-            this.source = source;
-            docLoc = new HashMap<>();
-            for (DeliverDoc doc : docs) {
-                docLoc.put(doc, doc.getDestination());
-            }
-            approved = true;
+
+    public Delivery(Date date, Date departureTime, Truck truck, String driver, boolean goodLicenses, Location source, List<DeliverDoc> docs, int truckWeight) {
+        this.date = date;
+        this.departureTime = departureTime;
+        this.truckNum = truckNum;
+        this.driver = driver;
+        this.approved = goodLicenses;
+        this.source = source;
+        this.truckWeight = truckWeight;
+        docLoc = new HashMap<>();
+        for (DeliverDoc doc : docs) {
+            docLoc.put(doc, doc.getDestination());
         }
+
     }
+
+
+//    public Delivery(Date date, Date time, Truck truck, String driver, boolean goodLicenses, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
+//        if (!goodLicenses)
+//            approved = false;
+//        else {
+//            this.date = date;
+//            this.departureTime = time;
+//            truckNum = truck.getTruckNum();
+//            this.driver = driver;
+//            this.source = source;
+//            docLoc = new HashMap<>();
+//            for (DeliverDoc doc : docs) {
+//                docLoc.put(doc, doc.getDestination());
+//            }
+//            approved = true;
+//            this.truckWeight = truckWeight;
+//        }
+//    }
 
     public Date[] getDuration(){
         Date[] duration = new Date[4];

@@ -1,7 +1,10 @@
 package DataAccess;
 
 
+import Business.Delivery;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,8 +16,10 @@ public class DalDelivery {
     private int truckNum;
     private String driver;
     private String source;
-    private List<String> destinations;
-    private List<Integer> docs;
+    private HashMap<Integer, String> docToLocation;
+
+//    private List<String> destinations;
+//    private List<Integer> docs;
 
     /**
      * @param date
@@ -36,6 +41,10 @@ public class DalDelivery {
     }
 
     public DalDelivery(){
+
+    }
+
+    public DalDelivery(Delivery delivery) {
 
     }
 

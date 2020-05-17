@@ -162,7 +162,7 @@ public class BTIController {
         }
         if (destinations.size() != docs.size())
             return "Some of the destinations weren't added.";
-        Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, destinations, docs, truckWeight);
+        Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, docs, truckWeight);
         if(!(delivery.isApproved()))
             return "The driver is unlicensed for the given truck.";
 
