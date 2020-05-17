@@ -561,36 +561,182 @@ public class DALController
         this.drivers = drivers;
     }
 
-    public DeliveryArchive getArchive() {
-        return archive;
+    public Truck loadTruck(int id) {
+        Truck truck = null;
+        openConn();
+        String sql = "SELECT* FROM Trucks WHERE id=?";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs  = pstmt.executeQuery();
+            if (rs.next()) {
+                truck = new Truck();
+                truck.setTruckNum(rs.getInt("id"));
+                truck.setPlate(rs.getInt("plate"));
+                truck.setMaxWeight(rs.getInt("maxWeight"));
+                truck.setWeighNeto(rs.getInt("weightNeto"));
+                truck.setType(rs.getString("type"));
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return truck;
     }
 
-    public void setArchive(DeliveryArchive archive) {
-        this.archive = archive;
+    public boolean saveTruck(Truck truck) {
+        openConn();
+        String sql = "INSERT INTO Trucks(id, plate, maxWeight, netoWeight, type) VALUES(?,?,?,?,?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, truck.getTruckNum());
+            pstmt.setInt(2, truck.getPlate());
+            pstmt.setInt(3 , truck.getMaxWeight());
+            pstmt.setInt(4, truck.getWeighNeto());
+            pstmt.setString(5, truck.getType());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
-    public List<Truck> getTrucks() {
-        return trucks;
+    public Location loadLocation(String address) {
+    Location location = null;
+    openConn();
+    String sql = "SELECT* FROM Locations WHERE address=?";
+    try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+        pstmt.setString(1, address);
+        ResultSet rs  = pstmt.executeQuery();
+        if (rs.next()) {
+            location = new Location();
+            location.setIsBranch(rs.getBoolean("isBranch"));
+            location.setAddress(rs.getString("address"));
+            location.setAssociate(rs.getString("associate"));
+            location.setPhone(rs.getInt("phone"));
+        }
+        conn.close();
+    } catch (SQLException e) {
+        return null;
+    }
+    return location;
+}
+
+    public boolean saveLocation(Location location) {
+        openConn();
+        String sql = "INSERT INTO Locations(isBranch, address, phone, associate) VALUES(?,?,?,?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBoolean(1, location.getIsBranch());
+            pstmt.setString(2, location.getAddress());
+            pstmt.setInt(3 , location.getPhone());
+            pstmt.setString(4, location.getAssociate());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
-    public void setTrucks(List<Truck> trucks) {
-        this.trucks = trucks;
-    }
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
-    }
-
-    public Sections getSections() {
+    public Sections loadSections() {
+        Sections sections = null;
+        openConn();
+        String sql = "SELECT* FROM Sections";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {\
+            ResultSet rs  = pstmt.executeQuery();
+            sections = new Sections();
+            while (rs.next()) {
+                int area = rs.getInt("area");
+                String location = rs.getString("location");
+                sections.addLocationToSection(area, location);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
         return sections;
     }
 
-    public void setSections(Sections sections) {
-        this.sections = sections;
+    //todo: deliveries - not sure how to save multiple destinations
+    public boolean saveDelivery(Delivery delivery) {
+        openConn();
+        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source) VALUES(?,?,?,?,?,?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, delivery.getId());
+            pstmt.setDate(2, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
+            pstmt.setTime(3, new Time(delivery.getDate().getHours(),delivery.getDate().getMinutes(), 0));
+            pstmt.setInt(4 , delivery.getTruckNum());
+            pstmt.setString(5, delivery.getDriver());
+            pstmt.setString(6, delivery.getSource());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public Delivery loadDelivery(int id) {
+        Delivery delivery = null;
+        openConn();
+        String sql = "SELECT* FROM Deliveries WHERE id=?";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs  = pstmt.executeQuery();
+            if (rs.next()) {
+                delivery = new Delivery();
+                delivery.setId(rs.getInt("id"));
+                delivery.setDate(rs.getDate("departureDate"));
+                delivery.setDepartureTime(rs.getTime("departureTime"));
+                delivery.setTruckNum(rs.getInt("truckNum"));
+                delivery.setDriver(rs.getString("driver"));
+                delivery.setSource(rs.getString("source"));
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return delivery;
+    }
+
+    //todo: deliveries - not sure how to save multiple supplies
+    public boolean saveDoc(int deliveryID, DALDeliveryDoc doc) {
+        openConn();
+        String sql = "INSERT INTO DeliveryDocs(deliveryID, docID, destination, estimatedTimeOfArrival, estimatedDayOfArrival) VALUES(?,?,?.?,?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, doc.getNum());
+            pstmt.(2, );
+            pstmt.setString(3 , doc.getDestination());
+            pstmt.setTime(4, new Time(doc.getEstimatedTimeOfArrival().getHours(), doc.getEstimatedTimeOfArrival().getMinutes(), 0));
+            pstmt.setDate(5, new Date((doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    //todo: deliveries - IDKKKKKKK
+    public DALDeliveryDoc loadDoc(int id) {
+        DALDeliveryDoc doc = null;
+        openConn();
+        String sql = "SELECT* FROM DeliveryDocs WHERE id=?";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs  = pstmt.executeQuery();
+            if (rs.next()) {
+                doc = new DALDeliveryDoc();
+                doc.setNum(rs.getInt("id"));
+                doc.setEstimatedDayOfArrival(rs.getDate("estimatedDayOfArrival"));
+                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
+                doc.setDeliveryList(rs.getInt("truckNum"));
+                doc.setDestination(rs.getString("destination"));
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return doc;
     }
 
     /*public void save(List<Business.Location> bLocations) {
