@@ -1,5 +1,7 @@
 package DataAccess;
 
+import Business.DeliverDoc;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,22 @@ public class DALDeliveryDoc {
     private String destination;
     private Date estimatedTimeOfArrival;
     private Date estimatedDayOfArrival;
+
+    public DALDeliveryDoc(int num, List<Supply> deliveryList, String destination, Date estimatedTimeOfArrival, Date estimatedDayOfArrival) {
+        this.num = num;
+        this.deliveryList = deliveryList;
+        this.destination = destination;
+        this.estimatedTimeOfArrival = estimatedTimeOfArrival;
+        this.estimatedDayOfArrival = estimatedDayOfArrival;
+    }
+
+    public DALDeliveryDoc(DeliverDoc deliveryDoc) {
+        this.num = getNum();
+        this.deliveryList = getDeliveryList();
+        this.destination = getDestination();
+        this.estimatedTimeOfArrival = getEstimatedTimeOfArrival();
+        this.estimatedDayOfArrival = getEstimatedDayOfArrival();
+    }
 
     public int getNum() {
         return num;

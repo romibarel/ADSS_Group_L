@@ -3,6 +3,7 @@ package Business;
 
 import DataAccess.DALConstraint;
 import DataAccess.DALController;
+import DataAccess.DALDeliveryDoc;
 import DataAccess.DalTruck;
 
 import java.util.LinkedList;
@@ -112,33 +113,29 @@ public class BTDController {
 
     public void addDelivery(Delivery delivery)
     {
-        archive.add(delivery);
-        delivery.get
-//        make it create a dall delivery with an int id
-//          save all its delivery docs with the same id
+//        archive.add(delivery);
+//        delivery.get
+//todo        make it create a dall delivery with an int id
+//todo          save all its delivery docs with the same id
         //todo change so will add all the
     }
 
-    public DalTruck loadTruck(int truckId) {
-        return new DalTruck(dataTb.loadTruck(truckId));
+    public Truck loadTruck(int truckId) {
+        return new Truck(dataTb.loadTruck(truckId));
     }
 
-    public boolean saveTruck(DalTruck truck)
+    public boolean saveTruck(Truck truck)
     {
-        return dataTb.saveTruck(new DataAccess.);
+        return dataTb.saveTruck(new DalTruck(truck));
     }
 
-    public DalTruck getLocation(int truckId) {
-        return new DalTruck(dataTb.loadTruck(truckId));
+    public Location getLocation(String address) {
+        return new Location(dataTb.loadLocation(address));
     }
-//    DeliveryArchive archive ;
-//    Sections sections;
-//    List<Location> locations;
 
-
-    public saveDoc(DeliveryDoc , Delivery)
+    public void saveDoc(int delId, DeliverDoc deliveryDoc)
     {
-
+        dataTb.saveDoc(delId , new DALDeliveryDoc(deliveryDoc));
     }
 
     public boolean addTruck(DalTruck truck)
