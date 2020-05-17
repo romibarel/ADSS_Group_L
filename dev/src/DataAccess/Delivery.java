@@ -7,12 +7,13 @@ import java.util.List;
 
 
 public class Delivery {
+    private int id;
     private Date date;
     private Date departureTime;
     private int truckNum;
     private String driver;
-    private Location source;
-    private List<Location> destinations;
+    private String source;
+    private List<String> destinations;
     private List<Integer> docs;
 
     /**
@@ -24,7 +25,7 @@ public class Delivery {
      * @param destinations can be null for empty list
      * @param docs can be null for empty list
      */
-    public Delivery(Date date, Date departureTime, int truckNum, String driver, Location source, List<Location> destinations, List<Integer> docs) {
+    public Delivery(Date date, Date departureTime, int truckNum, String driver, String source, List<String> destinations, List<Integer> docs) {
         this.date = date;
         this.departureTime = departureTime;
         this.truckNum = truckNum;
@@ -32,6 +33,10 @@ public class Delivery {
         this.source = source;
         this.destinations = destinations!=null ? destinations : new LinkedList<>();
         this.docs = docs!=null ? docs : new LinkedList<>();
+    }
+
+    public Delivery(){
+
     }
 
     /**
@@ -48,7 +53,13 @@ public class Delivery {
         return docs.remove(docNumber);
     }
 
+    public int getId(){
+        return id;
+    }
 
+    public void setId(int id){
+        this.id = id;
+    }
 
     public Date getDate() {
         return date;
@@ -82,19 +93,19 @@ public class Delivery {
         this.driver = driver;
     }
 
-    public Location getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(Location source) {
+    public void setSource(String source) {
         this.source = source;
     }
 
-    public List<Location> getDestinations() {
+    public List<String> getDestinations() {
         return destinations;
     }
 
-    public void setDestinations(List<Location> destinations) {
+    public void setDestinations(List<String> destinations) {
         this.destinations = destinations;
     }
 

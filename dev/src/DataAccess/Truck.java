@@ -8,6 +8,10 @@ public class Truck {
     private String type;
 
 
+    public Truck(){
+
+    }
+
     public Truck(int truckNum, int plate, int weighNeto, int maxWeight, String type) {
         this.truckNum = truckNum;
         this.plate = plate;
