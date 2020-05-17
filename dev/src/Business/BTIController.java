@@ -123,7 +123,7 @@ public class BTIController {
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
-        Truck truck = btd.getTruck(truckID);
+        Truck truck = btd.loadTruck(truckID);
         if (truck == null)
             return "The given truck doesn't exist.";
         if (truck.getMaxWeight() < truckWeight)
