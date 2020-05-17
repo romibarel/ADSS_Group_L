@@ -1,7 +1,6 @@
 package DataAccess;
 
-public class Supply {
-    private String name;
+public class DalSupply {
     private String name;
     private int quant;
 

@@ -25,13 +25,13 @@ public class Tests {
 
     @Test
     public void wrongDriver() throws ParseException {
-        Supply f = new Supply("First", 1);
-        List<Supply> supplyList = new LinkedList<>();
+        DalSupply f = new DalSupply("First", 1);
+        List<DalSupply> supplyList = new LinkedList<>();
         supplyList.add(f);
-        Location destination = new Location("Super Lee", 518, "Haim");
-        List<Location> destinations = new LinkedList<>();
+        DalLocation destination = new DalLocation("Super Lee", 518, "Haim");
+        List<DalLocation> destinations = new LinkedList<>();
         destinations.add(destination);
-        Location source = new Location("Lee Office", 516, "Romi");
+        DalLocation source = new DalLocation("Lee Office", 516, "Romi");
         DeliverDoc doc = new DeliverDoc(1, supplyList, destination);
         List<DeliverDoc> docs = new LinkedList<>();
         docs.add(doc);
@@ -41,19 +41,19 @@ public class Tests {
         Driver driver = new Driver(lisences, "Moshe");
         Date date = new SimpleDateFormat("dd/MM/yyyy").parse("18/05/2020");
         Date time = new SimpleDateFormat("HH:mm").parse("09:00");
-        Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, 3000);
+        DalDelivery delivery = new DalDelivery(date, time, truck, driver, source, destinations, docs, 3000);
         assertFalse(delivery.isApproved());
     }
 
     @Test
     public void overWeight() throws ParseException {
-        Supply f = new Supply("First", 1);
-        List<Supply> supplyList = new LinkedList<>();
+        DalSupply f = new DalSupply("First", 1);
+        List<DalSupply> supplyList = new LinkedList<>();
         supplyList.add(f);
-        Location destination = new Location("Super Lee", 518, "Haim");
-        List<Location> destinations = new LinkedList<>();
+        DalLocation destination = new DalLocation("Super Lee", 518, "Haim");
+        List<DalLocation> destinations = new LinkedList<>();
         destinations.add(destination);
-        Location source = new Location("Lee Office", 516, "Romi");
+        DalLocation source = new DalLocation("Lee Office", 516, "Romi");
         DeliverDoc doc = new DeliverDoc(1, supplyList, destination);
         List<DeliverDoc> docs = new LinkedList<>();
         docs.add(doc);
@@ -63,19 +63,19 @@ public class Tests {
         Driver driver = new Driver(lisences, "Moshe");
         Date date = new SimpleDateFormat("dd/MM/yyyy").parse("18/05/2020");
         Date time = new SimpleDateFormat("HH:mm").parse("09:00");
-        Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, 5000);
+        DalDelivery delivery = new DalDelivery(date, time, truck, driver, source, destinations, docs, 5000);
         assertFalse(delivery.isApproved());
     }
 
     @Test
     public void goodDelivery() throws ParseException {
-        Supply f = new Supply("First", 1);
-        List<Supply> supplyList = new LinkedList<>();
+        DalSupply f = new DalSupply("First", 1);
+        List<DalSupply> supplyList = new LinkedList<>();
         supplyList.add(f);
-        Location destination = new Location("Super Lee", 518, "Haim");
-        List<Location> destinations = new LinkedList<>();
+        DalLocation destination = new DalLocation("Super Lee", 518, "Haim");
+        List<DalLocation> destinations = new LinkedList<>();
         destinations.add(destination);
-        Location source = new Location("Lee Office", 516, "Romi");
+        DalLocation source = new DalLocation("Lee Office", 516, "Romi");
         DeliverDoc doc = new DeliverDoc(1, supplyList, destination);
         List<DeliverDoc> docs = new LinkedList<>();
         docs.add(doc);
@@ -85,7 +85,7 @@ public class Tests {
         Driver driver = new Driver(lisences, "Moshe");
         Date date = new SimpleDateFormat("dd/MM/yyyy").parse("18/05/2020");
         Date time = new SimpleDateFormat("HH:mm").parse("09:00");
-        Delivery delivery = new Delivery(date, time, truck, driver, source, destinations, docs, 3000);
+        DalDelivery delivery = new DalDelivery(date, time, truck, driver, source, destinations, docs, 3000);
         assertTrue(delivery.isApproved());
     }
 
@@ -124,7 +124,7 @@ public class Tests {
         trucks.add(new String[] {"4", "123", "2000", "4000", "Mazda"});
 
         bti.set(null, null, supplies, drivers, sections, locations, trucks);
-        Location superLee = new Location("Super Lee", 052, "Haim");
+        DalLocation superLee = new DalLocation("Super Lee", 052, "Haim");
 
         assertFalse(bti.getSupplies().isEmpty());
         assertFalse(bti.getDrivers().isEmpty());
@@ -217,7 +217,7 @@ public class Tests {
         Date date = new SimpleDateFormat("dd/MM/yyyy").parse("18/05/2020");
         Date time = new SimpleDateFormat("HH:mm").parse("09:00");
 
-        assertEquals("Delivery was created successfully!", bti.createDelivery(date, time, 1, "Moshe", "Lee Office", docs, 3000));
+        assertEquals("DalDelivery was created successfully!", bti.createDelivery(date, time, 1, "Moshe", "Lee Office", docs, 3000));
         assertFalse(bti.getArchive().getDeliveries().isEmpty());
         assertEquals(1, bti.getArchive().getDeliveries().get(0).getTruckNum());
     }

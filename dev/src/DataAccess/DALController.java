@@ -15,8 +15,8 @@ public class DALController
     private List<Driver> drivers;
     private DeliveryArchive archive;
     private List<DalTruck> dalTrucks;
-    private List<Location> locations;
-    private Sections sections;
+    private List<DalLocation> dalLocations;
+    private DalSections sections;
     private Connection conn;
 
     private DALController() {
@@ -40,6 +40,67 @@ public class DALController
         }
 
     }
+
+    public void initialize() {
+        createTables();
+    }
+
+    public List<String> createTables(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("CREATE TABLE IF NOT EXISTS \"Deliveries\" (\n" +
+                "\t\"id\"\tINTEGER,\n" +
+                "\t\"departureDate\"\tDATE,\n" +
+                "\t\"departureTime\"\tTIME,\n" +
+                "\t\"truckNum\"\tINTEGER,\n" +
+                "\t\"driver\"\tTEXT,\n" +
+                "\t\"source\"\tTEXT\n" +
+                ");");
+        sqls.add("CREATE TABLE IF NOT EXISTS \"DeliveryDocs\" (\n" +
+                "\t\"deliveryID\"\tINTEGER,\n" +
+                "\t\"docID\"\tINTEGER,\n" +
+                "\t\"destination\"\tTEXT,\n" +
+                "\t\"estimatedTimeOfArrival\"\tTIME,\n" +
+                "\t\"estimatedDayOfArrival\"\tDATE\n" +
+                ");");   //DalDelivery Document
+        sqls.add("CREATE TABLE IF NOT EXISTS \"Locations\" (\n" +
+                "\t\"isBranch\"\tBOOLEAN,\n" +
+                "\t\"address\"\tTEXT,\n" +
+                "\t\"associate\"\tTEXT,\n" +
+                "\t\"phone\"\tINTEGER\n" +
+                ");");
+        sqls.add("CREATE TABLE IF NOT EXISTS \"DalSections\" (\n" +
+                "\t\"area\"\tINTEGER,\n" +
+                "\t\"location\"\tTEXT\n" +
+                ");");
+        sqls.add("CREATE TABLE IF NOT EXISTS \"DalSupply\" (\n" +
+                "\t\"docNum\"\tINTEGER,\n" +
+                "\t\"destination\"\tTEXT,\n" +
+                "\t\"supName\"\tTEXT,\n" +
+                "\t\"quant\"\tINTEGER\n" +
+                ");");
+        sqls.add("CREATE TABLE IF NOT EXISTS \"Trucks\"(\n" +
+                "\t\"id\"\tINTEGER,\n" +
+                "\t\"plate\"\tINTEGER,\n" +
+                "\t\"maxWeight\"\tINTEGER,\n" +
+                "\t\"netoWeight\"\tINTEGER,\n" +
+                "\t\"type\"\tTEXT);");
+
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
+
+            }
+            catch (Exception exception){
+//                return new Result(false, "Saving to data base has failed");
+            }
+        }
+
+        return sqls;
+    }
+
+
 
     public Result saveConstraint(DALConstraint constraint)  {
         openConn();
@@ -545,11 +606,11 @@ public class DALController
 
 
 /*
-    public void save(List<Business.Driver> drivers, Business.DeliveryArchive archive, List<Business.DalTruck> dalTrucks, List<Business.Location> locations, Business.Sections sections) {
+    public void save(List<Business.Driver> drivers, Business.DeliveryArchive archive, List<Business.DalTruck> dalTrucks, List<Business.DalLocation> dalLocations, Business.DalSections sections) {
         this.drivers = save(drivers);
         this.archive = save(archive);
         this.dalTrucks = save(dalTrucks);
-        this.locations = save(locations);
+        this.dalLocations = save(dalLocations);
         this.sections = save(sections);
     }*/
 
@@ -600,15 +661,15 @@ public class DALController
         return true;
     }
 
-    public Location loadLocation(String address) {
-    Location location = null;
+    public DalLocation loadLocation(String address) {
+    DalLocation location = null;
     openConn();
     String sql = "SELECT* FROM Locations WHERE address=?";
     try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
         pstmt.setString(1, address);
         ResultSet rs  = pstmt.executeQuery();
         if (rs.next()) {
-            location = new Location();
+            location = new DalLocation();
             location.setIsBranch(rs.getBoolean("isBranch"));
             location.setAddress(rs.getString("address"));
             location.setAssociate(rs.getString("associate"));
@@ -621,7 +682,7 @@ public class DALController
     return location;
 }
 
-    public boolean saveLocation(Location location) {
+    public boolean saveLocation(DalLocation location) {
         openConn();
         String sql = "INSERT INTO Locations(isBranch, address, phone, associate) VALUES(?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -637,13 +698,13 @@ public class DALController
         return true;
     }
 
-    public Sections loadSections() {
-        Sections sections = null;
+    public DalSections loadSections() {
+        DalSections sections = null;
         openConn();
         String sql = "SELECT* FROM Sections";
-        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {\
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
-            sections = new Sections();
+            sections = new DalSections();
             while (rs.next()) {
                 int area = rs.getInt("area");
                 String location = rs.getString("location");
@@ -656,9 +717,9 @@ public class DALController
         return sections;
     }
 
-    public boolean saveDelivery(Delivery delivery) {
+    public boolean saveDelivery(DalDelivery delivery) {
         openConn();
-        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source) VALUES(?,?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, delivery.getId());
             pstmt.setDate(2, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
@@ -666,6 +727,11 @@ public class DALController
             pstmt.setInt(4 , delivery.getTruckNum());
             pstmt.setString(5, delivery.getDriver());
             pstmt.setString(6, delivery.getSource());
+//            delivery.getDriver()
+//            delivery.getDocs()
+//            delivery.getDestinations()
+//                    todo haim
+
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -674,15 +740,15 @@ public class DALController
         return true;
     }
 
-    public Delivery loadDelivery(int id) {
-        Delivery delivery = null;
+    public DalDelivery loadDelivery(int id) {
+        DalDelivery delivery = null;
         openConn();
         String sql = "SELECT* FROM Deliveries WHERE id=?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
-                delivery = new Delivery();
+                delivery = new DalDelivery();
                 delivery.setId(rs.getInt("id"));
                 delivery.setDate(rs.getDate("departureDate"));
                 delivery.setDepartureTime(rs.getTime("departureTime"));
@@ -711,8 +777,8 @@ public class DALController
         } catch (SQLException e) {
             return false;
         }
-        for (Supply supply : doc.getDeliveryList()){
-            saveSupply(doc.getNum(), doc.getDestination(), supply);
+        for (DalSupply dalSupply : doc.getDeliveryList()){
+            saveSupply(doc.getNum(), doc.getDestination(), dalSupply);
         }
         return true;
     }
@@ -732,7 +798,7 @@ public class DALController
                 doc.setEstimatedDayOfArrival(rs.getTime("setEstimatedDayOfArrival"));
             }
             conn.close();
-            List<Supply> supplies = loadSupplies(doc.getNum());
+            List<DalSupply> supplies = loadSupplies(doc.getNum());
             doc.setDeliveryList(supplies);
 
         } catch (SQLException e) {
@@ -741,14 +807,14 @@ public class DALController
         return doc;
     }
 
-    public boolean saveSupply(int docNum, String destination, Supply supply) {
+    public boolean saveSupply(int docNum, String destination, DalSupply dalSupply) {
         openConn();
         String sql = "INSERT INTO DeliveryDocs(docID, destination, supName, quant) VALUES(?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, docNum);
             pstmt.setString(2, destination);
-            pstmt.setString(3, supply.getName());
-            pstmt.setInt(4 , supply.getQuant());
+            pstmt.setString(3, dalSupply.getName());
+            pstmt.setInt(4 , dalSupply.getQuant());
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -757,18 +823,18 @@ public class DALController
         return true;
     }
 
-    public List<Supply> loadSupplies(int docNum) {
-        List<Supply> supplies = new LinkedList<>();
+    public List<DalSupply> loadSupplies(int docNum) {
+        List<DalSupply> supplies = new LinkedList<>();
         openConn();
         String sql = "SELECT* FROM Supplies WHERE docNum=?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             pstmt.setInt(1, docNum);
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
-                Supply supply = new Supply();
-                supply.setName(rs.getString("supName"));
-                supply.setQuant(rs.getInt("quant"));
-                supplies.add(supply);
+                DalSupply dalSupply = new DalSupply();
+                dalSupply.setName(rs.getString("supName"));
+                dalSupply.setQuant(rs.getInt("quant"));
+                supplies.add(dalSupply);
             }
             conn.close();
 
@@ -778,10 +844,10 @@ public class DALController
         return supplies;
     }
 
-    /*public void save(List<Business.Location> bLocations) {
-        locations = new LinkedList<>();
-        for (Business.Location l: bLocations ){
-            locations.add(new Location(l.getAddress(), l.getPhone(), l.getAssociate()));
+    /*public void save(List<Business.DalLocation> bLocations) {
+        dalLocations = new LinkedList<>();
+        for (Business.DalLocation l: bLocations ){
+            dalLocations.add(new DalLocation(l.getAddress(), l.getPhone(), l.getAssociate()));
         }
     }*/
 

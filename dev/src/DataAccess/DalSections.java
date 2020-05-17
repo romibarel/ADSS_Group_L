@@ -4,15 +4,15 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Sections {
+public class DalSections {
     //todo change to string
     private HashMap<Integer, List<String>> areas;
 
-    public Sections(HashMap<Integer, List<String>> areas){
+    public DalSections(HashMap<Integer, List<String>> areas){
         this.areas = areas;
     }
 
-    public int getSection(Location location){
+    public int getSection(DalLocation location){
         int area = 0;
         for (int key : areas.keySet()){
             if (areas.get(key).contains(location.getAddress())){
@@ -27,7 +27,7 @@ public class Sections {
         areas.putIfAbsent(section, new LinkedList<>());
     }
 
-    public boolean addLocationToSection(int section, Location location)
+    public boolean addLocationToSection(int section, DalLocation location)
     {
         List<String> list = areas.get(section);
         if (list==null) //new Section
@@ -40,15 +40,15 @@ public class Sections {
         return list.add(location.getAddress());
     }
 
-    public void removeLocationFromSection(int Section, DataAccess.Location location)
+    public void removeLocationFromSection(int Section, DalLocation dalLocation)
     {
         List<String> list = areas.get(Section);
         if(list != null) {
-            list.remove(location);
+            list.remove(dalLocation);
         }
     }
 
-    public Sections() {
+    public DalSections() {
         areas = new HashMap<>();
     }
 

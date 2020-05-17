@@ -1,6 +1,8 @@
 package Business;
 
 
+import DataAccess.DalLocation;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class Sections {
         return list.add(location.getAddress());
     }
 
-    public void removeLocationFromSection(int Section, DataAccess.Location location)
+    public void removeLocationFromSection(int Section, DalLocation location)
     {
         List<String> list = areas.get(Section);
         if(list != null) {

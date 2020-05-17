@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Delivery {
+public class DalDelivery {
     private int id;
     private Date date;
     private Date departureTime;
@@ -25,7 +25,7 @@ public class Delivery {
      * @param destinations can be null for empty list
      * @param docs can be null for empty list
      */
-    public Delivery(Date date, Date departureTime, int truckNum, String driver, String source, List<String> destinations, List<Integer> docs) {
+    public DalDelivery(Date date, Date departureTime, int truckNum, String driver, String source, List<String> destinations, List<Integer> docs) {
         this.date = date;
         this.departureTime = departureTime;
         this.truckNum = truckNum;
@@ -35,7 +35,7 @@ public class Delivery {
         this.docs = docs!=null ? docs : new LinkedList<>();
     }
 
-    public Delivery(){
+    public DalDelivery(){
 
     }
 

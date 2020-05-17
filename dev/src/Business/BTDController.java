@@ -1,10 +1,7 @@
 package Business;
 
 
-import DataAccess.DALConstraint;
-import DataAccess.DALController;
-import DataAccess.DALDeliveryDoc;
-import DataAccess.DalTruck;
+import DataAccess.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -85,7 +82,7 @@ public class BTDController {
     }
 
     /**
-     * Sections and Archive must be given all other can be null for not changeing
+     * DalSections and Archive must be given all other can be null for not changeing
      * @param drivers
      * @param archive
      * @param sections
@@ -133,71 +130,76 @@ public class BTDController {
         return new Location(dataTb.loadLocation(address));
     }
 
+    public boolean saveLocation(boolean isBranch, Location location) {
+        return dataTb.saveLocation(new DalLocation(isBranch, location));
+    }
+
+
     public void saveDoc(int delId, DeliverDoc deliveryDoc)
     {
         dataTb.saveDoc(delId , new DALDeliveryDoc(deliveryDoc));
     }
 
-    public boolean addTruck(DalTruck truck)
-    {
-        if (trucks == null)
-            trucks = new LinkedList<>();
-        return trucks.add(truck);
-    }
-
-    public boolean addLocation(Location location)
-    {
-        if (locations == null)
-            locations = new LinkedList<>();
-        return locations.add(location);
-    }
-
-    public boolean addDriver(Driver driver)
-    {
-        if (drivers == null)
-            drivers = new LinkedList<>();
-        return drivers.add(driver);
-    }
-
-
-    public List<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(List<Driver> drivers) {
-        this.drivers = drivers;
-    }
-
-    public DeliveryArchive getArchive() {
-        return archive;
-    }
-
-    public void setArchive(DeliveryArchive archive) {
-        this.archive = archive;
-    }
-
-    public List<DalTruck> getTrucks() {
-        return trucks;
-    }
-
-    public void setTrucks(List<DalTruck> dalTrucks) {
-        this.trucks = dalTrucks;
-    }
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
-    }
-
-    public Sections getSections() {
-        return sections;
-    }
-
-    public void setSections(Sections sections) {
-        this.sections = sections;
-    }
+//    public boolean addTruck(DalTruck truck)
+//    {
+//        if (trucks == null)
+//            trucks = new LinkedList<>();
+//        return trucks.add(truck);
+//    }
+//
+//    public boolean addLocation(Location location)
+//    {
+//        if (locations == null)
+//            locations = new LinkedList<>();
+//        return locations.add(location);
+//    }
+//
+//    public boolean addDriver(Driver driver)
+//    {
+//        if (drivers == null)
+//            drivers = new LinkedList<>();
+//        return drivers.add(driver);
+//    }
+//
+//
+//    public List<Driver> getDrivers() {
+//        return drivers;
+//    }
+//
+//    public void setDrivers(List<Driver> drivers) {
+//        this.drivers = drivers;
+//    }
+//
+//    public DeliveryArchive getArchive() {
+//        return archive;
+//    }
+//
+//    public void setArchive(DeliveryArchive archive) {
+//        this.archive = archive;
+//    }
+//
+//    public List<DalTruck> getTrucks() {
+//        return trucks;
+//    }
+//
+//    public void setTrucks(List<DalTruck> dalTrucks) {
+//        this.trucks = dalTrucks;
+//    }
+//
+//    public List<Location> getLocations() {
+//        return locations;
+//    }
+//
+//    public void setLocations(List<Location> locations) {
+//        this.locations = locations;
+//    }
+//
+//    public Sections getSections() {
+//        return sections;
+//    }
+//
+//    public void setSections(Sections sections) {
+//        this.sections = sections;
+//    }
 
 }
