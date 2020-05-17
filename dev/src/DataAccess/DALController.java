@@ -637,21 +637,36 @@ public class DALController
         return true;
     }
 
-    //todo: deliveries - im not sure how to do this (need to upload the whole table)
-    public void loadSections() {
-
+    public Sections loadSections() {
+        Sections sections = null;
+        openConn();
+        String sql = "SELECT* FROM Sections";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {\
+            ResultSet rs  = pstmt.executeQuery();
+            sections = new Sections();
+            while (rs.next()) {
+                int area = rs.getInt("area");
+                String location = rs.getString("location");
+                sections.addLocationToSection(area, location);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return sections;
     }
 
     //todo: deliveries - not sure how to save multiple destinations
     public boolean saveDelivery(Delivery delivery) {
         openConn();
-        String sql = "INSERT INTO Deliveries(departureDate, departureTime, truckNum, driver, source) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source) VALUES(?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setDate(1, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
-            pstmt.setTime(2, new Time(delivery.getDate().getHours(),delivery.getDate().getMinutes(), 0));
-            pstmt.setInt(3 , delivery.getTruckNum());
-            pstmt.setString(4, delivery.getDriver());
-            pstmt.setString(5, delivery.getSource());
+            pstmt.setInt(1, delivery.getId());
+            pstmt.setDate(2, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
+            pstmt.setTime(3, new Time(delivery.getDate().getHours(),delivery.getDate().getMinutes(), 0));
+            pstmt.setInt(4 , delivery.getTruckNum());
+            pstmt.setString(5, delivery.getDriver());
+            pstmt.setString(6, delivery.getSource());
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -683,10 +698,10 @@ public class DALController
         return delivery;
     }
 
-    //todo: deliveries - not sure how to save multiple destinations
-    public boolean saveDoc(DALDeliveryDoc doc) {
+    //todo: deliveries - not sure how to save multiple supplies
+    public boolean saveDoc(int deliveryID, DALDeliveryDoc doc) {
         openConn();
-        String sql = "INSERT INTO DeliveryDocs(id, list, destination, estimatedTimeOfArrival, estimatedDayOfArrival) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO DeliveryDocs(deliveryID, docID, destination, estimatedTimeOfArrival, estimatedDayOfArrival) VALUES(?,?,?.?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, doc.getNum());
             pstmt.(2, );
