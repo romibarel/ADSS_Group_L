@@ -11,6 +11,12 @@ public class Location {
         this.associate = associate;
     }
 
+    public Location(DataAccess.Location locationDal) {
+        this.address = locationDal.getAddress();
+        this.phone = locationDal.getPhone();
+        this.associate = locationDal.getAssociate();
+    }
+
     public String getAddress() {
         return address;
     }
