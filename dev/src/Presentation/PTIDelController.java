@@ -75,7 +75,7 @@ public class PTIDelController {
                 while(!finish){
                     System.out.println("What would you like to add?\n" +
                             "1) Section\n" +
-                            "2) Truck\n" +
+                            "2) DalTruck\n" +
                             "3) Finish");
                     input = scanner.nextLine();
                     switch (input) {

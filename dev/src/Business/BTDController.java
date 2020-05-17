@@ -3,7 +3,7 @@ package Business;
 
 import DataAccess.DALConstraint;
 import DataAccess.DALController;
-import DataAccess.Truck;
+import DataAccess.DalTruck;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class BTDController {
     private DeliveryArchive archive ;
     private Sections sections;
     private List<Location> locations;
-    private List<Truck> trucks;
+    private List<DalTruck> trucks;
 
     private BTDController(){
         drivers = new LinkedList<>();
@@ -91,7 +91,7 @@ public class BTDController {
      * @param locations
      * @param trucks
      */
-    public void set(List<Driver> drivers, DeliveryArchive archive, Sections sections, List<Location> locations, List<Truck> trucks) {
+    public void set(List<Driver> drivers, DeliveryArchive archive, Sections sections, List<Location> locations, List<DalTruck> trucks) {
         this.archive = archive;
         this.sections = sections;
         if (drivers != null) {
@@ -113,26 +113,35 @@ public class BTDController {
     public void addDelivery(Delivery delivery)
     {
         archive.add(delivery);
+        delivery.get
+//        make it create a dall delivery with an int id
+//          save all its delivery docs with the same id
+        //todo change so will add all the
     }
 
-    public Truck loadTruck(int truckId) {
-        return new Truck(dataTb.loadTruck(truckId));
+    public DalTruck loadTruck(int truckId) {
+        return new DalTruck(dataTb.loadTruck(truckId));
     }
 
-    public boolean saveTruck(Truck truck)
+    public boolean saveTruck(DalTruck truck)
     {
         return dataTb.saveTruck(new DataAccess.);
     }
 
-    public Truck getLocation(int truckId) {
-        return new Truck(dataTb.loadTruck(truckId));
+    public DalTruck getLocation(int truckId) {
+        return new DalTruck(dataTb.loadTruck(truckId));
     }
 //    DeliveryArchive archive ;
 //    Sections sections;
 //    List<Location> locations;
 
 
-    public boolean addTruck(Truck truck)
+    public saveDoc(DeliveryDoc , Delivery)
+    {
+
+    }
+
+    public boolean addTruck(DalTruck truck)
     {
         if (trucks == null)
             trucks = new LinkedList<>();
@@ -170,12 +179,12 @@ public class BTDController {
         this.archive = archive;
     }
 
-    public List<Truck> getTrucks() {
+    public List<DalTruck> getTrucks() {
         return trucks;
     }
 
-    public void setTrucks(List<Truck> trucks) {
-        this.trucks = trucks;
+    public void setTrucks(List<DalTruck> dalTrucks) {
+        this.trucks = dalTrucks;
     }
 
     public List<Location> getLocations() {

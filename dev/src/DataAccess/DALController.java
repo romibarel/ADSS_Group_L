@@ -14,7 +14,7 @@ public class DALController
     private static DALController thisOne;
     private List<Driver> drivers;
     private DeliveryArchive archive;
-    private List<Truck> trucks;
+    private List<DalTruck> dalTrucks;
     private List<Location> locations;
     private Sections sections;
     private Connection conn;
@@ -545,10 +545,10 @@ public class DALController
 
 
 /*
-    public void save(List<Business.Driver> drivers, Business.DeliveryArchive archive, List<Business.Truck> trucks, List<Business.Location> locations, Business.Sections sections) {
+    public void save(List<Business.Driver> drivers, Business.DeliveryArchive archive, List<Business.DalTruck> dalTrucks, List<Business.Location> locations, Business.Sections sections) {
         this.drivers = save(drivers);
         this.archive = save(archive);
-        this.trucks = save(trucks);
+        this.dalTrucks = save(dalTrucks);
         this.locations = save(locations);
         this.sections = save(sections);
     }*/
@@ -561,37 +561,37 @@ public class DALController
         this.drivers = drivers;
     }
 
-    public Truck loadTruck(int id) {
-        Truck truck = null;
+    public DalTruck loadTruck(int id) {
+        DalTruck dalTruck = null;
         openConn();
         String sql = "SELECT* FROM Trucks WHERE id=?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
-                truck = new Truck();
-                truck.setTruckNum(rs.getInt("id"));
-                truck.setPlate(rs.getInt("plate"));
-                truck.setMaxWeight(rs.getInt("maxWeight"));
-                truck.setWeighNeto(rs.getInt("weightNeto"));
-                truck.setType(rs.getString("type"));
+                dalTruck = new DalTruck();
+                dalTruck.setTruckNum(rs.getInt("id"));
+                dalTruck.setPlate(rs.getInt("plate"));
+                dalTruck.setMaxWeight(rs.getInt("maxWeight"));
+                dalTruck.setWeighNeto(rs.getInt("weightNeto"));
+                dalTruck.setType(rs.getString("type"));
             }
             conn.close();
         } catch (SQLException e) {
             return null;
         }
-        return truck;
+        return dalTruck;
     }
 
-    public boolean saveTruck(Truck truck) {
+    public boolean saveTruck(DalTruck dalTruck) {
         openConn();
         String sql = "INSERT INTO Trucks(id, plate, maxWeight, netoWeight, type) VALUES(?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, truck.getTruckNum());
-            pstmt.setInt(2, truck.getPlate());
-            pstmt.setInt(3 , truck.getMaxWeight());
-            pstmt.setInt(4, truck.getWeighNeto());
-            pstmt.setString(5, truck.getType());
+            pstmt.setInt(1, dalTruck.getTruckNum());
+            pstmt.setInt(2, dalTruck.getPlate());
+            pstmt.setInt(3 , dalTruck.getMaxWeight());
+            pstmt.setInt(4, dalTruck.getWeighNeto());
+            pstmt.setString(5, dalTruck.getType());
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {

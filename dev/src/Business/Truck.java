@@ -1,5 +1,7 @@
 package Business;
 
+import DataAccess.DalTruck;
+
 public class Truck {
     private int truckNum;
     private int plate;
@@ -16,7 +18,7 @@ public class Truck {
         this.type = type;
     }
 
-    public Truck(DataAccess.Truck dalTruck) {
+    public Truck(DalTruck dalTruck) {
         this.truckNum = dalTruck.getTruckNum();
         this.plate = dalTruck.getPlate();
         this.weighNeto = dalTruck.getWeighNeto();

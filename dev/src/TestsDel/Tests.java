@@ -35,7 +35,7 @@ public class Tests {
         DeliverDoc doc = new DeliverDoc(1, supplyList, destination);
         List<DeliverDoc> docs = new LinkedList<>();
         docs.add(doc);
-        Truck truck = new Truck(1, 111, 1000, 4000, "Mazda");
+        DalTruck truck = new DalTruck(1, 111, 1000, 4000, "Mazda");
         List<String> lisences = new LinkedList<>();
         lisences.add("Toyota");
         Driver driver = new Driver(lisences, "Moshe");
@@ -57,7 +57,7 @@ public class Tests {
         DeliverDoc doc = new DeliverDoc(1, supplyList, destination);
         List<DeliverDoc> docs = new LinkedList<>();
         docs.add(doc);
-        Truck truck = new Truck(1, 111, 1000, 4000, "Mazda");
+        DalTruck truck = new DalTruck(1, 111, 1000, 4000, "Mazda");
         List<String> lisences = new LinkedList<>();
         lisences.add("Mazda");
         Driver driver = new Driver(lisences, "Moshe");
@@ -79,7 +79,7 @@ public class Tests {
         DeliverDoc doc = new DeliverDoc(1, supplyList, destination);
         List<DeliverDoc> docs = new LinkedList<>();
         docs.add(doc);
-        Truck truck = new Truck(1, 111, 1000, 4000, "Mazda");
+        DalTruck truck = new DalTruck(1, 111, 1000, 4000, "Mazda");
         List<String> lisences = new LinkedList<>();
         lisences.add("Mazda");
         Driver driver = new Driver(lisences, "Moshe");
