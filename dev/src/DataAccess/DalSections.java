@@ -27,17 +27,17 @@ public class DalSections {
         areas.putIfAbsent(section, new LinkedList<>());
     }
 
-    public boolean addLocationToSection(int section, DalLocation location)
+    public boolean addLocationToSection(int section, String location)
     {
         List<String> list = areas.get(section);
         if (list==null) //new Section
         {
             list = new LinkedList<>();
-            list.add(location.getAddress());
+            list.add(location);
             areas.put(section, list);
             return true;
         }
-        return list.add(location.getAddress());
+        return list.add(location);
     }
 
     public void removeLocationFromSection(int Section, DalLocation dalLocation)

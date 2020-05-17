@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DalDelivery;
 import javafx.util.Pair;
 
 import java.sql.Time;
@@ -30,6 +31,22 @@ public class Delivery {
         }
 
     }
+
+    public Delivery(DalDelivery dalDelivery ,Location source) {
+        this.date = dalDelivery.getDate();
+        this.departureTime = dalDelivery.getDepartureTime();
+        this.truckNum = dalDelivery.getTruckNum();
+        this.driver = dalDelivery.getDriver();
+        this.source = source;
+        this.truckWeight = dalDelivery.getTruckWeight();
+        this.approved = true;
+        docLoc = new HashMap<>();//thats a prob
+        for (DeliverDoc doc : docs) {
+            docLoc.put(doc, doc.getDestination());
+        }
+    }
+
+
 
 
 //    public Delivery(Date date, Date time, Truck truck, String driver, boolean goodLicenses, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){

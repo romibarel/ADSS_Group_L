@@ -814,7 +814,7 @@ public class DALController
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             sections = new DalSections();
-            while (rs.next()) {
+                while (rs.next()) {
                 int area = rs.getInt("area");
                 String location = rs.getString("location");
                 sections.addLocationToSection(area, location);
@@ -845,7 +845,7 @@ public class DALController
             pstmt.setInt(4 , delivery.getTruckNum());
             pstmt.setString(5, delivery.getDriver());
             pstmt.setString(6, delivery.getSource());
-            pstmt.setString(6, delivery.getTruckWeight());
+//            pstmt.setString(6, delivery.getTruckWeight());
 //            delivery.getDriver()
 //            delivery.getDocs()
 //            delivery.getDestinations()

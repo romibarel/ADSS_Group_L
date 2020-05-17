@@ -126,4 +126,12 @@ public class DalDelivery {
     public void setDocs(List<Integer> docs) {
         this.docs = docs;
     }
+
+    public int getTruckWeight() {
+        return truckWeight;
+    }
+
+    public void setTruckWeight(int truckWeight) {
+        this.truckWeight = truckWeight;
+    }
 }
