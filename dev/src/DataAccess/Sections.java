@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Sections {
+    //todo change to string
     private HashMap<Integer, List<Location>> areas;
 
     public void addSection(int section)
