@@ -28,6 +28,24 @@ public class PTIDelController {
     }
 
     public void setup(){
+        PTIDelController pti = PTIDelController.getPTI();
+        ITPDelController itp = ITPDelController.getITP();
+        ITBDelController itb = ITBDelController.getITB();
+        BTIController bti = BTIController.getBTI();
+        BTDController btd = BTDController.getBTD();
+        DALController dtb = DALController.getDTB();
+
+        List<String[]> sections = new LinkedList<>();
+        List<String[]> locations = new LinkedList<>();
+        List<String[]> trucks = new LinkedList<>();
+
+        pti.set();
+        itp.set();
+        itb.set();
+        bti.set(sections, locations, trucks);
+    }
+
+    public void oldSetup(){
         boolean finish = false;
         PTIDelController pti = PTIDelController.getPTI();
         ITPDelController itp = ITPDelController.getITP();
