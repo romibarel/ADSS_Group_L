@@ -328,6 +328,7 @@ public class PTIDelController {
                 System.out.println("Invalid date, try again.");
                 return new LinkedList<>();
             }
+            doc[4] = estimatedDayOfArrival.toString();
 
             System.out.println("What is the estimated time of arrival to " +destination+ " in HH:mm format?");
             input = scanner.nextLine();
