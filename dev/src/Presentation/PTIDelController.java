@@ -331,7 +331,7 @@ public class PTIDelController {
             out = itp.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, doc);
             System.out.println(out);
             if (!out.equals("Document created successfully.")){
-                System.out.println("The creation of the delivery document failed. The Delivery will not be created.");
+                System.out.println("The creation of the delivery document failed. The DalDelivery will not be created.");
                 return new LinkedList<>();
             }
             else {

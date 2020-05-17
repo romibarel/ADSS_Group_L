@@ -7,12 +7,12 @@ import java.util.List;
 
 public class DALDeliveryDoc {
     private int num;
-    private List<Supply> deliveryList;
+    private List<DalSupply> deliveryList;
     private String destination;
     private Date estimatedTimeOfArrival;
     private Date estimatedDayOfArrival;
 
-    public DALDeliveryDoc(int num, List<Supply> deliveryList, String destination, Date estimatedTimeOfArrival, Date estimatedDayOfArrival) {
+    public DALDeliveryDoc(int num, List<DalSupply> deliveryList, String destination, Date estimatedTimeOfArrival, Date estimatedDayOfArrival) {
         this.num = num;
         this.deliveryList = deliveryList;
         this.destination = destination;
@@ -36,11 +36,11 @@ public class DALDeliveryDoc {
         this.num = num;
     }
 
-    public List<Supply> getDeliveryList() {
+    public List<DalSupply> getDeliveryList() {
         return deliveryList;
     }
 
-    public void setDeliveryList(List<Supply> deliveryList) {
+    public void setDeliveryList(List<DalSupply> deliveryList) {
         this.deliveryList = deliveryList;
     }
 

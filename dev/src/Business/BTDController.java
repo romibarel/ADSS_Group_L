@@ -1,10 +1,7 @@
 package Business;
 
 
-import DataAccess.DALConstraint;
-import DataAccess.DALController;
-import DataAccess.DALDeliveryDoc;
-import DataAccess.DalTruck;
+import DataAccess.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -85,7 +82,7 @@ public class BTDController {
     }
 
     /**
-     * Sections and Archive must be given all other can be null for not changeing
+     * DalSections and Archive must be given all other can be null for not changeing
      * @param drivers
      * @param archive
      * @param sections
@@ -132,6 +129,11 @@ public class BTDController {
     public Location getLocation(String address) {
         return new Location(dataTb.loadLocation(address));
     }
+
+    public boolean saveLocation(boolean isBranch, Location location) {
+        return dataTb.saveLocation(new DalLocation(isBranch, location));
+    }
+
 
     public void saveDoc(int delId, DeliverDoc deliveryDoc)
     {

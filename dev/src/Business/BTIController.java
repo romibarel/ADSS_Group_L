@@ -190,7 +190,7 @@ public class BTIController {
         //addDelivery saves all the deliveryDocs of this delivery as well
         btd.addDelivery(delivery);
         archive.add(delivery);
-        return "Delivery was created successfully!";
+        return "DalDelivery was created successfully!";
     }
 
     public List<Supply> getSupplies() {
