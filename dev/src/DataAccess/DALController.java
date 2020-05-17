@@ -43,47 +43,25 @@ public class DALController
 
     public void initialize() {
         createTables();
+        initLocations();
+        initSections();
+        initTrucks();
     }
 
-    public List<String> createTables(){
+    public void initLocations(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("CREATE TABLE IF NOT EXISTS \"Deliveries\" (\n" +
-                "\t\"id\"\tINTEGER,\n" +
-                "\t\"departureDate\"\tDATE,\n" +
-                "\t\"departureTime\"\tTIME,\n" +
-                "\t\"truckNum\"\tINTEGER,\n" +
-                "\t\"driver\"\tTEXT,\n" +
-                "\t\"source\"\tTEXT\n" +
-                ");");
-        sqls.add("CREATE TABLE IF NOT EXISTS \"DeliveryDocs\" (\n" +
-                "\t\"deliveryID\"\tINTEGER,\n" +
-                "\t\"docID\"\tINTEGER,\n" +
-                "\t\"destination\"\tTEXT,\n" +
-                "\t\"estimatedTimeOfArrival\"\tTIME,\n" +
-                "\t\"estimatedDayOfArrival\"\tDATE\n" +
-                ");");   //DalDelivery Document
-        sqls.add("CREATE TABLE IF NOT EXISTS \"Locations\" (\n" +
-                "\t\"isBranch\"\tBOOLEAN,\n" +
-                "\t\"address\"\tTEXT,\n" +
-                "\t\"associate\"\tTEXT,\n" +
-                "\t\"phone\"\tINTEGER\n" +
-                ");");
-        sqls.add("CREATE TABLE IF NOT EXISTS \"DalSections\" (\n" +
-                "\t\"area\"\tINTEGER,\n" +
-                "\t\"location\"\tTEXT\n" +
-                ");");
-        sqls.add("CREATE TABLE IF NOT EXISTS \"DalSupply\" (\n" +
-                "\t\"docNum\"\tINTEGER,\n" +
-                "\t\"destination\"\tTEXT,\n" +
-                "\t\"supName\"\tTEXT,\n" +
-                "\t\"quant\"\tINTEGER\n" +
-                ");");
-        sqls.add("CREATE TABLE IF NOT EXISTS \"Trucks\"(\n" +
-                "\t\"id\"\tINTEGER,\n" +
-                "\t\"plate\"\tINTEGER,\n" +
-                "\t\"maxWeight\"\tINTEGER,\n" +
-                "\t\"netoWeight\"\tINTEGER,\n" +
-                "\t\"type\"\tTEXT);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Super Lee\", \"Haim\", 516);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Lee Office\", \"Romi\", 622);");   //DalDelivery Document
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Mega\", \"Michael\", 636);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Shufersal\", \"Inbar\", 163);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Costco\", \"Avi\", 123);\n");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Best Buy\", \"Gil\", 456);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"American Eagle\", \"Rom\", 789);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Max Stock\", \"Adir\", 147);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (true, \"Linux\", \"Adler\", 852);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (false, \"Asos\", \"Tony\", 963);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (false, \"Steve Madden\", \"Steve\", 9654);");
+        sqls.add("INSERT INTO Locations (isBranch, address, associate, phone) VALUES (false, \"Gucci\", \"Gustavo\", 1654);");
 
         openConn();
         for (String sqlCommand : sqls){
@@ -96,11 +74,142 @@ public class DALController
 //                return new Result(false, "Saving to data base has failed");
             }
         }
-
-        return sqls;
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    public void initSections(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("INSERT INTO Sections (area, location) VALUES (1, \"Super Lee\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (1, \"Lee Office\");");   //DalDelivery Document
+        sqls.add("INSERT INTO Sections (area, location) VALUES (1, \"Mega\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (1, \"Shufersal\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (2, \"Costco\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (2, \"Best Buy\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (2, \"American Eagle\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (2, \"Max Stock\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (2, \"Linux\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (1, \"Asos\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (1, \"Steve Madden\");");
+        sqls.add("INSERT INTO Sections (area, location) VALUES (2, \"Gucci\");");
 
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
+
+            }
+            catch (Exception exception){
+//                return new Result(false, "Saving to data base has failed");
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initTrucks(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (1, 111, 1000, 4000, \"Mazda\");");
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (2, 222, 1200, 7000, \"Toyota\");");
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (3, 333, 1100, 5500, \"Mercedes\");");
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (4, 123, 2000, 4000, \"Mazda\");");
+
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
+
+            }
+            catch (Exception exception){
+//                return new Result(false, "Saving to data base has failed");
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createTables(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("CREATE TABLE \"Deliveries\" (\n" +
+                "\t\"id\"\tINTEGER,\n" +
+                "\t\"departureDate\"\tDATE,\n" +
+                "\t\"departureTime\"\tTIME,\n" +
+                "\t\"truckNum\"\tINTEGER,\n" +
+                "\t\"driver\"\tTEXT,\n" +
+                "\t\"source\"\tTEXT,\n" +
+                "\t\"truckWeight\"\tINTEGER,\n" +
+                "\tPRIMARY KEY(\"id\"),\n" +
+                "\tFOREIGN KEY(\"driver\") REFERENCES \"Workers\"(\"name\"),\n" +
+                "\tFOREIGN KEY(\"truckNum\") REFERENCES \"Trucks\"(\"id\")\n" +
+                ");");
+        sqls.add("CREATE TABLE \"DeliveryDocs\" (\n" +
+                "\t\"deliveryID\"\tINTEGER NOT NULL,\n" +
+                "\t\"docID\"\tINTEGER NOT NULL,\n" +
+                "\t\"destination\"\tINTEGER NOT NULL,\n" +
+                "\t\"estimatedTimeOfArrival\"\tTIME NOT NULL,\n" +
+                "\t\"estimatedDayOfArrival\"\tDATE NOT NULL,\n" +
+                "\tPRIMARY KEY(\"docID\"),\n" +
+                "\tFOREIGN KEY(\"deliveryID\") REFERENCES \"Delivery \"(\"id\"),\n" +
+                "\tFOREIGN KEY(\"destination\") REFERENCES \"Locations\"(\"address\")\n" +
+                ");");   //DalDelivery Document
+        sqls.add("CREATE TABLE \"Locations\" (\n" +
+                "\t\"isBranch\"\tBOOLEAN NOT NULL,\n" +
+                "\t\"address\"\tTEXT NOT NULL,\n" +
+                "\t\"associate\"\tTEXT,\n" +
+                "\t\"phone\"\tINTEGER,\n" +
+                "\tPRIMARY KEY(\"address\")\n" +
+                ");");
+        sqls.add("CREATE TABLE \"Sections\" (\n" +
+                "\t\"area\"\tINTEGER,\n" +
+                "\t\"location\"\tTEXT NOT NULL,\n" +
+                "\tPRIMARY KEY(\"location\"),\n" +
+                "\tFOREIGN KEY(\"location\") REFERENCES \"Locations\"(\"address\")\n" +
+                ");");
+        sqls.add("CREATE TABLE \"Supply\" (\n" +
+                "\t\"docNum\"\tINTEGER,\n" +
+                "\t\"destination\"\tTEXT,\n" +
+                "\t\"supName\"\tTEXT,\n" +
+                "\t\"quant\"\tINTEGER,\n" +
+                "\tFOREIGN KEY(\"destination\") REFERENCES \"Locations\"(\"address\"),\n" +
+                "\tPRIMARY KEY(\"docNum\",\"destination\")\n" +
+                ");");
+        sqls.add("CREATE TABLE \"Trucks\" (\n" +
+                "\t\"id\"\tINTEGER,\n" +
+                "\t\"plate\"\tINTEGER,\n" +
+                "\t\"maxWeight\"\tINTEGER,\n" +
+                "\t\"netoWeight\"\tINTEGER,\n" +
+                "\t\"type\"\tTEXT,\n" +
+                "\tPRIMARY KEY(\"id\")\n" +
+                ");");
+
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
+
+            }
+            catch (Exception exception){
+//                return new Result(false, "Saving to data base has failed");
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Result saveConstraint(DALConstraint constraint)  {
         openConn();

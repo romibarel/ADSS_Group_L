@@ -11,6 +11,7 @@ public class DalDelivery {
     private Date date;
     private Date departureTime;
     private int truckNum;
+    private int truckWeight;
     private String driver;
     private String source;
     private List<String> destinations;
