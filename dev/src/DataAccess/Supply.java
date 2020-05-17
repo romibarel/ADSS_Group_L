@@ -1,6 +1,7 @@
 package DataAccess;
 
 public class Supply {
+
     private String name;
     private int quant;
 

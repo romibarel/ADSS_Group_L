@@ -16,6 +16,14 @@ public class Truck {
         this.type = type;
     }
 
+    public Truck(DataAccess.Truck dalTruck) {
+        this.truckNum = dalTruck.getTruckNum();
+        this.plate = dalTruck.getPlate();
+        this.weighNeto = dalTruck.getWeighNeto();
+        this.maxWeight = dalTruck.getMaxWeight();
+        this.type = dalTruck.getType();
+    }
+
 
     //the driver will check if he can use the truck?
 
