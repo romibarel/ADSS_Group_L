@@ -880,7 +880,7 @@ public class DALController
             pstmt.setInt(2, doc.getNum());
             pstmt.setString(3 , doc.getDestination());
             pstmt.setTime(4, new Time(doc.getEstimatedTimeOfArrival().getHours(), doc.getEstimatedTimeOfArrival().getMinutes(), 0));
-            pstmt.setDate(5, new Date((doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
+            pstmt.setDate(5, new Date(doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
