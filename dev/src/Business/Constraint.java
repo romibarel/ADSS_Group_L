@@ -12,6 +12,7 @@ public class Constraint {
     private int id;
     private String reason;
     private int cid;
+    private boolean isLoaded;
 
     public Constraint(Date date, boolean morning, int id, String reason,int cid) {
         this.date = date;
@@ -19,6 +20,7 @@ public class Constraint {
         this.id = id;
         this.reason = reason;
         this.cid=cid;
+        isLoaded=false;
     }
 
     public Constraint(DALConstraint c){
@@ -27,6 +29,7 @@ public class Constraint {
         this.id = c.getId();
         this.reason = c.getReason();
         this.cid=c.getCid();
+        isLoaded=false;
     }
     public Constraint(InterfaceConstraint c){
         this.date = c.getDate();
@@ -34,6 +37,7 @@ public class Constraint {
         this.id = c.getId();
         this.reason = c.getReason();
         this.cid=c.getCid();
+        isLoaded=false;
     }
 
     public static Result check(InterfaceConstraint c){
@@ -83,5 +87,13 @@ public class Constraint {
 
     public void setCid(int cid) {
         this.cid = cid;
+    }
+
+    public boolean isLoaded() {
+        return isLoaded;
+    }
+
+    public void setLoaded(boolean loaded) {
+        isLoaded = loaded;
     }
 }

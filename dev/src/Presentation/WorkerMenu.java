@@ -39,7 +39,7 @@ public class WorkerMenu {
             System.out.println("3. Delete menu");
             System.out.println("4. Search menu");
             System.out.println("5. Report menu");
-            System.out.println("6. Exit program");
+            System.out.println("6. Exit HR system");
             System.out.println("Please choose a command:");
             try {
                 choice = Integer.parseInt(input.nextLine());

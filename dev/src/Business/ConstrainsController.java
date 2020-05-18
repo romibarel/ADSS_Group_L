@@ -2,21 +2,41 @@ package Business;
 
 import Interface.InterfaceConstraint;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ConstrainsController
 {
-	public static List<Constraint> getConstraints()
-	{
-		return constraints;
-	}
 
-	private static List<Constraint> constraints=new LinkedList<>();
+
+	private static Map<Integer, Constraint> constraints=new HashMap<>();
 	private static BTDController btd=BTDController.getBTD();
 	private static int id=Integer.parseInt(btd.getMax().msg);
+
+	public static List<Constraint> getConstraints()
+	{
+		constraints=new HashMap<>();
+		List<Constraint> cons=btd.loadAllConstraint();
+		return constraints.values().stream().collect(Collectors.toList());
+	}
+
+	public static void listToMap(List<Constraint> cons, boolean isLoaded){
+		for(Constraint c: cons){
+			c.setLoaded(isLoaded);
+			if(constraints.containsKey(c.getCid()))
+				constraints.get(c.getCid()).setLoaded(isLoaded);
+			else
+				constraints.put(c.getCid(),c);
+		}
+	}
+
+	public static boolean isDateLoaded(int id, Date date, boolean isMorning){
+		for(Constraint con: constraints.values().stream().collect(Collectors.toList())){
+			if(con.getId()==id&&con.getDate().equals(date)&& isMorning==con.isMorning()&&con.isLoaded())
+				return true;
+		}
+		return false;
+	}
 
 	public static boolean is_available(int worker_id, Date date, boolean morning)
 	{
@@ -57,7 +77,20 @@ public class ConstrainsController
 
 	public static List<Constraint> getConstraint(int id,Date date,  boolean morning){
 		List<Constraint> cons=new LinkedList<>();
-		cons=btd.loadConstraint(id, date, morning);
+		if(!isDateLoaded(id, date,morning)){
+			cons=btd.loadConstraint(id, date, morning);
+			if(cons!=null)
+				listToMap(cons, true);
+			else
+				cons=new LinkedList<>();
+		}
+		else{
+			for(Constraint con:constraints.values().stream().collect(Collectors.toList())){
+				if(con.getId()==id&&con.getDate().equals(date)&& morning==con.isMorning())
+					cons.add(con);
+			}
+		}
+
 		return cons;
 	}
 
@@ -68,7 +101,10 @@ public class ConstrainsController
 		Date currentWeekStart = calendar.getTime();
 		calendar.add(Calendar.DATE, 6);
 		Date currentWeekEnd = calendar.getTime();
-		return btd.loadConstraintByWeek(currentWeekStart, currentWeekEnd);
+		cons= btd.loadConstraintByWeek(currentWeekStart, currentWeekEnd);
+		if(cons!=null)
+			listToMap(cons, true);
+		return cons;
 	}
 
 	public static Result addConstraint(InterfaceConstraint c){
@@ -77,7 +113,7 @@ public class ConstrainsController
 			return checking;
 		Constraint con=new Constraint(c.getDate(),c.isMorning(),c.getId(),c.getReason(), id);
 		id++;
-		constraints.add(con);
+		constraints.put(con.getCid(), con);
 		if(!btd.saveConstraint(con).success)
 			return new Result(false,"could not save constraint to data base");
 		return new Result(true,"Constraint was added "+c.toString());
@@ -88,7 +124,7 @@ public class ConstrainsController
 		Constraint constraint=null;
 		if(!checking.success)
 			return checking;
-		for(Constraint con: constraints){
+		for(Constraint con: constraints.values().stream().collect(Collectors.toList())){
 			if(con.getCid()==c.getCid()){
 				constraint=con;
 			}
@@ -96,7 +132,7 @@ public class ConstrainsController
 		if(constraint==null){
 			constraint=btd.loadConstraint(c.getCid());
 			if(constraint!=null)
-				constraints.add(constraint);
+				constraints.putIfAbsent(constraint.getCid(),constraint);
 		}
 		if(constraint==null)
 			return new Result(false,"could not find matching constraint to edit");
@@ -111,14 +147,16 @@ public class ConstrainsController
 	}
 
 	public static Result deleteConstraint(InterfaceConstraint c){
-		for(Constraint con: constraints){
+		for(Constraint con: constraints.values().stream().collect(Collectors.toList())){
 			if(con.getCid()==c.getCid()){
 				constraints.remove(con);
 			}
 		}
+		if(btd.loadConstraint(c.getCid())==null)
+			return new Result(false,"could not find matching constraint to delete");
 		if(btd.deleteConstraint(new Constraint(c)).success)
 			return new Result(true,"Constraint was deleted");
-		return new Result(false,"could not find matching constraint to delete");
+		return new Result(false,"error");
 	}
 
 }

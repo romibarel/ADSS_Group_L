@@ -133,6 +133,8 @@ public class Interface
 	public static String constraintReport(){
 		InterfaceConstraint con=new InterfaceConstraint();
 		List<Constraint> constraints= ConstrainsController.getConstraintsByWeek();
+		if(constraints==null)
+			return "error";
 		constraints.sort(new Comparator<Constraint>() {
 			@Override
 			public int compare(Constraint constraint, Constraint t1) {
