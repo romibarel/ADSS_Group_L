@@ -1,5 +1,7 @@
 package Business;
 
+import DataAccess.DalTruck;
+
 public class Truck {
     private int truckNum;
     private int plate;
@@ -14,6 +16,14 @@ public class Truck {
         this.weighNeto = weighNeto;
         this.maxWeight = maxWeight;
         this.type = type;
+    }
+
+    public Truck(DalTruck dalTruck) {
+        this.truckNum = dalTruck.getTruckNum();
+        this.plate = dalTruck.getPlate();
+        this.weighNeto = dalTruck.getWeighNeto();
+        this.maxWeight = dalTruck.getMaxWeight();
+        this.type = dalTruck.getType();
     }
 
 

@@ -122,12 +122,8 @@ public class BTIController {
         return "Document created successfully.";
     }
 
-    public String createDelivery(Date date, Date time, int truckInt, int driverID, String sourceName, List<Integer> docNums, int truckWeight){
-        Truck truck = null;
-        for (Truck t : trucks){
-            if (t.getTruckNum() == truckInt)
-                truck = t;
-        }
+    public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
+        Truck truck = btd.loadTruck(truckID);
         if (truck == null)
             return "The given truck doesn't exist.";
         if (truck.getMaxWeight() < truckWeight)
@@ -140,11 +136,7 @@ public class BTIController {
         boolean goodLicenses = WorkersController.canDriveTruck(driverID, truck.getType()) ;
 
 
-        Location source = null;
-        for (Location l : locations){
-            if (l.getAddress().equals(sourceName))
-                source = l;
-        }
+        Location source = btd.getLocation(sourceAddress);
         if (source == null)
             return "The source doesn't exist.";
 
@@ -170,7 +162,7 @@ public class BTIController {
         }
         if (destinations.size() != docs.size())
             return "Some of the destinations weren't added.";
-        Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, destinations, docs, truckWeight);
+        Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, docs, truckWeight);
         if(!(delivery.isApproved()))
             return "The driver is unlicensed for the given truck.";
 
@@ -195,8 +187,10 @@ public class BTIController {
         }
 
         //if we got here all is a ok
+        //addDelivery saves all the deliveryDocs of this delivery as well
+        btd.addDelivery(delivery);
         archive.add(delivery);
-        return "Delivery was created successfully!";
+        return "DalDelivery was created successfully!";
     }
 
     public List<Supply> getSupplies() {
@@ -213,24 +207,6 @@ public class BTIController {
 
     public List<Truck> getTrucks() {
         return trucks;
-    }
-
-    public String addSupply(String name, int num) {
-        boolean newSup = true;
-        for (Supply sup : supplies) {
-            if (name.equals(sup.getName()))
-            {
-                sup.setQuant(sup.getQuant() + num);
-                newSup = false;
-                break;
-            }
-        }
-        if (newSup)
-        {
-            supplies.add(new Supply(name,num));
-        }
-
-        return "You added " +num+ " " + name +".";
     }
 
     public DeliveryArchive getArchive(){

@@ -1,6 +1,9 @@
 package DataAccess;
+//import Business.DalTruck;
 
-public class Truck {
+import Business.Truck;
+
+public class DalTruck {
     private int truckNum;
     private int plate;
     private int weighNeto;
@@ -8,13 +11,27 @@ public class Truck {
     private String type;
 
 
-    public Truck(int truckNum, int plate, int weighNeto, int maxWeight, String type) {
+    public DalTruck(){
+
+    }
+
+    public DalTruck(int truckNum, int plate, int weighNeto, int maxWeight, String type) {
         this.truckNum = truckNum;
         this.plate = plate;
         this.weighNeto = weighNeto;
         this.maxWeight = maxWeight;
         this.type = type;
     }
+
+    public DalTruck(Truck truck) {
+        this.truckNum = truck.getTruckNum();
+        this.plate = truck.getPlate();
+        this.weighNeto = truck.getWeighNeto();
+        this.maxWeight = truck.getMaxWeight();
+        this.type = truck.getType();
+    }
+
+
 
     public String getType() {
         return type;

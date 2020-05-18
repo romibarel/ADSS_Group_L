@@ -1,19 +1,26 @@
 package DataAccess;
 
 
+import Business.Delivery;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Delivery {
+public class DalDelivery {
+    private int id;
     private Date date;
     private Date departureTime;
     private int truckNum;
+    private int truckWeight;
     private String driver;
-    private Location source;
-    private List<Location> destinations;
-    private List<Integer> docs;
+    private String source;
+    private HashMap<Integer, String> docToLocation;
+
+//    private List<String> destinations;
+//    private List<Integer> docs;
 
     /**
      * @param date
@@ -24,7 +31,7 @@ public class Delivery {
      * @param destinations can be null for empty list
      * @param docs can be null for empty list
      */
-    public Delivery(Date date, Date departureTime, int truckNum, String driver, Location source, List<Location> destinations, List<Integer> docs) {
+    public DalDelivery(Date date, Date departureTime, int truckNum, String driver, String source, List<String> destinations, List<Integer> docs) {
         this.date = date;
         this.departureTime = departureTime;
         this.truckNum = truckNum;
@@ -32,6 +39,14 @@ public class Delivery {
         this.source = source;
         this.destinations = destinations!=null ? destinations : new LinkedList<>();
         this.docs = docs!=null ? docs : new LinkedList<>();
+    }
+
+    public DalDelivery(){
+
+    }
+
+    public DalDelivery(Delivery delivery) {
+
     }
 
     /**
@@ -48,7 +63,13 @@ public class Delivery {
         return docs.remove(docNumber);
     }
 
+    public int getId(){
+        return id;
+    }
 
+    public void setId(int id){
+        this.id = id;
+    }
 
     public Date getDate() {
         return date;
@@ -82,19 +103,19 @@ public class Delivery {
         this.driver = driver;
     }
 
-    public Location getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(Location source) {
+    public void setSource(String source) {
         this.source = source;
     }
 
-    public List<Location> getDestinations() {
+    public List<String> getDestinations() {
         return destinations;
     }
 
-    public void setDestinations(List<Location> destinations) {
+    public void setDestinations(List<String> destinations) {
         this.destinations = destinations;
     }
 
@@ -104,5 +125,13 @@ public class Delivery {
 
     public void setDocs(List<Integer> docs) {
         this.docs = docs;
+    }
+
+    public int getTruckWeight() {
+        return truckWeight;
+    }
+
+    public void setTruckWeight(int truckWeight) {
+        this.truckWeight = truckWeight;
     }
 }

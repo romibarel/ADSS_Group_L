@@ -1,5 +1,7 @@
 package Business;
 
+import DataAccess.DalLocation;
+
 public class Location {
     private String address;
     private int phone;
@@ -9,6 +11,12 @@ public class Location {
         this.address = address;
         this.phone = phone;
         this.associate = associate;
+    }
+
+    public Location(DalLocation dalLocationDal) {
+        this.address = dalLocationDal.getAddress();
+        this.phone = dalLocationDal.getPhone();
+        this.associate = dalLocationDal.getAssociate();
     }
 
     public String getAddress() {
