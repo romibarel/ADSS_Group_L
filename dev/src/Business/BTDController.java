@@ -73,6 +73,7 @@ public class BTDController {
         return dataTb.saveConstraint(new DALConstraint(constraint));
     }
 
+    //-------------------------------------workers-------------------------------------------------------
     public Result insertWorker(Worker worker)
     {
         return dataTb.insertWorker(new DALWorker(worker));
@@ -88,6 +89,27 @@ public class BTDController {
         return dataTb.deleteWorker(worker_id);
     }
 
+    public Worker selectWorker(int id)
+    {
+        return new Worker(dataTb.selectWorker(id));
+    }
+
+    public int select_available_worker_id(Date date, boolean morning, String branch,String role)
+    {
+        return dataTb.select_available_worker_id(date,morning,branch,role);
+    }
+
+    public List<Worker> select_available_workers(Date date, boolean morning, String role, String branch)
+    {
+        List<Worker> workers=new LinkedList<>();
+        List<DALWorker> dalWorkers=dataTb.select_available_workers(date,morning,role,branch);
+        for (DALWorker dalWorker:dalWorkers)
+            workers.add(new Worker(dalWorker));
+        return workers;
+    }
+    //-------------------------------------end workers-------------------------------------------------
+
+    //--------------------------------------shifts---------------------------------------------------
     public Result insertShift(Shift shift)
     {
         return dataTb.insertShift(new DALShift(shift));
@@ -103,30 +125,12 @@ public class BTDController {
         return dataTb.deleteShift(date,morning,branch);
     }
 
-    public Worker selectWorker(int id)
-    {
-        return new Worker(dataTb.selectWorker(id));
-    }
-
     public Shift selectShift(java.util.Date date,boolean morning, String branch)
     {
         return new Shift(dataTb.selectShift(date,morning,branch));
     }
 
-    public int select_available_worker_id(Date date, boolean morning, String branch,String role)
-        {
-        return dataTb.select_available_worker_id(date,morning,branch,role);
-    }
-
-
-    public List<Worker> select_available_workers(Date date, boolean morning, String role, String branch)
-    {
-        List<Worker> workers=new LinkedList<>();
-        List<DALWorker> dalWorkers=dataTb.select_available_workers(date,morning,role,branch);
-        for (DALWorker dalWorker:dalWorkers)
-            workers.add(new Worker(dalWorker));
-        return workers;
-    }
+    //-------------------------------------end shifts---------------------------------------------
 
     /**
      * DalSections and Archive must be given all other can be null for not changeing
