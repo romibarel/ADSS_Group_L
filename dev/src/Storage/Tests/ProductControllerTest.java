@@ -29,12 +29,17 @@ public class ProductControllerTest {
         productController.clean();
         productController.setMainCategory("Test new main category");
         Assert.assertEquals(productController.getCategories().get(1).getProductList().size(),0);
-        productController.purchaseProduct(2, "Test Buisness.Invenrory.Product", SupplierID , 100);
-        productController.connectProductToCategory("Test new main category", 2);
-        Assert.assertEquals(productController.getCategories().get(1).getProductList().size(),1);
-        Assert.assertEquals(productController.getCategories().get(1).getProductList().get(0).getBarCode(),2);
-        Assert.assertEquals(productController.getCategories().get(1).getProductList().get(0).getProductName(),"Test Buisness.Invenrory.Product");
-        Assert.assertEquals(productController.getCategories().get(1).getProductList().get(0).getManufactor(),"Test Supplier");
+        productController.purchaseProduct(10, "Test Product", SupplierID , 100);
+        productController.connectProductToCategory("Test new main category", 10);
+        Category tstCategory= null;
+        for (Category c:productController.getCategories()) {
+            if(c.getName().equals("Test new main category"))
+                tstCategory = c;
+        }
+        Assert.assertEquals(tstCategory.getProductList().size(),1);
+        Assert.assertEquals(tstCategory.getProductList().get(0).getBarCode(),10);
+        Assert.assertEquals(tstCategory.getProductList().get(0).getProductName(),"Test Product");
+        Assert.assertTrue(tstCategory.getProductList().get(0).getManufactor()==SupplierID);
     }
 
     @Test

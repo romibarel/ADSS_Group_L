@@ -93,7 +93,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     public boolean sellProduct(Date date, int barCode, int amount, Date expirationDate) {
         if (this.storage_management.sellProduct(date, barCode, amount, expirationDate)){ //need to make urgent order -> product under minimum
             LocalDateTime ETA = this.supplier_management.urgentOrder(barCode, Integer.parseInt(getProducteMinAmount(barCode))*2);
-            //TODO: urgent order now returns the date ^^^^^
+            //urgent order now returns the date ^^^^^
             if (ETA!=null){
                 Date supplyTime = convertToDateViaSqlTimestamp(ETA);
                 this.storage_management.setNextSupply(barCode, supplyTime);
@@ -272,11 +272,14 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
 
     @Override
     public void addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
-        //TODO: add order returns LocalDateTime or null if user entered an invalid order
+        //add order returns LocalDateTime or null if user entered an invalid order
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         for(Map.Entry<Pproduct, Pair<Integer, Integer>> e : pproducts.entrySet())
             products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate()), e.getValue());
         LocalDateTime ETA = supplier_management.addOrder(new Order(supplierID, dateIssued, products));
+        for (Pproduct p :pproducts.keySet()){
+            storage_management.setNextSupply(p.getCatalogID(), convertToDateViaSqlTimestamp(ETA));
+        }
     }
 
     @Override
@@ -373,9 +376,13 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
 
     @Override
     public boolean setOrderETA(int orderID, LocalDateTime ETA){
-        //TODO: sets ETA of the order associated with orderID to a new one, return true is succeeded and false otherwise
+        //sets ETA of the order associated with orderID to a new one, return true is succeeded and false otherwise
+        //update the arrival time of the list of products
         if(supplier_management.setOrderETA(orderID, ETA)){
-
+            Order order = supplier_management.getOrder(orderID);
+            for (Product p :order.getProducts().keySet()){
+                storage_management.setNextSupply(p.getCatalogID(), convertToDateViaSqlTimestamp(ETA));
+            }
         }
         return false;
     }
@@ -422,18 +429,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
 
     @Override
     public void checkOrdersArrivalStatus(){
-        //TODO: returned a list of all arrived orders with all the details you will ever need
-        /*
-        Order.getSupplierID() - returns the supplierID of the supplier that supplied this order
-        Order.getDateIssued() - returns the date the order was ordered
-
-        Order.getProducts() - return a hashmap: <Product, Pair<Integer, Integer>> -> <The Product, Pair<Amount that was ordered, Discount given for the amount (may be 0)>>
-
-        for(Map.Entry<Product, Pair<Integer, Integer>> e : Order.getProducts().entrySet()){
-            From the Product (e.getKey()) you can get the barCode (Product.getCatalogID()), price (Product.getOriginalPrice()) and expiration date (Product.getExpirationDate())
-            From the Pair (e.getValue()) you can get the amount (getKey()) and the discount (getValue())
-        }
-        */
+        //returned a list of all arrived orders with all the details you will ever need, and update the storage
         LinkedList<Order> arrivedOrders = supplier_management.checkOrdersArrivalStatus();
         for (Order o : arrivedOrders){
             int supplierID = o.getSupplierID();
@@ -463,6 +459,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     public static Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+        if (dateToConvert == null) return null;
         return java.sql.Timestamp.valueOf(dateToConvert);
     }
 }
