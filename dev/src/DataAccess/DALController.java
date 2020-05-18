@@ -139,6 +139,9 @@ public class DALController
         }
     }
 
+
+
+
     public void createTables(){
         List<String> sqls = new LinkedList<>();
         sqls.add("CREATE TABLE \"Deliveries\" (\n" +
@@ -192,6 +195,8 @@ public class DALController
                 "\t\"type\"\tTEXT,\n" +
                 "\tPRIMARY KEY(\"id\")\n" +
                 ");");
+
+
 
         openConn();
         for (String sqlCommand : sqls){
