@@ -35,7 +35,6 @@ public class DALController
         try {
             String url = "jdbc:sqlite:"+new File("dev\\src\\DataAccess\\Database.db").getAbsolutePath();
             conn = DriverManager.getConnection(url);
-            System.out.println("Connection to SQLite has been established.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -47,6 +46,10 @@ public class DALController
         initLocations();
         initSections();
         initTrucks();
+        initWorkers();
+        initShifts();
+        initShiftsWorkers();
+        initConstraints();
     }
 
     public void initLocations(){
@@ -140,7 +143,105 @@ public class DALController
         }
     }
 
+    public void initWorkers(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (13,\"avi\",1000,123,3,12,12,01/01/2020,\"manager\", \"Super Lee\"));");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (14,\"inbar\",1500,105,9,30,12,28/05/2019,\"manager\",\"Costco\");");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (17,\"haim\",2000,189,6,25,30,03/05/2018,\"cashier\",\"Super Lee\");");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (15,\"romi\",2000,189,6,25,30,03/05/2018,\"storekeeper\", \"Super Lee\");");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (16,\"gil\",2000,189,6,25,30,03/05/2018,\"driver\",\"Costco\");");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (18,\"lala\",2000,189,6,25,30,03/05/2018,\"driver\",\"Mega\");");
+        sqls.add("Insert Into DriverLicences (driver_id, license) VALUES(16,\"Mercedes\")");
+        sqls.add("Insert Into DriverLicences (driver_id, license) VALUES(18,\"Toyota\")");
+        sqls.add("Insert Into DriverLicences (driver_id, license) VALUES(18,\"Mazda\")");
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
 
+            }
+            catch (Exception exception){
+
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initShifts(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (21/01/2020,1,\"Super Lee\",13);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (21/01/2020,0,\"Costco\",14);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (21/01/2020,1,\"Costco\",14);");
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
+
+            }
+            catch (Exception exception){
+
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initShiftsWorkers(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (21/01/2020,1,15,\"Super Lee\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (21/01/2020,1,17,\"Super Lee\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (21/01/2020,0,16,\"Costco\");");
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
+
+            }
+            catch (Exception exception){
+
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initConstraints(){
+        List<String> sqls = new LinkedList<>();
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(1,13,28/05/2020,\"false\",\"wedding\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(2,13,29/05/2020,\"true\",\"wedding\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(3,14,29/06/2020,\"false\",\"doctor\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(4,15,09/09/2020,\"false\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(5,15,09/09/2020,\"true\",\"vacation\");");
+        openConn();
+        for (String sqlCommand : sqls){
+            try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
+                statement.execute();    //todo which one for create??
+//                statement.executeQuery();
+
+            }
+            catch (Exception exception){
+
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void createTables(){
@@ -197,7 +298,52 @@ public class DALController
                 "\tPRIMARY KEY(\"id\")\n" +
                 ");");
 
+        sqls.add("CREATE TABLE `Workers` (\n" +
+                "\t`id`\tINTEGER,\n" +
+                "\t`name`\tTEXT,\n" +
+                "\t`salary`\tINTEGER,\n" +
+                "\t`bank_account_number`\tINTEGER,\n" +
+                "\t`pension`\tINTEGER,\n" +
+                "\t`vacation_days`\tINTEGER,\n" +
+                "\t`sick_days`\tINTEGER,\n" +
+                "\t`start_date`\tDATE,\n" +
+                "\t`role`\tTEXT,\n" +
+                "\t`branchAddress`\tTEXT,\n" +
+                "\tPRIMARY KEY(`id`)\n" +
+                ");");
 
+        sqls.add("CREATE TABLE `Shifts` (\n" +
+                "\t`date`\tDate,\n" +
+                "\t`morning`\tINTEGER,\n" +
+                "\t`branch`\tTEXT,\n" +
+                "\t`manager_id`\tINTEGER,\n" +
+                "\tFOREIGN KEY(`manager_id`) REFERENCES `Workers`(`id`),\n" +
+                "\tPRIMARY KEY(`date`,`morning`,`branch`)\n" +
+                ");");
+
+        sqls.add("CREATE TABLE `WorkersInShift` (\n" +
+                "\t`date`\tDate,\n" +
+                "\t`morning`\tINTEGER,\n" +
+                "\t`worker_id`\tINTEGER,\n" +
+                "\t`branch`\tTEXT,\n" +
+                "\tFOREIGN KEY(`date`,`morning`,`branch`) REFERENCES `Shifts`(`date`,`morning`,`branch`),\n" +
+                "\tPRIMARY KEY(`date`,`morning`,`worker_id`,`branch`)\n" +
+                ");");
+        sqls.add("CREATE TABLE `Constraints` (\n" +
+                "\t`cid`\tINTEGER,\n" +
+                "\t`wid`\tINTEGER,\n" +
+                "\t`date`\tDATE,\n" +
+                "\t`morning`\tTEXT,\n" +
+                "\t`reason`\tTEXT,\n" +
+                "\tFOREIGN KEY(`wid`) REFERENCES `Workers`(`id`),\n" +
+                "\tPRIMARY KEY(`cid`)\n" +
+                ");");
+        sqls.add("CREATE TABLE \"DriverLicences\" (\n" +
+                "\t\"driver_id\"\tINTEGER,\n" +
+                "\t\"license\"\tTEXT,\n" +
+                "\tFOREIGN KEY(\"driver_id\") REFERENCES \"Workers\"(\"id\"),\n" +
+                "\tPRIMARY KEY(\"driver_id\",\"license\")\n" +
+                ");\n");
 
         openConn();
         for (String sqlCommand : sqls){
@@ -229,6 +375,11 @@ public class DALController
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return new Result(false, "Saving to data base has failed");
         }
         return new Result(true, "constraint saved to db");
@@ -246,6 +397,11 @@ public class DALController
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return new Result(false, "updating to data base has failed");
         }
         return new Result(true, "constraint updated");
@@ -272,6 +428,11 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return null;
         }
         return constraints;
@@ -295,6 +456,11 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return null;
         }
         return constraints;
@@ -320,6 +486,11 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return null;
         }
         return constraints;
@@ -333,6 +504,11 @@ public class DALController
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return new Result(false, "deleting from data base has failed");
         }
         return new Result(true, "constraint deleted");
@@ -355,6 +531,11 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return null;
         }
         return constraint;
@@ -372,8 +553,11 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
-            System.out.println("whyyy");
-            System.out.println(e.getMessage());
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return new Result(false, "failed");
         }
         return new Result(true, String.valueOf(ret+1));

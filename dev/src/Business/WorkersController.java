@@ -2,7 +2,6 @@ package Business;
 
 import Interface.InterfaceWorker;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +30,8 @@ public class WorkersController
 			Worker new_worker;
 			if (worker.getRole().equals("driver"))
 				new_worker=new Driver(worker,licenses);
-			else new_worker=new Worker(worker);
+			else
+				new_worker=new Worker(worker);
 			workers.add(new_worker);
 			data.insertWorker(new_worker);
 		}
