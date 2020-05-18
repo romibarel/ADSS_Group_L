@@ -3,6 +3,7 @@ package Business;
 
 import DataAccess.*;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -112,11 +113,19 @@ public class BTDController {
         return new Shift(dataTb.selectShift(date,morning,branch));
     }
 
-    //return all workers in specific role and branch
-    public static List<Worker> upload_by_role_and_branch(String role, String branch)
+    public int select_available_worker_id(Date date, boolean morning, String branch,String role)
+        {
+        return dataTb.select_available_worker_id(date,morning,branch,role);
+    }
+
+
+    public List<Worker> select_available_workers(Date date, boolean morning, String role, String branch)
     {
-        //TODO
-        return null;
+        List<Worker> workers=new LinkedList<>();
+        List<DALWorker> dalWorkers=dataTb.select_available_workers(date,morning,role,branch);
+        for (DALWorker dalWorker:dalWorkers)
+            workers.add(new Worker(dalWorker));
+        return workers;
     }
 
     /**
@@ -188,6 +197,13 @@ public class BTDController {
 
         return new Sections(dataTb.loadSections());
     }
+
+    public boolean is_worker_scheduled(int worker_id)
+    {
+        return dataTb.is_worker_scheduled(worker_id);
+    }
+
+
 
 //    public boolean addTruck(DalTruck truck)
 //    {

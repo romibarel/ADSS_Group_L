@@ -76,13 +76,8 @@ public class WorkersController
 	public static List<Worker> get_available_workers(String role, Date date, boolean morning,String branch)
 	{
 		List<Worker> return_list=new LinkedList<>();
-		for (Worker worker : workers)
-		{
-			if (!worker.getRole().equals(role)) continue;
-			if (!ConstrainsController.is_available(worker.getId(),date,morning)) continue;
-			return_list.add(worker);
-		}
-		return return_list;
+		workers=data.select_available_workers(date,morning,role,branch);
+		return workers;
 	}
 
 	public static Worker get_by_id(int id)
@@ -102,33 +97,26 @@ public class WorkersController
 		return null;
 	}
 
-	//returns all workers in the given role that works in the given branch
-	public static List<Worker> get_by_role_and_branch(String role,String branch)
-	{
-		workers=BTDController.upload_by_role_and_branch(role,branch);
-		return workers;
-	}
-
 	//checks if there is an available manager in the given branch and the given date
 	//returns -1 if no manager is available
 	public static int find_available_manager(Date date, boolean morning,String branch)
 	{
-		List<Worker> managers=get_by_role_and_branch("manager",branch);
-		for (Worker manager: managers)
+		for (Worker worker: workers)
 		{
-			if (ConstrainsController.is_available(manager.getId(),date,morning)) return manager.getId();
+			if (worker.getRole().equals("manager") & worker.getBranchAddress().equals(branch))
+				if (ConstrainsController.is_available(worker.getId(),date,morning)) return worker.getId();
 		}
-		return -1;
+		return data.select_available_worker_id(date,morning,branch,"manager");
 	}
 
 	public static int find_available_storekeeper(Date date, boolean morning,String branch)
 	{
-		List<Worker> storekeepres=get_by_role_and_branch("storekeeper",branch);
-		for (Worker storekeeper: storekeepres)
+		for (Worker worker: workers)
 		{
-			if (ConstrainsController.is_available(storekeeper.getId(),date,morning)) return storekeeper.getId();
+			if (worker.getRole().equals("storekeeper") & worker.getBranchAddress().equals(branch))
+				if (ConstrainsController.is_available(worker.getId(),date,morning)) return worker.getId();
 		}
-		return -1;
+		return data.select_available_worker_id(date,morning,branch,"storekeeper");
 	}
 
 	public static boolean canDriveTruck(int driver_id,String truckType)

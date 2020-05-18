@@ -65,7 +65,7 @@ public class Shift
 			return new Result(false,"shift date is in the past");
 		if (check_date)
 		{
-			if (ShiftController.is_shift_scheduled(shift.getDate(),shift.isMorning()))
+			if (ShiftController.is_shift_scheduled(shift.getDate(),shift.isMorning(),shift.getBranchAddress()))
 				return new Result(false,"a shift is already scheduled for this date");
 		}
 
@@ -103,7 +103,7 @@ public class Shift
 	public static boolean is_morning_shift(Date hour)
 	{
 		int morning_start=700; //07:00
-		int morning_end=2300; //15:00
+		int morning_end=1500; //15:00
 		Calendar date=Calendar.getInstance();
 		date.setTime(hour);
 		int t = date.get(Calendar.HOUR_OF_DAY) * 100 + date.get(Calendar.MINUTE);

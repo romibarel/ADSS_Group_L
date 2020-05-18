@@ -2,6 +2,7 @@ package DataAccess;
 
 import Business.BTDController;
 import Business.Result;
+import sun.awt.image.ImageWatched;
 
 import java.io.File;
 import java.sql.*;
@@ -645,6 +646,38 @@ public class DALController
         return worker;
     }
 
+    // returns the id of a worker in a selected role and branch that is available to work in a selected date
+    public int select_available_worker_id(java.util.Date date, boolean morning, String branch,String role)
+    {
+        int id=-1;
+        openConn();
+        String sql;
+        sql = "SELECT id from Workers Where id not in" +
+              "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where date=? and morning=? and branchAddress=?)"+
+               "and branchAddress=? and role=? Limit 1";
+        ResultSet resultSet = null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setDate(1,new java.sql.Date(date.getTime()));
+            statement.setInt(2, morning ? 1 : 0);
+            statement.setString(3, branch);
+            statement.setString(4,branch);
+            statement.setString(5,role);
+            resultSet = statement.executeQuery();
+            if (resultSet.next())
+                id=resultSet.getInt("id");
+        }
+        catch (SQLException ignored) { }
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return id;
+    }
     public DALShift selectShift(java.util.Date date,boolean morning, String branch)
     {
         DALShift shift=null;
@@ -967,6 +1000,71 @@ public class DALController
         }
         return supplies;
     }
+
+    public List<DALWorker> select_available_workers(java.util.Date date, boolean morning, String role, String branch)
+    {
+        List<DALWorker> workers=new LinkedList<>();
+        openConn();
+        String sql;
+        sql = "SELECT * from Workers Where id not in" +
+              "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where date=? and morning=? and branchAddress=?)" +
+              "and branchAddress=? and role=?";
+        ResultSet resultSet = null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setDate(1,new java.sql.Date(date.getTime()));
+            statement.setInt(2,morning ? 1 : 0);
+            statement.setString(3,branch);
+            statement.setString(4,branch);
+            statement.setString(5,role);
+            resultSet = statement.executeQuery();
+            while (resultSet.next())
+                workers.add(setDalWorkerFromResultSet(resultSet));
+        }
+        catch (SQLException ignored) { }
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return workers;
+    }
+
+    public boolean is_worker_scheduled(int worker_id)
+    {
+        boolean scheduled=true;
+        openConn();
+        String sql="Select count(worker_id) From WorkersInShift Where worker_id=? GROUP By worker_id";
+        ResultSet resultSet = null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,worker_id);
+            resultSet = statement.executeQuery();
+            if (!resultSet.next())
+            {
+                sql="Select count(manager_id) From Shifts Where manager_id=? GROUP By manager_id";
+                statement = conn.prepareStatement(sql);
+                statement.setInt(1,worker_id);
+                if (!resultSet.next())
+                    scheduled=false;
+            }
+
+        }
+        catch (SQLException ignored) {}
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return scheduled;
+    }
+
 
     /*public void save(List<Business.DalLocation> bLocations) {
         dalLocations = new LinkedList<>();
