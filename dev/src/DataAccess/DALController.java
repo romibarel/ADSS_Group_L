@@ -584,7 +584,7 @@ public class DALController
         return result;
     }
 
-    public Result deleteShift(Date date, boolean morning, String branch)
+    public Result deleteShift(java.util.Date date, boolean morning, String branch)
     {
         Result result;
         openConn();

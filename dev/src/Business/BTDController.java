@@ -72,7 +72,45 @@ public class BTDController {
         return dataTb.saveConstraint(new DALConstraint(constraint));
     }
 
+    public Result insertWorker(Worker worker)
+    {
+        return dataTb.insertWorker(new DALWorker(worker));
+    }
 
+    public Result updateWorker(Worker worker)
+    {
+        return dataTb.updateWorker(new DALWorker(worker));
+    }
+
+    public Result deleteWorker(int worker_id)
+    {
+        return dataTb.deleteWorker(worker_id);
+    }
+
+    public Result insertShift(Shift shift)
+    {
+        return dataTb.insertShift(new DALShift(shift));
+    }
+
+    public Result updateShift(Shift shift, java.util.Date previous_date, boolean previous_morning, String previous_branch)
+    {
+        return dataTb.updateShift(new DALShift(shift),previous_date,previous_morning,previous_branch);
+    }
+
+    public Result deleteShift(java.util.Date date, boolean morning, String branch)
+    {
+        return dataTb.deleteShift(date,morning,branch);
+    }
+
+    public Worker selectWorker(int id)
+    {
+        return new Worker(dataTb.selectWorker(id));
+    }
+
+    public Shift selectShift(java.util.Date date,boolean morning, String branch)
+    {
+        return new Shift(dataTb.selectShift(date,morning,branch));
+    }
 
     //return all workers in specific role and branch
     public static List<Worker> upload_by_role_and_branch(String role, String branch)

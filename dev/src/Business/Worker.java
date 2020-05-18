@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALWorker;
 import Interface.InterfaceWorker;
 
 import java.util.Date;
@@ -18,6 +19,20 @@ public class Worker
 	private String branchAddress;
 
 	public Worker(InterfaceWorker worker)
+	{
+		this.id=worker.getId();
+		this.name= worker.getName();
+		this.bank_account_number=worker.getBank_account_number();
+		this.salary=worker.getSalary();
+		this.pension=worker.getPension();
+		this.vacation_days=worker.getVacation_days();
+		this.sick_days=worker.getSick_days();
+		this.role=worker.getRole();
+		this.start_date=new Date(worker.getStart_date().getTime()); //deep copy the date
+		this.branchAddress=worker.getBranchAddress();
+	}
+
+	public Worker(DALWorker worker)
 	{
 		this.id=worker.getId();
 		this.name= worker.getName();

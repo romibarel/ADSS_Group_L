@@ -11,6 +11,7 @@ public class WorkersController
 {
 	private static List<Worker> workers= new LinkedList<>();
 	private static List<String> branches=new LinkedList<>();
+	private static BTDController data=BTDController.getBTD();
 
 	public static String get_driver_name(int id)
 	{
@@ -32,6 +33,7 @@ public class WorkersController
 				new_worker=new Driver(worker,licenses);
 			else new_worker=new Worker(worker);
 			workers.add(new_worker);
+			data.insertWorker(new_worker);
 		}
 		return result;
 	}
@@ -44,6 +46,7 @@ public class WorkersController
 		if (ShiftController.is_worker_scheduled(id))
 			return new Result(false,"cant delete worker that is scheduled for a shift");
 		workers.remove(worker);
+		data.deleteWorker(id);
 		return new Result(true,"success");
 	}
 
@@ -64,12 +67,13 @@ public class WorkersController
 			worker_to_edit.setSick_days(worker.getSick_days());
 			worker_to_edit.setVacation_days(worker.getVacation_days());
 			worker_to_edit.setBranchAddress(worker.getBranchAddress());
+			data.updateWorker(worker_to_edit);
 		}
 		return result;
 	}
 
-	// return the available workers in specific date and role
-	public static List<Worker> get_by_role(String role,Date date,boolean morning)
+	// return the available workers in specific date, role and branch
+	public static List<Worker> get_available_workers(String role, Date date, boolean morning,String branch)
 	{
 		List<Worker> return_list=new LinkedList<>();
 		for (Worker worker : workers)
@@ -88,29 +92,14 @@ public class WorkersController
 			if (worker.getId()==id)
 				return worker;
 		}
+		// if the worker is not in my list look it up in the DB
+		Worker worker=data.selectWorker(id);
+		if (worker!=null)
+		{
+			workers.add(worker);
+			return worker;
+		}
 		return null;
-	}
-
-	//for the tests
-	public static List<Worker> getWorkers()
-	{
-		return workers;
-	}
-
-	public static List<String> getBranches() {
-		return branches;
-	}
-
-	public static boolean canDriveTruck(int driver_id,String truckType)
-	{
-		Worker w=get_by_id(driver_id);
-		if (w!=null && w.getRole().equals("driver"))
-			return ((Driver)w).canDriveTruck(truckType);
-		return false;
-	}
-
-	public static void addBranch(String branch) {
-		WorkersController.branches.add(branch);
 	}
 
 	//returns all workers in the given role that works in the given branch
@@ -132,7 +121,6 @@ public class WorkersController
 		return -1;
 	}
 
-
 	public static int find_available_storekeeper(Date date, boolean morning,String branch)
 	{
 		List<Worker> storekeepres=get_by_role_and_branch("storekeeper",branch);
@@ -142,4 +130,27 @@ public class WorkersController
 		}
 		return -1;
 	}
+
+	public static boolean canDriveTruck(int driver_id,String truckType)
+	{
+		Worker w=get_by_id(driver_id);
+		if (w!=null && w.getRole().equals("driver"))
+			return ((Driver)w).canDriveTruck(truckType);
+		return false;
+	}
+
+	//for the tests
+	public static List<Worker> getWorkers()
+	{
+		return workers;
+	}
+
+	public static List<String> getBranches() {
+		return branches;
+	}
+
+	public static void addBranch(String branch) {
+		WorkersController.branches.add(branch);
+	}
+
 }

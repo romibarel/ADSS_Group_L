@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALShift;
 import Interface.InterfaceShift;
 
 import java.util.Calendar;
@@ -39,6 +40,19 @@ public class Shift
 				this.workers.add(id);
 		this.branchAddress=branchAddress;
 
+	}
+
+	public Shift(DALShift shift)
+	{
+		this.morning=shift.isMorning();
+		this.manager_id=shift.getManager_id();
+		this.date=new Date(shift.getDate().getTime()); //deep copy the date
+		this.workers= new LinkedList<>();
+		//deep copy the list
+		if (shift.getWorkers()!=null)
+			for (int id:shift.getWorkers())
+				workers.add(id);
+		this.branchAddress=shift.getBranchAddress();
 	}
 
 	public static Result check_parameters(InterfaceShift shift, boolean check_date)
