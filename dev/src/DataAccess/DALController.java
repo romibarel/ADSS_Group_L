@@ -244,11 +244,11 @@ public class DALController
 
     public void initConstraints(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(1,13,28/05/2020,\"false\",\"wedding\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(2,13,29/05/2020,\"true\",\"wedding\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(3,14,29/06/2020,\"false\",\"doctor\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(4,15,09/09/2020,\"false\",\"vacation\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(5,15,09/09/2020,\"true\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(1,13,1590613200000,\"false\",\"wedding\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(2,13,1590699600000,\"true\",\"wedding\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(3,14,1593378000000,\"false\",\"doctor\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(4,15,1599598800000,\"false\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(5,15,1599598800000,\"true\",\"vacation\");");
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
