@@ -144,10 +144,10 @@ public class DALController
 
     public void initTrucks(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (1, 111, 1000, 4000, \"Mazda\");");
-        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (2, 222, 1200, 7000, \"Toyota\");");
-        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (3, 333, 1100, 5500, \"Mercedes\");");
-        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (4, 123, 2000, 4000, \"Mazda\");");
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (1, 111, 5000, 4000, \"Mazda\");");
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (2, 222, 10000, 7000, \"Toyota\");");
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (3, 333, 8000, 5500, \"Mercedes\");");
+        sqls.add("INSERT INTO Trucks (id, plate, maxWeight, netoWeight, type) VALUES (4, 123, 6500, 4000, \"Mazda\");");
 
         openConn();
         for (String sqlCommand : sqls){
