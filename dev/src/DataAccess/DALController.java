@@ -1453,8 +1453,8 @@ public class DALController
                 doc.setNum(rs.getInt("docID"));
                 String address = rs.getString("destination");
                 doc.setDestination(loadLocation(address));
-                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
-                doc.setEstimatedDayOfArrival(rs.getTime("setEstimatedDayOfArrival"));
+                doc.setEstimatedTimeOfArrival(rs.getDate("estimatedTimeOfArrival"));
+                doc.setEstimatedDayOfArrival(rs.getDate("estimatedDayOfArrival"));
             }
             conn.close();
             List<DalSupply> supplies = loadSupplies(doc.getNum());
