@@ -1448,17 +1448,17 @@ public class DALController
     public DALDeliveryDoc loadDoc(int docNum) {
         DALDeliveryDoc doc = null;
         openConn();
-        String sql = "SELECT* FROM DeliveryDocs WHERE docNum=?";
+        String sql = "SELECT* FROM DeliveryDocs WHERE docID=?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             pstmt.setInt(1, docNum);
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
                 doc = new DALDeliveryDoc();
-                doc.setNum(rs.getInt("docNum"));
+                doc.setNum(rs.getInt("docID"));
                 String address = rs.getString("destination");
                 doc.setDestination(loadLocation(address));
-                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
-                doc.setEstimatedDayOfArrival(rs.getTime("setEstimatedDayOfArrival"));
+                doc.setEstimatedTimeOfArrival(rs.getDate("estimatedTimeOfArrival"));
+                doc.setEstimatedDayOfArrival(rs.getDate("estimatedDayOfArrival"));
             }
             conn.close();
             List<DalSupply> supplies = loadSupplies(doc.getNum());
