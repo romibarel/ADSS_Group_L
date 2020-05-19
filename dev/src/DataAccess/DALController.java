@@ -1362,7 +1362,7 @@ public class DALController
             e.printStackTrace();
             return null;
         }
-
+        System.out.println("returning real archive");
         return archive;
     }
 
