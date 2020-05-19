@@ -37,7 +37,7 @@ public class DalLocation {
         return isBranch;
     }
 
-    public void setIsBranch(boolean isBranch){
+    public void setIsBranch(Boolean isBranch){
         this.isBranch = isBranch;
     }
 

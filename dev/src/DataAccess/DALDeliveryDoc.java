@@ -1,6 +1,8 @@
 package DataAccess;
 
+import Business.Branch;
 import Business.DeliverDoc;
+import Business.Location;
 import Business.Supply;
 import com.sun.istack.internal.localization.NullLocalizable;
 
@@ -12,11 +14,11 @@ import java.util.Set;
 public class DALDeliveryDoc {
     private int num;
     private List<DalSupply> supplyList;
-    private String destination;
+    private DalLocation destination;
     private Date estimatedTimeOfArrival;
     private Date estimatedDayOfArrival;
 
-    public DALDeliveryDoc(int num, List<DalSupply> deliveryList, String destination, Date estimatedTimeOfArrival, Date estimatedDayOfArrival) {
+    public DALDeliveryDoc(int num, List<DalSupply> deliveryList, DalLocation destination, Date estimatedTimeOfArrival, Date estimatedDayOfArrival) {
         this.num = num;
         this.supplyList = deliveryList;
         this.destination = destination;
@@ -32,7 +34,8 @@ public class DALDeliveryDoc {
 
     public DALDeliveryDoc(DeliverDoc deliveryDoc) {
         this.num = deliveryDoc.getNum();
-        this.destination = deliveryDoc.getDestination().getAddress();
+        boolean isBranch = deliveryDoc.getDestination() instanceof Branch;
+        this.destination = new DalLocation(deliveryDoc.getDestination(), isBranch);
         this.estimatedTimeOfArrival = deliveryDoc.getEstimatedTimeOfArrival();
         this.estimatedDayOfArrival = deliveryDoc.getEstimatedDayOfArrival();
         supplyList = new LinkedList<>();
@@ -61,11 +64,11 @@ public class DALDeliveryDoc {
         this.supplyList = deliveryList;
     }
 
-    public String getDestination() {
+    public DalLocation getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(DalLocation destination) {
         this.destination = destination;
     }
 

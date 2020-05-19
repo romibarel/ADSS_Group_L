@@ -1,5 +1,7 @@
 package Business;
 
+import DataAccess.DalSupply;
+
 public class Supply {
     private String name;
     private int quant;
@@ -12,6 +14,11 @@ public class Supply {
     public Supply(Supply other, int quant) {
         this.name = other.getName();
         this.quant = quant;
+    }
+
+    public Supply(DalSupply dalSup) {
+        this.name = dalSup.getName();
+        this.quant = dalSup.getQuant();
     }
 
     public String getName() {

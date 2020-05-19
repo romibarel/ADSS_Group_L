@@ -173,7 +173,11 @@ public class BTDController {
 //    }
 
     public Location loadLocation(String address) {
-        return new Location(dataTb.loadLocation(address));
+        DalLocation dalLocation = dataTb.loadLocation(address);
+        if (dalLocation.getIsBranch()){
+            return new Branch(dalLocation.getAddress(), dalLocation.getPhone(), dalLocation.getAssociate());
+        }
+        return new Supplier(dalLocation.getAddress(), dalLocation.getPhone(), dalLocation.getAssociate());
     }
 
     public boolean saveLocation(boolean isBranch, Location location) {
@@ -239,7 +243,13 @@ public class BTDController {
             return new DeliveryArchive();
         deliveryIdCounter += arc.getDeliveries().size();
         System.out.println(arc == null ? " arc is null" : " arc is good");       //todo remove
-        return new DeliveryArchive(arc);
+        List<DALDeliveryDoc> docs = new LinkedList<>();
+        for (Integer docNum : arc.getDocuments()){
+            DALDeliveryDoc daldoc = dataTb.loadDoc(docNum);
+            docs.add(daldoc);
+        }
+
+        return new DeliveryArchive(arc, docs);
     }
 
 

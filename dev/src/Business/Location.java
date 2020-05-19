@@ -13,17 +13,16 @@ public class Location {
         this.associate = associate;
     }
 
-    public Location(DalLocation dalLocationDal) {
-        if (dalLocationDal == null) {
-            System.out.println("locations wasn't found");
-            address = "address";
-            associate = "associate";
-        } else {
-            this.address = dalLocationDal.getAddress();
-            this.phone = dalLocationDal.getPhone();
-            this.associate = dalLocationDal.getAssociate();
-        }
-    }
+//    public Location(DalLocation dalLocationDal) {
+//        if (dalLocationDal == null) {
+//            System.out.println("locations wasn't found");
+//            address = "address";
+//            associate = "associate";
+//        } else {
+//            this.address = dalLocationDal.getAddress();
+//            this.phone = dalLocationDal.getPhone();
+//            this.associate = dalLocationDal.getAssociate();
+//    }
 
     public String getAddress() {
         return address;

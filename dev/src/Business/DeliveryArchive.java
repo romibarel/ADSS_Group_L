@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALDeliveryDoc;
 import DataAccess.DalArchive;
 import DataAccess.DalDelivery;
 
@@ -15,10 +16,17 @@ public class DeliveryArchive {
         documents = new LinkedList<>();
     }
 
-    public DeliveryArchive(DalArchive dalArchive) {
+    public DeliveryArchive(DalArchive dalArchive, List<DALDeliveryDoc> docs) {
         deliveries = new LinkedList<>();
         documents = new LinkedList<>();
 
+        for (DalDelivery daldel : dalArchive.getDeliveries()){
+            Delivery newDel = new Delivery(daldel, docs);
+            deliveries.add(newDel);
+        }
+        for (Integer docNum : dalArchive.getDocuments()){
+            documents.add(docNum);
+        }
     }
 
     public List<Delivery> getDeliveries() {
