@@ -392,7 +392,7 @@ public class DALController
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, constraint.getCid());
             pstmt.setInt(2, constraint.getId());
-            pstmt.setDate(3, new Date(constraint.getDate().getYear(),constraint.getDate().getMonth(),constraint.getDate().getDay()));
+            pstmt.setDate(3,new java.sql.Date(constraint.getDate().getTime()));
             pstmt.setString(4, String.valueOf(constraint.isMorning()));
             pstmt.setString(5, constraint.getReason());
             pstmt.executeUpdate();
@@ -413,7 +413,7 @@ public class DALController
         String sql = "UPDATE Constraints SET wid=?, date=?, morning=?, reason=? WHERE cid=?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, constraint.getId());
-            pstmt.setDate(2, new Date(constraint.getDate().getYear(),constraint.getDate().getMonth(),constraint.getDate().getDay()));
+            pstmt.setDate(2, new java.sql.Date(constraint.getDate().getTime()));
             pstmt.setString(3, String.valueOf(constraint.isMorning()));
             pstmt.setString(4, constraint.getReason());
             pstmt.setInt(5, constraint.getCid());
@@ -437,7 +437,7 @@ public class DALController
         String sql = "SELECT* FROM Constraints WHERE wid=? AND date=? AND morning=?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
-            pstmt.setDate(2, new Date(date.getYear(),date.getMonth(),date.getDay()));
+            pstmt.setDate(2, new java.sql.Date(date.getTime()));
             pstmt.setString(3, String.valueOf(morning));
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
@@ -495,8 +495,8 @@ public class DALController
         openConn();
         String sql = "SELECT* FROM Constraints WHERE AND date<? AND date>?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
-            pstmt.setDate(1, new Date(dateend.getYear(),dateend.getMonth(),dateend.getDay()));
-            pstmt.setDate(1, new Date(datestart.getYear(),datestart.getMonth(),datestart.getDay()));
+            pstmt.setDate(1,new java.sql.Date( dateend.getTime()));
+            pstmt.setDate(1, new java.sql.Date(datestart.getTime()));
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
                 constraint=new DALConstraint();
@@ -564,11 +564,11 @@ public class DALController
         return constraint;
     }
 
-    public Result getMax()  {
+    public int getMax()  {
         int ret=0;
         openConn();
-        String sql = "SELECT MAX(cid) AS 'max_cid'" +
-                "FROM Constraints";
+        String sql = "SELECT MAX(cid) AS max_cid" +
+                " FROM Constraints";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
@@ -581,9 +581,9 @@ public class DALController
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            return new Result(false, "failed");
+            return -1;
         }
-        return new Result(true, String.valueOf(ret+1));
+        return ret;
     }
 
     //--------------------------------workers--------------------------------

@@ -28,7 +28,7 @@ public class Interface
 	public static String addConstraint(InterfaceConstraint constraint){
 		Result r= ConstrainsController.addConstraint(constraint);
 		if(r.success)
-			return "Constraint was added:\n"+constraint.toString();
+			return r.msg;
 		return "The action have failed due to:\n "+r.msg;
 	}
 

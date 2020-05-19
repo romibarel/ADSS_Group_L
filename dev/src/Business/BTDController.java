@@ -63,7 +63,7 @@ public class BTDController {
         return dataTb.deleteConstraint(new DALConstraint(constraint));
     }
 
-    public Result getMax()  {
+    public int getMax()  {
         return dataTb.getMax();
     }
 

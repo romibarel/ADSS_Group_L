@@ -10,7 +10,7 @@ public class ConstrainsController
 
 	private static Map<Integer, Constraint> constraints=new HashMap<>();
 	private static BTDController btd=BTDController.getBTD();
-	private static int id=Integer.parseInt(btd.getMax().msg);
+	private static int id=btd.getMax()+1;
 
 	public static List<Constraint> getConstraints()
 	{
@@ -126,7 +126,7 @@ public class ConstrainsController
 		constraints.put(con.getCid(), con);
 		if(!btd.saveConstraint(con).success)
 			return new Result(false,"could not save constraint to data base");
-		return new Result(true,"Constraint was added "+c.toString());
+		return new Result(true,"Constraint was added ");
 	}
 
 	public static Result editConstraint(InterfaceConstraint c){
