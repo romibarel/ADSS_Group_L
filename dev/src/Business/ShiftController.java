@@ -95,9 +95,9 @@ public class ShiftController
 		return shifts;
 	}
 
-	//for the tests
 	public static List<Shift> get_shifts()
 	{
+		shifts=data.get_all_shifts();
 		return shifts;
 	}
 
@@ -171,8 +171,21 @@ public class ShiftController
 			}
 			current_morning=!current_morning;
 			if (current_morning==true) current_date.add(Calendar.DATE,1);
-		} while (current_date.get(Calendar.DAY_OF_YEAR)!=arrive_date.get(Calendar.DAY_OF_YEAR) | current_morning!=arrival_morning);
-		shifts.addAll(assigned_shifts);
-		return new Result(true,"driver assigned successfully");
+		} while (current_date.get(Calendar.DAY_OF_YEAR)<=arrive_date.get(Calendar.DAY_OF_YEAR) || (current_morning==false & arrival_morning==true)) ;
+		Result result=saveAll(assigned_shifts);
+		if (result.success)
+			shifts.addAll(assigned_shifts);
+		return result;
+	}
+
+	private static Result saveAll(List<Shift> shifts)
+	{
+		Result result=new Result(true,"inserted all shifts");
+		for (Shift shift : shifts)
+		{
+			result=data.insertShift(shift);
+			if (!result.success) return result;
+		}
+		return result;
 	}
 }

@@ -233,6 +233,30 @@ public class BTDController {
         return week_shifts;
     }
 
+    public List<Shift> get_all_shifts()
+    {
+        List<Shift> shifts=new LinkedList<>();
+        List<DALShift> dalShifts=dataTb.select_all_shifts();
+        for (DALShift dalShift:dalShifts)
+        {
+            Shift shift=new Shift(dalShift);
+            shifts.add(shift);
+        }
+        return shifts;
+    }
+
+    public List<Worker> get_all_workers()
+    {
+        List<Worker> workers=new LinkedList<>();
+        List<DALWorker> dalWorkers=dataTb.select_all_workers();
+        for (DALWorker dalWorker:dalWorkers)
+        {
+            Worker worker=new Worker(dalWorker);
+            workers.add(worker);
+        }
+        return workers;
+    }
+
 
 //    public boolean addTruck(DalTruck truck)
 //    {

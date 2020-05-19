@@ -863,6 +863,32 @@ public class DALController
         }
         return scheduled;
     }
+
+    public List<DALWorker> select_all_workers()
+    {
+        List<DALWorker> dalWorkers=new LinkedList<>();
+        openConn();
+        String sql="SELECT * From Workers";
+        ResultSet resultSet=null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                dalWorkers.add(setDalWorkerFromResultSet(resultSet));
+            }
+        }
+        catch (SQLException ignored){}
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return dalWorkers;
+    }
     //-------------------------------end workers-------------------------------
 
     //------------------------------shifts--------------------------------------
@@ -1152,6 +1178,32 @@ public class DALController
         }
         return workers_in_shift;
     }
+
+    public List<DALShift> select_all_shifts()
+    {
+        List<DALShift> dalShifts=new LinkedList<>();
+        openConn();
+        String sql="SELECT * From Shifts";
+        ResultSet resultSet=null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                dalShifts.add(setDalShiftFromResultSet(resultSet));
+            }
+        }
+        catch (SQLException ignored){}
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return dalShifts;
+    }
     //-----------------------------end shifts-------------------------------------
 
 
@@ -1403,6 +1455,10 @@ public class DALController
         }
         return supplies;
     }
+
+
+
+
 
 
 

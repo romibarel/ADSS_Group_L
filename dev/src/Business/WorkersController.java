@@ -81,7 +81,6 @@ public class WorkersController
 	// return the available workers in specific date, role and branch
 	public static List<Worker> get_available_workers(String role, Date date, boolean morning,String branch)
 	{
-		List<Worker> return_list=new LinkedList<>();
 		workers=data.select_available_workers(date,morning,role.toLowerCase(),branch);
 		return workers;
 	}
@@ -136,6 +135,7 @@ public class WorkersController
 	//for the tests
 	public static List<Worker> getWorkers()
 	{
+		workers=data.get_all_workers();
 		return workers;
 	}
 
