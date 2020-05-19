@@ -1,22 +1,24 @@
 package DataAccess;
 
 import Business.DeliverDoc;
+import Business.Supply;
 import com.sun.istack.internal.localization.NullLocalizable;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class DALDeliveryDoc {
     private int num;
-    private List<DalSupply> deliveryList;
+    private List<DalSupply> supplyList;
     private String destination;
     private Date estimatedTimeOfArrival;
     private Date estimatedDayOfArrival;
 
     public DALDeliveryDoc(int num, List<DalSupply> deliveryList, String destination, Date estimatedTimeOfArrival, Date estimatedDayOfArrival) {
         this.num = num;
-        this.deliveryList = deliveryList;
+        this.supplyList = deliveryList;
         this.destination = destination;
         this.estimatedTimeOfArrival = estimatedTimeOfArrival;
         this.estimatedDayOfArrival = estimatedDayOfArrival;
@@ -24,17 +26,19 @@ public class DALDeliveryDoc {
     }
 
     private void safe() {
-        if (deliveryList == null)
-            deliveryList = new LinkedList<>();
+        if (supplyList == null)
+            supplyList = new LinkedList<>();
     }
 
     public DALDeliveryDoc(DeliverDoc deliveryDoc) {
-        this.num = getNum();
-        this.deliveryList = getDeliveryList();
-        this.destination = getDestination();
-        this.estimatedTimeOfArrival = getEstimatedTimeOfArrival();
-        this.estimatedDayOfArrival = getEstimatedDayOfArrival();
-        safe();
+        this.num = deliveryDoc.getNum();
+        this.destination = deliveryDoc.getDestination().getAddress();
+        this.estimatedTimeOfArrival = deliveryDoc.getEstimatedTimeOfArrival();
+        this.estimatedDayOfArrival = deliveryDoc.getEstimatedDayOfArrival();
+        supplyList = new LinkedList<>();
+        for (Supply sup :deliveryDoc.getDeliveryList()) {
+            supplyList.add(new DalSupply(sup));
+        }
     }
 
     public DALDeliveryDoc() {
@@ -50,11 +54,11 @@ public class DALDeliveryDoc {
     }
 
     public List<DalSupply> getDeliveryList() {
-        return deliveryList;
+        return supplyList;
     }
 
     public void setDeliveryList(List<DalSupply> deliveryList) {
-        this.deliveryList = deliveryList;
+        this.supplyList = deliveryList;
     }
 
     public String getDestination() {

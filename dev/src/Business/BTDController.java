@@ -17,6 +17,7 @@ public class BTDController {
     private Sections sections;
     private List<Location> locations;
     private List<DalTruck> trucks;
+    private int deliveryIdCounter;      // todo change to be good
 
     private BTDController(){
         drivers = new LinkedList<>();
@@ -179,25 +180,16 @@ public class BTDController {
 //    }
 
 
-    public void addDelivery(Delivery delivery)
-    {
-//        archive.add(delivery);
-//        delivery.get
-//todo        make it create a dall delivery with an int id
-//todo          save all its delivery docs with the same id
-        //todo change so will add all the
-    }
-
     public Truck loadTruck(int truckId) {
         return new Truck(dataTb.loadTruck(truckId));
     }
 
-    public boolean saveTruck(Truck truck)
-    {
-        return dataTb.saveTruck(new DalTruck(truck));
-    }
+//    public boolean saveTruck(Truck truck)
+//    {
+//        return dataTb.saveTruck(new DalTruck(truck));
+//    }
 
-    public Location getLocation(String address) {
+    public Location loadLocation(String address) {
         return new Location(dataTb.loadLocation(address));
     }
 
@@ -206,15 +198,16 @@ public class BTDController {
     }
 
 
-    public void saveDoc(int delId, DeliverDoc deliveryDoc)
+    public void saveDoc(int delId, DeliverDoc deliveryDoc)  //todo probbly remove
     {
         dataTb.saveDoc(delId , new DALDeliveryDoc(deliveryDoc));
     }
 
-    public boolean saveDelivery(Delivery delivery) {
-        return dataTb.saveDelivery(new DalDelivery(delivery));
+    public boolean saveDelivery(Delivery delivery) {    //todo finish
+        int curId = deliveryIdCounter;
+        deliveryIdCounter++;
+        return dataTb.saveDelivery(new DalDelivery(delivery , curId));
     }
-
 
 
     public Sections loadSections(){
@@ -257,67 +250,9 @@ public class BTDController {
         return workers;
     }
 
+    public DeliveryArchive loadArchive(){
+        return dataTb.loadArchive();
+    }
 
-//    public boolean addTruck(DalTruck truck)
-//    {
-//        if (trucks == null)
-//            trucks = new LinkedList<>();
-//        return trucks.add(truck);
-//    }
-//
-//    public boolean addLocation(Location location)
-//    {
-//        if (locations == null)
-//            locations = new LinkedList<>();
-//        return locations.add(location);
-//    }
-//
-//    public boolean addDriver(Driver driver)
-//    {
-//        if (drivers == null)
-//            drivers = new LinkedList<>();
-//        return drivers.add(driver);
-//    }
-//
-//
-//    public List<Driver> getDrivers() {
-//        return drivers;
-//    }
-//
-//    public void setDrivers(List<Driver> drivers) {
-//        this.drivers = drivers;
-//    }
-//
-//    public DeliveryArchive getArchive() {
-//        return archive;
-//    }
-//
-//    public void setArchive(DeliveryArchive archive) {
-//        this.archive = archive;
-//    }
-//
-//    public List<DalTruck> getTrucks() {
-//        return trucks;
-//    }
-//
-//    public void setTrucks(List<DalTruck> dalTrucks) {
-//        this.trucks = dalTrucks;
-//    }
-//
-//    public List<Location> getLocations() {
-//        return locations;
-//    }
-//
-//    public void setLocations(List<Location> locations) {
-//        this.locations = locations;
-//    }
-//
-//    public Sections getSections() {
-//        return sections;
-//    }
-//
-//    public void setSections(Sections sections) {
-//        this.sections = sections;
-//    }
 
 }

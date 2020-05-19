@@ -1,12 +1,10 @@
 package DataAccess;
 
 
+import Business.DeliverDoc;
 import Business.Delivery;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public class DalDelivery {
@@ -17,7 +15,7 @@ public class DalDelivery {
     private int truckWeight;
     private String driver;
     private String source;
-    private HashMap<Integer, String> docToLocation;
+    private List<DALDeliveryDoc> docs;
 
 
     public DalDelivery(int id, Date date, Date departureTime, int truckNum, int truckWeight, String driver, String source) {
@@ -28,6 +26,7 @@ public class DalDelivery {
         this.truckWeight = truckWeight;
         this.driver = driver;
         this.source = source;
+        docs = new LinkedList<>();
     }
 
     public DalDelivery(){
@@ -42,14 +41,15 @@ public class DalDelivery {
         this.truckWeight = delivery.getTruckWeight();
         this.driver = delivery.getDriver();
         this.source = delivery.getSource().getAddress();
-        //todo chack hash map if nessasary
+        docs = new LinkedList<>();
+        Set<DeliverDoc> realDocs =  delivery.getDocLoc().keySet();
+        for (DeliverDoc document :realDocs) {
+            docs.add(new DALDeliveryDoc(document));
+        }
+
     }
 
-    /**
-     * @param docNumber
-     * @return
-     */
-    public boolean addDeliveryDoc(int docNumber)
+    public boolean addDeliveryDoc(DALDeliveryDoc docNumber)
     {
         return docs.add(docNumber);
     }
@@ -107,20 +107,8 @@ public class DalDelivery {
         this.source = source;
     }
 
-    public List<String> getDestinations() {
-        return destinations;
-    }
-
-    public void setDestinations(List<String> destinations) {
-        this.destinations = destinations;
-    }
-
-    public List<Integer> getDocs() {
+    public List<DALDeliveryDoc> getDocs() {
         return docs;
-    }
-
-    public void setDocs(List<Integer> docs) {
-        this.docs = docs;
     }
 
     public int getTruckWeight() {
