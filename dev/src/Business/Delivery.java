@@ -21,7 +21,7 @@ public class Delivery {
     public Delivery(Date date, Date departureTime, Truck truck, String driver, boolean goodLicenses, Location source, List<DeliverDoc> docs, int truckWeight) {
         this.date = date;
         this.departureTime = departureTime;
-        this.truckNum = truckNum;
+        this.truckNum = truck.getTruckNum();
         this.driver = driver;
         this.approved = goodLicenses;
         this.source = source;
