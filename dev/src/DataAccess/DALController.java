@@ -1457,7 +1457,9 @@ public class DALController
                 doc.setNum(rs.getInt("docID"));
                 String address = rs.getString("destination");
                 doc.setDestination(loadLocation(address));
-                doc.setEstimatedTimeOfArrival(rs.getDate("estimatedTimeOfArrival"));
+                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
+                System.out.println(rs.getDate("estimatedTimeOfArrival").toString());
+                System.out.println(rs.getTime("estimatedDayOfArrival").toString());
                 doc.setEstimatedDayOfArrival(rs.getDate("estimatedDayOfArrival"));
             }
             conn.close();
