@@ -1286,6 +1286,7 @@ public class DALController
         }
         conn.close();
     } catch (SQLException e) {
+        System.out.println("sql fail us");
         return null;
     }
     return location;
@@ -1405,6 +1406,7 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
+            System.out.println("sql failed us");
             return null;
         }
         return delivery;
