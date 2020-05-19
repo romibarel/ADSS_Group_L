@@ -33,12 +33,6 @@ public class PTIDelController {
         ITPDelController itp = ITPDelController.getITP();
         ITBDelController itb = ITBDelController.getITB();
         BTIController bti = BTIController.getBTI();
-        BTDController btd = BTDController.getBTD();
-        DALController dtb = DALController.getDTB();
-
-        List<String[]> sections = new LinkedList<>();
-        List<String[]> locations = new LinkedList<>();
-        List<String[]> trucks = new LinkedList<>();
 
         pti.set();
         itp.set();
