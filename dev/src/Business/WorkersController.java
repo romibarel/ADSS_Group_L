@@ -9,8 +9,8 @@ import java.util.List;
 public class WorkersController
 {
 	private static List<Worker> workers= new LinkedList<>();
-	private static List<String> branches=new LinkedList<>();
 	private static BTDController data=BTDController.getBTD();
+	private static List<String> branches=data.load_all_branches();
 
 	public static String get_driver_name(int id)
 	{

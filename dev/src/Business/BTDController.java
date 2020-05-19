@@ -238,4 +238,8 @@ public class BTDController {
     }
 
 
+    public List<String> load_all_branches()
+    {
+        return dataTb.load_Branches();
+    }
 }
