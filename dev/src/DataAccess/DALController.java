@@ -1400,24 +1400,24 @@ public class DALController
         return true;
     }
 
-    public DalDelivery loadDelivery(int id) {
-        DalDelivery delivery = null;
-        openConn();
-        String sql = "SELECT* FROM Deliveries WHERE id=?";
-        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs  = pstmt.executeQuery();
-            if (rs.next()) {
-                delivery = new DalDelivery();
-                setDeliveryPrams(rs, delivery);
-            }
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println("sql failed us");    //todo remove
-            return null;
-        }
-        return delivery;
-    }
+//    public DalDelivery loadDelivery(int id) {
+//        DalDelivery delivery = null;
+//        openConn();
+//        String sql = "SELECT* FROM Deliveries WHERE id=?";
+//        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+//            pstmt.setInt(1, id);
+//            ResultSet rs  = pstmt.executeQuery();
+//            if (rs.next()) {
+//                delivery = new DalDelivery();
+//                setDeliveryPrams(rs, delivery);
+//            }
+//            conn.close();
+//        } catch (SQLException e) {
+//            System.out.println("sql failed us");    //todo remove
+//            return null;
+//        }
+//        return delivery;
+//    }
 
     public boolean saveDoc(int deliveryID, DALDeliveryDoc doc) {
         openConn();
@@ -1441,29 +1441,29 @@ public class DALController
         return true;
     }
 
-    public DALDeliveryDoc loadDoc(int docNum) {
-        DALDeliveryDoc doc = null;
-        openConn();
-        String sql = "SELECT* FROM DeliveryDocs WHERE docNum=?";
-        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, docNum);
-            ResultSet rs  = pstmt.executeQuery();
-            if (rs.next()) {
-                doc = new DALDeliveryDoc();
-                doc.setNum(rs.getInt("docNum"));
-                doc.setDestination(rs.getString("destination"));
-                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
-                doc.setEstimatedDayOfArrival(rs.getTime("setEstimatedDayOfArrival"));
-            }
-            conn.close();
-            List<DalSupply> supplies = loadSupplies(doc.getNum());
-            doc.setDeliveryList(supplies);
-
-        } catch (SQLException e) {
-            return null;
-        }
-        return doc;
-    }
+//    public DALDeliveryDoc loadDoc(int docNum) {
+//        DALDeliveryDoc doc = null;
+//        openConn();
+//        String sql = "SELECT* FROM DeliveryDocs WHERE docNum=?";
+//        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+//            pstmt.setInt(1, docNum);
+//            ResultSet rs  = pstmt.executeQuery();
+//            if (rs.next()) {
+//                doc = new DALDeliveryDoc();
+//                doc.setNum(rs.getInt("docNum"));
+//                doc.setDestination(rs.getString("destination"));
+//                doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
+//                doc.setEstimatedDayOfArrival(rs.getTime("setEstimatedDayOfArrival"));
+//            }
+//            conn.close();
+//            List<DalSupply> supplies = loadSupplies(doc.getNum());
+//            doc.setDeliveryList(supplies);
+//
+//        } catch (SQLException e) {
+//            return null;
+//        }
+//        return doc;
+//    }
 
     public boolean saveSupply(int docNum, String destination, DalSupply dalSupply) {
         openConn();
