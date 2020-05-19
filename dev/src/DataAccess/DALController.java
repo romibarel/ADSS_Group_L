@@ -33,7 +33,7 @@ public class DALController
 
     private void openConn(){
         try {
-            String url = "jdbc:sqlite:"+"C:\\Users\\michael\\Desktop\\NITOZ\\Project\\ADSS_Group_L\\dev\\src\\DataAccess\\Database.db";
+            String url = "jdbc:sqlite:"+new File("dev\\src\\DataAccess\\Database.db").getAbsolutePath();
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -145,12 +145,12 @@ public class DALController
 
     public void initWorkers(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (13,\"avi\",1000,123,3,12,12,\"2020-01-01\",\"manager\", \"Super Lee\")");
-        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (14,\"inbar\",1500,105,9,30,12,\"28-05-2019\",\"manager\",\"Costco\")");
-        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (17,\"haim\",2000,189,6,25,30,\"03-05-2018\",\"cashier\",\"Super Lee\")");
-        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (15,\"romi\",2000,189,6,25,30,\"03-05-2018\",\"storekeeper\", \"Super Lee\")");
-        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (16,\"gil\",2000,189,6,25,30,\"03-05-2018\",\"driver\",\"Costco\");");
-        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (18,\"lala\",2000,189,6,25,30,\"03-05-2018\",\"driver\",\"Mega\");");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (13,\"avi\",1000,123,3,12,12,1577829600000,\"manager\", \"Super Lee\")");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (14,\"inbar\",1500,105,9,30,12,1558990800000,\"manager\",\"Costco\")");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (17,\"haim\",2000,189,6,25,30,1525294800000,\"cashier\",\"Super Lee\")");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (15,\"romi\",2000,189,6,25,30,1525294800000,\"storekeeper\", \"Super Lee\")");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (16,\"gil\",2000,189,6,25,30,1525294800000,\"driver\",\"Costco\");");
+        sqls.add("Insert Into Workers (id,name,salary,bank_account_number,pension,vacation_days,sick_days,start_date,role,branchAddress) Values (18,\"lala\",2000,189,6,25,30,1525294800000,\"driver\",\"Mega\");");
         sqls.add("Insert Into DriverLicences (driver_id, license) VALUES(16,\"Mercedes\")");
         sqls.add("Insert Into DriverLicences (driver_id, license) VALUES(18,\"Toyota\")");
         sqls.add("Insert Into DriverLicences (driver_id, license) VALUES(18,\"Mazda\")");
@@ -174,9 +174,9 @@ public class DALController
 
     public void initShifts(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (\"2020-01-21\",1,\"Super Lee\",13);");
-        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (\"2020-01-21\",0,\"Costco\",14);");
-        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (\"2020-01-21\",1,\"Costco\",14);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1579557600000,1,\"Super Lee\",13);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1579557600000,0,\"Costco\",14);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1579557600000,1,\"Costco\",14);");
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
@@ -197,9 +197,9 @@ public class DALController
 
     public void initShiftsWorkers(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (\"2020-01-21\",1,15,\"Super Lee\");");
-        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (\"2020-01-21\",1,17,\"Super Lee\");");
-        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (\"2020-01-21\",0,16,\"Costco\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1579557600000,1,15,\"Super Lee\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1579557600000,1,17,\"Super Lee\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1579557600000,0,16,\"Costco\");");
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
@@ -305,14 +305,14 @@ public class DALController
                 "\t`pension`\tINTEGER,\n" +
                 "\t`vacation_days`\tINTEGER,\n" +
                 "\t`sick_days`\tINTEGER,\n" +
-                "\t`start_date`\tDATETIME,\n" +
+                "\t`start_date`\tDATE,\n" +
                 "\t`role`\tTEXT,\n" +
                 "\t`branchAddress`\tTEXT,\n" +
                 "\tPRIMARY KEY(`id`)\n" +
                 ");");
 
         sqls.add("CREATE TABLE `Shifts` (\n" +
-                "\t`date`\tDATETIME,\n" +
+                "\t`date`\tDATE,\n" +
                 "\t`morning`\tINTEGER,\n" +
                 "\t`branch`\tTEXT,\n" +
                 "\t`manager_id`\tINTEGER,\n" +
@@ -321,7 +321,7 @@ public class DALController
                 ");");
 
         sqls.add("CREATE TABLE `WorkersInShift` (\n" +
-                "\t`date`\tDATETIME,\n" +
+                "\t`date`\tDATE,\n" +
                 "\t`morning`\tINTEGER,\n" +
                 "\t`worker_id`\tINTEGER,\n" +
                 "\t`branch`\tTEXT,\n" +
