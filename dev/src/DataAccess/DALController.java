@@ -1491,7 +1491,31 @@ public class DALController
         return supplies;
     }
 
-
+    public List<String> load_Branches()
+    {
+        List<String> branches=new LinkedList<>();
+        openConn();
+        String sql="SELECT address From Locations where isBranch=1";
+        ResultSet resultSet=null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                branches.add(resultSet.getString("address"));
+            }
+        }
+        catch (SQLException ignored){}
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return branches;
+    }
 
 
     /*public void save(List<Business.DalLocation> bLocations) {
