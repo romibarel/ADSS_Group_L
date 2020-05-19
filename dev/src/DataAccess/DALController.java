@@ -305,14 +305,14 @@ public class DALController
                 "\t`pension`\tINTEGER,\n" +
                 "\t`vacation_days`\tINTEGER,\n" +
                 "\t`sick_days`\tINTEGER,\n" +
-                "\t`start_date`\tDATE,\n" +
+                "\t`start_date`\tDATETIME,\n" +
                 "\t`role`\tTEXT,\n" +
                 "\t`branchAddress`\tTEXT,\n" +
                 "\tPRIMARY KEY(`id`)\n" +
                 ");");
 
         sqls.add("CREATE TABLE `Shifts` (\n" +
-                "\t`date`\tDate,\n" +
+                "\t`date`\tDATETIME,\n" +
                 "\t`morning`\tINTEGER,\n" +
                 "\t`branch`\tTEXT,\n" +
                 "\t`manager_id`\tINTEGER,\n" +
@@ -321,7 +321,7 @@ public class DALController
                 ");");
 
         sqls.add("CREATE TABLE `WorkersInShift` (\n" +
-                "\t`date`\tDate,\n" +
+                "\t`date`\tDATETIME,\n" +
                 "\t`morning`\tINTEGER,\n" +
                 "\t`worker_id`\tINTEGER,\n" +
                 "\t`branch`\tTEXT,\n" +
@@ -741,7 +741,7 @@ public class DALController
         openConn();
         String sql;
         sql = "SELECT id from Workers Where id not in" +
-                "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where date=? and morning=? and branchAddress=?)"+
+                "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where start_date=? and morning=? and branchAddress=?)"+
                 "and branchAddress=? and role=? Limit 1";
         ResultSet resultSet = null;
         try
@@ -782,7 +782,9 @@ public class DALController
             worker.setStart_date(new java.util.Date(resultSet.getDate("start_date").getTime()));
             worker.setRole(resultSet.getString("role"));
             worker.setBranchAddress(resultSet.getString("branchAddress"));
-        } catch (SQLException ignored) { }
+        } catch (Exception ignored)
+        {
+        }
         return worker;
     }
 
@@ -792,7 +794,7 @@ public class DALController
         openConn();
         String sql;
         sql = "SELECT * from Workers Where id not in" +
-                "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where date=? and morning=? and branchAddress=?)" +
+                "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where start_date=? and morning=? and branchAddress=?)" +
                 "and branchAddress=? and role=?";
         ResultSet resultSet = null;
         try
@@ -845,6 +847,7 @@ public class DALController
                 sql="Select count(manager_id) From Shifts Where manager_id=? GROUP By manager_id";
                 statement = conn.prepareStatement(sql);
                 statement.setInt(1,worker_id);
+                resultSet = statement.executeQuery();
                 if (!resultSet.next())
                     scheduled=false;
             }
@@ -876,15 +879,16 @@ public class DALController
             statement.setInt(2,shift.isMorning() ? 1 : 0);
             statement.setInt(3,shift.getManager_id());
             statement.setString(4,shift.getBranchAddress());
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
             for (Integer worker: shift.getWorkers())
             {
-                sql="INSERT INTO WorkersInShift(date,morning,worker_id) VALUES(?,?,?)";
+                sql="INSERT INTO WorkersInShift(date,morning,worker_id,branch) VALUES(?,?,?,?)";
                 statement = conn.prepareStatement(sql);
                 statement.setDate(1,new java.sql.Date(shift.getDate().getTime()));
                 statement.setInt(2, shift.isMorning() ? 1 : 0);
                 statement.setInt(3,worker);
-                statement.executeUpdate(sql);
+                statement.setString(4,shift.getBranchAddress());
+                statement.executeUpdate();
             }
             conn.commit();
             result=new Result(true,"shift inserted");
@@ -917,13 +921,13 @@ public class DALController
             LinkedList<Integer> workers_before_update=new LinkedList<>();
 
             //-----------------------get all workers in this shift before update---------------------//
-            String sql="SELECT id FROM WorkersInShift WHERE date=? and morning=?";
+            String sql="SELECT worker_id FROM WorkersInShift WHERE date=? and morning=?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setDate(1,new java.sql.Date(shift.getDate().getTime()));
+            statement.setDate(1,new java.sql.Date(previous_date.getTime()));
             statement.setInt(2,shift.isMorning() ? 1 : 0);
             ResultSet resultSet=statement.executeQuery();
             while (resultSet.next())
-                workers_before_update.add(resultSet.getInt("id"));
+                workers_before_update.add(resultSet.getInt("worker_id"));
             resultSet.close();
 
             conn.setAutoCommit(false);
@@ -939,7 +943,7 @@ public class DALController
                     statement.setDate(2,new java.sql.Date(previous_date.getTime()));
                     statement.setInt(3,previous_morning? 1 : 0);
                     statement.setString(4,previous_branch);
-                    statement.executeUpdate(sql);
+                    statement.executeUpdate();
                 }
             }
 
@@ -954,7 +958,7 @@ public class DALController
             statement.setDate(5,new java.sql.Date(previous_date.getTime()));
             statement.setInt(6,previous_morning? 1 : 0);
             statement.setString(7,previous_branch);
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
 
             //---------------------insert the new workers in shift-----------------------------------//
             for (Integer worker_id : shift.getWorkers())
@@ -967,7 +971,7 @@ public class DALController
                     statement.setInt(2,shift.isMorning() ? 1 : 0);
                     statement.setInt(3,worker_id);
                     statement.setString(4,shift.getBranchAddress());
-                    statement.executeUpdate(sql);
+                    statement.executeUpdate();
                 }
             }
             conn.commit();
@@ -997,6 +1001,7 @@ public class DALController
         String sql = "Delete FROM Shifts WHERE morning=? and branch=? and date=?";
         try
         {
+            conn.setAutoCommit(false);
             //delete shift
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1,morning? 1 : 0);
@@ -1015,7 +1020,12 @@ public class DALController
             conn.commit();
             result=new Result(true, "shift deleted");
         }
-        catch (SQLException e) { result= new Result(false, "Delete shift failed"); }
+        catch (SQLException e) {
+            try
+            {
+                conn.rollback();
+            } catch (SQLException ex) { }
+            result= new Result(false, "Delete shift failed"); }
         finally
         {
             try {
@@ -1046,6 +1056,7 @@ public class DALController
                 resultSet.close();
                 List<Integer> workers_in_shift=new LinkedList<>();
                 sql="SELECT worker_id FROM WorkersInShift where date=? and morning=? and branch=?";
+                statement  = conn.prepareStatement(sql);
                 statement.setDate(1, new java.sql.Date(date.getTime()));
                 statement.setInt(2, morning ? 1 : 0);
                 statement.setString(3, branch);

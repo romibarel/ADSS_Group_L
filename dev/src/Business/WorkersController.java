@@ -139,7 +139,8 @@ public class WorkersController
 		return workers;
 	}
 
-	public static List<String> getBranches() {
+	public static List<String> getBranches()
+	{
 		return branches;
 	}
 

@@ -1,5 +1,6 @@
 package Presentation;
 
+import DataAccess.DALController;
 import Interface.InterfaceConstraint;
 import Interface.InterfaceShift;
 import Interface.InterfaceWorker;
@@ -32,7 +33,6 @@ public class WorkerMenu {
         }
 */
         while(!quit){
-
             System.out.println("Please choose from the following menus");
             System.out.println("1. Add menu");
             System.out.println("2. Edit menu");
@@ -323,7 +323,7 @@ public class WorkerMenu {
                     w.setVacation_days(Integer.parseInt(input.nextLine()));
                     System.out.print("sickDays: ");
                     w.setSick_days(Integer.parseInt(input.nextLine()));
-                    System.out.print("startDate: ");
+                    System.out.print("startDate(dd/MM/yyyy): ");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     w.setStart_date(format.parse(input.nextLine()));
@@ -337,7 +337,7 @@ public class WorkerMenu {
                         i++;
                     }
                     w.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
-                    if(w.getRole().equals("driver")){
+                    if(w.getRole().toLowerCase().equals("driver")){
                         while (!finish) {
                             System.out.println("please enter the license the driver has:");
                             lic = input.nextLine();

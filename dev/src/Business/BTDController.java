@@ -97,7 +97,10 @@ public class BTDController {
 
     public Worker selectWorker(int id)
     {
-        return new Worker(dataTb.selectWorker(id));
+        DALWorker worker=dataTb.selectWorker(id);
+        if (worker==null) return null;
+        if (worker.getRole().equals("driver")) return new Driver((DALDriver) worker);
+        return new Worker(worker);
     }
 
     public int select_available_worker_id(Date date, boolean morning, String branch,String role)
@@ -111,8 +114,8 @@ public class BTDController {
         List<DALWorker> dalWorkers=dataTb.select_available_workers(date,morning,role,branch);
         for (DALWorker dalWorker:dalWorkers)
         {
-            if (dalWorker.getRole().equals("driver"))
-                workers.add(create_specific_worker(dalWorker)); // in runtime it will create driver or worker depends if it is DAlWorker or DALDriver
+            if (dalWorker.getRole().equals("driver")) workers.add(new Driver((DALDriver) dalWorker));
+            else workers.add(new Worker(dalWorker)); // in runtime it will create driver or worker depends if it is DAlWorker or DALDriver
         }
         return workers;
     }
@@ -120,16 +123,6 @@ public class BTDController {
     public boolean is_worker_scheduled(int worker_id)
     {
         return dataTb.is_worker_scheduled(worker_id);
-    }
-
-    public Worker create_specific_worker(DALWorker worker)
-    {
-        return new Worker(worker);
-    }
-
-    public Worker create_specific_worker(DALDriver driver)
-    {
-        return new Driver(driver);
     }
 
     //-------------------------------------end workers-------------------------------------------------
@@ -152,7 +145,9 @@ public class BTDController {
 
     public Shift selectShift(java.util.Date date,boolean morning, String branch)
     {
-        return new Shift(dataTb.selectShift(date,morning,branch));
+        DALShift shift= dataTb.selectShift(date,morning,branch);
+        if (shift==null) return null;
+        return new Shift(shift);
     }
 
     //-------------------------------------end shifts---------------------------------------------
