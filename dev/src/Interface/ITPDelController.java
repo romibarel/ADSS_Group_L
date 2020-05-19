@@ -6,6 +6,7 @@ import Business.Location;
 import Business.Truck;
 import Presentation.PTIDelController;
 import Presentation.PTIDelController;
+import javafx.util.Pair;
 
 import java.sql.Time;
 import java.util.Date;
@@ -31,8 +32,8 @@ public class ITPDelController {
         itb = ITBDelController.getITB();
     }
 
-    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String[] doc){
-        return itb.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, doc);
+    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String destination, List <Pair<String , Integer>> supplies){
+        return itb.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, destination, supplies);
     }
 
     public String createDelivery(Date date, Date time, int truck, int driverID, String source, List<Integer> docs, int truckWeight){

@@ -1330,20 +1330,15 @@ public class DALController
 
     public boolean saveDelivery(DalDelivery delivery) {
         openConn();
-        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, driver, source, truckWeight) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, truckWeight, driver, source) VALUES(?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, delivery.getId());
             pstmt.setDate(2, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
             pstmt.setTime(3, new Time(delivery.getDate().getHours(),delivery.getDate().getMinutes(), 0));
             pstmt.setInt(4 , delivery.getTruckNum());
-            pstmt.setString(5, delivery.getDriver());
-            pstmt.setString(6, delivery.getSource());
-//            pstmt.setString(6, delivery.getTruckWeight());
-//            delivery.getDriver()
-//            delivery.getDocs()
-//            delivery.getDestinations()
-//                    todo haim
-
+            pstmt.setInt(5 , delivery.getTruckWeight());
+            pstmt.setString(6, delivery.getDriver());
+            pstmt.setString(7, delivery.getSource());
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {

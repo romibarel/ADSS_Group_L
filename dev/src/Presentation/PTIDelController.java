@@ -5,6 +5,7 @@ import Business.BTIController;
 import DataAccess.DALController;
 import Interface.ITBDelController;
 import Interface.ITPDelController;
+import javafx.util.Pair;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -112,7 +113,7 @@ public class PTIDelController {
                             while (moreLocations) {
                                 System.out.println("Enter the address of the location to add to area " + area + " or 'stop' if you're done.\n");
                                 input = scanner.nextLine();
-                                if (input == null || input.trim().equals("")) {
+                                if (!validString(input)) {
                                     System.out.println("Address must not be empty, Please try again.\n");
                                 }
                                 else if (input.equals("stop")){
@@ -289,13 +290,10 @@ public class PTIDelController {
         Date estimatedDayOfArrival;
         Date estimatedTimeOfArrival;
 
-        String[] sourceDoc = new String[2];
-        sourceDoc[0] = source;
-        System.out.println("What would you like to pick up from the source (address '" + source + "')?\n" +
-                "Enter in format: supply1 quant1 supply2 quant2...");
-        String sourceSupplies = scanner.next();
-        sourceDoc[1] = sourceSupplies;
-        String out = itp.createDoc(null, null, docNum, sourceDoc);
+        List < Pair<String , Integer> > sourceSupplies = userEnterSupplies();
+
+
+        String out = itp.createDoc(null, null, docNum, source, sourceSupplies);
         System.out.println(out);
         if (!out.equals("Document created successfully."))
             return docNums;
@@ -307,16 +305,18 @@ public class PTIDelController {
         while (!finish) {
             //destination, supplies&quants,
             //0=destination 1=long string of format: supply1 quant1, supply2, quant2...
-            String[] doc = new String[2];
+            String myDestination ;
             System.out.println("Let's create the delivery document for the next Destination. Where would you like to deliver?");
             String destination = scanner.nextLine();
             if (destination == null || destination.trim().equals("")){
                 System.out.println("Destination address can't be empty.");
                 return new LinkedList<>();
             }
-            doc[0] = destination;
-            System.out.println("Please enter all the supplies and quantities to deliver in this format: supply1 quant1 supply2 quant2...");
-            doc[1] = scanner.nextLine();
+            myDestination  = destination;
+//            System.out.println("Please enter all the supplies and quantities to deliver in this format: supply1 quant1, supply2 quant2...");
+//            doc[1] = scanner.nextLine();
+            List < Pair<String , Integer> > supplies = userEnterSupplies();
+
 
             System.out.println("What is the estimated date of arrival to " +destination+ " in dd/mm/yyyy format?");
             String input = scanner.nextLine();
@@ -346,7 +346,7 @@ public class PTIDelController {
                 System.out.println("Invalid answer, the system will create the delivery with the current information now.");
                 finish = true;
             }
-            out = itp.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, doc);
+            out = itp.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, myDestination, supplies);
             System.out.println(out);
             if (!out.equals("Document created successfully.")){
                 System.out.println("The creation of the delivery document failed. The DalDelivery will not be created.");
@@ -360,5 +360,48 @@ public class PTIDelController {
 
         return docNums;
     }
+
+    private List < Pair<String , Integer> > userEnterSupplies() {
+        List<Pair<String, Integer>> supplies = new LinkedList<>();
+        boolean continueSuppling = true;
+        while (continueSuppling) {
+            System.out.println("Please enter supply name to pick up or deliver");
+            String supName = scanner.nextLine();
+            if (!validString(supName)) {
+                System.out.println("invalid name");
+                continue;
+            }
+            System.out.println("now Enter the quantity of supply " + supName + ".");
+            String supQun = scanner.nextLine();
+            if (!validInt(supQun)) {
+                System.out.println("invalid supply quantity");
+                continue;
+            }
+            supplies.add(new Pair<>(supName, Integer.parseInt(supQun)));
+            System.out.println("Any more supplies for us? enter y for yes, any other key to stop");
+            String ans = scanner.nextLine();
+            continueSuppling = "Y".equals(ans) || "y".equals(ans);
+        }
+        return supplies;
+    }
+
+    private boolean validString(String s)
+    {
+        return ! (s == null || s.trim().equals(""));
+    }
+
+    private boolean validInt(String s)
+    {
+        boolean ret = false;
+        try {
+            int check = Integer.parseInt(s);
+            ret = true;
+        } catch (Exception e){
+            ret = false;
+        }
+        return ret;
+    }
+
+
 
 }

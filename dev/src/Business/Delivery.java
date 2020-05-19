@@ -148,4 +148,12 @@ public class Delivery {
     public boolean isApproved(){
         return approved;
     }
+
+    public int getTruckWeight() {
+        return truckWeight;
+    }
+
+    public void setTruckWeight(int truckWeight) {
+        this.truckWeight = truckWeight;
+    }
 }
