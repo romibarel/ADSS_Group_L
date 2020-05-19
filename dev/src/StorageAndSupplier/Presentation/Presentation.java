@@ -968,7 +968,7 @@ public class Presentation {
             Date expirationDate = null;
 
                 String expiDate = in.nextLine();
-                expirationDate = new SimpleDateFormat("YYYY/MM/DD").parse(expiDate);
+                expirationDate = new SimpleDateFormat("YYYY-MM-DD").parse(expiDate);
 
             System.out.print("  " + i + ". amount of items to move: ");
             int amount = Integer.parseInt(in.nextLine());

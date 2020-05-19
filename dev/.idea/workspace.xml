@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/storage.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/storage.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Locations/LocationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Locations/LocationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Reports/DefectReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Reports/DefectReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Reports/ProductReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Reports/ProductReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Singletone_Storage_Management.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Storage/Buisness/Singletone_Storage_Management.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Storage/Tests/ProductControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Storage/Tests/ProductControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/API_Buisness.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/API_Buisness.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Presentation/Presentation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Presentation/Presentation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Agreement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Agreement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Report.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Supplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/Supplier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/SystemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Suppliers/BusinessLayer/SystemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/Suppliers/PersistenceLayer/DataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/Suppliers/PersistenceLayer/DataController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Storage/Buisness/Transactions/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Storage/Buisness/Transactions/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Storage/Tests/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Storage/Tests/ProductControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/instructions.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/instructions.pdf" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Storage/Buisness/Locations/LocationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="153" column="20" lean-forward="true" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="20" />
+            <state relative-caret-position="3190">
+              <caret line="153" column="20" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Storage/Buisness/Reports/ReportController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="99" column="46" lean-forward="true" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
+            <state relative-caret-position="2046">
+              <caret line="99" column="46" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,11 +38,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Storage/Buisness/Transactions/TransactionController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="88">
-              <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+              <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="982" column="22" lean-forward="true" selection-start-line="982" selection-start-column="22" selection-end-line="982" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,7 +121,6 @@
         <option value="$PROJECT_DIR$/src/Storage/Tests/CategoryTest.java" />
         <option value="$PROJECT_DIR$/src/StorageAndSupplier/API_Buisness.java" />
         <option value="$PROJECT_DIR$/src/Storage/Tests/PurchaseTransactionTest.java" />
-        <option value="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java" />
         <option value="$PROJECT_DIR$/src/main.java" />
         <option value="$PROJECT_DIR$/src/Suppliers/BusinessLayer/SystemController.java" />
         <option value="$PROJECT_DIR$/src/Suppliers/PersistenceLayer/DataController.java" />
@@ -149,6 +141,7 @@
         <option value="$PROJECT_DIR$/src/Storage/Tests/ProductControllerTest.java" />
         <option value="$PROJECT_DIR$/src/Storage/Buisness/Transactions/Transaction.java" />
         <option value="$PROJECT_DIR$/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" />
+        <option value="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java" />
       </list>
     </option>
   </component>
@@ -163,6 +156,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -185,51 +179,19 @@
               <item name="dev" type="b2602c69:ProjectViewProjectNode" />
               <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-              <item name="Buisness" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-              <item name="Buisness" type="462c0819:PsiDirectoryNode" />
-              <item name="Locations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-              <item name="Buisness" type="462c0819:PsiDirectoryNode" />
-              <item name="Reports" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-              <item name="Buisness" type="462c0819:PsiDirectoryNode" />
-              <item name="Transactions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dev" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Storage" type="462c0819:PsiDirectoryNode" />
-              <item name="DAL" type="462c0819:PsiDirectoryNode" />
+              <item name="StorageAndSupplier" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dev" type="b2602c69:ProjectViewProjectNode" />
               <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="StorageAndSupplier" type="462c0819:PsiDirectoryNode" />
+              <item name="Presentation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -433,7 +395,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17024705" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17239527" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -442,7 +404,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32214764" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.7606264" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3277405" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.28299776" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -469,18 +431,6 @@
           <line>235</line>
           <properties />
           <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java</url>
-          <line>170</line>
-          <properties />
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java</url>
-          <line>504</line>
-          <properties />
-          <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Storage/DAL/DataAccess.java</url>
@@ -889,16 +839,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="1352" selection-start-line="1352" selection-end-line="1352" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
@@ -919,8 +859,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Storage/Buisness/Locations/LocationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="153" column="20" lean-forward="true" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="20" />
+        <state relative-caret-position="3190">
+          <caret line="153" column="20" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -929,8 +869,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Storage/Buisness/Reports/ReportController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="99" column="46" lean-forward="true" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
+        <state relative-caret-position="2046">
+          <caret line="99" column="46" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -940,7 +880,17 @@
     <entry file="file://$PROJECT_DIR$/src/Storage/Buisness/Transactions/TransactionController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
-          <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="982" column="22" lean-forward="true" selection-start-line="982" selection-start-column="22" selection-end-line="982" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
