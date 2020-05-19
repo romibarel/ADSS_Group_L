@@ -7,22 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5a0c68f-cb7a-4339-a500-2fe945ca3023" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/data/storage.db" beforeDir="false" afterPath="$PROJECT_DIR$/dev/data/storage.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/storage" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/storage.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +53,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589546763463" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dev/lib/sqlite-jdbc-3.27.2.1.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -296,22 +287,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589624923306" />
-    <state width="1878" height="170" key="GridCell.Tab.0.bottom" timestamp="1589635053690">
+    <state width="1878" height="170" key="GridCell.Tab.0.bottom" timestamp="1589899425692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="170" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
-    <state width="1878" height="170" key="GridCell.Tab.0.center" timestamp="1589635053690">
+    <state width="1878" height="170" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589899425692" />
+    <state width="1878" height="170" key="GridCell.Tab.0.center" timestamp="1589899425692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="170" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
-    <state width="1878" height="170" key="GridCell.Tab.0.left" timestamp="1589635053690">
+    <state width="1878" height="170" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589899425692" />
+    <state width="1878" height="170" key="GridCell.Tab.0.left" timestamp="1589899425692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="170" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
-    <state width="1878" height="170" key="GridCell.Tab.0.right" timestamp="1589635053690">
+    <state width="1878" height="170" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589899425692" />
+    <state width="1878" height="170" key="GridCell.Tab.0.right" timestamp="1589899425692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1878" height="170" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589635053690" />
+    <state width="1878" height="170" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589899425692" />
     <state width="1878" height="370" key="GridCell.Tab.1.bottom" timestamp="1589631348061">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -1170,15 +1170,16 @@ public class Presentation {
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
-                                    businessManager.addSupplier("FixedDays",name, cid,ba,pc,pn);
+                                    businessManager.addSupplier("FixedDays",name, cid,ba,pc,pn,"");
                                     System.out.println("Success!\n");
                                     break;
                                 case 2:
-                                    businessManager.addSupplier("OrderOnly", name, cid,ba,pc,pn);
+                                    businessManager.addSupplier("OrderOnly", name, cid,ba,pc,pn,"");
                                     System.out.println("Success!\n");
                                     break;
                                 case 3:
-                                    businessManager.addSupplier("SelfPickup", name, cid,ba,pc,pn);
+                                    System.out.println("Enter the pickup location");
+                                    businessManager.addSupplier("SelfPickup", name, cid,ba,pc,pn, scanner.nextLine());
                                     System.out.println("Success!\n");
                                     break;
                                 default:

@@ -31,7 +31,6 @@ public class SystemController {
     }
 
     public void loadSystem(){
-//        dc.loadSystem();
         for(LoanSupplier lp : dc.pullSupplierData()) {
             switch (lp.getTag()){
                 case "FixedDays":
@@ -42,6 +41,16 @@ public class SystemController {
                     break;
                 case "OrderOnly":
                     suppliers.add(new OrderOnlySupplier(lp));
+                    break;
+            }
+        }
+        for(LoanReport lr : dc.pullReports()){
+            switch (lr.getTag()){
+                case "Arrival":
+                    reports.add(new ArrivalReport(lr));
+                    break;
+                case "Cancel":
+                    reports.add(new CancellationReport(lr));
                     break;
             }
         }

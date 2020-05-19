@@ -283,12 +283,12 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum){
+    public void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum, String location){
         if(tag.equals("FixedDays"))
             supplier_management.addSupplier(new FixedDaysSupplier(name, id, bankAccNum, payCond, phoneNum));
         else if(tag.equals("OrderOnly"))
             supplier_management.addSupplier(new OrderOnlySupplier(name, id, bankAccNum, payCond, phoneNum));
-        else supplier_management.addSupplier(new SelfPickupSupplier(name, id, bankAccNum, payCond, phoneNum, ""));
+        else supplier_management.addSupplier(new SelfPickupSupplier(name, id, bankAccNum, payCond, phoneNum, location));
     }
 
     @Override

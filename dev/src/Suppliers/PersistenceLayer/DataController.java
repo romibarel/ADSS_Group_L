@@ -568,7 +568,6 @@ public class DataController {
 
     public LoanReport getReport(int reportID){
         LoanReport lr = null;
-        LinkedList<LoanReport> reports = new LinkedList<>();
         try{
             p = con.prepareStatement("SELECT * FROM REPORTS WHERE reportID = " + reportID);
             ResultSet rs = p.executeQuery();
