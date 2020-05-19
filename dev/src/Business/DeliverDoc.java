@@ -1,6 +1,10 @@
 package Business;
 
+import DataAccess.DALDeliveryDoc;
+import DataAccess.DalSupply;
+
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DeliverDoc {
@@ -18,16 +22,16 @@ public class DeliverDoc {
         this.estimatedDayOfArrival = estimatedDayOfArrival;
     }
 
-    public DeliverDoc(int num, List<Supply> deliveryList, Location destination) {
-        this.num = num;
-        this.deliveryList = deliveryList;
-        this.destination = destination;
-    }
+    public DeliverDoc(DALDeliveryDoc daldoc) {
+        this.num = daldoc.getNum();
+        this.deliveryList = new LinkedList<>();
+        this.destination = new Location(daldoc.getDestination());
+        this.estimatedTimeOfArrival = daldoc.getEstimatedTimeOfArrival();
+        this.estimatedDayOfArrival = daldoc.getEstimatedDayOfArrival();
 
-
-
-    public DeliverDoc(int docNum, String s, List<Supply> supplies, Location destination) {
-
+        for (DalSupply dalSup : daldoc.getDeliveryList()){
+            deliveryList.add(new Supply(dalSup));
+        }
     }
 
     public Location getDestination() {

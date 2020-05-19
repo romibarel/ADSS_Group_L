@@ -239,7 +239,13 @@ public class BTDController {
             return new DeliveryArchive();
         deliveryIdCounter += arc.getDeliveries().size();
         System.out.println(arc == null ? " arc is null" : " arc is good");       //todo remove
-        return new DeliveryArchive(arc);
+        List<DALDeliveryDoc> docs = new LinkedList<>();
+        for (Integer docNum : arc.getDocuments()){
+            DALDeliveryDoc daldoc = dataTb.loadDoc(docNum);
+            docs.add(daldoc);
+        }
+
+        return new DeliveryArchive(arc, docs);
     }
 
 
