@@ -1,5 +1,7 @@
 package Business;
 
+import DataAccess.DalArchive;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class DeliveryArchive {
         documents = new LinkedList<>();
     }
 
-    public DeliveryArchive(DALDeliveryArchive archive) {
+    public DeliveryArchive(DalArchive archive) {
 
     }
 

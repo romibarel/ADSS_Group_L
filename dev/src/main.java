@@ -9,6 +9,8 @@ public class main {
         Scanner input = new Scanner(System.in);
         String choice;
         boolean quit=false;
+        PTIDelController pti = PTIDelController.getPTI();
+        pti.setup();
         while(!quit){
             System.out.println("Hello, please choose the system you want to use:");
             System.out.println("1. Delivery System");
@@ -17,8 +19,6 @@ public class main {
             choice = input.nextLine();
             switch (choice){
                 case "1":
-                    PTIDelController pti = PTIDelController.getPTI();
-                    pti.setup();
                     pti.start();
                     break;
                 case "2":
@@ -31,8 +31,6 @@ public class main {
                     System.out.println("no such option");
                     break;
             }
-
         }
-
     }
 }

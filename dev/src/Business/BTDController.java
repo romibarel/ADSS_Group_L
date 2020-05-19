@@ -153,26 +153,9 @@ public class BTDController {
 
     //-------------------------------------end shifts---------------------------------------------
 
-    /**
-     * DalSections and Archive must be given all other can be null for not changeing
-     * @param drivers
-     * @param archive
-     * @param sections
-     * @param locations
-     * @param trucks
-     */
-    public void set(List<Driver> drivers, DeliveryArchive archive, Sections sections, List<Location> locations, List<DalTruck> trucks) {
-        this.archive = archive;
-        this.sections = sections;
-        if (drivers != null) {
-            this.drivers = drivers;
-        }
-        if (locations != null) {
-            this.locations = locations;
-        }
-        if (trucks != null) {
-            this.trucks = trucks;
-        }
+    public void set()
+    {
+        dataTb.initialize();
     }
 
 //    public void saveToDB(){

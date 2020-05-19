@@ -28,23 +28,52 @@ public class DALController
 
     private void openConn(){
         try {
-            String url = "jdbc:sqlite:"+new File("dev\\src\\DataAccess\\Database.db").getAbsolutePath();
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:Database.db";
             conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
 
     public void initialize() {
-        createTables();
-        initLocations();
-        initSections();
-        initTrucks();
-        initWorkers();
-        initShifts();
-        initShiftsWorkers();
-        initConstraints();
+        if (check_if_database_empty())
+        {
+            createTables();
+            initLocations();
+            initSections();
+            initTrucks();
+            initWorkers();
+            initShifts();
+            initShiftsWorkers();
+            initConstraints();
+        }
+    }
+
+    private boolean check_if_database_empty()
+    {
+        boolean return_value=true;
+        openConn();
+        String sql;
+        sql = "SELECT * FROM Locations";
+        ResultSet resultSet = null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            resultSet=statement.executeQuery();
+            if (resultSet.next()) return_value=false;
+        }
+        catch (Exception ignored) {}
+        finally
+        {
+            try {
+                if (resultSet!=null)
+                    resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return return_value;
     }
 
     public void initLocations(){
@@ -241,7 +270,7 @@ public class DALController
 
     public void createTables(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("CREATE TABLE \"Deliveries\" (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS \"Deliveries\" (\n" +
                 "\t\"id\"\tINTEGER,\n" +
                 "\t\"departureDate\"\tDATE,\n" +
                 "\t\"departureTime\"\tTIME,\n" +
@@ -252,7 +281,7 @@ public class DALController
                 "\tPRIMARY KEY(\"id\"),\n" +
                 "\tFOREIGN KEY(\"truckNum\") REFERENCES \"Trucks\"(\"id\")\n" +
                 ");");
-        sqls.add("CREATE TABLE \"DeliveryDocs\" (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS \"DeliveryDocs\" (\n" +
                 "\t\"deliveryID\"\tINTEGER NOT NULL,\n" +
                 "\t\"docID\"\tINTEGER NOT NULL,\n" +
                 "\t\"destination\"\tINTEGER NOT NULL,\n" +
@@ -262,20 +291,20 @@ public class DALController
                 "\tFOREIGN KEY(\"deliveryID\") REFERENCES \"Delivery \"(\"id\"),\n" +
                 "\tFOREIGN KEY(\"destination\") REFERENCES \"Locations\"(\"address\")\n" +
                 ");");   //DalDelivery Document
-        sqls.add("CREATE TABLE \"Locations\" (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS \"Locations\" (\n" +
                 "\t\"isBranch\"\tBOOLEAN NOT NULL,\n" +
                 "\t\"address\"\tTEXT NOT NULL,\n" +
                 "\t\"associate\"\tTEXT,\n" +
                 "\t\"phone\"\tINTEGER,\n" +
                 "\tPRIMARY KEY(\"address\")\n" +
                 ");");
-        sqls.add("CREATE TABLE \"Sections\" (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS\"Sections\" (\n" +
                 "\t\"area\"\tINTEGER,\n" +
                 "\t\"location\"\tTEXT NOT NULL,\n" +
                 "\tPRIMARY KEY(\"location\"),\n" +
                 "\tFOREIGN KEY(\"location\") REFERENCES \"Locations\"(\"address\")\n" +
                 ");");
-        sqls.add("CREATE TABLE \"Supply\" (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS\"Supply\" (\n" +
                 "\t\"docNum\"\tINTEGER,\n" +
                 "\t\"destination\"\tTEXT,\n" +
                 "\t\"supName\"\tTEXT,\n" +
@@ -283,7 +312,7 @@ public class DALController
                 "\tFOREIGN KEY(\"destination\") REFERENCES \"Locations\"(\"address\"),\n" +
                 "\tPRIMARY KEY(\"docNum\",\"destination\")\n" +
                 ");");
-        sqls.add("CREATE TABLE \"Trucks\" (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS\"Trucks\" (\n" +
                 "\t\"id\"\tINTEGER,\n" +
                 "\t\"plate\"\tINTEGER,\n" +
                 "\t\"maxWeight\"\tINTEGER,\n" +
@@ -292,7 +321,7 @@ public class DALController
                 "\tPRIMARY KEY(\"id\")\n" +
                 ");");
 
-        sqls.add("CREATE TABLE `Workers` (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS `Workers` (\n" +
                 "\t`id`\tINTEGER,\n" +
                 "\t`name`\tTEXT,\n" +
                 "\t`salary`\tINTEGER,\n" +
@@ -306,7 +335,7 @@ public class DALController
                 "\tPRIMARY KEY(`id`)\n" +
                 ");");
 
-        sqls.add("CREATE TABLE `Shifts` (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS `Shifts` (\n" +
                 "\t`date`\tDATE,\n" +
                 "\t`morning`\tINTEGER,\n" +
                 "\t`branch`\tTEXT,\n" +
@@ -323,7 +352,7 @@ public class DALController
                 "\tFOREIGN KEY(`date`,`morning`,`branch`) REFERENCES `Shifts`(`date`,`morning`,`branch`),\n" +
                 "\tPRIMARY KEY(`date`,`morning`,`worker_id`,`branch`)\n" +
                 ");");
-        sqls.add("CREATE TABLE `Constraints` (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS `Constraints` (\n" +
                 "\t`cid`\tINTEGER,\n" +
                 "\t`wid`\tINTEGER,\n" +
                 "\t`date`\tDATE,\n" +
@@ -332,7 +361,7 @@ public class DALController
                 "\tFOREIGN KEY(`wid`) REFERENCES `Workers`(`id`),\n" +
                 "\tPRIMARY KEY(`cid`)\n" +
                 ");");
-        sqls.add("CREATE TABLE \"DriverLicences\" (\n" +
+        sqls.add("CREATE TABLE IF NOT EXISTS \"DriverLicences\" (\n" +
                 "\t\"driver_id\"\tINTEGER,\n" +
                 "\t\"license\"\tTEXT,\n" +
                 "\tFOREIGN KEY(\"driver_id\") REFERENCES \"Workers\"(\"id\"),\n" +
@@ -1281,7 +1310,7 @@ public class DALController
     public DalSections loadSections() {
         DalSections sections = null;
         openConn();
-        String sql = "SELECT* FROM Sections";
+        String sql = "SELECT * FROM Sections";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             sections = new DalSections();

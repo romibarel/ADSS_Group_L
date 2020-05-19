@@ -32,6 +32,7 @@ public class BTIController {
     public void set(){
         itb = ITBDelController.getITB();
         btd = BTDController.getBTD();
+        btd.set();
         archive = btd.loadArchive();
         documents = new LinkedList<>();
 
