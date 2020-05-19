@@ -18,6 +18,8 @@ public class BTIController {
     private DeliveryArchive archive;
     private List<DeliverDoc> documents;
     private Sections sections;
+    private List<Location> locations;
+    private List<Truck> trucks;
 
     private BTIController(){
 
@@ -35,8 +37,9 @@ public class BTIController {
         btd.set();
         archive = btd.loadArchive();
         documents = new LinkedList<>();
-
         this.sections = btd.loadSections();
+        this.locations = new LinkedList<>();
+        this.trucks = new LinkedList<>();
     }
 
     //destination, supplies&quants,
@@ -58,9 +61,16 @@ public class BTIController {
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
-        Truck truck = btd.loadTruck(truckID);
+        Truck truck = null;
+        for (Truck check : trucks){
+            if (check.getTruckNum() == truckID)
+                truck = check;
+        }
+        if (truck == null)
+            truck = btd.loadTruck(truckID);
         if (truck == null)
             return "The given truck doesn't exist.";
+        trucks.add(truck);
         if (truck.getMaxWeight() < truckWeight)
             return "The given truck exceeds its max weight";
 
