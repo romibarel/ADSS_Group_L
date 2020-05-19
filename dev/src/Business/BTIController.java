@@ -136,7 +136,7 @@ public class BTIController {
         //addDelivery saves all the deliveryDocs of this delivery as well
         btd.saveDelivery(delivery);
         archive.add(delivery);
-        return "DalDelivery was created successfully!";
+        return "Delivery was created successfully!";
     }
 
 

@@ -40,32 +40,8 @@ public class Delivery {
         this.source = source;
         this.truckWeight = dalDelivery.getTruckWeight();
         this.approved = true;
-        docLoc = new HashMap<>();//thats a prob
-        //for (DeliverDoc doc : docs) {
-        //    docLoc.put(doc, doc.getDestination());
-        //}
+        docLoc = new HashMap<>();
     }
-
-
-
-
-//    public Delivery(Date date, Date time, Truck truck, String driver, boolean goodLicenses, Location source, List<Location> destinations, List<DeliverDoc> docs, int truckWeight){
-//        if (!goodLicenses)
-//            approved = false;
-//        else {
-//            this.date = date;
-//            this.departureTime = time;
-//            truckNum = truck.getTruckNum();
-//            this.driver = driver;
-//            this.source = source;
-//            docLoc = new HashMap<>();
-//            for (DeliverDoc doc : docs) {
-//                docLoc.put(doc, doc.getDestination());
-//            }
-//            approved = true;
-//            this.truckWeight = truckWeight;
-//        }
-//    }
 
     public Date[] getDuration(){
         Date[] duration = new Date[4];
@@ -80,7 +56,7 @@ public class Delivery {
         DeliverDoc ret = getDocs().get(0);
         Date date = getDocs().get(0).getEstimatedDayOfArrival();
         for (DeliverDoc doc : getDocs()){
-            if (date.compareTo(doc.getEstimatedDayOfArrival()) < 0) {
+            if (date.before(doc.getEstimatedDayOfArrival())) {
                 date = doc.getEstimatedDayOfArrival();
                 ret = doc;
             }
