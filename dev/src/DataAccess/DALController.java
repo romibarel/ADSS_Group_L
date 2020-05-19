@@ -1117,7 +1117,7 @@ public class DALController
             }
 
         }
-        catch (SQLException ignored) { }
+        catch (SQLException ignored) {System.out.println(ignored); }
         finally
         {
             try {
@@ -1225,6 +1225,10 @@ public class DALController
                 resultSet.close();
                 conn.close();
             } catch (SQLException ignored) {}
+        }
+        for (DALShift shift : dalShifts)
+        {
+            shift.setWorkers(selectWorkersInShift(shift.getDate(),shift.isMorning(),shift.getBranchAddress()));
         }
         return dalShifts;
     }

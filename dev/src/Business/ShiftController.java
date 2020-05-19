@@ -142,7 +142,7 @@ public class ShiftController
 	public static Result assign_Driver(int driver_id,Date departure_date,Date departure_hours,Date arrival_day,Date arrival_hour)
 	{
 		List<Shift> assigned_shifts=new LinkedList<>();
-		if (departure_date.before(new Date())) return new Result(false,"cant set delivery to the past");
+		if (departure_date.before(new Date())) return new Result(false,"you can only set deliveries starting from tomorrow");
 		boolean current_morning=Shift.is_morning_shift(departure_hours); // indicates if the current shift we are adding is morning shift, we start from departure_hours
 		boolean arrival_morning=Shift.is_morning_shift(arrival_hour); // indicates if the time of arrival is in morning shift
 		Calendar current_date= Calendar.getInstance(); // date of the current shift we are adding
