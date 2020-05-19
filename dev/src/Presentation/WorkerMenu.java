@@ -601,7 +601,7 @@ public class WorkerMenu {
                                 for(Integer e: s.getWorkers())
                                     System.out.println(Interface.searchEmployee(e).toString()+"\n");
                                 System.out.print("please enter the id of the employee you wish to add:");
-                                int id= Integer.parseInt(input.nextLine());
+                                Integer id= Integer.parseInt(input.nextLine());
                                 if(s.getWorkers().contains(id))
                                     System.out.println("employee is already in this shift");
                                 else
