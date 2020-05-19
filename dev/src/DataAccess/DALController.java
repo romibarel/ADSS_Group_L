@@ -1342,6 +1342,7 @@ public class DALController
                 archive.setDeliveries(daldel);
             }
         } catch (SQLException e) {
+            System.out.println("sql failed us - archive");    //todo remove
             return null;
         }
 
@@ -1406,7 +1407,7 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
-            System.out.println("sql failed us");
+            System.out.println("sql failed us");    //todo remove
             return null;
         }
         return delivery;

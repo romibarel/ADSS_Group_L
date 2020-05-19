@@ -234,7 +234,10 @@ public class BTDController {
     }
 
     public DeliveryArchive loadArchive(){
-        return new DeliveryArchive(dataTb.loadArchive());
+        DalArchive arc = dataTb.loadArchive();
+        deliveryIdCounter += arc.getDeliveries().size();
+        System.out.println(arc == null ? " arc is null" : " arc is good");       //todo remove
+        return new DeliveryArchive(arc);
     }
 
 
