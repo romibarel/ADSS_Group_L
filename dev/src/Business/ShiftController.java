@@ -167,7 +167,7 @@ public class ShiftController
 			{
 				if (shift.getWorkers().contains(driver_id)) return new Result(false,"driver is already assigned to delivery");
 				shift.getWorkers().add(driver_id);
-				ShiftController.edit_shift(new InterfaceShift(shift),current_date.getTime(),current_morning,driver.getBranchAddress());
+				assigned_shifts.add(shift);
 			}
 			current_morning=!current_morning;
 			if (current_morning==true) current_date.add(Calendar.DATE,1);
@@ -183,7 +183,10 @@ public class ShiftController
 		Result result=new Result(true,"inserted all shifts");
 		for (Shift shift : shifts)
 		{
-			result=data.insertShift(shift);
+			if (ShiftController.get_shift(shift.getDate(),shift.isMorning(),shift.getBranchAddress())!=null)
+				result=data.updateShift(shift,shift.getDate(),shift.isMorning(),shift.getBranchAddress());
+			else
+				result=data.insertShift(shift);
 			if (!result.success) return result;
 		}
 		return result;
