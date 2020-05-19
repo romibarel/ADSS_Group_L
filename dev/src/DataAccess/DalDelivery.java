@@ -19,34 +19,30 @@ public class DalDelivery {
     private String source;
     private HashMap<Integer, String> docToLocation;
 
-    private List<String> destinations;
-    private List<Integer> docs;
 
-    /**
-     * @param date
-     * @param departureTime
-     * @param truckNum
-     * @param driver
-     * @param source
-     * @param destinations can be null for empty list
-     * @param docs can be null for empty list
-     */
-    public DalDelivery(Date date, Date departureTime, int truckNum, String driver, String source, List<String> destinations, List<Integer> docs) {
+    public DalDelivery(int id, Date date, Date departureTime, int truckNum, int truckWeight, String driver, String source) {
+        this.id = id;
         this.date = date;
         this.departureTime = departureTime;
         this.truckNum = truckNum;
+        this.truckWeight = truckWeight;
         this.driver = driver;
         this.source = source;
-        this.destinations = destinations!=null ? destinations : new LinkedList<>();
-        this.docs = docs!=null ? docs : new LinkedList<>();
     }
 
     public DalDelivery(){
 
     }
 
-    public DalDelivery(Delivery delivery) {
-
+    public DalDelivery(Delivery delivery, int Id) {
+        this.id = id;
+        this.date = delivery.getDate();
+        this.departureTime = delivery.getDepartureTime();
+        this.truckNum = delivery.getTruckNum();
+        this.truckWeight = delivery.getTruckWeight();
+        this.driver = delivery.getDriver();
+        this.source = delivery.getSource().getAddress();
+        //todo chack hash map if nessasary
     }
 
     /**

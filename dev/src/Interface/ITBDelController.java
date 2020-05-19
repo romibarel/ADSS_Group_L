@@ -3,6 +3,7 @@ package Interface;
 import Business.BTIController;
 import Business.Delivery;
 import Business.Location;
+import javafx.util.Pair;
 
 import java.util.Date;
 import java.util.List;
@@ -29,8 +30,8 @@ public class ITBDelController {
 
     //destination, supplies&quants,
     //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
-    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String[] doc){
-        return bti.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, doc);
+    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String destination, List <Pair<String , Integer>> supplies){
+        return bti.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, destination, supplies);
     }
 
     public String createDelivery(Date date, Date time, int truck ,int driverID, String source, List<Integer> docs, int truckWeight){

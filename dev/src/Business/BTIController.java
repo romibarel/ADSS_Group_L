@@ -16,7 +16,6 @@ public class BTIController {
     private static ITBDelController itb;
     private static BTDController btd;
     private DeliveryArchive archive;
-    private List<Supply> supplies;
     private List<DeliverDoc> documents;
     private Sections sections;
     private List<Location> locations;
@@ -36,9 +35,6 @@ public class BTIController {
         itb = ITBDelController.getITB();
         btd = BTDController.getBTD();
         archive = new DeliveryArchive();
-
-        this.supplies = new LinkedList<>();
-
         documents = new LinkedList<>();
 
         HashMap<Integer, List<String>> secs = new HashMap<>();
@@ -87,7 +83,10 @@ public class BTIController {
 
     //destination, supplies&quants,
     //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
-    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String[] doc){
+    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String destination, List < Pair<String , Integer> > supplies11){
+
+
+
         String[] data = doc[1].split(" ", Integer.MAX_VALUE);
         List<Supply> DocSupplies = new LinkedList<>();
         for (int i=0; i<data.length-1; i+=2){
@@ -107,17 +106,19 @@ public class BTIController {
                 return "Invalid supplies input";
             }
         }
-        Location doc0 = null;
+
+
+        Location myDestination = null;
         for (Location l: locations) {
-            if (doc[0].equals(l.getAddress()))
+            if (destination.equals(l.getAddress()))
             {
-                doc0 = l;
+                myDestination = l;
                 break;
             }
         }
-        if (doc0 == null)
+        if (myDestination == null)
             return "The destination doesn't exist.";
-        DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, DocSupplies, doc0);
+        DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, DocSupplies, myDestination);
         documents.add(deliverDoc);
         return "Document created successfully.";
     }
@@ -193,9 +194,6 @@ public class BTIController {
         return "DalDelivery was created successfully!";
     }
 
-    public List<Supply> getSupplies() {
-        return supplies;
-    }
 
     public List<DeliverDoc> getDocuments() {
         return documents;
