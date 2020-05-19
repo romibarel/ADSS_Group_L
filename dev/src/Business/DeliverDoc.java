@@ -25,7 +25,9 @@ public class DeliverDoc {
     public DeliverDoc(DALDeliveryDoc daldoc) {
         this.num = daldoc.getNum();
         this.deliveryList = new LinkedList<>();
-        this.destination = new Location(daldoc.getDestination());
+        if (daldoc.getDestination().getIsBranch())
+            this.destination = new Branch(daldoc.getDestination());
+        else this.destination = new Supplier(daldoc.getDestination());
         this.estimatedTimeOfArrival = daldoc.getEstimatedTimeOfArrival();
         this.estimatedDayOfArrival = daldoc.getEstimatedDayOfArrival();
 
