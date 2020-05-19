@@ -1,8 +1,19 @@
 package DataAccess;
 
+import Business.Supply;
+
 public class DalSupply {
     private String name;
     private int quant;
+
+    public DalSupply(Supply sup) {
+        this.name = sup.getName();
+        this.quant = sup.getQuant();
+    }
+
+    public DalSupply() {
+
+    }
 
     public String getName() {
         return name;

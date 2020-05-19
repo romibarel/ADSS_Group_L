@@ -1207,15 +1207,6 @@ public class DALController
     //-----------------------------end shifts-------------------------------------
 
 
-/*
-    public void save(List<Business.Driver> drivers, Business.DeliveryArchive archive, List<Business.DalTruck> dalTrucks, List<Business.DalLocation> dalLocations, Business.DalSections sections) {
-        this.drivers = save(drivers);
-        this.archive = save(archive);
-        this.dalTrucks = save(dalTrucks);
-        this.dalLocations = save(dalLocations);
-        this.sections = save(sections);
-    }*/
-
     public List<Driver> getDrivers() {
         return drivers;
     }
@@ -1319,6 +1310,51 @@ public class DALController
         return sections;
     }
 
+    public DalArchive loadArchive(){
+        DalArchive archive = null;
+        openConn();
+        String sql = "SELECT * From Deliveries";
+        List<DalDelivery> daldel = new LinkedList<>();
+        List<Integer> docNums = new LinkedList<>();
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            ResultSet rs  = pstmt.executeQuery();
+            archive = new DalArchive();
+            while (rs.next()) {
+                DalDelivery delivery = new DalDelivery();
+                setDeliveryPrams(rs, delivery);
+                daldel.add(delivery);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+
+        sql = "SELECT docNum From Deliveries";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            ResultSet rs  = pstmt.executeQuery();
+            archive = new DalArchive();
+            while (rs.next()) {
+                DalDelivery delivery = new DalDelivery();
+                setDeliveryPrams(rs, delivery);
+                daldel.add(delivery);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+
+        return sections;
+    }
+
+    private void setDeliveryPrams(ResultSet rs, DalDelivery delivery) throws SQLException {
+        delivery.setId(rs.getInt("id"));
+        delivery.setDate(rs.getDate("departureDate"));
+        delivery.setDepartureTime(rs.getTime("departureTime"));
+        delivery.setTruckNum(rs.getInt("truckNum"));
+        delivery.setDriver(rs.getString("driver"));
+        delivery.setSource(rs.getString("source"));
+    }
+
 //
 //    id
 //            date
@@ -1328,7 +1364,7 @@ public class DALController
 //            source
 //    docToLocation
 
-    public boolean saveDelivery(DalDelivery delivery) {
+    public boolean saveDelivery(DalDelivery delivery ) {
         openConn();
         String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, truckWeight, driver, source) VALUES(?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -1344,6 +1380,9 @@ public class DALController
         } catch (SQLException e) {
             return false;
         }
+        for (DALDeliveryDoc dalDoc : delivery.getDocs()){
+            saveDoc(delivery.getId(), dalDoc);
+        }
         return true;
     }
 
@@ -1356,12 +1395,7 @@ public class DALController
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
                 delivery = new DalDelivery();
-                delivery.setId(rs.getInt("id"));
-                delivery.setDate(rs.getDate("departureDate"));
-                delivery.setDepartureTime(rs.getTime("departureTime"));
-                delivery.setTruckNum(rs.getInt("truckNum"));
-                delivery.setDriver(rs.getString("driver"));
-                delivery.setSource(rs.getString("source"));
+                setDeliveryPrams(rs, delivery);
             }
             conn.close();
         } catch (SQLException e) {
@@ -1450,12 +1484,6 @@ public class DALController
         }
         return supplies;
     }
-
-
-
-
-
-
 
 
 

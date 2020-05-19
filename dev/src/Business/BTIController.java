@@ -34,7 +34,7 @@ public class BTIController {
     public void set(List<String[]> sections, List<String[]> locations, List<String[]> trucks){
         itb = ITBDelController.getITB();
         btd = BTDController.getBTD();
-        archive = new DeliveryArchive();
+        archive = btd.loadArchive();
         documents = new LinkedList<>();
 
         HashMap<Integer, List<String>> secs = new HashMap<>();
@@ -135,9 +135,10 @@ public class BTIController {
             return "The driver doesn't exist.";
 
         boolean goodLicenses = WorkersController.canDriveTruck(driverID, truck.getType()) ;
+        if(!goodLicenses)
+            return "The driver is unlicensed for the given truck.";
 
-
-        Location source = btd.getLocation(sourceAddress);
+        Location source = btd.loadLocation(sourceAddress);
         if (source == null)
             return "The source doesn't exist.";
 
@@ -153,7 +154,7 @@ public class BTIController {
 
 
         List<Location> destinations = new LinkedList<>();
-        int area = sections.getSection( docs.get(0).getDestination());
+        int area = sections.getSection( docs.get(0).getDestination());      //todo check this
         for (DeliverDoc doc : docs){
             if (locations.contains(doc.getDestination())){
                 if (area != sections.getSection(doc.getDestination()))
@@ -164,8 +165,7 @@ public class BTIController {
         if (destinations.size() != docs.size())
             return "Some of the destinations weren't added.";
         Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, docs, truckWeight);
-        if(!(delivery.isApproved()))
-            return "The driver is unlicensed for the given truck.";
+
 
         /*driverHours[0] = day of departure,
            driverHours[1] = time of departure,
@@ -189,7 +189,7 @@ public class BTIController {
 
         //if we got here all is a ok
         //addDelivery saves all the deliveryDocs of this delivery as well
-        btd.addDelivery(delivery);
+        btd.saveDelivery(delivery);
         archive.add(delivery);
         return "DalDelivery was created successfully!";
     }

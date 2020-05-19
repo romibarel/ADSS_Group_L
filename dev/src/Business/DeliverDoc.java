@@ -61,4 +61,6 @@ public class DeliverDoc {
     public Date getEstimatedTimeOfArrival() {
         return estimatedTimeOfArrival;
     }
+
+
 }

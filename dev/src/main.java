@@ -11,7 +11,7 @@ public class main {
         boolean quit=false;
         while(!quit){
             System.out.println("Hello, please choose the system you want to use:");
-            System.out.println("1. DalDelivery System");
+            System.out.println("1. Delivery System");
             System.out.println("2. HR System");
             System.out.println("3. Exit");
             choice = input.nextLine();
