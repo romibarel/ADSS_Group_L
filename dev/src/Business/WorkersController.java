@@ -29,11 +29,17 @@ public class WorkersController
 		{
 			Worker new_worker;
 			if (worker.getRole().equals("driver"))
-				new_worker=new Driver(worker,licenses);
+			{
+				new_worker = new Driver(worker, licenses);
+				result=data.insertDriver(new_worker,licenses);
+			}
 			else
-				new_worker=new Worker(worker);
-			workers.add(new_worker);
-			data.insertWorker(new_worker);
+			{
+				new_worker = new Worker(worker);
+				result=data.insertWorker(new_worker);
+			}
+			if (result.success)
+				workers.add(new_worker);
 		}
 		return result;
 	}
@@ -76,7 +82,7 @@ public class WorkersController
 	public static List<Worker> get_available_workers(String role, Date date, boolean morning,String branch)
 	{
 		List<Worker> return_list=new LinkedList<>();
-		workers=data.select_available_workers(date,morning,role,branch);
+		workers=data.select_available_workers(date,morning,role.toLowerCase(),branch);
 		return workers;
 	}
 

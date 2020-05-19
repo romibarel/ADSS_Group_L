@@ -19,8 +19,8 @@ public class DalDelivery {
     private String source;
     private HashMap<Integer, String> docToLocation;
 
-//    private List<String> destinations;
-//    private List<Integer> docs;
+    private List<String> destinations;
+    private List<Integer> docs;
 
     /**
      * @param date

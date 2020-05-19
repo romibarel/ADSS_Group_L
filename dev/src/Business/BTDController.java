@@ -2,6 +2,7 @@ package Business;
 
 
 import DataAccess.*;
+import Interface.InterfaceWorker;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -74,6 +75,11 @@ public class BTDController {
     }
 
     //-------------------------------------workers-------------------------------------------------------
+    public Result insertDriver(Worker worker, List<String> licenses)
+    {
+        return dataTb.insertDriver(new DALWorker(worker),licenses);
+    }
+
     public Result insertWorker(Worker worker)
     {
         return dataTb.insertWorker(new DALWorker(worker));
@@ -104,9 +110,28 @@ public class BTDController {
         List<Worker> workers=new LinkedList<>();
         List<DALWorker> dalWorkers=dataTb.select_available_workers(date,morning,role,branch);
         for (DALWorker dalWorker:dalWorkers)
-            workers.add(new Worker(dalWorker));
+        {
+            if (dalWorker.getRole().equals("driver"))
+                workers.add(create_specific_worker(dalWorker)); // in runtime it will create driver or worker depends if it is DAlWorker or DALDriver
+        }
         return workers;
     }
+
+    public boolean is_worker_scheduled(int worker_id)
+    {
+        return dataTb.is_worker_scheduled(worker_id);
+    }
+
+    public Worker create_specific_worker(DALWorker worker)
+    {
+        return new Worker(worker);
+    }
+
+    public Worker create_specific_worker(DALDriver driver)
+    {
+        return new Driver(driver);
+    }
+
     //-------------------------------------end workers-------------------------------------------------
 
     //--------------------------------------shifts---------------------------------------------------
@@ -197,16 +222,21 @@ public class BTDController {
 
 
 
-        public Sections loadSections(){
+    public Sections loadSections(){
 
         return new Sections(dataTb.loadSections());
     }
 
-    public boolean is_worker_scheduled(int worker_id)
+    public List<Shift> get_week_shifts(Date currentWeekStart, Date currentWeekEnd)
     {
-        return dataTb.is_worker_scheduled(worker_id);
+        List<Shift> week_shifts=new LinkedList<>();
+        List<DALShift> dal_shifts=dataTb.select_week_shifts(currentWeekStart,currentWeekEnd);
+        for (DALShift dalShift : dal_shifts)
+        {
+            week_shifts.add(new Shift(dalShift));
+        }
+        return week_shifts;
     }
-
 
 
 //    public boolean addTruck(DalTruck truck)

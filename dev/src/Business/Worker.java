@@ -27,7 +27,7 @@ public class Worker
 		this.pension=worker.getPension();
 		this.vacation_days=worker.getVacation_days();
 		this.sick_days=worker.getSick_days();
-		this.role=worker.getRole();
+		this.role=worker.getRole().toLowerCase();
 		this.start_date=new Date(worker.getStart_date().getTime()); //deep copy the date
 		this.branchAddress=worker.getBranchAddress();
 	}
@@ -41,9 +41,24 @@ public class Worker
 		this.pension=worker.getPension();
 		this.vacation_days=worker.getVacation_days();
 		this.sick_days=worker.getSick_days();
-		this.role=worker.getRole();
+		this.role=worker.getRole().toLowerCase();
 		this.start_date=new Date(worker.getStart_date().getTime()); //deep copy the date
 		this.branchAddress=worker.getBranchAddress();
+	}
+
+	public Worker(String name,int id,int bank_account_number,int salary,int pension,int vacation_days,int sick_days,Date start_date,String role,String branchAddress)
+	{
+		this.id=id;
+		this.name= name;
+		this.bank_account_number=bank_account_number;
+		this.salary=salary;
+		this.pension=pension;
+		this.vacation_days=vacation_days;
+		this.sick_days=sick_days;
+		this.role=role.toLowerCase();
+		this.start_date=new Date(start_date.getTime()); //deep copy the date
+		this.branchAddress=branchAddress;
+
 	}
 
 	public static Result check_parameters(InterfaceWorker worker, boolean check_id)
@@ -83,7 +98,6 @@ public class Worker
 		return new Result(true,"success");
 	}
 
-	//TODO change it later
 	public boolean is_manager()
 	{
 		return role.equals("manager");
@@ -180,7 +194,7 @@ public class Worker
 
 	public void setRole(String role)
 	{
-		this.role = role;
+		this.role = role.toLowerCase();
 	}
 
 	public String getBranchAddress() {

@@ -90,16 +90,8 @@ public class ShiftController
 		Date currentWeekStart=calendar.getTime();
 		calendar.add(Calendar.DATE,6);
 		Date currentWeekEnd=calendar.getTime();
-		for (Shift shift:shifts)
-		{
-			//inclusive first day of the week and last day of the week
-			if (!(shift.getDate().before(currentWeekStart) || shift.getDate().after(currentWeekEnd)))
-			{
-				currentWeekShifts.add(shift);
-			}
-		}
-		currentWeekShifts.sort(Comparator.comparing(Shift::getDate)); //sort by date
-		return currentWeekShifts;
+		shifts=data.get_week_shifts(currentWeekStart,currentWeekEnd);
+		return shifts;
 	}
 
 	//for the tests
