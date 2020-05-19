@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALDeliveryDoc;
 import DataAccess.DalDelivery;
 import javafx.util.Pair;
 
@@ -32,15 +33,19 @@ public class Delivery {
 
     }
 
-    public Delivery(DalDelivery dalDelivery ,Location source) {
+    public Delivery(DalDelivery dalDelivery, List<DALDeliveryDoc> docs) {
         this.date = dalDelivery.getDate();
         this.departureTime = dalDelivery.getDepartureTime();
         this.truckNum = dalDelivery.getTruckNum();
         this.driver = dalDelivery.getDriver();
-        this.source = source;
+        this.source = new Location( dalDelivery.getSource());
         this.truckWeight = dalDelivery.getTruckWeight();
         this.approved = true;
         docLoc = new HashMap<>();
+        for (DALDeliveryDoc daldoc : docs)
+        {
+            docLoc.put(new DeliverDoc(daldoc), new Location(daldoc.getDestination()));
+        }
     }
 
     public Date[] getDuration(){
