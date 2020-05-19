@@ -133,6 +133,8 @@ public class Interface
 	public static String constraintReport(){
 		InterfaceConstraint con=new InterfaceConstraint();
 		List<Constraint> constraints= ConstrainsController.getConstraintsByWeek();
+		if(constraints==null)
+			return "error";
 		constraints.sort(new Comparator<Constraint>() {
 			@Override
 			public int compare(Constraint constraint, Constraint t1) {
@@ -159,9 +161,9 @@ public class Interface
 		return ret;
 	}
 
-	public static String getWorkersByRole(String role,Date date,boolean morning){
+	public static String getWorkersByRole(String role, String branch,Date date,boolean morning){
 		InterfaceWorker worker=new InterfaceWorker();
-		List<Worker> workers= WorkersController.get_by_role(role, date, morning);
+		List<Worker> workers= WorkersController.get_available_workers(role, date, morning, branch);
 		String ret="";
 		if(workers.isEmpty())
 			return "No workers to present for selected role, date and hour";

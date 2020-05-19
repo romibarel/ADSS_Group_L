@@ -1,8 +1,10 @@
 package DataAccess;
 
 import Business.DeliverDoc;
+import com.sun.istack.internal.localization.NullLocalizable;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DALDeliveryDoc {
@@ -18,6 +20,12 @@ public class DALDeliveryDoc {
         this.destination = destination;
         this.estimatedTimeOfArrival = estimatedTimeOfArrival;
         this.estimatedDayOfArrival = estimatedDayOfArrival;
+        safe();
+    }
+
+    private void safe() {
+        if (deliveryList == null)
+            deliveryList = new LinkedList<>();
     }
 
     public DALDeliveryDoc(DeliverDoc deliveryDoc) {
@@ -26,6 +34,11 @@ public class DALDeliveryDoc {
         this.destination = getDestination();
         this.estimatedTimeOfArrival = getEstimatedTimeOfArrival();
         this.estimatedDayOfArrival = getEstimatedDayOfArrival();
+        safe();
+    }
+
+    public DALDeliveryDoc() {
+        safe();
     }
 
     public int getNum() {

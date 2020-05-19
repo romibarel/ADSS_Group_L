@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALShift;
 import Interface.InterfaceShift;
 
 import java.util.Calendar;
@@ -41,6 +42,19 @@ public class Shift
 
 	}
 
+	public Shift(DALShift shift)
+	{
+		this.morning=shift.isMorning();
+		this.manager_id=shift.getManager_id();
+		this.date=new Date(shift.getDate().getTime()); //deep copy the date
+		this.workers= new LinkedList<>();
+		//deep copy the list
+		if (shift.getWorkers()!=null)
+			for (int id:shift.getWorkers())
+				workers.add(id);
+		this.branchAddress=shift.getBranchAddress();
+	}
+
 	public static Result check_parameters(InterfaceShift shift, boolean check_date)
 	{
 		//check date
@@ -51,7 +65,7 @@ public class Shift
 			return new Result(false,"shift date is in the past");
 		if (check_date)
 		{
-			if (ShiftController.is_shift_scheduled(shift.getDate(),shift.isMorning()))
+			if (ShiftController.is_shift_scheduled(shift.getDate(),shift.isMorning(),shift.getBranchAddress()))
 				return new Result(false,"a shift is already scheduled for this date");
 		}
 
@@ -89,7 +103,7 @@ public class Shift
 	public static boolean is_morning_shift(Date hour)
 	{
 		int morning_start=700; //07:00
-		int morning_end=2300; //15:00
+		int morning_end=1500; //15:00
 		Calendar date=Calendar.getInstance();
 		date.setTime(hour);
 		int t = date.get(Calendar.HOUR_OF_DAY) * 100 + date.get(Calendar.MINUTE);

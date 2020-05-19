@@ -2,7 +2,6 @@ package Business;
 
 import Interface.InterfaceWorker;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +10,7 @@ public class WorkersController
 {
 	private static List<Worker> workers= new LinkedList<>();
 	private static List<String> branches=new LinkedList<>();
+	private static BTDController data=BTDController.getBTD();
 
 	public static String get_driver_name(int id)
 	{
@@ -29,9 +29,17 @@ public class WorkersController
 		{
 			Worker new_worker;
 			if (worker.getRole().equals("driver"))
-				new_worker=new Driver(worker,licenses);
-			else new_worker=new Worker(worker);
-			workers.add(new_worker);
+			{
+				new_worker = new Driver(worker, licenses);
+				result=data.insertDriver(new_worker,licenses);
+			}
+			else
+			{
+				new_worker = new Worker(worker);
+				result=data.insertWorker(new_worker);
+			}
+			if (result.success)
+				workers.add(new_worker);
 		}
 		return result;
 	}
@@ -44,6 +52,7 @@ public class WorkersController
 		if (ShiftController.is_worker_scheduled(id))
 			return new Result(false,"cant delete worker that is scheduled for a shift");
 		workers.remove(worker);
+		data.deleteWorker(id);
 		return new Result(true,"success");
 	}
 
@@ -64,21 +73,16 @@ public class WorkersController
 			worker_to_edit.setSick_days(worker.getSick_days());
 			worker_to_edit.setVacation_days(worker.getVacation_days());
 			worker_to_edit.setBranchAddress(worker.getBranchAddress());
+			data.updateWorker(worker_to_edit);
 		}
 		return result;
 	}
 
-	// return the available workers in specific date and role
-	public static List<Worker> get_by_role(String role,Date date,boolean morning)
+	// return the available workers in specific date, role and branch
+	public static List<Worker> get_available_workers(String role, Date date, boolean morning,String branch)
 	{
-		List<Worker> return_list=new LinkedList<>();
-		for (Worker worker : workers)
-		{
-			if (!worker.getRole().equals(role)) continue;
-			if (!ConstrainsController.is_available(worker.getId(),date,morning)) continue;
-			return_list.add(worker);
-		}
-		return return_list;
+		workers=data.select_available_workers(date,morning,role.toLowerCase(),branch);
+		return workers;
 	}
 
 	public static Worker get_by_id(int id)
@@ -88,17 +92,36 @@ public class WorkersController
 			if (worker.getId()==id)
 				return worker;
 		}
+		// if the worker is not in my list look it up in the DB
+		Worker worker=data.selectWorker(id);
+		if (worker!=null)
+		{
+			workers.add(worker);
+			return worker;
+		}
 		return null;
 	}
 
-	//for the tests
-	public static List<Worker> getWorkers()
+	//checks if there is an available manager in the given branch and the given date
+	//returns -1 if no manager is available
+	public static int find_available_manager(Date date, boolean morning,String branch)
 	{
-		return workers;
+		for (Worker worker: workers)
+		{
+			if (worker.getRole().equals("manager") & worker.getBranchAddress().equals(branch))
+				if (ConstrainsController.is_available(worker.getId(),date,morning)) return worker.getId();
+		}
+		return data.select_available_worker_id(date,morning,branch,"manager");
 	}
 
-	public static List<String> getBranches() {
-		return branches;
+	public static int find_available_storekeeper(Date date, boolean morning,String branch)
+	{
+		for (Worker worker: workers)
+		{
+			if (worker.getRole().equals("storekeeper") & worker.getBranchAddress().equals(branch))
+				if (ConstrainsController.is_available(worker.getId(),date,morning)) return worker.getId();
+		}
+		return data.select_available_worker_id(date,morning,branch,"storekeeper");
 	}
 
 	public static boolean canDriveTruck(int driver_id,String truckType)
@@ -109,37 +132,20 @@ public class WorkersController
 		return false;
 	}
 
+	//for the tests
+	public static List<Worker> getWorkers()
+	{
+		workers=data.get_all_workers();
+		return workers;
+	}
+
+	public static List<String> getBranches()
+	{
+		return branches;
+	}
+
 	public static void addBranch(String branch) {
 		WorkersController.branches.add(branch);
 	}
 
-	//returns all workers in the given role that works in the given branch
-	public static List<Worker> get_by_role_and_branch(String role,String branch)
-	{
-		workers=BTDController.upload_by_role_and_branch(role,branch);
-		return workers;
-	}
-
-	//checks if there is an available manager in the given branch and the given date
-	//returns -1 if no manager is available
-	public static int find_available_manager(Date date, boolean morning,String branch)
-	{
-		List<Worker> managers=get_by_role_and_branch("manager",branch);
-		for (Worker manager: managers)
-		{
-			if (ConstrainsController.is_available(manager.getId(),date,morning)) return manager.getId();
-		}
-		return -1;
-	}
-
-
-	public static int find_available_storekeeper(Date date, boolean morning,String branch)
-	{
-		List<Worker> storekeepres=get_by_role_and_branch("storekeeper",branch);
-		for (Worker storekeeper: storekeepres)
-		{
-			if (ConstrainsController.is_available(storekeeper.getId(),date,morning)) return storekeeper.getId();
-		}
-		return -1;
-	}
 }

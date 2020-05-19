@@ -2,7 +2,9 @@ package Business;
 
 
 import DataAccess.*;
+import Interface.InterfaceWorker;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -72,14 +74,83 @@ public class BTDController {
         return dataTb.saveConstraint(new DALConstraint(constraint));
     }
 
-
-
-    //return all workers in specific role and branch
-    public static List<Worker> upload_by_role_and_branch(String role, String branch)
+    //-------------------------------------workers-------------------------------------------------------
+    public Result insertDriver(Worker worker, List<String> licenses)
     {
-        //TODO
-        return null;
+        return dataTb.insertDriver(new DALWorker(worker),licenses);
     }
+
+    public Result insertWorker(Worker worker)
+    {
+        return dataTb.insertWorker(new DALWorker(worker));
+    }
+
+    public Result updateWorker(Worker worker)
+    {
+        return dataTb.updateWorker(new DALWorker(worker));
+    }
+
+    public Result deleteWorker(int worker_id)
+    {
+        return dataTb.deleteWorker(worker_id);
+    }
+
+    public Worker selectWorker(int id)
+    {
+        DALWorker worker=dataTb.selectWorker(id);
+        if (worker==null) return null;
+        if (worker.getRole().equals("driver")) return new Driver((DALDriver) worker);
+        return new Worker(worker);
+    }
+
+    public int select_available_worker_id(Date date, boolean morning, String branch,String role)
+    {
+        return dataTb.select_available_worker_id(date,morning,branch,role);
+    }
+
+    public List<Worker> select_available_workers(Date date, boolean morning, String role, String branch)
+    {
+        List<Worker> workers=new LinkedList<>();
+        List<DALWorker> dalWorkers=dataTb.select_available_workers(date,morning,role,branch);
+        for (DALWorker dalWorker:dalWorkers)
+        {
+            if (dalWorker.getRole().equals("driver")) workers.add(new Driver((DALDriver) dalWorker));
+            else workers.add(new Worker(dalWorker)); // in runtime it will create driver or worker depends if it is DAlWorker or DALDriver
+        }
+        return workers;
+    }
+
+    public boolean is_worker_scheduled(int worker_id)
+    {
+        return dataTb.is_worker_scheduled(worker_id);
+    }
+
+    //-------------------------------------end workers-------------------------------------------------
+
+    //--------------------------------------shifts---------------------------------------------------
+    public Result insertShift(Shift shift)
+    {
+        return dataTb.insertShift(new DALShift(shift));
+    }
+
+    public Result updateShift(Shift shift, java.util.Date previous_date, boolean previous_morning, String previous_branch)
+    {
+        return dataTb.updateShift(new DALShift(shift),previous_date,previous_morning,previous_branch);
+    }
+
+    public Result deleteShift(java.util.Date date, boolean morning, String branch)
+    {
+        return dataTb.deleteShift(date,morning,branch);
+    }
+
+    public Shift selectShift(java.util.Date date,boolean morning, String branch)
+    {
+        DALShift shift= dataTb.selectShift(date,morning,branch);
+        if (shift==null) return null;
+        return new Shift(shift);
+    }
+
+    //-------------------------------------end shifts---------------------------------------------
 
     /**
      * DalSections and Archive must be given all other can be null for not changeing
@@ -139,6 +210,53 @@ public class BTDController {
     {
         dataTb.saveDoc(delId , new DALDeliveryDoc(deliveryDoc));
     }
+
+    public boolean saveDelivery(Delivery delivery) {
+        return dataTb.saveDelivery(new DalDelivery(delivery));
+    }
+
+
+
+    public Sections loadSections(){
+
+        return new Sections(dataTb.loadSections());
+    }
+
+    public List<Shift> get_week_shifts(Date currentWeekStart, Date currentWeekEnd)
+    {
+        List<Shift> week_shifts=new LinkedList<>();
+        List<DALShift> dal_shifts=dataTb.select_week_shifts(currentWeekStart,currentWeekEnd);
+        for (DALShift dalShift : dal_shifts)
+        {
+            week_shifts.add(new Shift(dalShift));
+        }
+        return week_shifts;
+    }
+
+    public List<Shift> get_all_shifts()
+    {
+        List<Shift> shifts=new LinkedList<>();
+        List<DALShift> dalShifts=dataTb.select_all_shifts();
+        for (DALShift dalShift:dalShifts)
+        {
+            Shift shift=new Shift(dalShift);
+            shifts.add(shift);
+        }
+        return shifts;
+    }
+
+    public List<Worker> get_all_workers()
+    {
+        List<Worker> workers=new LinkedList<>();
+        List<DALWorker> dalWorkers=dataTb.select_all_workers();
+        for (DALWorker dalWorker:dalWorkers)
+        {
+            Worker worker=new Worker(dalWorker);
+            workers.add(worker);
+        }
+        return workers;
+    }
+
 
 //    public boolean addTruck(DalTruck truck)
 //    {

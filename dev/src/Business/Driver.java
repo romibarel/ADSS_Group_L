@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALDriver;
 import Interface.InterfaceWorker;
 
 import java.util.List;
@@ -12,6 +13,13 @@ public class Driver extends Worker
     {
         super(worker);
         this.licenses = licenses;
+    }
+
+    public Driver(DALDriver driver)
+    {
+        super(driver.getName(),driver.getId(),driver.getBank_account_number(),driver.getSalary(),driver.getPension(),driver.getVacation_days()
+                ,driver.getSick_days(),driver.getStart_date(),driver.getRole(),driver.getBranchAddress());
+        this.licenses=driver.getLicenses();
     }
 
     public boolean canDriveTruck(String truckType)

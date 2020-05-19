@@ -1,5 +1,6 @@
 package Presentation;
 
+import DataAccess.DALController;
 import Interface.InterfaceConstraint;
 import Interface.InterfaceShift;
 import Interface.InterfaceWorker;
@@ -32,14 +33,13 @@ public class WorkerMenu {
         }
 */
         while(!quit){
-
             System.out.println("Please choose from the following menus");
             System.out.println("1. Add menu");
             System.out.println("2. Edit menu");
             System.out.println("3. Delete menu");
             System.out.println("4. Search menu");
             System.out.println("5. Report menu");
-            System.out.println("6. Exit program");
+            System.out.println("6. Exit HR system");
             System.out.println("Please choose a command:");
             try {
                 choice = Integer.parseInt(input.nextLine());
@@ -323,7 +323,7 @@ public class WorkerMenu {
                     w.setVacation_days(Integer.parseInt(input.nextLine()));
                     System.out.print("sickDays: ");
                     w.setSick_days(Integer.parseInt(input.nextLine()));
-                    System.out.print("startDate: ");
+                    System.out.print("startDate(dd/MM/yyyy): ");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     w.setStart_date(format.parse(input.nextLine()));
@@ -337,7 +337,7 @@ public class WorkerMenu {
                         i++;
                     }
                     w.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
-                    if(w.getRole().equals("driver")){
+                    if(w.getRole().toLowerCase().equals("driver")){
                         while (!finish) {
                             System.out.println("please enter the license the driver has:");
                             lic = input.nextLine();
@@ -374,8 +374,14 @@ public class WorkerMenu {
                     shift.setDate(format.parse(input.nextLine()));
                     System.out.print("is it a Morning shift? (true/false)");
                     shift.setMorning(Boolean.parseBoolean(input.nextLine()));
+                    System.out.println("please choose a branch from the list:");
+                    for(String branch: branches){
+                        System.out.println(i+") "+branch);
+                        i++;
+                    }
+                    shift.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
                     System.out.println("The available managers are:");
-                    String ans = Interface.getWorkersByRole("manager", shift.getDate(), shift.isMorning());
+                    String ans = Interface.getWorkersByRole("manager", shift.getBranchAddress(), shift.getDate(), shift.isMorning());
                     System.out.println(ans);
                     if (ans.equals("No workers to present for selected role, date and hour")) {
                         System.out.println("Shifts need at least one manger, cannot continue exiting back to main menu");
@@ -383,12 +389,7 @@ public class WorkerMenu {
                     }
                     System.out.print("please enter the chosen manger's id");
                     shift.setManager_id(Integer.parseInt(input.nextLine()));
-                    System.out.println("please choose a branch from the list:");
-                    for(String branch: branches){
-                        System.out.println(i+") "+branch);
-                        i++;
-                    }
-                    shift.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
+
                     System.out.println("Do you need more employees? (y/n)");
                     if (input.nextLine().equals("n"))
                         finish = true;
@@ -396,7 +397,7 @@ public class WorkerMenu {
                         System.out.println("please enter the role for the employee you require");
                         role = input.nextLine();
                         System.out.println("The available " + role + "s are:");
-                        ans=Interface.getWorkersByRole(role, shift.getDate(), shift.isMorning());
+                        ans=Interface.getWorkersByRole(role, shift.getBranchAddress(), shift.getDate(), shift.isMorning());
                         System.out.println(ans);
                         if (ans.equals("No workers to present for selected role, date and hour"))
                             continue;
@@ -571,8 +572,7 @@ public class WorkerMenu {
                         System.out.println("3. manager_id");
                         System.out.println("4. add worker");
                         System.out.println("5. remove worker");
-                        System.out.println("6. remove worker");
-                        System.out.println("7. finished editing");
+                        System.out.println("6. finished editing");
                         opt=Integer.parseInt(input.nextLine());
                         switch (opt){
                             case 1:
@@ -586,7 +586,7 @@ public class WorkerMenu {
                                 s.setMorning(Boolean.parseBoolean(input.nextLine()));
                                 break;
                             case 3:
-                                String ans=Interface.getWorkersByRole("manager", s.getDate(),s.isMorning());
+                                String ans=Interface.getWorkersByRole("manager",s.getBranchAddress(), s.getDate(),s.isMorning());
                                 System.out.println(ans);
                                 if(ans.equals("No workers to present for selected role, date and hour"))
                                 {
@@ -601,7 +601,7 @@ public class WorkerMenu {
                                 for(Integer e: s.getWorkers())
                                     System.out.println(Interface.searchEmployee(e).toString()+"\n");
                                 System.out.print("please enter the id of the employee you wish to add:");
-                                int id= Integer.parseInt(input.nextLine());
+                                Integer id= Integer.parseInt(input.nextLine());
                                 if(s.getWorkers().contains(id))
                                     System.out.println("employee is already in this shift");
                                 else
@@ -619,13 +619,6 @@ public class WorkerMenu {
                                     System.out.println("wrong id");
                                 break;
                             case 6:
-                                System.out.println("please choose a branch from the list:");
-                                for(String branch: branches){
-                                    System.out.println(i+") "+branch);
-                                    i++;
-                                }
-                                s.setBranchAddress(branches.get(Integer.parseInt(input.nextLine())));
-                            case 7:
                                 System.out.print("updating...");
                                 finished=true;
                                 break;

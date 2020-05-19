@@ -1,5 +1,6 @@
 package Business;
 
+import DataAccess.DALController;
 import Interface.InterfaceShift;
 import javafx.util.Pair;
 
@@ -8,6 +9,7 @@ import java.util.*;
 public class ShiftController
 {
 	private static List<Shift> shifts=new LinkedList<>();
+	private static BTDController data=BTDController.getBTD();
 
 	// checks if a worker is scheduled for any shift
 	public static boolean is_worker_scheduled(int worker_id)
@@ -19,18 +21,13 @@ public class ShiftController
 			if (shift.getManager_id()==worker_id)
 				return true;
 		}
-		return false;
+		return data.is_worker_scheduled(worker_id);
 	}
 
 	//checks if there a shift scheduled in a certain date
-	public static boolean is_shift_scheduled(Date date,boolean morning)
+	public static boolean is_shift_scheduled(Date date,boolean morning,String branch)
 	{
-		for (Shift shift: shifts)
-		{
-			if (shift.getDate().equals(date) && shift.isMorning()==morning)
-				return true;
-		}
-		return false;
+		return get_shift(date, morning, branch) != null;
 	}
 
 	public static Result add_shift(InterfaceShift shift)
@@ -40,6 +37,7 @@ public class ShiftController
 		{
 			Shift new_shift=new Shift(shift);
 			shifts.add(new_shift);
+			return data.insertShift(new_shift);
 		}
 		return result;
 	}
@@ -60,6 +58,7 @@ public class ShiftController
 			shift_to_edit.setMorning(shift.isMorning());
 			shift_to_edit.setWorkers(shift.getWorkers());
 			shift_to_edit.setBranchAddress(shift.getBranchAddress());
+			return data.updateShift(shift_to_edit,previous_date,previous_morning,previous_branch);
 		}
 		return result;
 	}
@@ -70,7 +69,7 @@ public class ShiftController
 		if (shift==null)
 			return new Result(false,"shift doesnt exist");
 		shifts.remove(shift);
-		return new Result(true,"success");
+		return data.deleteShift(date,morning,branch);
 	}
 
 	public static Shift get_shift(Date date, boolean morning, String branch)
@@ -80,7 +79,7 @@ public class ShiftController
 			if (shift.getDate().equals(date) && shift.isMorning()==morning&& branch.equals(shift.getBranchAddress()))
 				return shift;
 		}
-		return null;
+		return data.selectShift(date,morning,branch);
 	}
 
 	//returns shifts of the current week;
@@ -92,21 +91,13 @@ public class ShiftController
 		Date currentWeekStart=calendar.getTime();
 		calendar.add(Calendar.DATE,6);
 		Date currentWeekEnd=calendar.getTime();
-		for (Shift shift:shifts)
-		{
-			//inclusive first day of the week and last day of the week
-			if (!(shift.getDate().before(currentWeekStart) || shift.getDate().after(currentWeekEnd)))
-			{
-				currentWeekShifts.add(shift);
-			}
-		}
-		currentWeekShifts.sort(Comparator.comparing(Shift::getDate)); //sort by date
-		return currentWeekShifts;
+		shifts=data.get_week_shifts(currentWeekStart,currentWeekEnd);
+		return shifts;
 	}
 
-	//for the tests
 	public static List<Shift> get_shifts()
 	{
+		shifts=data.get_all_shifts();
 		return shifts;
 	}
 
@@ -146,7 +137,6 @@ public class ShiftController
 		return new Result(true,"storekeeper assigned successfully");
 	}
 
-
 	// assigns driver to all shifts between shift departure time to shift arrival time
 	//if there is a missing shift in this interval the functions creates shift automatically and assigns the driver and an available manager
 	public static Result assign_Driver(int driver_id,Date departure_date,Date departure_hours,Date arrival_day,Date arrival_hour)
@@ -177,12 +167,28 @@ public class ShiftController
 			{
 				if (shift.getWorkers().contains(driver_id)) return new Result(false,"driver is already assigned to delivery");
 				shift.getWorkers().add(driver_id);
-				ShiftController.edit_shift(new InterfaceShift(shift),current_date.getTime(),current_morning,driver.getBranchAddress());
+				assigned_shifts.add(shift);
 			}
 			current_morning=!current_morning;
 			if (current_morning==true) current_date.add(Calendar.DATE,1);
-		} while (current_date.get(Calendar.DAY_OF_YEAR)!=arrive_date.get(Calendar.DAY_OF_YEAR) | current_morning!=arrival_morning);
-		shifts.addAll(assigned_shifts);
-		return new Result(true,"driver assigned successfully");
+		} while (current_date.get(Calendar.DAY_OF_YEAR)<=arrive_date.get(Calendar.DAY_OF_YEAR) || (current_morning==false & arrival_morning==true)) ;
+		Result result=saveAll(assigned_shifts);
+		if (result.success)
+			shifts.addAll(assigned_shifts);
+		return result;
+	}
+
+	private static Result saveAll(List<Shift> shifts)
+	{
+		Result result=new Result(true,"inserted all shifts");
+		for (Shift shift : shifts)
+		{
+			if (ShiftController.get_shift(shift.getDate(),shift.isMorning(),shift.getBranchAddress())!=null)
+				result=data.updateShift(shift,shift.getDate(),shift.isMorning(),shift.getBranchAddress());
+			else
+				result=data.insertShift(shift);
+			if (!result.success) return result;
+		}
+		return result;
 	}
 }
