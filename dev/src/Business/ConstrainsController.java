@@ -67,13 +67,12 @@ public class ConstrainsController
 		c.setTime(departureDate);
 		c2.setTime(arrivalDate);
 		c.add(Calendar.DAY_OF_MONTH, 1);
-		while(c.compareTo(c2)!=0){
+		while(c.get(Calendar.DAY_OF_YEAR)!=c2.get(Calendar.DAY_OF_YEAR)){
 			if(!getConstraint(id, c.getTime(), false).isEmpty())
 				return false;
 			if(!getConstraint(id, c.getTime(), true).isEmpty())
 				return false;
 			c.add(Calendar.DAY_OF_MONTH, 1);
-
 		}
 		return true;
 	}
