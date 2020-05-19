@@ -1243,7 +1243,7 @@ public class DALController
                 dalTruck.setTruckNum(rs.getInt("id"));
                 dalTruck.setPlate(rs.getInt("plate"));
                 dalTruck.setMaxWeight(rs.getInt("maxWeight"));
-                dalTruck.setWeighNeto(rs.getInt("weightNeto"));
+                dalTruck.setWeighNeto(rs.getInt("netoWeight"));
                 dalTruck.setType(rs.getString("type"));
             }
             conn.close();
