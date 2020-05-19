@@ -1,5 +1,6 @@
 package DataAccess;
 
+import Business.Branch;
 import Business.DeliverDoc;
 import Business.Location;
 import Business.Supply;
@@ -33,7 +34,8 @@ public class DALDeliveryDoc {
 
     public DALDeliveryDoc(DeliverDoc deliveryDoc) {
         this.num = deliveryDoc.getNum();
-        this.destination = new DalLocation(deliveryDoc.getDestination(), null);
+        boolean isBranch = deliveryDoc.getDestination() instanceof Branch;
+        this.destination = new DalLocation(deliveryDoc.getDestination(), isBranch);
         this.estimatedTimeOfArrival = deliveryDoc.getEstimatedTimeOfArrival();
         this.estimatedDayOfArrival = deliveryDoc.getEstimatedDayOfArrival();
         supplyList = new LinkedList<>();

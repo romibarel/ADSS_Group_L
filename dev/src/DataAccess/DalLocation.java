@@ -3,7 +3,7 @@ package DataAccess;
 import Business.Location;
 
 public class DalLocation {
-    private Boolean isBranch;
+    private boolean isBranch;
     private String address;
     private int phone;
     private String associate;
@@ -12,21 +12,21 @@ public class DalLocation {
 
     }
 
-    public DalLocation(Boolean isBranch, String address, int phone, String associate) {
+    public DalLocation(boolean isBranch, String address, int phone, String associate) {
         this.isBranch = isBranch;
         this.address = address;
         this.phone = phone;
         this.associate = associate;
     }
 
-    public DalLocation(Boolean isBranch, Location location) {
+    public DalLocation(boolean isBranch, Location location) {
         this.isBranch = isBranch;
         this.address = location.getAddress();
         this.phone = location.getPhone();
         this.associate = location.getAssociate();
     }
 
-    public DalLocation(Location location, Boolean isBranch){
+    public DalLocation(Location location, boolean isBranch){
         this.isBranch = isBranch;
         this.address = location.getAddress();
         this.associate = location.getAssociate();

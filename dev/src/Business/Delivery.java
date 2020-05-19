@@ -38,13 +38,20 @@ public class Delivery {
         this.departureTime = dalDelivery.getDepartureTime();
         this.truckNum = dalDelivery.getTruckNum();
         this.driver = dalDelivery.getDriver();
-        this.source = new Location( dalDelivery.getSource());
+        Location source = null;
+        if (dalDelivery.getSource().getIsBranch())
+            source = new Branch(dalDelivery.getSource());
+        else source= new Supplier(dalDelivery.getSource());
         this.truckWeight = dalDelivery.getTruckWeight();
         this.approved = true;
         docLoc = new HashMap<>();
         for (DALDeliveryDoc daldoc : docs)
         {
-            docLoc.put(new DeliverDoc(daldoc), new Location(daldoc.getDestination()));
+            Location dest = null;
+            if (daldoc.getDestination().getIsBranch())
+                dest = new Branch(daldoc.getDestination());
+            else dest= new Supplier(daldoc.getDestination());
+            docLoc.put(new DeliverDoc(daldoc), dest);
         }
     }
 
