@@ -18,8 +18,6 @@ public class BTIController {
     private DeliveryArchive archive;
     private List<DeliverDoc> documents;
     private Sections sections;
-    private List<Location> locations;
-    private List<Truck> trucks;
 
     private BTIController(){
 
@@ -31,86 +29,29 @@ public class BTIController {
         return bti;
     }
 
-    public void set(List<String[]> sections, List<String[]> locations, List<String[]> trucks){
+    public void set(){
         itb = ITBDelController.getITB();
         btd = BTDController.getBTD();
         archive = btd.loadArchive();
         documents = new LinkedList<>();
 
         this.sections = btd.loadSections();
-
-
-        this.locations = new LinkedList<>();
-        //(boolean type, String address, int phone, String associate)
-        //"1", "Super Lee", "052", "Haim"
-        for (String[] combo : locations){
-            Location loc;
-            boolean isBranch = true;
-            if (combo[0].equals("0"))
-                isBranch = false;
-            if (isBranch) {
-                loc = new Branch(combo[1], Integer.parseInt(combo[2]), combo[3]);
-                WorkersController.addBranch(loc.getAddress());
-            }
-            else
-                loc = new Supplier(combo[1], Integer.parseInt(combo[2]), combo[3]);
-            this.locations.add(loc);
-        }
-
-        this.trucks = new LinkedList<>();
-        //(int truckNum, int plate, int weighNeto, int maxWeight, String type)
-        //"1", "111", "1000", "4000", "Mazda"
-        for (String[] combo : trucks){
-            Truck truck = new Truck(Integer.parseInt(combo[0]), Integer.parseInt(combo[1]), Integer.parseInt(combo[2]), Integer.parseInt(combo[3]), combo[4]) ;
-            this.trucks.add(truck);
-        }
-        updateBTD();
-    }
-
-    public void updateBTD() {
-        btd = BTDController.getBTD();
-   //     btd.set(this.archive, this.sections , this.locations , this.trucks);
-
     }
 
     //destination, supplies&quants,
     //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
-    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String destination, List < Pair<String , Integer> > supplies11){
+    public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String destination, List < Pair<String , Integer> > supplies){
 
-
-
-        String[] data = doc[1].split(" ", Integer.MAX_VALUE);
-        List<Supply> DocSupplies = new LinkedList<>();
-        for (int i=0; i<data.length-1; i+=2){
-            try {
-                Supply supp = null;
-                for (Supply s : supplies){
-                    if (s.getName().equals(data[i])){
-                        supp = new Supply(s, Integer.parseInt(data[i+1]));
-                        if (s.getQuant() < Integer.parseInt(data[i+1]))
-                            return "Insufficient amount of supply " + supp.getName() + ".";
-                        s.setQuant(s.getQuant()-Integer.parseInt(data[i+1]));
-                        DocSupplies.add(supp);
-                        break;
-                    }
-                }
-            }catch (Exception e){
-                return "Invalid supplies input";
-            }
+        List<Supply> docSupplies = new LinkedList<>();
+        for (Pair<String, Integer> suppPair : supplies){
+            Supply newSup = new Supply(suppPair.getKey(), suppPair.getValue());
+            docSupplies.add(newSup);
         }
 
-
-        Location myDestination = null;
-        for (Location l: locations) {
-            if (destination.equals(l.getAddress()))
-            {
-                myDestination = l;
-                break;
-            }
-        }
+        Location myDestination = btd.loadLocation(destination);
         if (myDestination == null)
             return "The destination doesn't exist.";
-        DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, DocSupplies, myDestination);
+        DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, docSupplies, myDestination);
         documents.add(deliverDoc);
         return "Document created successfully.";
     }
@@ -146,16 +87,17 @@ public class BTIController {
 
 
         List<Location> destinations = new LinkedList<>();
-        int area = sections.getSection( docs.get(0).getDestination());      //todo check this
+        int area = sections.getSection(docs.get(0).getDestination());      //todo check this
         for (DeliverDoc doc : docs){
-            if (locations.contains(doc.getDestination())){
-                if (area != sections.getSection(doc.getDestination()))
-                    return "You tried to deliver to different areas.";
-                destinations.add(doc.getDestination());
-            }
+            Location dest = btd.loadLocation(doc.getDestination().getAddress());
+            if (dest == null)
+                return "The destination "+doc.getDestination().getAddress() +" doesn't exist.";
+            if (area != sections.getSection(doc.getDestination()))
+                return "Can't deliver to more than one area.";
+            destinations.add(dest);
         }
         if (destinations.size() != docs.size())
-            return "Some of the destinations weren't added.";
+            return "Some of the destinations weren't added...";
         Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, docs, truckWeight);
 
 
@@ -193,10 +135,6 @@ public class BTIController {
 
     public Sections getSections() {
         return sections;
-    }
-
-    public List<Truck> getTrucks() {
-        return trucks;
     }
 
     public DeliveryArchive getArchive(){

@@ -43,7 +43,7 @@ public class PTIDelController {
         pti.set();
         itp.set();
         itb.set();
-        bti.set(sections, locations, trucks);
+        bti.set();
     }
 
     public void oldSetup(){
@@ -84,7 +84,7 @@ public class PTIDelController {
                 pti.set();
                 itp.set();
                 itb.set();
-                bti.set(sections, locations, trucks);
+           //     bti.set(sections, locations, trucks);
             }
             else if (input.equals("n")){
                 List<String[]> sections = new LinkedList<>();
@@ -186,7 +186,7 @@ public class PTIDelController {
                             pti.set();
                             itp.set();
                             itb.set();
-                            bti.set(sections, locations, trucks);
+                         //   bti.set(sections, locations, trucks);
                             break;
                         default:
                             break;
@@ -401,7 +401,5 @@ public class PTIDelController {
         }
         return ret;
     }
-
-
 
 }

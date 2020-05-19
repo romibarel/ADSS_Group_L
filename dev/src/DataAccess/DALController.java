@@ -1202,14 +1202,6 @@ public class DALController
     //-----------------------------end shifts-------------------------------------
 
 
-    public List<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(List<Driver> drivers) {
-        this.drivers = drivers;
-    }
-
     public DalTruck loadTruck(int id) {
         DalTruck dalTruck = null;
         openConn();
@@ -1305,8 +1297,8 @@ public class DALController
         return sections;
     }
 
-    public DALDeliveryArchive loadArchive(){
-        DALDeliveryArchive archive = DalDeliveryArchive();
+    public DalArchive loadArchive(){
+        DalArchive archive = new DalArchive();
         openConn();
         String sql = "SELECT * From Deliveries";
         List<DalDelivery> daldel = new LinkedList<>();
@@ -1330,7 +1322,7 @@ public class DALController
                 int docNum = rs.getInt("docID");
                 docNums.add(docNum);
             }
-            archive.setDocs(docNums);
+            archive.setDocuments(docNums);
             conn.close();
         } catch (SQLException e) {
             return null;
@@ -1359,7 +1351,7 @@ public class DALController
             pstmt.setInt(4 , delivery.getTruckNum());
             pstmt.setInt(5 , delivery.getTruckWeight());
             pstmt.setString(6, delivery.getDriver());
-            pstmt.setString(7, delivery.getSource());
+            pstmt.setString(7, delivery.getSource().getAddress());
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {

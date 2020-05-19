@@ -20,6 +20,14 @@ public class DalArchive {
         this.documents = documents;
     }
 
+    public void setDeliveries(List<DalDelivery> deliveries) {
+        this.deliveries = deliveries;
+    }
+
+    public void setDocuments(List<Integer> documents) {
+        this.documents = documents;
+    }
+
     public List<DalDelivery> getDeliveries() {
         return deliveries;
     }
