@@ -47,6 +47,7 @@ public class ConstrainsController
 
 	public static boolean isDriverAvailable(int id, Date departureDate, Date departureTime ,Date arrivalDate, Date arrivalTime){
 		Calendar c = Calendar.getInstance();
+		Calendar c2 = Calendar.getInstance();
 		if(!getConstraint(id, departureDate, Shift.is_morning_shift(departureTime)).isEmpty())
 			return false;
 		if(Shift.is_morning_shift(departureTime)){
@@ -64,8 +65,9 @@ public class ConstrainsController
 			}
 		}
 		c.setTime(departureDate);
+		c2.setTime(arrivalDate);
 		c.add(Calendar.DAY_OF_MONTH, 1);
-		while(!c.getTime().equals(arrivalDate)){
+		while(c.get(Calendar.DAY_OF_YEAR)!=c2.get(Calendar.DAY_OF_YEAR)){
 			if(!getConstraint(id, c.getTime(), false).isEmpty())
 				return false;
 			if(!getConstraint(id, c.getTime(), true).isEmpty())
