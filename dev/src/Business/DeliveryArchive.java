@@ -18,10 +18,6 @@ public class DeliveryArchive {
     public DeliveryArchive(DalArchive dalArchive) {
         deliveries = new LinkedList<>();
         documents = new LinkedList<>();
-        for (DalDelivery del: dalArchive.getDeliveries()) {
-//            deliveries.add(new Delivery());
-        }
-
 
     }
 
