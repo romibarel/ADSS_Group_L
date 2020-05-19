@@ -41,9 +41,9 @@ public class Delivery {
         this.truckWeight = dalDelivery.getTruckWeight();
         this.approved = true;
         docLoc = new HashMap<>();//thats a prob
-        for (DeliverDoc doc : docs) {
-            docLoc.put(doc, doc.getDestination());
-        }
+        //for (DeliverDoc doc : docs) {
+        //    docLoc.put(doc, doc.getDestination());
+        //}
     }
 
 
