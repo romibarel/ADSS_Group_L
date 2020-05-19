@@ -26,6 +26,13 @@ public class DalLocation {
         this.associate = location.getAssociate();
     }
 
+    public DalLocation(Location location, boolean isBranch){
+        this.isBranch = isBranch;
+        this.address = location.getAddress();
+        this.associate = location.getAssociate();
+        this.phone = location.getPhone();
+    }
+
     public boolean getIsBranch(){
         return isBranch;
     }

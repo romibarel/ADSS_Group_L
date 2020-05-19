@@ -251,7 +251,7 @@ public class BTDController {
     }
 
     public DeliveryArchive loadArchive(){
-        return dataTb.loadArchive();
+        return new DeliveryArchive(dataTb.loadArchive());
     }
 
 

@@ -3,6 +3,7 @@ package DataAccess;
 
 import Business.DeliverDoc;
 import Business.Delivery;
+import Business.Location;
 
 import java.util.*;
 
@@ -14,11 +15,11 @@ public class DalDelivery {
     private int truckNum;
     private int truckWeight;
     private String driver;
-    private String source;
+    private DalLocation source;
     private List<DALDeliveryDoc> docs;
 
 
-    public DalDelivery(int id, Date date, Date departureTime, int truckNum, int truckWeight, String driver, String source) {
+    public DalDelivery(int id, Date date, Date departureTime, int truckNum, int truckWeight, String driver, DalLocation source) {
         this.id = id;
         this.date = date;
         this.departureTime = departureTime;
@@ -40,7 +41,7 @@ public class DalDelivery {
         this.truckNum = delivery.getTruckNum();
         this.truckWeight = delivery.getTruckWeight();
         this.driver = delivery.getDriver();
-        this.source = delivery.getSource().getAddress();
+        this.source = new DalLocation(delivery.getSource(), false);
         docs = new LinkedList<>();
         Set<DeliverDoc> realDocs =  delivery.getDocLoc().keySet();
         for (DeliverDoc document :realDocs) {
@@ -99,11 +100,11 @@ public class DalDelivery {
         this.driver = driver;
     }
 
-    public String getSource() {
+    public DalLocation getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(DalLocation source) {
         this.source = source;
     }
 

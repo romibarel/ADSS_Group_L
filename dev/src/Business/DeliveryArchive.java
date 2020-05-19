@@ -12,9 +12,8 @@ public class DeliveryArchive {
         documents = new LinkedList<>();
     }
 
-    public DeliveryArchive(List<Delivery> deliveries, List<Integer> documents) {
-        this.deliveries = deliveries;
-        this.documents = documents;
+    public DeliveryArchive(DALDeliveryArchive archive) {
+
     }
 
     public List<Delivery> getDeliveries() {

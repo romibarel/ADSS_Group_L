@@ -13,11 +13,6 @@ public class DALController
 {
     private static BTDController btdController;
     private static DALController thisOne;
-    private List<Driver> drivers;
-    private DeliveryArchive archive;
-    private List<DalTruck> dalTrucks;
-    private List<DalLocation> dalLocations;
-    private DalSections sections;
     private Connection conn;
 
     private DALController() {
@@ -128,7 +123,7 @@ public class DALController
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
-                statement.execute();    //todo which one for create??
+                statement.execute();
 //                statement.executeQuery();
 
             }
@@ -1310,40 +1305,38 @@ public class DALController
         return sections;
     }
 
-    public DalArchive loadArchive(){
-        DalArchive archive = null;
+    public DALDeliveryArchive loadArchive(){
+        DALDeliveryArchive archive = DalDeliveryArchive();
         openConn();
         String sql = "SELECT * From Deliveries";
         List<DalDelivery> daldel = new LinkedList<>();
         List<Integer> docNums = new LinkedList<>();
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
-            archive = new DalArchive();
             while (rs.next()) {
                 DalDelivery delivery = new DalDelivery();
                 setDeliveryPrams(rs, delivery);
                 daldel.add(delivery);
+                archive.setDeliveries(daldel);
             }
-            conn.close();
         } catch (SQLException e) {
             return null;
         }
 
-        sql = "SELECT docNum From Deliveries";
+        sql = "SELECT docID From Deliveries";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
-            archive = new DalArchive();
             while (rs.next()) {
-                DalDelivery delivery = new DalDelivery();
-                setDeliveryPrams(rs, delivery);
-                daldel.add(delivery);
+                int docNum = rs.getInt("docID");
+                docNums.add(docNum);
             }
+            archive.setDocs(docNums);
             conn.close();
         } catch (SQLException e) {
             return null;
         }
 
-        return sections;
+        return archive;
     }
 
     private void setDeliveryPrams(ResultSet rs, DalDelivery delivery) throws SQLException {
@@ -1352,17 +1345,9 @@ public class DALController
         delivery.setDepartureTime(rs.getTime("departureTime"));
         delivery.setTruckNum(rs.getInt("truckNum"));
         delivery.setDriver(rs.getString("driver"));
-        delivery.setSource(rs.getString("source"));
+        DalLocation source = loadLocation(rs.getString("source"));
+        delivery.setSource(source);
     }
-
-//
-//    id
-//            date
-//    departureTime
-//            truckNum
-//    driver
-//            source
-//    docToLocation
 
     public boolean saveDelivery(DalDelivery delivery ) {
         openConn();

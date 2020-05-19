@@ -37,16 +37,8 @@ public class BTIController {
         archive = btd.loadArchive();
         documents = new LinkedList<>();
 
-        HashMap<Integer, List<String>> secs = new HashMap<>();
-        for (String[] combo : sections){
-            Integer area = Integer.parseInt(combo[0]);
-            List <String> locs = new LinkedList<>();
-            for (int i=1; i<combo.length; i++){
-                locs.add(combo[i]);
-            }
-            secs.put(area, locs);
-        }
-        this.sections = new Sections(secs);
+        this.sections = btd.loadSections();
+
 
         this.locations = new LinkedList<>();
         //(boolean type, String address, int phone, String associate)
