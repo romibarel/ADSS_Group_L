@@ -268,7 +268,7 @@ public class PTIDelController {
             System.out.println("A negative weight is literally impossible XD.");
             return docNum;
         }
-        docs = createDocuments(docNum, source);
+        docs = createDocuments(docNum, source, date, time);
         if (docs.isEmpty()){
             System.out.println("No document was successfully added, document cannot be created. Try again.");
             return docNum;
@@ -278,7 +278,7 @@ public class PTIDelController {
         return docNum + docs.size();
     }
 
-    private List<Integer> createDocuments(int docNum, String source){
+    private List<Integer> createDocuments(int docNum, String source, Date date, Date time){
         boolean finish = false;
         List<Integer> docNums = new LinkedList<>();
         Date estimatedDayOfArrival;
@@ -287,7 +287,7 @@ public class PTIDelController {
         List < Pair<String , Integer> > sourceSupplies = userEnterSupplies();
 
 
-        String out = itp.createDoc(null, null, docNum, source, sourceSupplies);
+        String out = itp.createDoc(date, time, docNum, source, sourceSupplies);
         System.out.println(out);
         if (!out.equals("Document created successfully."))
             return docNums;

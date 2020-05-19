@@ -1286,6 +1286,7 @@ public class DALController
         }
         conn.close();
     } catch (SQLException e) {
+        System.out.println("sql fail us");
         return null;
     }
     return location;
@@ -1340,11 +1341,14 @@ public class DALController
                 daldel.add(delivery);
                 archive.setDeliveries(daldel);
             }
+            conn.close();
         } catch (SQLException e) {
+            System.out.println("sql failed us - archive");    //todo remove
             return null;
         }
 
-        sql = "SELECT docID From Deliveries";
+        openConn();
+        sql = "SELECT docID From DeliveryDocs";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
@@ -1354,6 +1358,8 @@ public class DALController
             archive.setDocuments(docNums);
             conn.close();
         } catch (SQLException e) {
+            System.out.println("sql failed us - archive2");    //todo remove
+            e.printStackTrace();
             return null;
         }
 
@@ -1375,8 +1381,10 @@ public class DALController
         String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, truckWeight, driver, source) VALUES(?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, delivery.getId());
-            pstmt.setDate(2, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
-            pstmt.setTime(3, new Time(delivery.getDate().getHours(),delivery.getDate().getMinutes(), 0));
+            pstmt.setDate(2, new java.sql.Date(delivery.getDate().getTime()));
+//            pstmt.setDate(2, new Date(delivery.getDate().getYear(),delivery.getDate().getMonth(),delivery.getDate().getDay()));
+            pstmt.setTime(3, new java.sql.Time(delivery.getDepartureTime().getTime()));
+//            pstmt.setTime(3, new Time(delivery.getDate().getHours(),delivery.getDate().getMinutes(), 0));
             pstmt.setInt(4 , delivery.getTruckNum());
             pstmt.setInt(5 , delivery.getTruckWeight());
             pstmt.setString(6, delivery.getDriver());
@@ -1405,6 +1413,7 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
+            System.out.println("sql failed us");    //todo remove
             return null;
         }
         return delivery;
@@ -1417,8 +1426,10 @@ public class DALController
             pstmt.setInt(1, deliveryID);
             pstmt.setInt(2, doc.getNum());
             pstmt.setString(3 , doc.getDestination());
-            pstmt.setTime(4, new Time(doc.getEstimatedTimeOfArrival().getHours(), doc.getEstimatedTimeOfArrival().getMinutes(), 0));
-            pstmt.setDate(5, new Date(doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
+//            pstmt.setTime(4, new Time(doc.getEstimatedTimeOfArrival().getHours(), doc.getEstimatedTimeOfArrival().getMinutes(), 0));
+            pstmt.setTime(4, new java.sql.Time(doc.getEstimatedTimeOfArrival().getTime()));
+            pstmt.setDate(5, new java.sql.Date(doc.getEstimatedDayOfArrival().getTime()));
+//            pstmt.setDate(5, new Date(doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
