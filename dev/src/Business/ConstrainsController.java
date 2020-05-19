@@ -3,7 +3,6 @@ package Business;
 import Interface.InterfaceConstraint;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ConstrainsController
 {
@@ -17,7 +16,16 @@ public class ConstrainsController
 	{
 		constraints=new HashMap<>();
 		List<Constraint> cons=btd.loadAllConstraint();
-		return constraints.values().stream().collect(Collectors.toList());
+		listToMap(cons, true);
+		return cons;
+	}
+
+	private static List<Constraint> hasToList(Map<Integer, Constraint> constraints){
+		List <Constraint> cons=new LinkedList<>();
+		for(Constraint c: constraints.values()){
+			cons.add(c);
+		}
+		return cons;
 	}
 
 	public static void listToMap(List<Constraint> cons, boolean isLoaded){
@@ -31,7 +39,7 @@ public class ConstrainsController
 	}
 
 	public static boolean isDateLoaded(int id, Date date, boolean isMorning){
-		for(Constraint con: constraints.values().stream().collect(Collectors.toList())){
+		for(Constraint con: hasToList(constraints)){
 			if(con.getId()==id&&con.getDate().equals(date)&& isMorning==con.isMorning()&&con.isLoaded())
 				return true;
 		}
@@ -87,7 +95,7 @@ public class ConstrainsController
 				cons=new LinkedList<>();
 		}
 		else{
-			for(Constraint con:constraints.values().stream().collect(Collectors.toList())){
+			for(Constraint con:hasToList(constraints)){
 				if(con.getId()==id&&con.getDate().equals(date)&& morning==con.isMorning())
 					cons.add(con);
 			}
@@ -126,7 +134,7 @@ public class ConstrainsController
 		Constraint constraint=null;
 		if(!checking.success)
 			return checking;
-		for(Constraint con: constraints.values().stream().collect(Collectors.toList())){
+		for(Constraint con: hasToList(constraints)){
 			if(con.getCid()==c.getCid()){
 				constraint=con;
 			}
@@ -149,7 +157,7 @@ public class ConstrainsController
 	}
 
 	public static Result deleteConstraint(InterfaceConstraint c){
-		for(Constraint con: constraints.values().stream().collect(Collectors.toList())){
+		for(Constraint con: hasToList(constraints)){
 			if(con.getCid()==c.getCid()){
 				constraints.remove(con);
 			}

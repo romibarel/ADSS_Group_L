@@ -94,7 +94,7 @@ public class BTIController {
         if (docs.isEmpty())
             return "No delivery documents were added.";
         if (docs.size() != docNums.size())
-            return "Some delivery docs weren't added.";
+            return "Some delivery docs weren't added.";     //todo check how this was printed
 
 
         List<Location> destinations = new LinkedList<>();
