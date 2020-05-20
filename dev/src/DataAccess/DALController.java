@@ -1568,6 +1568,28 @@ public class DALController
         return branches;
     }
 
+    public int getMaxDocNum()  {
+        int ret=-1;
+        openConn();
+        String sql = "SELECT MAX(docID) AS max_cid" +
+                " FROM DeliveryDocs";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            ResultSet rs  = pstmt.executeQuery();
+            if (rs.next()) {
+                ret=rs.getInt("max_cid");
+            }
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return -1;
+        }
+        return ret;
+    }
+
 
     /*public void save(List<Business.DalLocation> bLocations) {
         dalLocations = new LinkedList<>();
