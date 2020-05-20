@@ -57,7 +57,7 @@ public class BTIController {
             return "The destination doesn't exist.";
         DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, docSupplies, myDestination);
         documents.add(deliverDoc);
-        return "Document created successfully.";
+        return "Delivery list to "+ deliverDoc.getDestination().getAddress() +" created successfully.";
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
@@ -100,10 +100,14 @@ public class BTIController {
 
 
         List<Location> destinations = new LinkedList<>();
-        int area = sections.getSection(docs.get(0).getDestination());      //todo check this
+        int area = sections.getSection(docs.get(1).getDestination());      //todo check this
         if (area == 0)
             return "This location doesn't exist. Delivery creation failed.";
-        for (DeliverDoc doc : docs){
+        List<DeliverDoc> woSource = new LinkedList<>();
+        for (int i=1; i<docs.size(); i++){
+            woSource.add(docs.get(i));
+        }
+        for (DeliverDoc doc : woSource){
             Location dest = btd.loadLocation(doc.getDestination().getAddress());
             if (dest == null)
                 return "The destination "+doc.getDestination().getAddress() +" doesn't exist.";
@@ -111,7 +115,7 @@ public class BTIController {
                 return "Can't deliver to more than one area.";
             destinations.add(dest);
         }
-        if (destinations.size() != docs.size())
+        if (destinations.size() != woSource.size())
             return "Some of the destinations weren't added...";
         Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, docs, truckWeight);
 
