@@ -115,11 +115,11 @@ public class ShiftController
 		boolean morning=Shift.is_morning_shift(hour);
 		Shift shift=get_shift(date,morning,branch);
 		int storekeeper_id=WorkersController.find_available_storekeeper(date,morning,branch);
-		if (storekeeper_id==-1) return new Result(false,"no available storekeepers in " + date.toString() + "at " + branch);
+		if (storekeeper_id==-1) return new Result(false,"no available storekeepers in " + date.toString() + " at " + branch);
 		if (shift==null) //if shift doesnt exist create new shift with a random available manager and a random available storekeeper
 		{
 			int manager_id=WorkersController.find_available_manager(date,morning,branch);
-			if (manager_id==-1) return new Result(false,"no available manager in " + date.toString() + "at " + branch);
+			if (manager_id==-1) return new Result(false,"no available manager in " + date.toString() + " at " + branch);
 			List<Integer> workers_in_shift=new LinkedList<>();
 			workers_in_shift.add(storekeeper_id);
 			shift=new Shift(date,morning,manager_id,workers_in_shift,branch);
