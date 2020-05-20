@@ -1347,7 +1347,6 @@ public class DALController
             }
             conn.close();
         } catch (SQLException e) {
-            System.out.println("sql failed us - archive");    //todo remove
             return null;
         }
 
@@ -1362,11 +1361,9 @@ public class DALController
             archive.setDocuments(docNums);
             conn.close();
         } catch (SQLException e) {
-            System.out.println("sql failed us - archive2");    //todo remove
             e.printStackTrace();
             return null;
         }
-        System.out.println("returning real archive");
         return archive;
     }
 
