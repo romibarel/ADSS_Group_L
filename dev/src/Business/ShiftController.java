@@ -112,6 +112,7 @@ public class ShiftController
 
 	public static Result assign_storekeeper(Date date,Date hour,String branch)
 	{
+		if (!WorkersController.getBranches().contains(branch)) return new Result(true,""); //not good idea change it next work
 		if (date.before(new Date())) return new Result(false,"cant assign storekeeper in the past");
 		boolean morning=Shift.is_morning_shift(hour);
 		Shift shift=get_shift(date,morning,branch);
