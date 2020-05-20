@@ -1270,14 +1270,25 @@ public class Presentation {
                             int catid = scanner.nextInt();
                             System.out.println("Enter the price (##.##)");
                             double price = scanner.nextDouble();
+                            scanner.nextLine();
                             System.out.println("Enter the name");
                             String pname = scanner.nextLine();
                             if(!checkValidName(pname))
                                 break;
                             System.out.println("Enter the manufacturer");
                             String manufacturer = scanner.nextLine();
-                            System.out.println("Enter the year, month, day, hour and minutes of the expiration date");
-                            LocalDateTime l = LocalDateTime.of(scanner.nextInt(),scanner.nextInt(),scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
+                            System.out.println("For the expiration date:");
+                            System.out.println("Enter the year");
+                            int year = scanner.nextInt();
+                            System.out.println("Enter the month");
+                            int month = scanner.nextInt();
+                            System.out.println("Enter the day");
+                            int day = scanner.nextInt();
+                            System.out.println("Enter the hour");
+                            int hour = scanner.nextInt();
+                            System.out.println("Enter the minutes");
+                            int minutes = scanner.nextInt();
+                            LocalDateTime l = LocalDateTime.of(year,month,day,hour,minutes);
                             System.out.println("Enter the id of the supplier that supplies this product");
                             businessManager.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l);
                             System.out.println();
@@ -1354,11 +1365,20 @@ public class Presentation {
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
-                                    System.out.println("Enter the new year, month, day, hour and minute");
-                                    LocalDateTime ld = LocalDateTime.of(scanner.nextInt(),scanner.nextInt(),scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
                                     System.out.println("Enter the ID of the order");
                                     int ordid = scanner.nextInt();
-                                    if((businessManager.getOrder(ordid) != null) && (businessManager.setOrderETA(ordid, ld)))
+                                    System.out.println("Enter the new year");
+                                    int year = scanner.nextInt();
+                                    System.out.println("Enter the new month");
+                                    int month = scanner.nextInt();
+                                    System.out.println("Enter the new day");
+                                    int day = scanner.nextInt();
+                                    System.out.println("Enter the new hour");
+                                    int hour = scanner.nextInt();
+                                    System.out.println("Enter the new minutes");
+                                    int minutes = scanner.nextInt();
+                                    LocalDateTime l = LocalDateTime.of(year,month,day,hour,minutes);
+                                    if((businessManager.getOrder(ordid) != null) && (businessManager.setOrderETA(ordid, l)))
                                         System.out.println("Success!");
                                     else
                                         System.out.println("Error!");
