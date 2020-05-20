@@ -47,11 +47,15 @@ public class DeliveryArchive {
     public String toString(){
         String s = "";
         for (Delivery delivery : deliveries){
-            s = s + "Delivery from " + delivery.getSource().getAddress() +".\n";
+            s += "Delivery from " + delivery.getSource().getAddress() +" at "+ delivery.getDate().toString()+".\n";
             for (DeliverDoc doc : delivery.getDocsWOSource()){
-                s = s + "Arrives to " + doc.getDestination().getAddress() +".\n";
+                s += "Delivery List #" +doc.getNum()+ " Arrives to " + doc.getDestination().getAddress() +".\n";
+                s += "Deliver/pickup: \n";
+                for (Supply sup : doc.getDeliveryList()){
+                    s += sup.getName() +"\t" + sup.getQuant()+"\n";
+                }
             }
-            s = s + "\n";
+            s += "\n";
         }
         if (s.equals(""))
             return "No deliveries in the database.";
