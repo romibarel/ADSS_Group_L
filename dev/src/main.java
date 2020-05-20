@@ -14,38 +14,10 @@ import java.util.Scanner;
 
 public class main {
 
-    //public static final String PATTERN = "yyyy/MM/dd"; // comment
-    //public static final Integer SupplierID = 1;
+
 
     public static void main (String[] args){
-        /*Scanner scanner = new Scanner(System.in);
-        System.out.println("1)Run system of 'Storage'");
-        System.out.println("2)Run system of 'Suppliers'");
-        System.out.println("4)Exit");
-        int selected = 0;
-        boolean error = false;
-        do {
-            try {
-                selected = Integer.parseInt(scanner.nextLine());
-                error = false;
-            }
-            catch (Exception e){
-                error = true;
-                System.out.println("Illegal input try again.");
-            }
-        }while (error);
-        while (true) {
-            if (selected == 1) {
-                runStorage(scanner);
-                break;
-            } else if (selected == 2) {
-                runSuppliers(scanner);
-                break;
-            }
-            else {
-                break;
-            }
-        }*/
+
         Presentation p = new Presentation();
         Scanner scanner = new Scanner(System.in);
         System.out.println("1)Initialize system");
@@ -57,6 +29,9 @@ public class main {
             try {
                 selected = Integer.parseInt(scanner.nextLine());
                 error = false;
+                if (selected !=1&&selected !=2){
+                    System.exit(0);
+                }
             }
             catch (Exception e){
                 error = true;
