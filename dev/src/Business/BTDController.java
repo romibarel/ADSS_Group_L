@@ -1,8 +1,9 @@
 package Business;
 
 
+import Business.BuisnessObjects.*;
 import DataAccess.*;
-import Interface.InterfaceWorker;
+import DataAccess.DALObjects.*;
 
 import java.util.Date;
 import java.util.LinkedList;

@@ -1,6 +1,8 @@
 package Business;
 
-import Interface.InterfaceConstraint;
+import Business.BuisnessObjects.Constraint;
+import Business.BuisnessObjects.Shift;
+import Interface.InterfaceObjects.InterfaceConstraint;
 
 import java.util.*;
 

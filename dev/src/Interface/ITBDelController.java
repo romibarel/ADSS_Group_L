@@ -1,8 +1,6 @@
 package Interface;
 
 import Business.BTIController;
-import Business.Delivery;
-import Business.Location;
 import javafx.util.Pair;
 
 import java.util.Date;
