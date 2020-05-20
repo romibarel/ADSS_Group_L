@@ -304,7 +304,7 @@ public class PTIDelController {
 
         String out = itp.createDoc(time, date, docNum, source, sourceSupplies);
         System.out.println(out);
-        if (!out.equals("Document created successfully."))
+        if (!out.equals("Delivery list to "+ source +" created successfully."))
             return docNums;
         else {
             docNums.add(docNum);
@@ -357,8 +357,8 @@ public class PTIDelController {
             }
             out = itp.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, myDestination, supplies);
             System.out.println(out);
-            if (!out.equals("Document created successfully.")){
-                System.out.println("The creation of the delivery document failed. The DalDelivery will not be created.");
+            if (!out.equals("Delivery list to "+ myDestination +" created successfully.")){
+                System.out.println("The creation of the delivery document failed. The Delivery will not be created.");
                 return new LinkedList<>();
             }
             else {
