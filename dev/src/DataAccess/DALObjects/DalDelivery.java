@@ -33,7 +33,7 @@ public class DalDelivery {
 
     }
 
-    public DalDelivery(Delivery delivery, int Id) {
+    public DalDelivery(Delivery delivery, int id) {
         this.id = id;
         this.date = delivery.getDate();
         this.departureTime = delivery.getDepartureTime();

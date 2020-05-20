@@ -96,11 +96,13 @@ public class BTIController {
         if (docs.isEmpty())
             return "No delivery documents were added.";
         if (docs.size() != docNums.size())
-            return "Some delivery docs weren't added.";     //todo check how this was printed
+            return "Some delivery docs weren't added to the delivery, creation failed.";     //todo check how this was printed
 
 
         List<Location> destinations = new LinkedList<>();
         int area = sections.getSection(docs.get(0).getDestination());      //todo check this
+        if (area == 0)
+            return "This location doesn't exist. Delivery creation failed.";
         for (DeliverDoc doc : docs){
             Location dest = btd.loadLocation(doc.getDestination().getAddress());
             if (dest == null)
