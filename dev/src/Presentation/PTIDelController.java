@@ -287,7 +287,7 @@ public class PTIDelController {
         List < Pair<String , Integer> > sourceSupplies = userEnterSupplies();
 
 
-        String out = itp.createDoc(date, time, docNum, source, sourceSupplies);
+        String out = itp.createDoc(time, date, docNum, source, sourceSupplies);
         System.out.println(out);
         if (!out.equals("Document created successfully."))
             return docNums;

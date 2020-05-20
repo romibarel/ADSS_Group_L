@@ -304,13 +304,13 @@ public class DALController
                 "\tPRIMARY KEY(\"location\"),\n" +
                 "\tFOREIGN KEY(\"location\") REFERENCES \"Locations\"(\"address\")\n" +
                 ");");
-        sqls.add("CREATE TABLE IF NOT EXISTS\"Supply\" (\n" +
+        sqls.add("CREATE TABLE \"Supply\" (\n" +
                 "\t\"docNum\"\tINTEGER,\n" +
                 "\t\"destination\"\tTEXT,\n" +
                 "\t\"supName\"\tTEXT,\n" +
                 "\t\"quant\"\tINTEGER,\n" +
                 "\tFOREIGN KEY(\"destination\") REFERENCES \"Locations\"(\"address\"),\n" +
-                "\tPRIMARY KEY(\"docNum\",\"destination\")\n" +
+                "\tPRIMARY KEY(\"docNum\",\"destination\",\"supName\")\n" +
                 ");");
         sqls.add("CREATE TABLE IF NOT EXISTS\"Trucks\" (\n" +
                 "\t\"id\"\tINTEGER,\n" +
@@ -1375,6 +1375,7 @@ public class DALController
         delivery.setDate(rs.getDate("departureDate"));
         delivery.setDepartureTime(rs.getTime("departureTime"));
         delivery.setTruckNum(rs.getInt("truckNum"));
+        delivery.setTruckWeight(rs.getInt("truckWeight"));
         delivery.setDriver(rs.getString("driver"));
         DalLocation source = loadLocation(rs.getString("source"));
         delivery.setSource(source);
@@ -1431,6 +1432,8 @@ public class DALController
             pstmt.setInt(2, doc.getNum());
             pstmt.setString(3 , doc.getDestination().getAddress());
 //            pstmt.setTime(4, new Time(doc.getEstimatedTimeOfArrival().getHours(), doc.getEstimatedTimeOfArrival().getMinutes(), 0));
+            System.out.println(doc.getEstimatedTimeOfArrival().getTime());
+            System.out.println(doc.getEstimatedDayOfArrival().getTime());
             pstmt.setTime(4, new java.sql.Time(doc.getEstimatedTimeOfArrival().getTime()));
             pstmt.setDate(5, new java.sql.Date(doc.getEstimatedDayOfArrival().getTime()));
 //            pstmt.setDate(5, new Date(doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
@@ -1474,7 +1477,7 @@ public class DALController
 
     public boolean saveSupply(int docNum, String destination, DalSupply dalSupply) {
         openConn();
-        String sql = "INSERT INTO DeliveryDocs(docID, destination, supName, quant) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO Supply(docNum, destination, supName, quant) VALUES(?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, docNum);
             pstmt.setString(2, destination);
@@ -1483,6 +1486,7 @@ public class DALController
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -1491,7 +1495,7 @@ public class DALController
     public List<DalSupply> loadSupplies(int docNum) {
         List<DalSupply> supplies = new LinkedList<>();
         openConn();
-        String sql = "SELECT* FROM Supplies WHERE docNum=?";
+        String sql = "SELECT* FROM Supply WHERE docNum=?";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             pstmt.setInt(1, docNum);
             ResultSet rs  = pstmt.executeQuery();
