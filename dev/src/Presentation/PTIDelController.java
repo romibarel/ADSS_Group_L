@@ -265,7 +265,7 @@ public class PTIDelController {
             System.out.println("Invalid ID number.");
             return docNum;
         }
-        System.out.println("Please enter the address for thr source of delivery.");
+        System.out.println("Please enter the address for the source of delivery.");
         source = scanner.nextLine();
         if (source == null || source.trim().equals("")){
             System.out.println("Source address can't be empty.");
