@@ -38,7 +38,7 @@ public class Delivery {
         this.departureTime = dalDelivery.getDepartureTime();
         this.truckNum = dalDelivery.getTruckNum();
         this.driver = dalDelivery.getDriver();
-        Location source = null;
+        source = null;
         if (dalDelivery.getSource().getIsBranch())
             source = new Branch(dalDelivery.getSource());
         else source= new Supplier(dalDelivery.getSource());
