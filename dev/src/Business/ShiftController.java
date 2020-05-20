@@ -1,7 +1,8 @@
 package Business;
 
-import DataAccess.DALController;
-import Interface.InterfaceShift;
+import Business.BuisnessObjects.Shift;
+import Business.BuisnessObjects.Worker;
+import Interface.InterfaceObjects.InterfaceShift;
 import javafx.util.Pair;
 
 import java.util.*;

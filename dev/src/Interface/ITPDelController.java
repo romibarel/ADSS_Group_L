@@ -1,14 +1,8 @@
 package Interface;
 
-import Business.DeliverDoc;
-import Business.Driver;
-import Business.Location;
-import Business.Truck;
-import Presentation.PTIDelController;
 import Presentation.PTIDelController;
 import javafx.util.Pair;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 

@@ -1,6 +1,12 @@
 package Interface;
 
 import Business.*;
+import Business.BuisnessObjects.Constraint;
+import Business.BuisnessObjects.Shift;
+import Business.BuisnessObjects.Worker;
+import Interface.InterfaceObjects.InterfaceConstraint;
+import Interface.InterfaceObjects.InterfaceShift;
+import Interface.InterfaceObjects.InterfaceWorker;
 
 import java.util.Comparator;
 import java.util.Date;

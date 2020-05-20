@@ -1,9 +1,8 @@
 package Presentation;
 
-import DataAccess.DALController;
-import Interface.InterfaceConstraint;
-import Interface.InterfaceShift;
-import Interface.InterfaceWorker;
+import Interface.InterfaceObjects.InterfaceConstraint;
+import Interface.InterfaceObjects.InterfaceShift;
+import Interface.InterfaceObjects.InterfaceWorker;
 import Interface.Interface;
 
 import java.text.ParseException;
