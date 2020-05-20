@@ -7,23 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5a0c68f-cb7a-4339-a500-2fe945ca3023" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ADSS_Group_L_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_7_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_xerial_sqlite_jdbc_3_7_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ADSS_Group_L.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/data/storage.db" beforeDir="false" afterPath="$PROJECT_DIR$/dev/data/storage.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/API_Buisness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Presentation/Presentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/META-INF/MANIFEST.MF" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Agreement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/FixedDaysSupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/OrderOnlySupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SelfPickupSupplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/Supplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/BusinessLayer/SystemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Suppliers/PersistenceLayer/DataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Supplier Instructions.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Supplier Instructions.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,10 +49,18 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589546763463" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dev/out" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15527344" />
     <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\יבגני\Desktop\adss2\ADSS_Group_L" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\יבגני\Desktop\adss2\ADSS_Group_L" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -281,14 +283,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588874399502" />
+    <state x="689" y="308" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590005478619">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="689" y="308" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590005478619" />
+    <state x="790" y="202" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1590004736014">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="790" y="202" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590004736014" />
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1588873442069">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588873442069" />
-    <state x="656" y="260" key="FileChooserDialogImpl" timestamp="1589624923306">
+    <state x="656" y="260" key="FileChooserDialogImpl" timestamp="1590005486415">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589624923306" />
+    <state x="656" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590005486415" />
     <state width="1878" height="170" key="GridCell.Tab.0.bottom" timestamp="1589987247120">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -321,14 +331,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="386" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589984432598" />
-    <state x="440" y="93" key="SettingsEditor" timestamp="1589624927094">
+    <state x="440" y="93" key="SettingsEditor" timestamp="1590005502497">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589624927094" />
-    <state x="678" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1588873475785">
+    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590005502497" />
+    <state x="678" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1590004727597">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="678" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1588873475785" />
+    <state x="678" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1590004727597" />
+    <state x="385" y="180" key="new project wizard" timestamp="1590005282772">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="385" y="180" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1590005282772" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588875205340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

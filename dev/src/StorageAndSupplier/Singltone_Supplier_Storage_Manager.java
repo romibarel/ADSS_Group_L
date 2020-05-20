@@ -37,7 +37,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         try {
             // db parameters
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:" + System.getProperty("user.dir") +"\\dev\\data\\storage.db";
+            String url = "jdbc:sqlite:storage.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             storage_management.setConnection(conn);
