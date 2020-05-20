@@ -348,7 +348,7 @@ public class PTIDelController {
             format = new SimpleDateFormat("HH:mm");
             try {
                 estimatedTimeOfArrival = format.parse(input);
-                if (estimatedTimeOfArrival.before(currTime)) {
+                if (estimatedDayOfArrival.compareTo(currDay)==0 && estimatedTimeOfArrival.before(currTime)) {
                     System.out.println("You need a time machine for that");
                     return new LinkedList<>();
                 }
