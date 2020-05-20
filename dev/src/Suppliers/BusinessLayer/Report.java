@@ -23,6 +23,10 @@ public abstract class Report {
         reportedOrder = new Order(lr.getReportedOrder());
     }
 
+    public static void setStatID(int ID){
+        statID = ID;
+    }
+
     public abstract LoanReport getLoan();
 
     public int getID(){

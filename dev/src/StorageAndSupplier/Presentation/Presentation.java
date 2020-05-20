@@ -1170,17 +1170,20 @@ public class Presentation {
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
-                                    businessManager.addSupplier("FixedDays",name, cid,ba,pc,pn,"");
-                                    System.out.println("Success!\n");
+                                    if(!businessManager.addSupplier("FixedDays",name, cid,ba,pc,pn,""))
+                                        System.out.println("Error!");
+                                    else System.out.println("Success!");
                                     break;
                                 case 2:
-                                    businessManager.addSupplier("OrderOnly", name, cid,ba,pc,pn,"");
-                                    System.out.println("Success!\n");
+                                    if(!businessManager.addSupplier("OrderOnly", name, cid,ba,pc,pn,""))
+                                        System.out.println("Error!");
+                                    else System.out.println("Success!");
                                     break;
                                 case 3:
                                     System.out.println("Enter the pickup location");
-                                    businessManager.addSupplier("SelfPickup", name, cid,ba,pc,pn, scanner.nextLine());
-                                    System.out.println("Success!\n");
+                                    if(!businessManager.addSupplier("SelfPickup", name, cid,ba,pc,pn, scanner.nextLine()))
+                                        System.out.println("Error!");
+                                    else System.out.println("Success!");
                                     break;
                                 default:
                                     break;
@@ -1203,7 +1206,7 @@ public class Presentation {
                                     if(businessManager.setSupplierCompanyID(id,cid1))
                                         System.out.println("Success!");
                                     else
-                                        System.out.println("Error, can not find ID");
+                                        System.out.println("Error");
                                     break;
                                 case 2:
                                     System.out.println("Please enter the supplier ID");
@@ -1213,7 +1216,7 @@ public class Presentation {
                                     if(businessManager.setSupplierBankAccNum(id,ba1))
                                         System.out.println("Success!");
                                     else
-                                        System.out.println("Error, can not find ID");
+                                        System.out.println("Error");
                                     break;
                                 case 3:
                                     System.out.println("Please enter the supplier ID");
@@ -1223,7 +1226,7 @@ public class Presentation {
                                     if(businessManager.setSupplierPayCond(id,pc1))
                                         System.out.println("Success!");
                                     else
-                                        System.out.println("Error, can not find ID");
+                                        System.out.println("Error");
                                     break;
                                 case 4:
                                     System.out.println("Please enter the supplier ID");
@@ -1233,7 +1236,7 @@ public class Presentation {
                                     if(businessManager.setSupplierPhoneNum(id,pn1))
                                         System.out.println("Success!");
                                     else
-                                        System.out.println("Error, can not find ID");
+                                        System.out.println("Error");
                                     break;
                                 default:
                                     break;
@@ -1243,7 +1246,7 @@ public class Presentation {
                             System.out.println("Please enter the supplier ID");
                             if(businessManager.removeSupplier(scanner.nextInt()))
                                 System.out.println("Success!");
-                            System.out.println("Error!");
+                            else System.out.println("Error!");
                             break;
                         case 5:
                             System.out.println("Enter the supplier's ID");
@@ -1254,8 +1257,9 @@ public class Presentation {
                                 break;
                             System.out.println("Enter the contact's phone number");
                             String pnum = scanner.next();
-                            businessManager.addSupplierContact(sid, new Pair<>(fn, pnum));
-                            System.out.println("Success!");
+                            if(!businessManager.addSupplierContact(sid, new Pair<>(fn, pnum)))
+                                System.out.println("Error");
+                            else System.out.println("Success!");
                             break;
                         case 6:
                             System.out.println("Enter the supplierID");
@@ -1277,6 +1281,8 @@ public class Presentation {
                                 break;
                             System.out.println("Enter the manufacturer");
                             String manufacturer = scanner.nextLine();
+                            if(!checkValidName(manufacturer))
+                                break;
                             System.out.println("For the expiration date:");
                             System.out.println("Enter the year");
                             int year = scanner.nextInt();
@@ -1290,8 +1296,9 @@ public class Presentation {
                             int minutes = scanner.nextInt();
                             LocalDateTime l = LocalDateTime.of(year,month,day,hour,minutes);
                             System.out.println("Enter the id of the supplier that supplies this product");
-                            businessManager.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l);
-                            System.out.println();
+                            if(!businessManager.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l))
+                                System.out.println("Error");
+                            else System.out.println("Success!");
                             break;
                         case 8:
                             System.out.println("Enter the supplierID");
@@ -1345,6 +1352,8 @@ public class Presentation {
                                     break;
                                 System.out.println("Please enter the manufacturer of the product");
                                 String manu = scanner.next();
+                                if(!checkValidName(manu))
+                                    break;
                                 System.out.println("Please enter the price of the product");
                                 double pri = scanner.nextDouble();
                                 System.out.println("Please enter the quantity of the product");
@@ -1355,12 +1364,14 @@ public class Presentation {
                                 System.out.println("Would you like to enter another one? (y/n)");
                                 ans = scanner.next();
                             } while(!ans.equals("n"));
-                            businessManager.addOrder(s,LocalDateTime.now(),hm);
-                            System.out.println("Success!");
+                            if(!businessManager.addOrder(s,LocalDateTime.now(),hm))
+                                System.out.println("Error");
+                            else System.out.println("Success!");
                         case 3:
-                            System.out.println("Choose 1 to edit the ETA of the order");
-                            System.out.println("Choose 2 to edit the amount of a certain product in the order");
+                            System.out.println("Choose 1 to edit the ETA of an order");
+                            System.out.println("Choose 2 to edit the amount of a certain product in an order");
                             System.out.println("Choose 3 to remove a product from an order");
+                            System.out.println("Choose 4 to add a product to an order");
                             System.out.println("Choose anything else to go back");
                             option = scanner.nextInt();
                             switch (option){
@@ -1380,8 +1391,7 @@ public class Presentation {
                                     LocalDateTime l = LocalDateTime.of(year,month,day,hour,minutes);
                                     if((businessManager.getOrder(ordid) != null) && (businessManager.setOrderETA(ordid, l)))
                                         System.out.println("Success!");
-                                    else
-                                        System.out.println("Error!");
+                                    else System.out.println("Error!");
                                     break;
                                 case 2:
                                     System.out.println("Please enter the order's ID");
@@ -1389,8 +1399,9 @@ public class Presentation {
                                     System.out.println("Please enter the catalog ID of the product");
                                     int cid = scanner.nextInt();
                                     System.out.println("Please enter the new amount");
-                                    businessManager.setAmountOfProductInOrder(oid, cid, scanner.nextInt());
-                                    System.out.println("Success!");
+                                    if(!businessManager.setAmountOfProductInOrder(oid, cid, scanner.nextInt()))
+                                        System.out.println("Error");
+                                    else System.out.println("Success!");
                                     break;
                                 case 3:
                                     System.out.println("Enter supplierID of the order");
@@ -1404,6 +1415,19 @@ public class Presentation {
                                     break;
                                 default:
                                     break;
+                                case 4:
+                                    System.out.println("Enter the productID");
+                                    int pid = scanner.nextInt();
+                                    System.out.println("Enter the orderID");
+                                    int orderid = scanner.nextInt();
+                                    System.out.println("Enter the supplierID");
+                                    int suid = scanner.nextInt();
+                                    System.out.println("Enter the amount you would like to order");
+                                    int amount = scanner.nextInt();
+                                    if(!businessManager.addNewProductToOrder(pid, orderid, suid, amount))
+                                        System.out.println("Error");
+                                    else System.out.println("Success!");
+                                    break;
                             }
                             break;
                         case 4:
@@ -1414,7 +1438,8 @@ public class Presentation {
                                 System.out.println("Error! no such order");
                                 break;
                             }
-                            businessManager.reportCancellation(ooo);
+                            if(!businessManager.reportCancellation(ooo))
+                                System.out.println("Error");
                             System.out.println("Success!");
                             break;
                         case 5:
@@ -1425,7 +1450,8 @@ public class Presentation {
                                 System.out.println("Error! no such order");
                                 break;
                             }
-                            businessManager.reportArrival(ooo1);
+                            if(!businessManager.reportArrival(ooo1))
+                                System.out.println("Error");
                             System.out.println("Success!");
                             break;
                         default:
@@ -1509,6 +1535,8 @@ public class Presentation {
                             double pp = scanner.nextDouble();
                             System.out.println("Enter the manufacturer of the product");
                             String mm = scanner.next();
+                            if(!checkValidName(mm))
+                                break;
                             System.out.println("Enter the amount for the sale to apply");
                             int aa = scanner.nextInt();
                             System.out.println("Enter the sale for it");

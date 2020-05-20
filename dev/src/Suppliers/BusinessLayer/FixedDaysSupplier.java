@@ -45,9 +45,25 @@ public class FixedDaysSupplier extends Supplier {
     }
 
     public boolean setProductAmount(int productID, int amount, Order o){
-        if(o.getETA().isAfter(LocalDateTime.now().plusDays(1))) { // Check if order is at least one day before arrival
+        if(o.getETA().isAfter(LocalDateTime.now().plusDays(1))) // Check if order is at least one day before arrival
             return o.setProductAmount(productID, amount);
-        }
+        System.out.println("BAAAAADD1");
+        return false;
+    }
+
+    public boolean setOrderETA(Order o, LocalDateTime ETA){
+        System.out.println(o.getETA().toString());
+        System.out.println(LocalDateTime.now().plusDays(1).toString());
+        if(o.getETA().isAfter(LocalDateTime.now().plusDays(1)))
+            return o.setETA(ETA);
+        System.out.println("BAAAAADD2");
+        return false;
+    }
+
+    public boolean addProductToOrder(Order o, Product p, int amount) {
+        if(o.getETA().isAfter(LocalDateTime.now().plusDays(1)))
+            return o.addNewProduct(p, amount);
+        System.out.println("BAAAAADD3");
         return false;
     }
 

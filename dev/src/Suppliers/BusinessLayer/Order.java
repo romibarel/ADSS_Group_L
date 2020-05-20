@@ -5,10 +5,7 @@ import Suppliers.PersistenceLayer.LoanProduct;
 import javafx.util.Pair;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDate;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -44,6 +41,10 @@ public class Order {
             products.put(new Product(e.getKey()), new Pair<>(e.getValue().getKey(), e.getValue().getValue()));
     }
 
+    public static void setStatID(int ID){
+        statID = ID;
+    }
+
     public LoanOrder getLoan(){
         HashMap<LoanProduct, Pair<Integer, Integer>> loanProducts = new HashMap<>();
         for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet())
@@ -73,30 +74,33 @@ public class Order {
     }
 
     public boolean setProductAmount(int productID, int amount) {
-        if(LocalDate.now().isBefore(ChronoLocalDate.from(dateIssued.plusDays(1)))) {
-            for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
-                if(e.getKey().getCatalogID() == productID)
-                    products.replace(e.getKey(), new Pair<>(amount, e.getValue().getValue()));
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()) {
+            if (e.getKey().getCatalogID() == productID) {
+                products.replace(e.getKey(), new Pair<>(amount, e.getValue().getValue()));
+                return true;
             }
-            return true;
         }
         return false;
     }
 
     public boolean setETA(LocalDateTime ETA) {
-        if(this.ETA == null || ETA.isAfter(ChronoLocalDateTime.from(this.ETA))) {
-            this.ETA = ETA;
-            return true;
-        }
-        return false;
+        this.ETA = ETA;
+        return true;
+    }
+
+    public boolean addNewProduct(Product p, int amount){
+        return products.putIfAbsent(p, new Pair<>(amount, 0)) == null;
     }
 
     public void calcTotal(LinkedList<Agreement> agreements){
         total = 0;
         for(Agreement a : agreements)
             products = a.applyAgreement(products);
-        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet())
-            total += e.getKey().getFinalPrice() * e.getValue().getKey();
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()) {
+            if(e.getValue().getValue() > 0)
+                total += e.getKey().getFinalPrice() * e.getValue().getKey() * (1 - ((double) e.getValue().getValue() / 100));
+            else total += e.getKey().getFinalPrice() * e.getValue().getKey();
+        }
         total = Double.parseDouble(new DecimalFormat("##.##").format(total));
     }
 
@@ -130,7 +134,7 @@ public class Order {
         return -1;
     }
 
-    public double getDiscountOf(int barCode){
+    public int getDiscountOf(int barCode){
         for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
             if(e.getKey().getCatalogID() == barCode)
                 return e.getValue().getValue();
@@ -150,6 +154,7 @@ public class Order {
         for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
             if(e.getKey().getCatalogID() == productID) {
                 products.remove(e.getKey());
+                total -= e.getKey().getFinalPrice() * e.getValue().getKey();
                 break;
             }
         }

@@ -24,6 +24,7 @@ public class Product {
     public Product(LoanProduct lp){
         catalogID = lp.getCatalogID();
         price = lp.getPrice();
+        finalPrice = price;
         name = lp.getName();
         manufacturer = lp.getManufacturer();
     }

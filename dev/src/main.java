@@ -68,6 +68,7 @@ public class main {
                 initialize();
                 break;
             } else if (selected == 2) {
+                updateStatIDs();
                 break;
             }
             else {
@@ -309,5 +310,10 @@ public class main {
         */
 
 
+    }
+
+    private static void updateStatIDs(){
+        API_Buisness manager = Singltone_Supplier_Storage_Manager.getInstance();
+        manager.updateStatIDs();
     }
 }

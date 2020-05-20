@@ -153,7 +153,7 @@ public class DataController {
         }
     }
 
-    public void addSupplier(LoanSupplier ls){
+    public boolean addSupplier(LoanSupplier ls){
         try {
             p = con.prepareStatement("INSERT INTO SUPPLIERS VALUES(?,?,?,?,?,?,?)");
             p.setInt(1, ls.getID());
@@ -164,24 +164,26 @@ public class DataController {
             p.setString(6, ls.getTag());
             p.setString(7, ls.getName());
             p.executeUpdate();
+            return true;
         }catch(SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void addSupplierContact(String fullName, String phoneNum, int supplierID){
+    public boolean addSupplierContact(String fullName, String phoneNum, int supplierID){
         try {
             p = con.prepareStatement("INSERT INTO SUPPLIER_CONTACTS VALUES(?,?,?)");
             p.setString(1, fullName);
             p.setString(2, phoneNum);
             p.setInt(3, supplierID);
             p.executeUpdate();
+            return true;
         }catch(SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void addSupplierOrder(LoanOrder lo){
+    public boolean addSupplierOrder(LoanOrder lo){
         try {
             p = con.prepareStatement("INSERT INTO SUPPLIER_ORDERS VALUES(?,?,?,?,?)");
             p.setInt(1, lo.getSupplierID());
@@ -198,12 +200,13 @@ public class DataController {
                 p.setInt(4, e.getValue().getValue());
                 p.executeUpdate();
             }
+            return true;
         }catch(SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void addSupplierAgreement(LoanAgreement la, int supplierID){
+    public boolean addSupplierAgreement(LoanAgreement la, int supplierID){
         try {
             p = con.prepareStatement("INSERT INTO SUPPLIER_AGREEMENTS VALUES(?,?,?,?,?)");
             p.setInt(1, supplierID);
@@ -212,12 +215,13 @@ public class DataController {
             p.setInt(4, la.getAgreementDetails().getValue().getKey());
             p.setInt(5, la.getAgreementDetails().getValue().getValue());
             p.executeUpdate();
+            return true;
         }catch(SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void addSupplierProduct(LoanProduct lp, int supplierID){
+    public boolean addSupplierProduct(LoanProduct lp, int supplierID){
         try {
             PreparedStatement p = con.prepareStatement("INSERT INTO SUPPLIER_PRODUCTS VALUES(?,?,?,?,?,?)");
             p.setInt(1, lp.getCatalogID());
@@ -227,12 +231,29 @@ public class DataController {
             p.setDate(5, Date.valueOf(lp.getExpirationDate().toLocalDate()));
             p.setInt(6, supplierID);
             p.executeUpdate();
+            return true;
         }catch(Exception e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void addReport(LoanReport lr){
+    public boolean addProductToOrder(int orderID, int productID, int amount, double total, int sale){
+        try {
+            p = con.prepareStatement("INSERT INTO ORDER_PRODUCTS VALUES(?,?,?,?)");
+            p.setInt(1, orderID);
+            p.setInt(2, productID);
+            p.setInt(3, amount);
+            p.setInt(4, sale);
+            p.executeUpdate();
+            p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET total = " + total + "  WHERE orderID = " + orderID);
+            p.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            return false;
+        }
+    }
+
+    public boolean addReport(LoanReport lr){
         try {
             p = con.prepareStatement("INSERT INTO REPORTS VALUES(?,?,?,?)");
             p.setInt(1, lr.getReportID());
@@ -240,12 +261,13 @@ public class DataController {
             p.setDate(3, Date.valueOf(lr.getDateReported().toLocalDate()));
             p.setString(4, lr.getTag());
             p.executeUpdate();
+            return true;
         }catch(SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void removeSupplier(int supplierID){
+    public boolean removeSupplier(int supplierID){
         try {
             p = con.prepareStatement("DELETE FROM SUPPLIERS WHERE supplierID = " + supplierID);
             p.executeUpdate();
@@ -263,130 +285,146 @@ public class DataController {
             p.executeUpdate();
             p = con.prepareStatement("DELETE FROM SUPPLIER_CONTACTS WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void removeSupplierContact(int supplierID, String phoneNum){
+    public boolean removeSupplierContact(int supplierID, String phoneNum){
         try {
             p = con.prepareStatement("DELETE FROM SUPPLIER_CONTACTS WHERE supplierID = " + supplierID + " AND phoneNum = " + phoneNum);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void removeSupplierOrder(int orderID){
+    public boolean removeSupplierOrder(int orderID){
         try {
             p = con.prepareStatement("DELETE FROM SUPPLIER_ORDERS WHERE orderID = " + orderID);
             p.executeUpdate();
             p = con.prepareStatement("DELETE FROM ORDER_PRODUCTS WHERE orderID = " + orderID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void removeSupplierProduct(int productID, int supplierID){
+    public boolean removeSupplierProduct(int productID, int supplierID){
         try {
             p = con.prepareStatement("DELETE FROM SUPPLIER_PRODUCTS WHERE catalogID = " + productID + " AND supplierID = " + supplierID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void removeSupplierAgreement(int agreementID){
+    public boolean removeSupplierAgreement(int agreementID){
         try {
             p = con.prepareStatement("DELETE FROM SUPPLIER_AGREEMENTS WHERE agreementID = " + agreementID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void removeProductFromOrder(int orderID, int productID){
+    public boolean removeProductFromOrder(int orderID, int productID, double total){
         try {
             p = con.prepareStatement("DELETE FROM ORDER_PRODUCTS WHERE catalogID = " + productID + " AND orderID = " + orderID);
             p.executeUpdate();
+            p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET total = " + total + "  WHERE orderID = " + orderID);
+            p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateSupplierCompanyID(int companyID, int supplierID){
+    public boolean updateSupplierCompanyID(int companyID, int supplierID){
         try {
             p = con.prepareStatement("UPDATE SUPPLIERS SET companyID = " + companyID + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateSupplierBankAccNum(String bankAccNum, int supplierID){
+    public boolean updateSupplierBankAccNum(String bankAccNum, int supplierID){
         try {
             p = con.prepareStatement("UPDATE SUPPLIERS SET bankAccNum = " + bankAccNum + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateSupplierPayCond(String payCond, int supplierID){
+    public boolean updateSupplierPayCond(String payCond, int supplierID){
         try {
             p = con.prepareStatement("UPDATE SUPPLIERS SET payCond = " + payCond + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateSupplierPhoneNum(String phoneNum, int supplierID){
+    public boolean updateSupplierPhoneNum(String phoneNum, int supplierID){
         try {
             p = con.prepareStatement("UPDATE SUPPLIERS SET phoneNum = " + phoneNum + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateAgreementProdAmount(int amount, int agreementID){
+    public boolean updateAgreementProdAmount(int amount, int agreementID){
         try {
             p = con.prepareStatement("UPDATE SUPPLIER_AGREEMENTS SET Amount = " + amount + " WHERE agreementID = " + agreementID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateAgreementProdSale(int sale, int agreementID){
+    public boolean updateAgreementProdSale(int sale, int agreementID){
         try {
             p = con.prepareStatement("UPDATE SUPPLIER_AGREEMENTS SET Sale = " + sale + " WHERE agreementID = " + agreementID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateOrderETA(LocalDateTime ETA, int orderID){
+    public boolean updateOrderETA(LocalDateTime ETA, int orderID){
         try {
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET ETA = (?)  WHERE orderID = " + orderID);
             p.setDate(1, Date.valueOf(ETA.toLocalDate()));
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateAmountOfProductInOrder(int orderID, int productID, int amount, double total){
+    public boolean updateAmountOfProductInOrder(int orderID, int productID, int amount, double total){
         try {
             p = con.prepareStatement("UPDATE ORDER_PRODUCTS SET amountOrdered = " + amount + "  WHERE orderID = " + orderID + " AND catalogID = " + productID);
             p.executeUpdate();
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET total = " + total + "  WHERE orderID = " + orderID);
             p.executeUpdate();
+            return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            return false;
         }
     }
 
@@ -507,6 +545,16 @@ public class DataController {
         return loanSuppliers;
     }
 
+    public LoanSupplier getSupplierByOrder(int orderID){
+        try {
+            p = con.prepareStatement("SELECT S.supplierID FROM SUPPLIERS AS S JOIN SUPPLIER_ORDERS AS SO ON S.supplierID = SO.supplierID AND orderID = " + orderID);
+            ResultSet rs = p.executeQuery();
+            return getLoanSupplier(rs.getInt("supplierID"));
+        }catch (SQLException e){
+            return null;
+        }
+    }
+
     public LoanSupplier getLoanSupplier(int supplierID){
         LoanSupplier ls = null;
         LinkedList<Pair<Integer, Pair<String, String>>> contacts = new LinkedList<>();
@@ -582,6 +630,27 @@ public class DataController {
             e.printStackTrace();
         }
         return lr;
+    }
+
+    public HashMap<String, Integer> updateStaticIDs(){
+        HashMap<String, Integer> statIDs = new HashMap<>();
+        try {
+            p = con.prepareStatement("SELECT COUNT(*) AS num FROM SUPPLIERS");
+            ResultSet r = p.executeQuery();
+            statIDs.put("Suppliers", r.getInt("num"));
+            p = con.prepareStatement("SELECT COUNT(*) AS num FROM SUPPLIER_AGREEMENTS");
+            r = p.executeQuery();
+            statIDs.put("Agreements", r.getInt("num"));
+            p = con.prepareStatement("SELECT COUNT(*) AS num FROM SUPPLIER_ORDERS");
+            r = p.executeQuery();
+            statIDs.put("Orders", r.getInt("num"));
+            p = con.prepareStatement("SELECT COUNT(*) AS num FROM REPORTS");
+            r = p.executeQuery();
+            statIDs.put("Reports", r.getInt("num"));
+        }catch (SQLException e){
+            return null;
+        }
+        return statIDs;
     }
 
     public void setConnection(Connection conn) {

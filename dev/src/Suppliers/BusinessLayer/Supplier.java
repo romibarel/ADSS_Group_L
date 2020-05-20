@@ -55,6 +55,10 @@ public abstract class Supplier {
         this.name = la.getName();
     }
 
+    public static void setStatID(int ID){
+        statID = ID;
+    }
+
     public abstract LoanSupplier getLoan();
 
     public int getID(){
@@ -152,8 +156,6 @@ public abstract class Supplier {
 
     public void setContacts(Pair<String, String> contact){ contacts.add(contact); }
 
-    public abstract boolean setProductAmount(int productID, int amount, Order o);
-
     public Agreement getAgreementByID(int agreementID){
         for(Agreement a : agreements){
             if(a.getAgreementID() == agreementID)
@@ -181,6 +183,12 @@ public abstract class Supplier {
     }
 
     public abstract Order removeOrder(int orderID);
+
+    public abstract boolean setProductAmount(int productID, int amount, Order o);
+
+    public abstract boolean setOrderETA(Order o, LocalDateTime ETA);
+
+    public abstract boolean addProductToOrder(Order o, Product p, int amount);
 
     public boolean removeContact(String phoneNum){
         for(Pair<String, String> c : contacts){

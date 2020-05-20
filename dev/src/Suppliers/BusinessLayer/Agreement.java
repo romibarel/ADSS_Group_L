@@ -23,6 +23,10 @@ public class Agreement {
         agreementDetails = new Pair<>(new Product(ad.getKey()), new Pair<>(ad.getValue().getKey(), ad.getValue().getValue()));
     }
 
+    public static void setStatID(int ID){
+        statID = ID;
+    }
+
     public LoanAgreement getLoan(int supplierID){
         return new LoanAgreement(supplierID, agreementID, new Pair<>(agreementDetails.getKey().getLoan(supplierID), new Pair<>(agreementDetails.getValue().getKey(), agreementDetails.getValue().getValue())));
     }
@@ -61,6 +65,7 @@ public class Agreement {
                 orderProd.setFinalPrice(orderProd.getOriginalPrice() * (1 - ((double) sale / 100)));
                 appliedProd.put(orderProd, new Pair<>(orderProdAmount, sale));
             }
+            else if(e.getValue().getValue() > 0) appliedProd.put(orderProd, new Pair<>(orderProdAmount, e.getValue().getValue()));
             else appliedProd.put(orderProd, new Pair<>(orderProdAmount, 0));
         }
         return appliedProd;

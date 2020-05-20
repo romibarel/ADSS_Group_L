@@ -271,24 +271,34 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
+    public void updateStatIDs(){
+        supplier_management.updateStatIDs();
+    }
+
+    @Override
+    public boolean addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
         //add order returns LocalDateTime or null if user entered an invalid order
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         for(Map.Entry<Pproduct, Pair<Integer, Integer>> e : pproducts.entrySet())
             products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate()), e.getValue());
         LocalDateTime ETA = supplier_management.addOrder(new Order(supplierID, dateIssued, products));
+        if(ETA == null)
+            return false;
         for (Pproduct p :pproducts.keySet()){
             storage_management.setNextSupply(p.getCatalogID(), convertToDateViaSqlTimestamp(ETA));
         }
+        return true;
     }
 
     @Override
-    public void addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum, String location){
+    public boolean addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum, String location){
+        boolean b = false;
         if(tag.equals("FixedDays"))
-            supplier_management.addSupplier(new FixedDaysSupplier(name, id, bankAccNum, payCond, phoneNum));
+            b = supplier_management.addSupplier(new FixedDaysSupplier(name, id, bankAccNum, payCond, phoneNum));
         else if(tag.equals("OrderOnly"))
-            supplier_management.addSupplier(new OrderOnlySupplier(name, id, bankAccNum, payCond, phoneNum));
-        else supplier_management.addSupplier(new SelfPickupSupplier(name, id, bankAccNum, payCond, phoneNum, location));
+            b = supplier_management.addSupplier(new OrderOnlySupplier(name, id, bankAccNum, payCond, phoneNum));
+        else b = supplier_management.addSupplier(new SelfPickupSupplier(name, id, bankAccNum, payCond, phoneNum, location));
+        return b;
     }
 
     @Override
@@ -300,8 +310,13 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration){
-        supplier_management.addProduct(supplierID, new Product(productID, price, name, manufacturer, expiration));
+    public boolean addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration){
+        return supplier_management.addProduct(supplierID, new Product(productID, price, name, manufacturer, expiration));
+    }
+
+    @Override
+    public boolean addNewProductToOrder(int productID, int orderID, int supplierID, int amount){
+        return supplier_management.addNewProductToOrder(productID, orderID, supplierID, amount);
     }
 
     @Override
@@ -335,13 +350,13 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void reportArrival(Order arrivedOrder){
-        supplier_management.reportArrival(arrivedOrder);
+    public boolean reportArrival(Order arrivedOrder){
+        return supplier_management.reportArrival(arrivedOrder);
     }
 
     @Override
-    public void reportCancellation(Order cancelledOrder){
-        supplier_management.reportCancellation(cancelledOrder);
+    public boolean reportCancellation(Order cancelledOrder){
+        return supplier_management.reportCancellation(cancelledOrder);
     }
 
     @Override
