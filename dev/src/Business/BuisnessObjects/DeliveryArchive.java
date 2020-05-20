@@ -49,7 +49,7 @@ public class DeliveryArchive {
         for (Delivery delivery : deliveries){
             s = s + "Delivery from " + delivery.getSource().getAddress() +".\n";
             for (DeliverDoc doc : delivery.getDocsWOSource()){
-                s = s + "arrives to " + doc.getDestination().getAddress() +".\n";
+                s = s + "Arrives to " + doc.getDestination().getAddress() +".\n";
             }
             s = s + "\n";
         }

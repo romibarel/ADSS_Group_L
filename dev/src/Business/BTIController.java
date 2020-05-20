@@ -57,7 +57,7 @@ public class BTIController {
             return "The destination doesn't exist.";
         DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, docSupplies, myDestination);
         documents.add(deliverDoc);
-        return "Document created successfully.";
+        return "Delivery list to "+ deliverDoc.getDestination().getAddress() +" created successfully.";
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
@@ -100,7 +100,7 @@ public class BTIController {
 
 
         List<Location> destinations = new LinkedList<>();
-        int area = sections.getSection(docs.get(0).getDestination());      //todo check this
+        int area = sections.getSection(docs.get(1).getDestination());      //todo check this
         if (area == 0)
             return "This location doesn't exist. Delivery creation failed.";
         for (DeliverDoc doc : docs){
