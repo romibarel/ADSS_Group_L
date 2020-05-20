@@ -299,8 +299,10 @@ public class PTIDelController {
         Date estimatedDayOfArrival;
         Date estimatedTimeOfArrival;
 
-        List < Pair<String , Integer> > sourceSupplies = userEnterSupplies();
+        Date currDay = date;
+        Date currTime = time;
 
+        List < Pair<String , Integer> > sourceSupplies = userEnterSupplies();
 
         String out = itp.createDoc(time, date, docNum, source, sourceSupplies);
         System.out.println(out);
@@ -332,6 +334,10 @@ public class PTIDelController {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 estimatedDayOfArrival = format.parse(input);
+                if (estimatedDayOfArrival.before(currDay)) {
+                    System.out.println("You need a time machine for that");
+                    return new LinkedList<>();
+                }
             } catch (Exception e) {
                 System.out.println("Invalid date, try again.");
                 return new LinkedList<>();
@@ -342,6 +348,10 @@ public class PTIDelController {
             format = new SimpleDateFormat("HH:mm");
             try {
                 estimatedTimeOfArrival = format.parse(input);
+                if (estimatedTimeOfArrival.before(currTime)) {
+                    System.out.println("You need a time machine for that");
+                    return new LinkedList<>();
+                }
             } catch (Exception e) {
                 System.out.println("Invalid time, try again.");
                 return new LinkedList<>();
