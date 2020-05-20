@@ -133,14 +133,14 @@ public class BTIController {
         for (Pair<String, Date[]> p : estimatedArrivals){
             Result r = assign_storekeeper(p.getValue()[0], p.getValue()[1], p.getKey());
             if (!r.success)
-                return r.msg + " at "+p.getValue()[0].toString() +" "+p.getValue()[1].toString() +".";
+                return r.msg+".";
         }
 
         //if we got here all is a ok
         //addDelivery saves all the deliveryDocs of this delivery as well
         btd.saveDelivery(delivery);
         archive.add(delivery);
-        return "Delivery was created successfully!";
+        return "Delivery was created successfully! The delivery and all its documents were saved to the database.";
     }
 
     public String printArchive(){
