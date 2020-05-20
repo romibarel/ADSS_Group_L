@@ -122,7 +122,7 @@ public class BTIController {
         Date[] driverHours = delivery.getDuration();
         Result result = assign_Driver(driverID, driverHours[0], driverHours[1], driverHours[2], driverHours[3]);
         if(!result.success)
-            return "The driver is unavailable for the delivery. \n" + result.msg;
+            return result.msg;
 
         List<Pair<String, Date[]>> estimatedArrivals = delivery.getEstimatedArrivals();
         /*String = location name,
