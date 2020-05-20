@@ -12,17 +12,11 @@ public class BTDController {
     private static BTDController thisOne;
     private static DALController dataTb;
     private static BTIController bti;
-    private List<Driver> drivers;
-    private DeliveryArchive archive ;
-    private Sections sections;
-    private List<Location> locations;
-    private List<DalTruck> trucks;
+    private List<Integer> currDeliveryIDs;
     private int deliveryIdCounter;      // todo change to be good
 
     private BTDController(){
-        drivers = new LinkedList<>();
-        locations = new LinkedList<>();
-        trucks = new LinkedList<>();
+        currDeliveryIDs = new LinkedList<>();
     }
 
     public static BTDController getBTD(){
@@ -32,6 +26,10 @@ public class BTDController {
             BTDController.bti = BTIController.getBTI();
         }
         return thisOne;
+    }
+
+    public List<Integer> getCurrDeliveryIDs(){
+        return currDeliveryIDs;
     }
 
     public List<Constraint> loadConstraint(int id, java.util.Date date, boolean morning)  {
@@ -192,6 +190,7 @@ public class BTDController {
 
     public boolean saveDelivery(Delivery delivery) {    //todo finish
         int curId = deliveryIdCounter;
+        currDeliveryIDs.add(curId);
         deliveryIdCounter++;
         return dataTb.saveDelivery(new DalDelivery(delivery , curId));
     }

@@ -32,6 +32,10 @@ public class ITPDelController {
         itb = ITBDelController.getITB();
     }
 
+    public String printArchive(){
+        return itb.printArchive();
+    }
+
     public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String destination, List <Pair<String , Integer>> supplies){
         return itb.createDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, destination, supplies);
     }

@@ -28,6 +28,10 @@ public class ITBDelController {
         itp = ITPDelController.getITP();
     }
 
+    public String printArchive(){
+        return  bti.printArchive();
+    }
+
     //destination, supplies&quants,
     //doc0=destination doc1=long string of format: supply1 quant1, supply2, quant2...
     public String createDoc(Date estimatedTimeOfArrival, Date estimatedDayOfArrival, int docNum, String destination, List <Pair<String , Integer>> supplies){
