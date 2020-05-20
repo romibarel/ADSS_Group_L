@@ -66,7 +66,7 @@ public class ConstrainsController
 					return false;
 			}
 		}
-		if(!getConstraint(id, arrivalDate, Shift.is_morning_shift(arrivalDate)).isEmpty())
+		if(!getConstraint(id, arrivalDate, Shift.is_morning_shift(arrivalTime)).isEmpty())
 			return false;
 		if(!Shift.is_morning_shift(arrivalTime)){
 			if(!departureDate.equals(arrivalDate)){
