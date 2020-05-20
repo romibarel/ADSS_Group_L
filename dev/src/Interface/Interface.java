@@ -14,56 +14,56 @@ public class Interface
 	public static String addEmployee(InterfaceWorker worker, List<String> licenses){
 		Result r= WorkersController.add_worker(worker, licenses);
 		if(r.success)
-			return "employee was added:\n"+worker.toString();
+			return "employee was added\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String addShift(InterfaceShift shift){
 		Result r= ShiftController.add_shift(shift);
 		if(r.success)
-			return "shift was added:\n"+shift.toString();
+			return "shift was added\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String addConstraint(InterfaceConstraint constraint){
 		Result r= ConstrainsController.addConstraint(constraint);
 		if(r.success)
-			return r.msg;
+			return "constraint was added";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String editEmployee(InterfaceWorker worker){
 		Result r= WorkersController.edit_worker(worker);
 		if(r.success)
-			return "employee was edited:\n"+worker.toString();
+			return "employee was edited\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String editShift(InterfaceShift shift, Date previous_date, boolean previous_morning, String previous_branch){
 		Result r= ShiftController.edit_shift(shift, previous_date, previous_morning, previous_branch);
 		if(r.success)
-			return "shift was edited:\n"+shift.toString();
+			return "shift was edited\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String editConstraint(InterfaceConstraint constraint){
 		Result r= ConstrainsController.editConstraint(constraint);
 		if(r.success)
-			return "Constraint was edited:\n"+constraint.toString();
+			return "Constraint was edited\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String deleteEmployee(InterfaceWorker worker){
 		Result r= WorkersController.delete_worker(worker.getId());
 		if(r.success)
-			return "employee was deleted\n"+worker.toString();
+			return "employee was deleted\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
 	public static String deleteShift(InterfaceShift shift){
 		Result r= ShiftController.delete_shift(shift.getDate(),shift.isMorning(), shift.getBranchAddress());
 		if(r.success)
-			return "shift was deleted\n"+shift.toString();
+			return "shift was deleted\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
 
