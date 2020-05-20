@@ -163,7 +163,10 @@ public class BTDController {
 
 
     public Truck loadTruck(int truckId) {
-        return new Truck(dataTb.loadTruck(truckId));
+        DalTruck truck = dataTb.loadTruck(truckId);
+        if (truck == null)
+            return null;
+        return new Truck(truck);
     }
 
 //    public boolean saveTruck(Truck truck)
