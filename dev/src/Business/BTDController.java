@@ -175,9 +175,9 @@ public class BTDController {
     public Location loadLocation(String address) {
         DalLocation dalLocation = dataTb.loadLocation(address);
         if (dalLocation.getIsBranch()){
-            return new Branch(dalLocation.getAddress(), dalLocation.getPhone(), dalLocation.getAssociate());
+            return new Branch(dalLocation);
         }
-        return new Supplier(dalLocation.getAddress(), dalLocation.getPhone(), dalLocation.getAssociate());
+        return new Supplier(dalLocation);
     }
 
     public boolean saveLocation(boolean isBranch, Location location) {

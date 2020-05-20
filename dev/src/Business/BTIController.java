@@ -83,6 +83,8 @@ public class BTIController {
             return "The driver is unlicensed for the given truck.";
 
         Location source = btd.loadLocation(sourceAddress);
+        if (source instanceof Supplier)
+            return "The source must be a supplier.";
         if (source == null)
             return "The source doesn't exist.";
 
