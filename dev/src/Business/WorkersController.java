@@ -132,7 +132,6 @@ public class WorkersController
 		return false;
 	}
 
-	//for the tests
 	public static List<Worker> getWorkers()
 	{
 		workers=data.get_all_workers();
@@ -144,8 +143,5 @@ public class WorkersController
 		return branches;
 	}
 
-	public static void addBranch(String branch) {
-		WorkersController.branches.add(branch);
-	}
 
 }
