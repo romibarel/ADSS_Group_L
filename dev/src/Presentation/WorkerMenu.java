@@ -368,7 +368,7 @@ public class WorkerMenu {
                 String role;
                 try {
                     System.out.println("please enter the details of the new shift");
-                    System.out.print("date: ");
+                    System.out.print("date(dd/MM/yyyy): ");
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     shift.setDate(format.parse(input.nextLine()));
@@ -424,7 +424,7 @@ public class WorkerMenu {
                     System.out.println("please enter the details of the new constraint");
                     System.out.print("Employee's id: ");
                     c.setId(Integer.parseInt(input.nextLine()));
-                    System.out.print("Date: ");
+                    System.out.print("Date(dd/MM/yyyy): ");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     c.setDate(format.parse(input.nextLine()));
@@ -495,7 +495,7 @@ public class WorkerMenu {
                                 w.setSick_days(Integer.parseInt(input.nextLine()));
                                 break;
                             case 6:
-                                System.out.print("Enter new start date:");
+                                System.out.print("Enter new start date(dd/MM/yyyy):");
                                 SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                                 format.setLenient(false);
                                 w.setStart_date(format.parse(input.nextLine()));
@@ -547,7 +547,7 @@ public class WorkerMenu {
                 int opt=0;
                 boolean finished=false;
                 try {
-                    System.out.println("please enter the Date of the shift you want to edit");
+                    System.out.println("please enter the Date of the shift you want to edit (dd/MM/yyyy):");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
@@ -577,7 +577,7 @@ public class WorkerMenu {
                         switch (opt){
                             case 1:
                                 System.out.print("Enter new date:");
-                                System.out.print("Enter new start date:");
+                                System.out.print("Enter new start date(dd/MM/yyyy):");
                                 format.setLenient(false);
                                 s.setDate(format.parse(input.nextLine()));
                                 break;
@@ -651,7 +651,7 @@ public class WorkerMenu {
                 try {
                     System.out.println("please enter the employee's id who's constraint you want to edit");
                     id=Integer.parseInt(input.nextLine());
-                    System.out.println("please enter the Date of the constraint you want to edit");
+                    System.out.println("please enter the Date of the constraint you want to edit (dd/MM/yyyy):");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
@@ -689,7 +689,7 @@ public class WorkerMenu {
                         switch (opt){
                             case 1:
                                 System.out.print("Enter new date:");
-                                System.out.print("Enter new start date:");
+                                System.out.print("Enter new start date:(dd/MM/yyyy)");
                                 format.setLenient(false);
                                 c.setDate(format.parse(input.nextLine()));
                                 break;
@@ -772,7 +772,7 @@ public class WorkerMenu {
                 boolean isMorning;
                 String ans;
                 try {
-                    System.out.println("please enter the Date of the shift you want to delete");
+                    System.out.println("please enter the Date of the shift you want to delete (dd/MM/yyyy):");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
@@ -824,7 +824,7 @@ public class WorkerMenu {
                 try {
                     System.out.println("please enter the employee's id who's constraint you want to delete");
                     id=Integer.parseInt(input.nextLine());
-                    System.out.println("please enter the Date of the constraint you want to delete");
+                    System.out.println("please enter the Date of the constraint you want to delete (dd/MM/yyyy):");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
@@ -905,7 +905,7 @@ public class WorkerMenu {
                 boolean isMorning;
                 String ans;
                 try {
-                    System.out.println("please enter the Date of the shift you want to search");
+                    System.out.println("please enter the Date of the shift you want to search (dd/MM/yyyy):");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
@@ -944,7 +944,7 @@ public class WorkerMenu {
                 try {
                     System.out.println("please enter the employee's id who's constraint you want to search");
                     id=Integer.parseInt(input.nextLine());
-                    System.out.println("please enter the Date of the constraint you want to search");
+                    System.out.println("please enter the Date of the constraint you want to search (dd/MM/yyyy):");
                     SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     oldDate=format.parse(input.nextLine());
