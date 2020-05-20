@@ -143,8 +143,17 @@ public class BTIController {
     }
 
     public String printArchive(){
+        //all the deliveries with id's in this list don't need to be uploaded from DB
         List<Integer> currIDs = btd.getCurrDeliveryIDs();
-        
+        int minId = currIDs.get(0);
+        //the only deliveries that need to be uploaded are those with lesser id's.
+        for (Integer curr : currIDs){
+            if (curr < minId)
+                minId = curr;
+        }
+        for (int i=0; i<minId; i++){
+            btd.loadDelivery(i);
+        }
     }
 
     public List<DeliverDoc> getDocuments() {
