@@ -131,7 +131,8 @@ public class BTIController {
          */
         //Result assign_storekeeper(Date date,Date hour,String branch)
         for (Pair<String, Date[]> p : estimatedArrivals){
-            assign_storekeeper(p.getValue()[0], p.getValue()[1], p.getKey());
+            if (!assign_storekeeper(p.getValue()[0], p.getValue()[1], p.getKey()).success)
+                return "No available storekeeper at "+p.getValue()[0].toString() +" "+p.getValue()[1].toString() +".";
         }
 
         //if we got here all is a ok
@@ -141,6 +142,10 @@ public class BTIController {
         return "Delivery was created successfully!";
     }
 
+    public String printArchive(){
+        List<Integer> currIDs = btd.getCurrDeliveryIDs();
+        
+    }
 
     public List<DeliverDoc> getDocuments() {
         return documents;

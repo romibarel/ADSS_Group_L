@@ -196,15 +196,30 @@ public class PTIDelController {
         int docNum = 0;
         System.out.println("Welcome to the delivery system!");
         while(!finish){
-            System.out.println("If you don't want to create any more deliveries please enter 'quit', otherwise press enter.\n");
+            System.out.println("Please choose your action." +
+                    "1) Create delivery" +
+                    "2) Print archive" +
+                    "3) Exit delivery system \n");
             String input = scanner.nextLine();
-            if (input.equals("quit"))
-                finish = true;
-            else{
-                //create delivery returns the next available delivery document id.
-                docNum = createDelivery(docNum);
+            switch (input){
+                case "1":
+                    createDelivery(docNum);
+                    break;
+                case "2":
+                    printArchive();
+                    break;
+                case "3":
+                    finish = true;
+                    break;
+                default:
+                    System.out.println("no such option");
+                    break;
             }
         }
+    }
+
+    private void printArchive(){
+        System.out.println(itp.printArchive());
     }
 
     private int createDelivery(int docNum) {
