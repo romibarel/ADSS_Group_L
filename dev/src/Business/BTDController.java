@@ -253,6 +253,9 @@ public class BTDController {
         return new DeliveryArchive(arc, docs);
     }
 
+    public int getMaxDocNum(){
+        return dataTb.getMaxDocNum();
+    }
 
     public List<String> load_all_branches()
     {
