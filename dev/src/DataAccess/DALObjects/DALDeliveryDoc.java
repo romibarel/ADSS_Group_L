@@ -10,6 +10,7 @@ import java.util.List;
 
 public class DALDeliveryDoc {
     private int num;
+    private int deliveryID;
     private List<DalSupply> supplyList;
     private DalLocation destination;
     private Date estimatedTimeOfArrival;
@@ -83,5 +84,13 @@ public class DALDeliveryDoc {
 
     public void setEstimatedDayOfArrival(Date estimatedDayOfArrival) {
         this.estimatedDayOfArrival = estimatedDayOfArrival;
+    }
+
+    public int getDeliveryID() {
+        return deliveryID;
+    }
+
+    public void setDeliveryID(int deliveryID) {
+        this.deliveryID = deliveryID;
     }
 }

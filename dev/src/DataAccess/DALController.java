@@ -597,7 +597,7 @@ public class DALController
     }
 
     public int getMaxDocNum()  {
-        int ret=0;
+        int ret=-1;
         openConn();
         String sql = "SELECT MAX(docID) AS max_cid" +
                 " FROM DeliveryDocs";
@@ -1383,7 +1383,8 @@ public class DALController
         }
 
         openConn();
-        sql = "SELECT docID From DeliveryDocs";
+
+        sql = "SELECT docID From DeliveryDocs ";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
@@ -1487,6 +1488,7 @@ public class DALController
                 doc.setDestination(loadLocation(address));
                 doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
                 doc.setEstimatedDayOfArrival(rs.getDate("estimatedDayOfArrival"));
+                doc.setDeliveryID(rs.getInt("deliveryID"));
             }
             conn.close();
             List<DalSupply> supplies = loadSupplies(doc.getNum());

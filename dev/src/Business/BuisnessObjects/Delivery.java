@@ -46,11 +46,13 @@ public class Delivery {
         docLoc = new HashMap<>();
         for (DALDeliveryDoc daldoc : docs)
         {
-            Location dest = null;
-            if (daldoc.getDestination().getIsBranch())
-                dest = new Branch(daldoc.getDestination());
-            else dest= new Supplier(daldoc.getDestination());
-            docLoc.put(new DeliverDoc(daldoc), dest);
+            if (daldoc.getDeliveryID() == dalDelivery.getId()){
+                Location dest = null;
+                if (daldoc.getDestination().getIsBranch())
+                    dest = new Branch(daldoc.getDestination());
+                else dest= new Supplier(daldoc.getDestination());
+                docLoc.put(new DeliverDoc(daldoc), dest);
+            }
         }
     }
 
