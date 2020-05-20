@@ -143,25 +143,22 @@ public class ShiftController
 	{
 		List<Shift> assigned_shifts=new LinkedList<>();
 		if (departure_date.before(new Date())) return new Result(false,"you can only set deliveries starting from tomorrow");
-		boolean current_morning=Shift.is_morning_shift(departure_hours); // indicates if the current shift we are adding is morning shift, we start from departure_hours
+		boolean departure_morning=Shift.is_morning_shift(departure_hours); // indicates if the time of departure is morning shift
 		boolean arrival_morning=Shift.is_morning_shift(arrival_hour); // indicates if the time of arrival is in morning shift
-		Calendar current_date= Calendar.getInstance(); // date of the current shift we are adding
-		Calendar arrive_date=Calendar.getInstance();
-		current_date.setTime(departure_date);
-		arrive_date.setTime(arrival_day);
 		Worker driver=WorkersController.get_by_id(driver_id);
 		if (driver==null || !driver.getRole().equals("driver")) return new Result(false,"Driver doesnt exist");
-		do
+		List <Pair<Date,Boolean>> shifts_in_range=get_shifts_in_range(departure_date,departure_morning,arrival_day,arrival_morning);
+		for (Pair<Date,Boolean> p :  shifts_in_range)
 		{
 			if (!ConstrainsController.isDriverAvailable(driver_id,departure_date,departure_hours,arrival_day,arrival_hour)) return new Result(false,"Driver has constraint in this dates");
-			Shift shift=get_shift(current_date.getTime(),current_morning,driver.getBranchAddress());
+			Shift shift=get_shift(p.getKey(),p.getValue(),driver.getBranchAddress());
 			if (shift==null) //if shift doesnt exist create new shift with a random available manager and the driver
 			{
-				int manager_id=WorkersController.find_available_manager(current_date.getTime(),current_morning,driver.getBranchAddress());
+				int manager_id=WorkersController.find_available_manager(p.getKey(),p.getValue(),driver.getBranchAddress());
 				if (manager_id==-1) return new Result(false,"no manager is available in this dates");
 				List<Integer> workers_in_shift=new LinkedList<>();
 				workers_in_shift.add(driver_id);
-				assigned_shifts.add(new Shift(current_date.getTime(),current_morning,manager_id,workers_in_shift,driver.getBranchAddress()));
+				assigned_shifts.add(new Shift(p.getKey(),p.getValue(),manager_id,workers_in_shift,driver.getBranchAddress()));
 			}
 			else //if shift exist edit it by adding the driver to its workers list
 			{
@@ -169,13 +166,37 @@ public class ShiftController
 				shift.getWorkers().add(driver_id);
 				assigned_shifts.add(shift);
 			}
-			current_morning=!current_morning;
-			if (current_morning==true) current_date.add(Calendar.DATE,1);
-		} while (current_date.get(Calendar.DAY_OF_YEAR)<=arrive_date.get(Calendar.DAY_OF_YEAR) || (current_morning==false & arrival_morning==true)) ;
+		}
 		Result result=saveAll(assigned_shifts);
 		if (result.success)
 			shifts.addAll(assigned_shifts);
 		return result;
+	}
+
+	public static List<Pair<Date,Boolean>> get_shifts_in_range(Date departure_date,boolean departure_morning,Date arrival_day,boolean arrival_morning)
+	{
+		List<Pair<Date,Boolean>> shifts = new LinkedList<>();
+		boolean current_morning=departure_morning; // indicates if the current shift we are adding is morning shift, we start from departure_hours
+		Calendar current_date= Calendar.getInstance(); // date of the current shift we are adding
+		Calendar arrive_date=Calendar.getInstance();
+		current_date.setTime(departure_date);
+		arrive_date.setTime(arrival_day);
+		while (current_date.get(Calendar.DAY_OF_YEAR)<arrive_date.get(Calendar.DAY_OF_YEAR))
+		{
+			shifts.add(new Pair(current_date.getTime(),current_morning));
+			current_morning=!current_morning;
+			if (current_morning==true) current_date.add(Calendar.DATE,1);
+		}
+
+
+		shifts.add(new Pair(arrival_day,true));
+
+		//now current date and arrival date is equal
+		if (arrival_morning==false)
+		{
+			shifts.add(new Pair(arrival_day,false));
+		}
+		return shifts;
 	}
 
 	private static Result saveAll(List<Shift> shifts)
