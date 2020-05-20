@@ -596,11 +596,11 @@ public class DALController
         return constraint;
     }
 
-    public int getMax()  {
+    public int getMaxDocNum()  {
         int ret=0;
         openConn();
-        String sql = "SELECT MAX(cid) AS max_cid" +
-                " FROM Constraints";
+        String sql = "SELECT MAX(docID) AS max_cid" +
+                " FROM DeliveryDocs";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
@@ -1460,12 +1460,8 @@ public class DALController
             pstmt.setInt(1, deliveryID);
             pstmt.setInt(2, doc.getNum());
             pstmt.setString(3 , doc.getDestination().getAddress());
-//            pstmt.setTime(4, new Time(doc.getEstimatedTimeOfArrival().getHours(), doc.getEstimatedTimeOfArrival().getMinutes(), 0));
-            System.out.println(doc.getEstimatedTimeOfArrival().getTime());
-            System.out.println(doc.getEstimatedDayOfArrival().getTime());
             pstmt.setTime(4, new java.sql.Time(doc.getEstimatedTimeOfArrival().getTime()));
             pstmt.setDate(5, new java.sql.Date(doc.getEstimatedDayOfArrival().getTime()));
-//            pstmt.setDate(5, new Date(doc.getEstimatedDayOfArrival().getDay(), doc.getEstimatedDayOfArrival().getMonth(), doc.getEstimatedDayOfArrival().getYear()));
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -1490,8 +1486,6 @@ public class DALController
                 String address = rs.getString("destination");
                 doc.setDestination(loadLocation(address));
                 doc.setEstimatedTimeOfArrival(rs.getTime("estimatedTimeOfArrival"));
-                System.out.println(rs.getDate("estimatedTimeOfArrival").toString());
-                System.out.println(rs.getTime("estimatedDayOfArrival").toString());
                 doc.setEstimatedDayOfArrival(rs.getDate("estimatedDayOfArrival"));
             }
             conn.close();
@@ -1568,11 +1562,11 @@ public class DALController
         return branches;
     }
 
-    public int getMaxDocNum()  {
-        int ret=-1;
+    public int getMax()  {
+        int ret=0;
         openConn();
-        String sql = "SELECT MAX(docID) AS max_cid" +
-                " FROM DeliveryDocs";
+        String sql = "SELECT MAX(cid) AS max_cid" +
+                " FROM Constraints";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
