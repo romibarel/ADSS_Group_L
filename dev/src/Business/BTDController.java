@@ -251,10 +251,6 @@ public class BTDController {
         return new DeliveryArchive(arc, docs);
     }
 
-    public Delivery loadDelivery(int id){
-        return new Delivery(dataTb.loadDelivery(id));
-    }
-
 
     public List<String> load_all_branches()
     {

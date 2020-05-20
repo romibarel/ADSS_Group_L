@@ -196,10 +196,10 @@ public class PTIDelController {
         int docNum = 0;
         System.out.println("Welcome to the delivery system!");
         while(!finish){
-            System.out.println("Please choose your action." +
-                    "1) Create delivery" +
-                    "2) Print archive" +
-                    "3) Exit delivery system \n");
+            System.out.println("Please choose your action.\n" +
+                    "1) Create delivery\n" +
+                    "2) Print archive\n" +
+                    "3) Exit delivery system");
             String input = scanner.nextLine();
             switch (input){
                 case "1":

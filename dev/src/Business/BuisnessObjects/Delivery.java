@@ -104,6 +104,14 @@ public class Delivery {
         return docs;
     }
 
+    public List<DeliverDoc> getDocsWOSource(){
+        List<DeliverDoc> docs = new LinkedList<>();
+        List<DeliverDoc> withSource = getDocs();
+        for (int i=1; i<withSource.size(); i++)
+            docs.add(withSource.get(i));
+        return docs;
+    }
+
     public Date getDate() {
         return date;
     }

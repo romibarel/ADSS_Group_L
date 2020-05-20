@@ -44,4 +44,16 @@ public class DeliveryArchive {
         }
     }
 
+    public String toString(){
+        String s = "";
+        for (Delivery delivery : deliveries){
+            s = s + "Delivery from " + delivery.getSource().getAddress() + " departs at " + delivery.getDate().toString()+", "+delivery.getDepartureTime()+".\n";
+            for (DeliverDoc doc : delivery.getDocsWOSource()){
+                s = s + "arrives to " + doc.getDestination().getAddress() +" at "+ doc.getEstimatedDayOfArrival()+", "+ doc.getEstimatedTimeOfArrival()+".\n";
+            }
+            s = s + "\n";
+        }
+        return s;
+    }
+
 }

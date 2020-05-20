@@ -131,8 +131,9 @@ public class BTIController {
          */
         //Result assign_storekeeper(Date date,Date hour,String branch)
         for (Pair<String, Date[]> p : estimatedArrivals){
-            if (!assign_storekeeper(p.getValue()[0], p.getValue()[1], p.getKey()).success)
-                return "No available storekeeper at "+p.getValue()[0].toString() +" "+p.getValue()[1].toString() +".";
+            Result r = assign_storekeeper(p.getValue()[0], p.getValue()[1], p.getKey());
+            if (!r.success)
+                return r.msg + " at "+p.getValue()[0].toString() +" "+p.getValue()[1].toString() +".";
         }
 
         //if we got here all is a ok
@@ -143,17 +144,7 @@ public class BTIController {
     }
 
     public String printArchive(){
-        //all the deliveries with id's in this list don't need to be uploaded from DB
-        List<Integer> currIDs = btd.getCurrDeliveryIDs();
-        int minId = currIDs.get(0);
-        //the only deliveries that need to be uploaded are those with lesser id's.
-        for (Integer curr : currIDs){
-            if (curr < minId)
-                minId = curr;
-        }
-        for (int i=0; i<minId; i++){
-            btd.loadDelivery(i);
-        }
+        return archive.toString();
     }
 
     public List<DeliverDoc> getDocuments() {
