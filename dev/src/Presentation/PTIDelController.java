@@ -193,7 +193,7 @@ public class PTIDelController {
     public void start(){
         //docNum is the first available id of a delivery document.
         boolean finish = false;
-        int docNum = 0;
+        int docNum = itp.getMaxDocNum() + 1;
         System.out.println("Welcome to the delivery system!");
         while(!finish){
             System.out.println("Please choose your action.\n" +
@@ -203,7 +203,7 @@ public class PTIDelController {
             String input = scanner.nextLine();
             switch (input){
                 case "1":
-                    createDelivery(docNum);
+                    docNum = createDelivery(docNum);
                     break;
                 case "2":
                     printArchive();

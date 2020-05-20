@@ -38,5 +38,9 @@ public class ITPDelController {
         return itb.createDelivery(date, time, truck, driverID, source, docs, truckWeight);
     }
 
+    public int getMaxDocNum(){
+        return itb.getMaxDocNum();
+    }
+
 }
 

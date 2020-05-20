@@ -149,6 +149,10 @@ public class BTIController {
         return archive.toString();
     }
 
+    public int getMaxDocNum(){
+        return btd.getMaxDocNum();
+    }
+
     public List<DeliverDoc> getDocuments() {
         return documents;
     }
