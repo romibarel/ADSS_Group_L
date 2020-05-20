@@ -1343,8 +1343,8 @@ public class DALController
                 DalDelivery delivery = new DalDelivery();
                 setDeliveryPrams(rs, delivery);
                 daldel.add(delivery);
-                archive.setDeliveries(daldel);
             }
+            archive.setDeliveries(daldel);
             conn.close();
         } catch (SQLException e) {
             System.out.println("sql failed us - archive");    //todo remove
