@@ -53,6 +53,8 @@ public class DeliveryArchive {
             }
             s = s + "\n";
         }
+        if (s.equals(""))
+            return "No deliveries in the database.";
         return s;
     }
 
