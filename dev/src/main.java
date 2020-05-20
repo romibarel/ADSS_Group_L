@@ -8,13 +8,6 @@ import java.util.Scanner;
 public class main {
     public static void main (String[] args){
         try{
-            long date= new SimpleDateFormat("dd/MM/yyyy").parse("21/5/2020").getTime();
-            date= new SimpleDateFormat("dd/MM/yyyy").parse("22/5/2020").getTime();
-            date=new SimpleDateFormat("dd/MM/yyyy").parse("23/5/2020").getTime();
-            date=new SimpleDateFormat("dd/MM/yyyy").parse("25/5/2020").getTime();
-            date=new SimpleDateFormat("dd/MM/yyyy").parse("26/5/2020").getTime();
-            date=new SimpleDateFormat("dd/MM/yyyy").parse("28/5/2020").getTime();
-            date=new SimpleDateFormat("dd/MM/yyyy").parse("31/5/2020").getTime();
             Scanner input = new Scanner(System.in);
             String choice;
             boolean quit=false;
@@ -43,7 +36,7 @@ public class main {
             }
         }
         catch (Exception e){
-            System.out.println("some thing went wrong reloading system");
+            System.out.println("some thing went wrong exiting");
         }
 
     }
