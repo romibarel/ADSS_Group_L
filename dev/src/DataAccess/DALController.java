@@ -274,6 +274,14 @@ public class DALController
         sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(3,14,1593378000000,\"false\",\"doctor\");");
         sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(4,15,1599598800000,\"false\",\"vacation\");");
         sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(5,15,1599598800000,\"true\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(6,16,1590008400000,\"false\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(7,17,1590094800000,\"true\",\"doctor\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(8,18,1590181200000,\"false\",\"doctor\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(9,19,1590354000000,\"true\",\"i dont want to work\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(10,36,1590440400000,\"false\",\"bar mitzva\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(11,30,1590613200000,\"true\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(12,19,1599598800000,\"false\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(13,19,1590872400000,\"true\",\"vacation\");");
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {

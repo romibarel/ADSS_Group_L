@@ -2,11 +2,19 @@ import DataAccess.DALController;
 import Presentation.PTIDelController;
 import Presentation.WorkerMenu;
 
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class main {
     public static void main (String[] args){
         try{
+            long date= new SimpleDateFormat("dd/MM/yyyy").parse("21/5/2020").getTime();
+            date= new SimpleDateFormat("dd/MM/yyyy").parse("22/5/2020").getTime();
+            date=new SimpleDateFormat("dd/MM/yyyy").parse("23/5/2020").getTime();
+            date=new SimpleDateFormat("dd/MM/yyyy").parse("25/5/2020").getTime();
+            date=new SimpleDateFormat("dd/MM/yyyy").parse("26/5/2020").getTime();
+            date=new SimpleDateFormat("dd/MM/yyyy").parse("28/5/2020").getTime();
+            date=new SimpleDateFormat("dd/MM/yyyy").parse("31/5/2020").getTime();
             Scanner input = new Scanner(System.in);
             String choice;
             boolean quit=false;
