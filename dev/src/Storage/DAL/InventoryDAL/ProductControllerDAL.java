@@ -26,7 +26,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
         return ret;
 
@@ -59,7 +59,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
         for (String name : cNames){
             CategoryDAL cat = createCategoryDALByName(name, conn);
@@ -88,7 +88,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
         return ret;
     }
@@ -120,9 +120,7 @@ public class ProductControllerDAL {
     }
 
     public void appendSubCategory(String main, String sub, Connection conn) {
-        //CategoryDAL mainC = getCategoryDALByName(main);
-        //CategoryDAL subC = getCategoryDALByName(sub);
-        //mainC.appendSubCategory(subC);
+
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO SUB_CATEGORIES VALUES (?,?)");
             stmt.setString(1, main);
@@ -130,13 +128,12 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            //System.out.println("failed");
+
         }
     }
 
     public void appendProductToCategoryDAL(String name, ProductDAL productDAL, Connection conn) {
-        //CategoryDAL c = getCategoryDALByName(name);
-        //c.appendProductToCategoryDAL(productDAL);
+
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO CATEGORIES_OF_PRODUCTS VALUES (?,?)");
             stmt.setString(1, name);
@@ -144,12 +141,12 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            //System.out.println("failed");
+
         }
     }
 
     public void addNewDataSaleProduct(int barcode, DataSaleProductDAL dal, Connection conn) {
-        //this.saleData.put(barcode, dal);
+
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO DATA_SALE_PRODUCTS VALUES (?,?,?,?)");
             stmt.setInt(1, dal.getBarCode());
@@ -159,7 +156,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
-            //System.out.println("failed");
+
         }
     }
 
@@ -172,7 +169,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
     }
 
@@ -200,13 +197,7 @@ public class ProductControllerDAL {
     }//in this case we don't ave to do something, but whenever we'll add database so we use this function
 
     public void updateProduct(ProductDAL productDAL, Connection conn){
-        //ProductDAL p = searchProduct(productDAL.getBarCode());
-        //p.setBarCode(productDAL.getBarCode());
-        //p.setAmount(productDAL.getAmount());
-        //p.setManufactor(productDAL.getManufactor()); // productDAL.getNextSupplyTime()
-        //p.setMinAmount(productDAL.getMinAmount()); // productDAL.getManufactor()
-        //p.setNextSupplyTime(productDAL.getNextSupplyTime());
-        //p.setProductName(productDAL.getProductName())//new java.sql.Timestamp(productDAL.getNextSupplyTime().getTime())
+
         try {
             PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUCTS " +
                     "SET Name = ? "+
@@ -230,16 +221,11 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
     }
     public ProductDAL searchProduct (int barCode, Connection conn){
-        //for (CategoryDAL category : this.categoryDALS) {
-        //    if (category.hasProduct(barCode)){
-        //        return category.getProduct(barCode);
-        //    }
-        //}
-        //return null; //the category doesn't exists
+
         ProductDAL ret = null;
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCTS WHERE " +
@@ -251,17 +237,13 @@ public class ProductControllerDAL {
                     rs.getInt(5), date);
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
         return ret;
     }
 
     public void updateCategory (String categoryName, String newName, Connection conn){
-        //CategoryDAL c = getCategoryDALByName(categoryDAL.getName());
-        //if (c==null){return;}
-        //c.setName(categoryDAL.getName());
-        //c.setProductListDAL(categoryDAL.getProductListDAL());
-        //c.setSubCategoriesDAL(categoryDAL.getSubCategoriesDAL());
+
         try {
             PreparedStatement stmt = conn.prepareStatement("UPDATE CATEGORIES SET" +
                     " Name = " + newName +" WHERE Name = " + categoryName
@@ -281,17 +263,11 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
     }
 
     public void deleteCategory(String cName, Connection conn){
-        //for(int i=0; i<this.categoryDALS.size(); i=i+1){
-        //    if (this.categoryDALS.get(i).getName().equals(categoryDAL.getName())){
-        //        this.categoryDALS.remove(i);
-        //        return;
-        //    }
-        //}
 
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM CATEGORIES WHERE " +
@@ -305,7 +281,7 @@ public class ProductControllerDAL {
             stmt.executeUpdate();
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
     }
 
@@ -322,7 +298,7 @@ public class ProductControllerDAL {
             }
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
         for (String n : cNames){
             CategoryDAL cat = createCategoryDALByName(n, conn);
@@ -343,13 +319,12 @@ public class ProductControllerDAL {
                 Date date = new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString(6));
                 ProductDAL product = new ProductDAL(rs.getInt(1),
                         rs.getString(2), rs.getInt(3), rs.getInt(4),
-                        //TODO: convert the date
                         rs.getInt(5), date);
                 ret.add(product);
             }
         }
         catch (Exception e){
-            //System.out.println("failed");
+
         }
         return ret;
 

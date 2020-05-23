@@ -1,5 +1,7 @@
 package StorageAndSupplier;
 
+import Permissions.Permissions_API;
+import Permissions.Permissions_Manager;
 import Storage.Buisness.Reports.DefectReport;
 import Storage.Buisness.Reports.ProductReport;
 import Storage.Buisness.Singletone_Storage_Management;
@@ -29,10 +31,12 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     private static Singltone_Supplier_Storage_Manager instance;
     private Singletone_Storage_Management storage_management;
     private SystemController supplier_management;
+    private Permissions_API permissions;
 
     private Singltone_Supplier_Storage_Manager() {
         this.storage_management = Singletone_Storage_Management.getInstance();
         this.supplier_management = SystemController.getInstance();
+        this.permissions = new Permissions_Manager();
         Connection conn;
         try {
             // db parameters
@@ -42,6 +46,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
             conn = DriverManager.getConnection(url);
             storage_management.setConnection(conn);
             supplier_management.setConnection(conn);
+            permissions.connectToDB(conn);
         } catch ( Exception e) { }
     }
 
@@ -49,6 +54,10 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         if (instance == null)
             instance = new Singltone_Supplier_Storage_Manager();
         return instance;
+    }
+
+    public int checkPermission(String username, String password){
+        return this.permissions.checkPermission(username, password);
     }
 
     /*

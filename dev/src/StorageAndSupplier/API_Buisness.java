@@ -14,6 +14,8 @@ import java.util.*;
 
 public interface API_Buisness {
 
+    int checkPermission(String username, String password);
+
     /*
      * Storage section
      * */
