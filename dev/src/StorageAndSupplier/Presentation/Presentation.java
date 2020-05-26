@@ -1,33 +1,41 @@
 package StorageAndSupplier.Presentation;
 
-import Storage.Tests.CategoryTest;
-import Storage.Tests.LocationControllerTest;
-import Storage.Tests.ProductControllerTest;
-import Storage.Tests.PurchaseTransactionTest;
+import StorageAndSupplier.Storage.Tests.CategoryTest;
+import StorageAndSupplier.Storage.Tests.LocationControllerTest;
+import StorageAndSupplier.Storage.Tests.ProductControllerTest;
+import StorageAndSupplier.Storage.Tests.PurchaseTransactionTest;
 import StorageAndSupplier.API_Buisness;
 import StorageAndSupplier.*;
-import Suppliers.BusinessLayer.*;
+import StorageAndSupplier.Suppliers.BusinessLayer.*;
+import SuperMarket.SuperMarket;
 import javafx.util.Pair;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-
+import DeliveryAndWorkers.Presentation.PTIDelController;
+import SuperMarket.*;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class Presentation {
-    private API_Buisness businessManager;
+    private SuperMarket superMarket;
     private int option;
     private Scanner in;
     String pattern;
     SimpleDateFormat simpleDateFormat;
     Date today;
     Boolean shouldTerminate = false;
+    String choice;
+    boolean quit;
+    PTIDelController pti;
+
 
     public Presentation() {
-        this.businessManager = Singltone_Supplier_Storage_Manager.getInstance();
+        this.superMarket = SuperMarketController.getInstance();
+        superMarket.setup();
+        quit=false;
         option = 0;
         in = new Scanner(System.in);
         pattern = "yyyy-mm-dd";
@@ -52,7 +60,7 @@ public class Presentation {
                 System.out.print("Password:\t");
                 String password = in.nextLine();
                 error = false;
-                ret = this.businessManager.checkPermission(username, password);
+                ret = this.superMarket.checkPermission(username, password);
             }
             catch (Exception e){
                 error = true;
@@ -85,7 +93,6 @@ public class Presentation {
             }
         }
 
-
         int select = 0;
         switch (permission){
             case 1:
@@ -107,19 +114,41 @@ public class Presentation {
                 }
                 break;
 
-            case 3: //TODO: complete
-            case 4: //TODO: complete
-
-            case 5:
-                initiateOptions = Arrays.asList("Storage system", "Suppliers system",
+            case 3:
+                initiateOptions = Arrays.asList("Delivery system",
                         "Exit");
                 printMenu(initiateOptions);
-                select = getIntInput(2);
+                select = getIntInput(1);
+                if (select == 1) {
+                    superMarket.start();
+                }
+                break;
+            case 4:
+                initiateOptions = Arrays.asList("Workers system",
+                        "Exit");
+                printMenu(initiateOptions);
+                select = getIntInput(1);
+                if (select == 1) {
+                    superMarket.mainFunc();
+                }
+                break;
+            case 5:
+                initiateOptions = Arrays.asList("Storage system", "Suppliers system",
+                        "Delivery system","Workers system",
+                        "Exit");
+                printMenu(initiateOptions);
+                select = getIntInput(4);
                 if (select == 1) {
                     runStorage();
                 }
                 else if (select == 2){
                     runStorage();
+                }
+                else if (select == 3){
+                    superMarket.start();
+                }
+                else if (select == 4){
+                    superMarket.mainFunc();
                 }
                 break;
 
@@ -363,7 +392,7 @@ public class Presentation {
     }
 
     /*
-     * Storage Section
+     * StorageAndSupplier.Storage Section
      * */
 
     public void startProgramMenu() {
@@ -400,7 +429,7 @@ public class Presentation {
                 ReportMenu();
                 break;
             default:
-                businessManager.exit();
+                superMarket.exit();
         }
         startProgramMenu();
     }
@@ -658,7 +687,7 @@ public class Presentation {
                 System.out.print("  Type amount of the " + i + " item: ");
                 int amount = Integer.parseInt(in.nextLine());
 
-                boolean alert = businessManager.sellProduct(today, barcode, amount, expirationDate);
+                boolean alert = superMarket.sellProduct(today, barcode, amount, expirationDate);
                 if (alert) { //alert to costumer that the product reached it's minimum amount limit
                     System.out.print("  Product " + barcode + " has reached under it's minimum amount!!!!!");
                 }
@@ -715,7 +744,7 @@ public class Presentation {
                 int amount = Integer.parseInt(in.nextLine());
                 System.out.print("  Type the number of location to allocate the " + i + " item: ");
                 int location = Integer.parseInt(in.nextLine());
-                businessManager.buyProduct(barcode, productName, manufactor,
+                superMarket.buyProduct(barcode, productName, manufactor,
                         price, discount, expirationDate,
                         amount, today, location);
             } catch (Exception e) {
@@ -756,7 +785,7 @@ public class Presentation {
                 double price = Double.parseDouble(in.nextLine());
                 System.out.print("  Type discount of the " + i + " item: ");
                 double discount = Double.parseDouble(in.nextLine());
-                businessManager.setSaleInfoOfNewProduct(barcode, productName, price, discount);
+                superMarket.setSaleInfoOfNewProduct(barcode, productName, price, discount);
             }
             catch (Exception e){
                 error = true;
@@ -808,11 +837,11 @@ public class Presentation {
                 if (chosenOption == 1) {
                     System.out.print("  Type the new price of the " + i + " item: ");
                     double newPrice = Double.parseDouble(in.nextLine());
-                    businessManager.setPriceOfExistingProduct(barcode, newPrice);
+                    superMarket.setPriceOfExistingProduct(barcode, newPrice);
                 } else {
                     System.out.print("  Type the new discount of the " + i + " item: ");
                     double newDiscount = Double.parseDouble(in.nextLine());
-                    businessManager.setDiscountOfExistingProduct(barcode, newDiscount);
+                    superMarket.setDiscountOfExistingProduct(barcode, newDiscount);
                 }
             }
             catch (Exception e){
@@ -850,7 +879,7 @@ public class Presentation {
                 int barcode = Integer.parseInt(in.nextLine());
                 System.out.print("  Type the minimum amount of the " + i + " item: ");
                 int minimumAmount = Integer.parseInt(in.nextLine());
-                businessManager.setMinimumAmount(barcode, minimumAmount);
+                superMarket.setMinimumAmount(barcode, minimumAmount);
             }
             catch (Exception e){
                 error = true;
@@ -887,7 +916,7 @@ public class Presentation {
                 int barcode = Integer.parseInt(in.nextLine());
                 System.out.print("  Type new supplier's ID (number) of the " + i + " item: ");
                 int supplierID = Integer.parseInt(in.nextLine());
-                businessManager.setManufactorforProduct(barcode, supplierID);
+                superMarket.setManufactorforProduct(barcode, supplierID);
             }
             catch (Exception e){
                 error = true;
@@ -927,7 +956,7 @@ public class Presentation {
                 String expiDate = in.nextLine();
                 nextSupply = new SimpleDateFormat("yyyy-mm-dd").parse(expiDate);
 
-                businessManager.setNextSupply(barcode, nextSupply);
+                superMarket.setNextSupply(barcode, nextSupply);
             } catch (Exception e) {
                 error = true;
                 break;
@@ -968,11 +997,11 @@ public class Presentation {
         for(Integer barcode : productsToShow){
             System.out.print(
                     "   Barode: " + barcode + "\n" +
-                    "   Product name :" + businessManager.getProducteName(barcode)+ "\n" +
-                    "   Product manufactor :" + businessManager.getProducteManufactor(barcode)+ "\n"+
-                    "   Product amount :" + businessManager.getProducteAmount(barcode)+ "\n"+
-                    "   Product minimum amount :" + businessManager.getProducteMinAmount(barcode)+ "\n"+
-                    "   Product next supply date :" + businessManager.getProducteDate(barcode) +
+                    "   Product name :" + superMarket.getProducteName(barcode)+ "\n" +
+                    "   Product manufactor :" + superMarket.getProducteManufactor(barcode)+ "\n"+
+                    "   Product amount :" + superMarket.getProducteAmount(barcode)+ "\n"+
+                    "   Product minimum amount :" + superMarket.getProducteMinAmount(barcode)+ "\n"+
+                    "   Product next supply date :" + superMarket.getProducteDate(barcode) +
                      "\n\n");
         }
     }
@@ -1005,9 +1034,9 @@ public class Presentation {
         for(Integer barcode : productsToShow){
          System.out.print(
                  "  Barode: " + barcode + "\n" +
-                 "  Product name: " + businessManager.getDataSaleName(barcode)+ "\n" +
-                 "  Product price: " + businessManager.getDataSalePrice(barcode)+ "\n"+
-                 "  Product discount: " + businessManager.getDataSaleDiscount(barcode) + "\n\n");
+                 "  Product name: " + superMarket.getDataSaleName(barcode)+ "\n" +
+                 "  Product price: " + superMarket.getDataSalePrice(barcode)+ "\n"+
+                 "  Product discount: " + superMarket.getDataSaleDiscount(barcode) + "\n\n");
         }
     }
 
@@ -1040,17 +1069,17 @@ public class Presentation {
         System.out.print("\n\n");
 
         for(Integer barcode : locationsToShow){
-            List<Date> dateList = businessManager.getBarcodDates(barcode);
+            List<Date> dateList = superMarket.getBarcodDates(barcode);
             if(dateList!=null) {
                 System.out.print("  Barode: " + barcode + "\n");
 
 
                 for (Date d : dateList) {
                     System.out.print("  \tDate: " + d.toString() + "\n");
-                    List<Integer> locationList = businessManager.getLocationsByDate(barcode, d);
+                    List<Integer> locationList = superMarket.getLocationsByDate(barcode, d);
 
                     for (Integer i : locationList) {
-                        Integer j = businessManager.getAmountByLocation(barcode, d, i);
+                        Integer j = superMarket.getAmountByLocation(barcode, d, i);
                         System.out.print("  \t\tIn location: " + i.toString() +
                                 " the amount is: " + j.toString() + "\n");
                     }
@@ -1101,7 +1130,7 @@ public class Presentation {
                 expirationDate = new SimpleDateFormat("yyyy-mm-dd").parse(expiDate);
 
                 System.out.print("\n");
-                businessManager.addDefect(today, barcode, amount, reason, creator, location, expirationDate);
+                superMarket.addDefect(today, barcode, amount, reason, creator, location, expirationDate);
             } catch (Exception e) {
                 error = true;
                 break;
@@ -1123,7 +1152,7 @@ public class Presentation {
         try {
             String fromDateS = in.nextLine();
             fromDate = new SimpleDateFormat(pattern).parse(fromDateS);
-            List<Pdefect> defectsToShow = businessManager.creatDefectReport(today, fromDate); //THE END ISN'T RELEVANT
+            List<Pdefect> defectsToShow = superMarket.creatDefectReport(today, fromDate); //THE END ISN'T RELEVANT
             showPdefects(defectsToShow , fromDate);
         } catch (Exception e) {
             error = true;
@@ -1199,11 +1228,11 @@ public class Presentation {
             System.out.print("  " + i + ". Category name: ");
             String categoryName = in.nextLine();
             if (chosenOption == 1) {
-                businessManager.setMainCategory(categoryName);
+                superMarket.setMainCategory(categoryName);
             } else if (chosenOption == 2) {
                 System.out.print("  " + i + ". Main category name (the category above this category): ");
                 String mainCategoryName = in.nextLine();
-                businessManager.setNewSubCategory(categoryName, mainCategoryName);
+                superMarket.setNewSubCategory(categoryName, mainCategoryName);
             }
             System.out.print("\n");
         }
@@ -1250,9 +1279,9 @@ public class Presentation {
             if (chosenOption == 1) {
                 System.out.print("  " + i + ". Type the new name of category: ");
                 String newName = in.nextLine();
-                businessManager.setCategoryName(categoryName, newName);
+                superMarket.setCategoryName(categoryName, newName);
             } else if (chosenOption == 2) {
-                businessManager.deleteCategory(categoryName);
+                superMarket.deleteCategory(categoryName);
             }
             System.out.print("\n");
         }
@@ -1262,7 +1291,7 @@ public class Presentation {
     private void printAllExistingCategories() {
         {
             System.out.print("\nListing all categories in store:\n");
-            List<String> names = businessManager.getListOfCategoriesNames();
+            List<String> names = superMarket.getListOfCategoriesNames();
             if (names != null) {
                 printMenu(names);
             } else {
@@ -1305,7 +1334,7 @@ public class Presentation {
             System.out.print("  " + i + ". To location (number): ");
             int toLocation = Integer.parseInt(in.nextLine());
             System.out.print("\n");
-            businessManager.moveProduct(barcode, expirationDate, amount, fromLocation, toLocation);
+                superMarket.moveProduct(barcode, expirationDate, amount, fromLocation, toLocation);
             } catch (Exception e) {
                 error = true;
                 break;
@@ -1341,7 +1370,7 @@ public class Presentation {
                 System.out.print("  " + i + ". category name to connect product:");
                 String categoryName = in.nextLine();
                 System.out.print("\n");
-                businessManager.connectProductToCategory(categoryName, barcode);
+                superMarket.connectProductToCategory(categoryName, barcode);
             }
             catch (Exception e){
                 error = true;
@@ -1356,8 +1385,8 @@ public class Presentation {
     }
 
     private List<String> getMainCategoriesByDate(Date date) {
-        List<String> filterMainCategories = businessManager.getListOfCategoriesNames();
-        for (List<String> listOfCategories : businessManager.subcat(date)) {
+        List<String> filterMainCategories = superMarket.getListOfCategoriesNames();
+        for (List<String> listOfCategories : superMarket.subcat(date)) {
             for (String name : listOfCategories) {
                 if (filterMainCategories.contains(name)) {
                     filterMainCategories.remove(name);      //remove from list all sub categories
@@ -1369,7 +1398,7 @@ public class Presentation {
 
 
     public void showInventoryReport(){
-        businessManager.creatInventoryReport(today);
+        superMarket.creatInventoryReport(today);
         System.out.println("Updated inventory report: \n");
         System.out.println("report for date: " + today.toString() + "\n\n");
         List<String> mainCategories = getMainCategoriesByDate(today);
@@ -1380,7 +1409,7 @@ public class Presentation {
     }
 
     public void showInventoryReportByCategories(){
-        businessManager.creatInventoryReport(today);
+        superMarket.creatInventoryReport(today);
         System.out.println("Updated inventory report: \n");
         List<String> mainCategories = new ArrayList<>();
         System.out.print("  Type how many categories (different ctegories) you want to watch: ");
@@ -1413,17 +1442,17 @@ public class Presentation {
 
     private void showRecursiveFromMainCategoryDowns(String FromHereAndDown, String offset) {
         System.out.print(offset + "- Products under category " + FromHereAndDown + ":\n");
-        List<PdataInventoryReport> myCategoryProducts = businessManager.RepProdofInventoryReport(today , FromHereAndDown);
+        List<PdataInventoryReport> myCategoryProducts = superMarket.RepProdofInventoryReport(today , FromHereAndDown);
         for (PdataInventoryReport productRepData : myCategoryProducts) {
             System.out.print(offset + "- Barcode: " + productRepData.getBarcode() + ", Product name: " + productRepData.getProductName() + ", Product amount: " + productRepData.getAmount() + "\n");
         }
-        for (String subCategories : businessManager.CategoriesOfInventoryReport(today ,FromHereAndDown)) {
+        for (String subCategories : superMarket.CategoriesOfInventoryReport(today ,FromHereAndDown)) {
             showRecursiveFromMainCategoryDowns(subCategories,offset + "        ");
         }
     }
 
     /*
-    * Suppliers Section
+    * StorageAndSupplier.Suppliers Section
     * */
 
     public void run(){
@@ -1459,7 +1488,7 @@ public class Presentation {
                         case 1:
                             System.out.println("Enter the supplierID");
                             int suppid = scanner.nextInt();
-                            Supplier s = businessManager.getSupplier(suppid);
+                            Supplier s = superMarket.getSupplier(suppid);
                             if(s == null) {
                                 System.out.println("No such supplier");
                                 break;
@@ -1498,18 +1527,18 @@ public class Presentation {
                             option = scanner.nextInt();
                             switch (option){
                                 case 1:
-                                    if(!businessManager.addSupplier("FixedDays",name, cid,ba,pc,pn,""))
+                                    if(!superMarket.addSupplier("FixedDays",name, cid,ba,pc,pn,""))
                                         System.out.println("Error!");
                                     else System.out.println("Success!");
                                     break;
                                 case 2:
-                                    if(!businessManager.addSupplier("OrderOnly", name, cid,ba,pc,pn,""))
+                                    if(!superMarket.addSupplier("OrderOnly", name, cid,ba,pc,pn,""))
                                         System.out.println("Error!");
                                     else System.out.println("Success!");
                                     break;
                                 case 3:
                                     System.out.println("Enter the pickup location");
-                                    if(!businessManager.addSupplier("SelfPickup", name, cid,ba,pc,pn, scanner.nextLine()))
+                                    if(!superMarket.addSupplier("SelfPickup", name, cid,ba,pc,pn, scanner.nextLine()))
                                         System.out.println("Error!");
                                     else System.out.println("Success!");
                                     break;
@@ -1531,7 +1560,7 @@ public class Presentation {
                                     id = scanner.nextInt();
                                     System.out.println("Please enter new Company ID");
                                     int cid1 = scanner.nextInt();
-                                    if(businessManager.setSupplierCompanyID(id,cid1))
+                                    if(superMarket.setSupplierCompanyID(id,cid1))
                                         System.out.println("Success!");
                                     else
                                         System.out.println("Error");
@@ -1541,7 +1570,7 @@ public class Presentation {
                                     id = scanner.nextInt();
                                     System.out.println("Please enter new bank account");
                                     String ba1 = scanner.next();
-                                    if(businessManager.setSupplierBankAccNum(id,ba1))
+                                    if(superMarket.setSupplierBankAccNum(id,ba1))
                                         System.out.println("Success!");
                                     else
                                         System.out.println("Error");
@@ -1551,7 +1580,7 @@ public class Presentation {
                                     id = scanner.nextInt();
                                     System.out.println("Please enter new pay condition");
                                     String pc1 = scanner.next();
-                                    if(businessManager.setSupplierPayCond(id,pc1))
+                                    if(superMarket.setSupplierPayCond(id,pc1))
                                         System.out.println("Success!");
                                     else
                                         System.out.println("Error");
@@ -1561,7 +1590,7 @@ public class Presentation {
                                     id = scanner.nextInt();
                                     System.out.println("Please enter new phone number");
                                     String pn1 = scanner.next();
-                                    if(businessManager.setSupplierPhoneNum(id,pn1))
+                                    if(superMarket.setSupplierPhoneNum(id,pn1))
                                         System.out.println("Success!");
                                     else
                                         System.out.println("Error");
@@ -1572,7 +1601,7 @@ public class Presentation {
                             break;
                         case 4:
                             System.out.println("Please enter the supplier ID");
-                            if(businessManager.removeSupplier(scanner.nextInt()))
+                            if(superMarket.removeSupplier(scanner.nextInt()))
                                 System.out.println("Success!");
                             else System.out.println("Error!");
                             break;
@@ -1585,7 +1614,7 @@ public class Presentation {
                                 break;
                             System.out.println("Enter the contact's phone number");
                             String pnum = scanner.next();
-                            if(!businessManager.addSupplierContact(sid, new Pair<>(fn, pnum)))
+                            if(!superMarket.addSupplierContact(sid, new Pair<>(fn, pnum)))
                                 System.out.println("Error");
                             else System.out.println("Success!");
                             break;
@@ -1593,7 +1622,7 @@ public class Presentation {
                             System.out.println("Enter the supplierID");
                             int suid = scanner.nextInt();
                             System.out.println("Enter the contact's phone number");
-                            if(businessManager.removeSupplierContact(suid, scanner.nextLine()))
+                            if(superMarket.removeSupplierContact(suid, scanner.nextLine()))
                                 System.out.println("Success!");
                             else System.out.println("Error!");
                             break;
@@ -1624,7 +1653,7 @@ public class Presentation {
                             int minutes = scanner.nextInt();
                             LocalDateTime l = LocalDateTime.of(year,month,day,hour,minutes);
                             System.out.println("Enter the id of the supplier that supplies this product");
-                            if(!businessManager.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l))
+                            if(!superMarket.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l))
                                 System.out.println("Error");
                             else System.out.println("Success!");
                             break;
@@ -1632,14 +1661,14 @@ public class Presentation {
                             System.out.println("Enter the supplierID");
                             int supid = scanner.nextInt();
                             System.out.println("Enter the productID");
-                            if(businessManager.removeSupplierProduct(supid, scanner.nextInt()))
+                            if(superMarket.removeSupplierProduct(supid, scanner.nextInt()))
                                 System.out.println("Success!");
                             else System.out.println("Error!");
                             break;
                         case 9:
                             System.out.println("Enter the supplierID");
                             int sid1 = scanner.nextInt();
-                            for(Product p : businessManager.getSupplier(sid1).getProducts())
+                            for(Product p : superMarket.getSupplier(sid1).getProducts())
                                 System.out.println(p.toString() + "\n");
                             break;
                         default:
@@ -1658,7 +1687,7 @@ public class Presentation {
                         case 1:
                             System.out.println("Enter the supplierID");
                             int suppid = scanner.nextInt();
-                            Supplier supp = businessManager.getSupplier(suppid);
+                            Supplier supp = superMarket.getSupplier(suppid);
                             if(supp == null) {
                                 System.out.println("No such supplier");
                                 break;
@@ -1692,7 +1721,7 @@ public class Presentation {
                                 System.out.println("Would you like to enter another one? (y/n)");
                                 ans = scanner.next();
                             } while(!ans.equals("n"));
-                            if(!businessManager.addOrder(s,LocalDateTime.now(),hm))
+                            if(!superMarket.addOrder(s,LocalDateTime.now(),hm))
                                 System.out.println("Error");
                             else System.out.println("Success!");
                         case 3:
@@ -1717,7 +1746,7 @@ public class Presentation {
                                     System.out.println("Enter the new minutes");
                                     int minutes = scanner.nextInt();
                                     LocalDateTime l = LocalDateTime.of(year,month,day,hour,minutes);
-                                    if((businessManager.getOrder(ordid) != null) && (businessManager.setOrderETA(ordid, l)))
+                                    if((superMarket.getOrder(ordid) != null) && (superMarket.setOrderETA(ordid, l)))
                                         System.out.println("Success!");
                                     else System.out.println("Error!");
                                     break;
@@ -1727,7 +1756,7 @@ public class Presentation {
                                     System.out.println("Please enter the catalog ID of the product");
                                     int cid = scanner.nextInt();
                                     System.out.println("Please enter the new amount");
-                                    if(!businessManager.setAmountOfProductInOrder(oid, cid, scanner.nextInt()))
+                                    if(!superMarket.setAmountOfProductInOrder(oid, cid, scanner.nextInt()))
                                         System.out.println("Error");
                                     else System.out.println("Success!");
                                     break;
@@ -1737,7 +1766,7 @@ public class Presentation {
                                     System.out.println("Enter orderID");
                                     int orid = scanner.nextInt();
                                     System.out.println("Enter productID");
-                                    if(businessManager.removeProductFromOrder(sid, orid, scanner.nextInt()))
+                                    if(superMarket.removeProductFromOrder(sid, orid, scanner.nextInt()))
                                         System.out.println("Success!");
                                     else System.out.println("Error");
                                     break;
@@ -1752,7 +1781,7 @@ public class Presentation {
                                     int suid = scanner.nextInt();
                                     System.out.println("Enter the amount you would like to order");
                                     int amount = scanner.nextInt();
-                                    if(!businessManager.addNewProductToOrder(pid, orderid, suid, amount))
+                                    if(!superMarket.addNewProductToOrder(pid, orderid, suid, amount))
                                         System.out.println("Error");
                                     else System.out.println("Success!");
                                     break;
@@ -1761,24 +1790,24 @@ public class Presentation {
                         case 4:
                             System.out.println("Enter the ID of the order");
                             int i = scanner.nextInt();
-                            Order ooo = businessManager.getOrder(i);
+                            Order ooo = superMarket.getOrder(i);
                             if(ooo == null){
                                 System.out.println("Error! no such order");
                                 break;
                             }
-                            if(!businessManager.reportCancellation(ooo))
+                            if(!superMarket.reportCancellation(ooo))
                                 System.out.println("Error");
                             System.out.println("Success!");
                             break;
                         case 5:
                             System.out.println("Enter the ID of the order");
                             int i1 = scanner.nextInt();
-                            Order ooo1 = businessManager.getOrder(i1);
+                            Order ooo1 = superMarket.getOrder(i1);
                             if(ooo1 == null){
                                 System.out.println("Error! no such order");
                                 break;
                             }
-                            if(!businessManager.reportArrival(ooo1))
+                            if(!superMarket.reportArrival(ooo1))
                                 System.out.println("Error");
                             System.out.println("Success!");
                             break;
@@ -1794,7 +1823,7 @@ public class Presentation {
                     option = scanner.nextInt();
                     switch (option){
                         case 1:
-                            for(Report r : businessManager.getReports()){
+                            for(Report r : superMarket.getReports()){
                                 if(r instanceof ArrivalReport){
                                     System.out.println("Report ID: "+r.getID());
                                     System.out.println("Date reported: "+r.getDateReported().toString());
@@ -1803,7 +1832,7 @@ public class Presentation {
                             }
                             break;
                         case 2:
-                            for(Report r : businessManager.getReports()){
+                            for(Report r : superMarket.getReports()){
                                 if(r instanceof CancellationReport){
                                     System.out.println("Report ID: "+r.getID());
                                     System.out.println("Date reported: "+r.getDateReported());
@@ -1814,7 +1843,7 @@ public class Presentation {
                         case 3:
                             System.out.println("Enter the reportID");
                             int rid = scanner.nextInt();
-                            Report r = businessManager.getReport(rid);
+                            Report r = superMarket.getReport(rid);
                             if(r == null){
                                 System.out.println("No such report");
                                 break;
@@ -1838,7 +1867,7 @@ public class Presentation {
                         case 1:
                             System.out.println("Enter the supplierID");
                             int sid = scanner.nextInt();
-                            Supplier s = businessManager.getSupplier(sid);
+                            Supplier s = superMarket.getSupplier(sid);
                             if(s == null){
                                 System.out.println("No such supplier");
                                 break;
@@ -1848,7 +1877,7 @@ public class Presentation {
                         case 2:
                             System.out.println("Enter the supplier ID");
                             int su = scanner.nextInt();
-                            Supplier to = businessManager.getSupplier(su);
+                            Supplier to = superMarket.getSupplier(su);
                             if(to == null){
                                 System.out.println("Error! no such supplier");
                                 break;
@@ -1869,7 +1898,7 @@ public class Presentation {
                             int aa = scanner.nextInt();
                             System.out.println("Enter the sale for it");
                             int hh = scanner.nextInt();
-                            if(businessManager.addAgreement(to.getID(), new Pair<>(new Pproduct(catalogID1,pp,nn,mm, LocalDateTime.now().plusDays(7)),new Pair<>(aa,hh))))
+                            if(superMarket.addAgreement(to.getID(), new Pair<>(new Pproduct(catalogID1,pp,nn,mm, LocalDateTime.now().plusDays(7)),new Pair<>(aa,hh))))
                                 System.out.println("Success!");
                             else System.out.println("Error, supplier does not supply this item");
                             break;
@@ -1884,7 +1913,7 @@ public class Presentation {
                                     int u = scanner.nextInt();
                                     System.out.println("Enter new amount");
                                     int y = scanner.nextInt();
-                                    if(businessManager.setAgreementProdAmount(u, y))
+                                    if(superMarket.setAgreementProdAmount(u, y))
                                         System.out.println("Success!");
                                     else System.out.println("Error, no such agreement");
                                     break;
@@ -1893,7 +1922,7 @@ public class Presentation {
                                     int u1 = scanner.nextInt();
                                     System.out.println("Enter new condition");
                                     int y1 = scanner.nextInt();
-                                    if(businessManager.setAgreementProdSale(u1, y1))
+                                    if(superMarket.setAgreementProdSale(u1, y1))
                                         System.out.println("Success!");
                                     else System.out.println("Error, no such agreement");
                                     break;
@@ -1906,7 +1935,7 @@ public class Presentation {
                             int ii = scanner.nextInt();
                             System.out.println("Enter agreement ID");
                             int jj = scanner.nextInt();
-                            if(businessManager.removeSupplierAgreement(ii, jj))
+                            if(superMarket.removeSupplierAgreement(ii, jj))
                                 System.out.println("Success!");
                             else System.out.println("Error!");
                             break;

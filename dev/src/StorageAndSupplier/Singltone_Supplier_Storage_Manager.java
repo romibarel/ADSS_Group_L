@@ -2,13 +2,13 @@ package StorageAndSupplier;
 
 import Permissions.Permissions_API;
 import Permissions.Permissions_Manager;
-import Storage.Buisness.Reports.DefectReport;
-import Storage.Buisness.Reports.ProductReport;
-import Storage.Buisness.Singletone_Storage_Management;
+import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
+import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
+import StorageAndSupplier.Storage.Buisness.Singletone_Storage_Management;
 import StorageAndSupplier.Presentation.PdataInventoryReport;
 import StorageAndSupplier.Presentation.Pdefect;
 import StorageAndSupplier.Presentation.Pproduct;
-import Suppliers.BusinessLayer.*;
+import StorageAndSupplier.Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
 import java.sql.Connection;
@@ -61,7 +61,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     /*
-     * Storage section
+     * StorageAndSupplier.Storage section
      * */
 
     public void initialize(){
@@ -271,7 +271,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     /*
-    * Suppliers section
+    * StorageAndSupplier.Suppliers section
     * */
 
     @Override

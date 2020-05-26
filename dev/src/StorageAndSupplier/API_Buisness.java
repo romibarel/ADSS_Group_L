@@ -1,11 +1,11 @@
 package StorageAndSupplier;
 
-import Storage.Buisness.Reports.DefectReport;
-import Storage.Buisness.Reports.ProductReport;
+import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
+import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
 import StorageAndSupplier.Presentation.PdataInventoryReport;
 import StorageAndSupplier.Presentation.Pdefect;
 import StorageAndSupplier.Presentation.Pproduct;
-import Suppliers.BusinessLayer.*;
+import StorageAndSupplier.Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ public interface API_Buisness {
     int checkPermission(String username, String password);
 
     /*
-     * Storage section
+     * StorageAndSupplier.Storage section
      * */
     void initialize();
 
