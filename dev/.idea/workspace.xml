@@ -335,7 +335,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="976" />
@@ -518,10 +518,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ProductControllerTest.connectProductToCategory" />
-        <item itemvalue="JUnit.CategoryTest" />
-        <item itemvalue="JUnit.LocationControllerTest" />
-        <item itemvalue="JUnit.ProductControllerTest" />
         <item itemvalue="JUnit.ProductControllerTest.sellNoNeedToAlert" />
+        <item itemvalue="JUnit.ProductControllerTest" />
+        <item itemvalue="JUnit.LocationControllerTest" />
+        <item itemvalue="JUnit.CategoryTest" />
       </list>
     </recent_temporary>
   </component>
