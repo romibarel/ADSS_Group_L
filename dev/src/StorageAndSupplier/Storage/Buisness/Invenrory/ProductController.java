@@ -181,6 +181,8 @@ public class ProductController {
                 if (category.getName().equals(DEFAULT)){
                     category.appendProduct(p);
                     this.dataAccess.appendProductToCategoryDAL(category.getName() , p.createDAL());   //update DAL
+                    //TODO: add new product to db
+                    this.dataAccess.addNewProduct(p.createDAL());
                 }
             }
         }
