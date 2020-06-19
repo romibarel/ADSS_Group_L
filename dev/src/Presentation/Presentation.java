@@ -1,4 +1,4 @@
-package StorageAndSupplier.Presentation;
+package Presentation;
 
 import StorageAndSupplier.Storage.Tests.CategoryTest;
 import StorageAndSupplier.Storage.Tests.LocationControllerTest;
@@ -20,6 +20,13 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Presentation {
+    public static final int STORAGE_PERMISSION = 1;
+    public static final int SUPPLIERS_PERMISSION = 2;
+    public static final int WORKERS_PERMISSION = 3;
+    public static final int DELIVERIES_PERMISSION = 4;
+    public static final int MANAGER_STORAGE = 5;
+
+
     private SuperMarket superMarket;
     private int option;
     private Scanner in;
@@ -30,6 +37,7 @@ public class Presentation {
     String choice;
     boolean quit;
     PTIDelController pti;
+    int permission_NO;
 
 
     public Presentation() {
@@ -43,6 +51,7 @@ public class Presentation {
         //get today's date
         String date = simpleDateFormat.format(new Date());
         today = null;
+        permission_NO = 0;
         try {
             today = new SimpleDateFormat("yyyy-mm-dd").parse(date);
         } catch (Exception e) {}
@@ -50,7 +59,6 @@ public class Presentation {
 
 
     public void loginUser (){
-        int ret = 0;
         System.out.println("\nWelcome, please login to the system\n");
         boolean error = false;
         do {
@@ -60,39 +68,22 @@ public class Presentation {
                 System.out.print("Password:\t");
                 String password = in.nextLine();
                 error = false;
-                ret = this.superMarket.checkPermission(username, password);
+                permission_NO = this.superMarket.checkPermission(username, password);
             }
             catch (Exception e){
                 error = true;
                 System.out.println("Illegal input try again.");
             }
         }while (error);
-        if (ret==0){System.out.println("Permission Denied, sorry...");}
+        if (permission_NO == 0){System.out.println("Permission Denied, sorry...");}
         else {
-            startSystem(ret);
+            startSystem(permission_NO);
         }
     }
 
     public void startSystem (int permission){
         List<String> initiateOptions = new ArrayList<>();
-        initiateOptions = Arrays.asList("Initialize system","Uninitialized system","Exit");
-        printMenu(initiateOptions);
-        int selected = 0;
-        boolean error = false;
-        selected = getIntInput(2);
-        while (true) {
-            if (selected == 1) {
-                initialize();
-                break;
-            } else if (selected == 2) {
-                updateStatIDs();
-                break;
-            }
-            else {
-                break;
-            }
-        }
-
+        initialize();
         int select = 0;
         switch (permission){
             case 1:
@@ -396,9 +387,81 @@ public class Presentation {
      * */
 
     public void startProgramMenu() {
+        if (permission_NO == MANAGER_STORAGE){startProgramManagerMenu();}
+        else {
+            System.out.println("\nWelcome, please choose an action:\n");
+            List<String> initiateOptions = Arrays.asList("Inventory section", "Location section",
+                    "Transaction section", "Defect section", "Report section", "exit");
+            printMenu(initiateOptions);
+            boolean error = false;
+            do {
+                try {
+                    option = Integer.parseInt(in.nextLine());
+                    error = false;
+                } catch (Exception e) {
+                    error = true;
+                    System.out.println("Illegal input try again.");
+                }
+            } while (error);
+
+            switch (option) {
+                case 1:
+                    InventoryMenu();
+                    break;
+                case 2:
+                    LocationMenu();
+                    break;
+                case 3:
+                    TransactionMenu();
+                    break;
+                case 4:
+                    DefectMenu();
+                    break;
+                case 5:
+                    ReportMenu();
+                    break;
+                default:
+                    superMarket.exit();
+            }
+            startProgramMenu();
+        }
+    }
+
+    private void startProgramManagerMenu() {
         System.out.println("\nWelcome, please choose an action:\n");
         List<String> initiateOptions = Arrays.asList("Inventory section", "Location section",
-                "Transaction section", "Defect section", "Report section", "exit");
+                "Report section", "exit");
+        printMenu(initiateOptions);
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            } catch (Exception e) {
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        } while (error);
+
+        switch (option) {
+            case 1:
+                InventoryManagerMenu();
+                break;
+            case 2:
+                LocationManagerMenu();
+                break;
+            case 3:
+                ReportMenu();
+                break;
+            default:
+                superMarket.exit();
+        }
+        startProgramMenu();
+    }
+
+    private void LocationManagerMenu() {
+        System.out.println("\nLocation Section:\n");
+        List<String> initiateOptions = Arrays.asList("Show locations by barcode" , "Back to main menu");
         printMenu(initiateOptions);
         boolean error = false;
         do {
@@ -411,27 +474,48 @@ public class Presentation {
                 System.out.println("Illegal input try again.");
             }
         }while (error);
-
         switch (option) {
             case 1:
-                InventoryMenu();
-                break;
-            case 2:
-                LocationMenu();
-                break;
-            case 3:
-                TransactionMenu();
-                break;
-            case 4:
-                DefectMenu();
-                break;
-            case 5:
-                ReportMenu();
+                ShowProductLocation();
                 break;
             default:
-                superMarket.exit();
+                break;
         }
-        startProgramMenu();
+    }
+
+    private void InventoryManagerMenu() {
+        System.out.println("\nInventory Section:\n");
+        List<String> initiateOptions = Arrays.asList(
+                "Alter product information", "Add category", "Product information",
+                "print all categories name in store", "Back to main menu");
+        printMenu(initiateOptions);
+        boolean error = false;
+        do {
+            try {
+                option = Integer.parseInt(in.nextLine());
+                error = false;
+            }
+            catch (Exception e){
+                error = true;
+                System.out.println("Illegal input try again.");
+            }
+        }while (error);
+        switch (option) {
+            case 1:
+                AlterProductMenu();
+                break;
+            case 2:
+                addCatagoryToInventoryMenu();
+                break;
+            case 3:
+                ShowProducInfoMenu();
+                break;
+            case 4:
+                printAllExistingCategories();
+                break;
+            default:
+                break;
+        }
     }
 
     private void InventoryMenu() {

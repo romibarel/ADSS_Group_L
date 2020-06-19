@@ -4,7 +4,7 @@ import StorageAndSupplier.Storage.Buisness.Defects.Defect;
 import StorageAndSupplier.Storage.Buisness.Singletone_Storage_Management;
 import StorageAndSupplier.Storage.DAL.DefectsDAL.DefectDAL;
 import StorageAndSupplier.Storage.DAL.ReportsDAL.DefectReportDAL;
-import StorageAndSupplier.Presentation.Pdefect;
+import Presentation.Pdefect;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package StorageAndSupplier.Presentation;
+package Presentation;
 
 public class PdataInventoryReport {
     private int barcode;

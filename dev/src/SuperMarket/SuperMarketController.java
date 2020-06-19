@@ -2,17 +2,21 @@ package SuperMarket;
 
 import DeliveryAndWorkers.Presentation.PTIDelController;
 import DeliveryAndWorkers.Presentation.WorkerMenu;
-import StorageAndSupplier.Presentation.PdataInventoryReport;
-import StorageAndSupplier.Presentation.Pdefect;
-import StorageAndSupplier.Presentation.Pproduct;
+import Permissions.Permissions_Manager;
+import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
+import Presentation.Pproduct;
 import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
 import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
 import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
 import StorageAndSupplier.Suppliers.BusinessLayer.Order;
 import StorageAndSupplier.Suppliers.BusinessLayer.Report;
 import StorageAndSupplier.Suppliers.BusinessLayer.Supplier;
+import com.google.common.collect.ImmutableMap;
 import javafx.util.Pair;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -21,10 +25,64 @@ public class SuperMarketController implements SuperMarket {
     private static SuperMarketController instance;
     private Singltone_Supplier_Storage_Manager SandSController;
     private PTIDelController deliveryController;
+    private Permissions_Manager permissions;
+    private Connection conn;
+
+    public static final int MILK_STORAGE_CODE = 1;
+    public static final int TUNA_STORAGE_CODE = 2;
+    public static final int SHAMPOO_STORAGE_CODE = 3;
+    public static final int CHEESE_STORAGE_CODE = 4;
+    public static final int SHOCKO_STORAGE_CODE = 5;
+
+    public static final int FIRST_SUPPLIER_ID = 1;
+    public static final int SECOND_SUPPLIER_ID = 2;
+
+    public static final int MILK_CATALOG_ID_FIRST_SUPPLIER = 1;
+    public static final int MILK_CATALOG_ID_SECOND_SUPPLIER = 2;
+    public static final int TUNA_CATALOG_ID_FIRST_SUPPLIER = 2;
+    public static final int TUNA_CATALOG_ID_SECOND_SUPPLIER = 1;
+    public static final int SHAMPOO_CATALOG_ID_FIRST_SUPPLIER = 3;
+    public static final int SHAMPOO_CATALOG_ID_SECOND_SUPPLIER = 3;
+    public static final int CHEESE_CATALOG_ID_FIRST_SUPPLIER = 4;
+    public static final int CHEESE_CATALOG_ID_SECOND_SUPPLIER = 4;
+    public static final int SHOCKO_CATALOG_ID_FIRST_SUPPLIER = 5;
+    public static final int SHOCKO_CATALOG_ID_SECOND_SUPPLIER = 5;
+    //this map converts between storage: "barcode" to suppliers: "supplierID, catalogID"
+    public static Map<Pair<Integer, Integer>, Integer> storage_suppliers_barcode_convertor = new HashMap<Pair<Integer, Integer>, Integer>();
+
+    private void initializeConvertor() {
+        //init first supplier catalogs
+        storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, MILK_CATALOG_ID_FIRST_SUPPLIER), MILK_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, TUNA_CATALOG_ID_FIRST_SUPPLIER), TUNA_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, SHAMPOO_CATALOG_ID_FIRST_SUPPLIER), SHAMPOO_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, CHEESE_CATALOG_ID_FIRST_SUPPLIER), CHEESE_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, SHOCKO_CATALOG_ID_FIRST_SUPPLIER), SHOCKO_STORAGE_CODE);
+
+        //init second supplier catalog
+        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, MILK_CATALOG_ID_SECOND_SUPPLIER), MILK_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, TUNA_CATALOG_ID_SECOND_SUPPLIER), TUNA_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, SHAMPOO_CATALOG_ID_SECOND_SUPPLIER), SHAMPOO_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, CHEESE_CATALOG_ID_SECOND_SUPPLIER), CHEESE_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, SHOCKO_CATALOG_ID_SECOND_SUPPLIER), SHOCKO_STORAGE_CODE);
+    }
 
     private SuperMarketController() {
         SandSController = Singltone_Supplier_Storage_Manager.getInstance();
         deliveryController = PTIDelController.getPTI();
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:storage.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+        initializeConvertor();
+        SandSController.setConnection(conn);
+        this.permissions = new Permissions_Manager();
+        this.permissions.connectToDB(conn);
     }
 
     public static SuperMarketController getInstance(){
@@ -35,7 +93,7 @@ public class SuperMarketController implements SuperMarket {
 
     @Override
     public int checkPermission(String username, String password) {
-        return SandSController.checkPermission(username, password);
+        return this.permissions.checkPermission(username, password);
     }
 
     @Override
@@ -65,7 +123,7 @@ public class SuperMarketController implements SuperMarket {
 
     @Override
     public List<String> getListOfCategoriesNames() {
-        return SandSController.getListOfProductsNames();
+        return SandSController.getListOfCategoriesNames();
     }
 
     @Override
