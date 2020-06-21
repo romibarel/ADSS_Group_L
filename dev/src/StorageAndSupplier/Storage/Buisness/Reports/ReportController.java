@@ -3,8 +3,8 @@ package StorageAndSupplier.Storage.Buisness.Reports;
 import StorageAndSupplier.Storage.DAL.DataAccess;
 import StorageAndSupplier.Storage.DAL.ReportsDAL.DefectReportDAL;
 import StorageAndSupplier.Storage.DAL.ReportsDAL.ProductReportDAL;
-import StorageAndSupplier.Presentation.PdataInventoryReport;
-import StorageAndSupplier.Presentation.Pdefect;
+import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
 
 import java.util.*;
 

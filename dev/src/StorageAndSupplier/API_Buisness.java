@@ -2,9 +2,9 @@ package StorageAndSupplier;
 
 import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
 import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
-import StorageAndSupplier.Presentation.PdataInventoryReport;
-import StorageAndSupplier.Presentation.Pdefect;
-import StorageAndSupplier.Presentation.Pproduct;
+import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
+import Presentation.Pproduct;
 import StorageAndSupplier.Suppliers.BusinessLayer.*;
 import javafx.util.Pair;
 
@@ -13,8 +13,6 @@ import java.util.*;
 
 
 public interface API_Buisness {
-
-    int checkPermission(String username, String password);
 
     /*
      * StorageAndSupplier.Storage section

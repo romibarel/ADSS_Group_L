@@ -1,9 +1,8 @@
 package SuperMarket;
 
-import DeliveryAndWorkers.Presentation.PTIDelController;
-import StorageAndSupplier.Presentation.PdataInventoryReport;
-import StorageAndSupplier.Presentation.Pdefect;
-import StorageAndSupplier.Presentation.Pproduct;
+import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
+import Presentation.Pproduct;
 import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
 import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
 import StorageAndSupplier.Suppliers.BusinessLayer.Order;

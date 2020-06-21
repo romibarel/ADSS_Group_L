@@ -8,8 +8,8 @@ import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
 import StorageAndSupplier.Storage.Buisness.Reports.ReportController;
 import StorageAndSupplier.Storage.Buisness.Transactions.TransactionController;
 import StorageAndSupplier.Storage.DAL.DataAccess;
-import StorageAndSupplier.Presentation.PdataInventoryReport;
-import StorageAndSupplier.Presentation.Pdefect;
+import Presentation.PdataInventoryReport;
+import Presentation.Pdefect;
 
 import java.sql.Connection;
 import java.util.Date;
@@ -67,7 +67,6 @@ public class Singletone_Storage_Management {
     public ProductController getInventory(){
         return inventory;
     }
-
 
     public void buyProduct(int barCode, String productName, int supplierID, double price,
                            double discount,Date expirationDate, int amount, Date date,int location) { //barCode, productName, price, amount, date, manufactor, location, expiratiomDate
