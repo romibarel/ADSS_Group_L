@@ -23,6 +23,9 @@ public class Interface
 			return "employee was added\n";
 		return "The action have failed due to:\n "+r.msg;
 	}
+	public static List<String> getMessages(){
+		return WorkersController.get_HRManager_Messages();
+	}
 
 	public static String addShift(InterfaceShift shift){
 		Result r= ShiftController.add_shift(shift);

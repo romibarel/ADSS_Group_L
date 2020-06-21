@@ -4,6 +4,7 @@ import DeliveryAndWorkers.Interface.InterfaceObjects.InterfaceConstraint;
 import DeliveryAndWorkers.Interface.InterfaceObjects.InterfaceShift;
 import DeliveryAndWorkers.Interface.InterfaceObjects.InterfaceWorker;
 import DeliveryAndWorkers.Interface.Interface;
+import sun.plugin2.message.Message;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,21 +17,20 @@ public class WorkerMenu {
 
     public static void mainFunc (){
         int choice;
+        int m=0;
+        List<String> messages;
         String init;
         initCalls(calls);
         initActions(calls);
         System.out.println("Welcome to Super-Li HR System");
-        // not relevant keeping these function and this code just in case i need it in the future
-        /*System.out.println("Do you want to initialize the system with data?(y/n)");
-        init=input.nextLine();
-        if(init.equals("y")){
-            initData();
-            System.out.println("system's data loaded:\n");
-            System.out.println(DeliveryAndWorkers.Interface.printEmployees()+"\n");
-            System.out.println(DeliveryAndWorkers.Interface.printShifts()+"\n");
-            System.out.println(DeliveryAndWorkers.Interface.printConstraints()+"\n");;
+
+        messages=Interface.getMessages();
+        if(!messages.isEmpty())
+            System.out.println("you have new messages:");
+        for(String mess: messages){
+            System.out.println(m+") "+mess);
+            m++;
         }
-*/
         while(!quit){
             System.out.println("Please choose from the following menus");
             System.out.println("1. Add menu");
