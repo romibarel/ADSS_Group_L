@@ -150,9 +150,9 @@ public class ShiftController
 		Worker driver=WorkersController.get_by_id(driver_id);
 		if (driver==null || !driver.getRole().equals("driver")) return new Result(false,"Driver doesnt exist");
 		List <Pair<Date,Boolean>> shifts_in_range=get_shifts_in_range(departure_date,departure_morning,arrival_day,arrival_morning);
+		if (!ConstrainsController.isDriverAvailable(driver_id,departure_date,departure_hours,arrival_day,arrival_hour)) return new Result(false,"Driver has constraint in this dates");
 		for (Pair<Date,Boolean> p :  shifts_in_range)
 		{
-			if (!ConstrainsController.isDriverAvailable(driver_id,departure_date,departure_hours,arrival_day,arrival_hour)) return new Result(false,"Driver has constraint in this dates");
 			Shift shift=get_shift(p.getKey(),p.getValue(),driver.getBranchAddress());
 			if (shift==null) //if shift doesnt exist create new shift with a random available manager and the driver
 			{

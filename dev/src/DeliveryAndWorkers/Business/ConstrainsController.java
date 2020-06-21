@@ -30,7 +30,7 @@ public class ConstrainsController
 		return cons;
 	}
 
-	public static void listToMap(List<Constraint> cons, boolean isLoaded){
+	private static void listToMap(List<Constraint> cons, boolean isLoaded){
 		for(Constraint c: cons){
 			c.setLoaded(isLoaded);
 			if(constraints.containsKey(c.getCid()))
@@ -40,7 +40,7 @@ public class ConstrainsController
 		}
 	}
 
-	public static boolean isDateLoaded(int id, Date date, boolean isMorning){
+	private static boolean isDateLoaded(int id, Date date, boolean isMorning){
 		for(Constraint con: hasToList(constraints)){
 			if(con.getId()==id&&con.getDate().equals(date)&& isMorning==con.isMorning()&&con.isLoaded())
 				return true;
