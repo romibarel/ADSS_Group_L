@@ -2,6 +2,7 @@ package DeliveryAndWorkers.Business;
 
 import DeliveryAndWorkers.Business.BuisnessObjects.*;
 import DeliveryAndWorkers.Interface.ITBDelController;
+import StorageAndSupplier.Suppliers.BusinessLayer.Order;
 import javafx.util.Pair;
 
 import java.util.Date;
@@ -58,6 +59,32 @@ public class BTIController {
         DeliverDoc deliverDoc = new DeliverDoc(estimatedTimeOfArrival, estimatedDayOfArrival, docNum, docSupplies, myDestination);
         documents.add(deliverDoc);
         return "Delivery list to "+ deliverDoc.getDestination().getAddress() +" created successfully.";
+    }
+
+    public String createDelivery(Order order, int weight){
+        for (Delivery del: archive.getDeliveries()){
+            if (del.getSource().equals(order))
+                return "Delivery already in place.";
+        }
+
+        Truck truck = null;
+        for (Truck check : trucks){
+            if (check.getWeighNeto() + weight < check.getMaxWeight()) {
+                truck = check;
+                break;
+            }
+        }
+        if (truck == null)
+            truck = btd.loadTruckByWeight(weight);
+        if (truck == null)
+            return "There is no fitting truck for the delivery.";
+        trucks.add(truck);
+
+        String driver = WorkersController.get_available_driver(truck.getType(), order.getETA());
+        if (driver == null)
+            return "The driver doesn't exist.";
+
+
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
@@ -147,6 +174,19 @@ public class BTIController {
         btd.saveDelivery(delivery);
         archive.add(delivery);
         return "Delivery was created successfully! The delivery and all its documents were saved to the database.";
+    }
+
+    public String cancelDelivery(int delID){
+        Delivery delivery = null;
+        for (Delivery del : archive.getDeliveries()){
+            if (del.getID == delID){
+                delivery = del;
+                break;
+            }
+        }
+        if (delivery == null)
+            return "There was no delivery with this ID.";
+
     }
 
     public String printArchive(){

@@ -380,6 +380,32 @@ public class PTIDelController {
         return docNums;
     }
 
+    private void cancelDelivery(int delID){
+        String input;
+        System.out.println("Please enter Storekeeper username and password.");
+        input = scanner.nextLine();
+        if (!validUser(input)){
+            System.out.println("Storekeeper username and ID incorrect, cancelation denied.");
+            return;
+        }
+
+        System.out.println("Please enter Logistic Manager username and password.");
+        input = scanner.nextLine();
+        if (!validUser(input)){
+            System.out.println("Logistic Manager username and ID incorrect, cancelation denied.");
+            return;
+        }
+
+        System.out.println("Please enter HR Manager user username password.");
+        input = scanner.nextLine();
+        if (!validUser(input)){
+            System.out.println("HR Manager username and ID incorrect, cancelation denied.");
+            return;
+        }
+
+        System.out.println(itp.cancelDelivery(delID));
+    }
+
     private List < Pair<String , Integer> > userEnterSupplies() {
         List<Pair<String, Integer>> supplies = new LinkedList<>();
         boolean continueSuppling = true;
@@ -421,4 +447,9 @@ public class PTIDelController {
         return ret;
     }
 
+    private boolean validUser(String s){
+        //0=username 1=password
+        String[] parse = s.split(" ");
+
+    }
 }
