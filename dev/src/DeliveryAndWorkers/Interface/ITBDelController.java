@@ -40,6 +40,10 @@ public class ITBDelController {
         return bti.createDelivery(date, time, truck, driverID, source, docs, truckWeight);
     }
 
+    public String cancelDelivery(int delID){
+        return bti.cancelDelivery(delID);
+    }
+
     public int getMaxDocNum(){
         return bti.getMaxDocNum();
     }
