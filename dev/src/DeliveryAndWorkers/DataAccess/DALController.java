@@ -400,15 +400,18 @@ public class DALController
                 "\tPRIMARY KEY(\"driver_id\",\"license\")\n" +
                 ");\n");
 
+        sqls.add("CREATE TABLE IF NOT EXISTS \"Messages\" (\n" +
+                "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "\t\"Message\"\tTEXT,\n" +
+                "\t\"recipient\"\tTEXT\n" +
+                ");");
+
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
                 statement.execute();    //todo which one for create??
-//                statement.executeQuery();
-
             }
             catch (Exception exception){
-//                return new Result(false, "Saving to data base has failed");
             }
         }
         try {
@@ -1266,7 +1269,66 @@ public class DALController
     }
     //-----------------------------end shifts-------------------------------------
 
+    //------------------------------messages-------------------------------------
 
+    public Result insertMessage(String recipient, String message)
+    {
+        Result result;
+        openConn();
+        try
+        {
+            String sql="INSERT INTO Messages(recipient,Message) VALUES(?,?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, recipient);
+            statement.setString(2,message);
+            result=new Result(true,"message inserted");
+            statement.executeUpdate();
+        }
+        catch (Exception e)
+        {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) { ex.printStackTrace(); }
+            result= new Result(false,"insert message failed");
+        }
+        finally
+        {
+            try
+            {
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return result;
+    }
+
+    public List<String> selectMessages(String recipient)
+    {
+        List<String> messages=new LinkedList<>();
+        openConn();
+        String sql="SELECT Message From Messages Where recipient=?";
+        ResultSet resultSet=null;
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,recipient);
+            resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                messages.add(resultSet.getString("Message"));
+            }
+        }
+        catch (SQLException ignored){}
+        finally
+        {
+            try {
+                resultSet.close();
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+        return messages;
+    }
+
+    //-----------------------------end messages----------------------------------
     public DalTruck loadTruck(int id) {
         DalTruck dalTruck = null;
         openConn();

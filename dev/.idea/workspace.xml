@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/API_Buisness.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/API_Buisness.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Presentation/PdataInventoryReport.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Presentation/Pdefect.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Presentation/Pproduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Presentation/Presentation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Singltone_Supplier_Storage_Manager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Invenrory/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Invenrory/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Reports/DefectReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Reports/DefectReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Reports/ReportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Reports/ReportController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Singletone_Storage_Management.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/StorageAndSupplier/Storage/Buisness/Singletone_Storage_Management.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/SuperMarket/SuperMarket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/SuperMarket/SuperMarket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/SuperMarket/SuperMarketController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/SuperMarket/SuperMarketController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dev/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev/main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/API_Buisness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StorageAndSupplier/API_Buisness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/PdataInventoryReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/PdataInventoryReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Pdefect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Pdefect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Pproduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Pproduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Presentation/Presentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Presentation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StorageAndSupplier/Singltone_Supplier_Storage_Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Storage/Buisness/Reports/DefectReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StorageAndSupplier/Storage/Buisness/Reports/DefectReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Storage/Buisness/Reports/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StorageAndSupplier/Storage/Buisness/Reports/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StorageAndSupplier/Storage/Buisness/Singletone_Storage_Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StorageAndSupplier/Storage/Buisness/Singletone_Storage_Management.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SuperMarket/SuperMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SuperMarket/SuperMarket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SuperMarket/SuperMarketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SuperMarket/SuperMarketController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
-    </list>
+    <list default="true" id="9ae20e43-44db-47e8-bf2c-68091a9a2a11" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,8 +14,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SuperMarket/SuperMarketController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="77" column="9" lean-forward="true" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
+            <state relative-caret-position="763">
+              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2343#2376#0" expanded="true" />
@@ -229,7 +202,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -301,7 +274,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592568467086" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592686724064" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -495,7 +468,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.2207304" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -506,7 +478,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32214764" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.045861296" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.042505592" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5771812" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1027,8 +999,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SuperMarket/SuperMarketController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="77" column="9" lean-forward="true" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
+        <state relative-caret-position="763">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2343#2376#0" expanded="true" />
