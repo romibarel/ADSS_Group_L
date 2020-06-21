@@ -117,11 +117,19 @@ public class ShiftController
 		boolean morning=Shift.is_morning_shift(hour);
 		Shift shift=get_shift(date,morning,branch);
 		int storekeeper_id=WorkersController.find_available_storekeeper(date,morning,branch);
-		if (storekeeper_id==-1) return new Result(false,"no available storekeepers in " + date.toString() + " at " + branch);
+		if (storekeeper_id==-1)
+		{
+			data.send_message("HRManager" , "attempt to set delivery failed - no available storekeeper at recipient branch(" + branch + ") at " + date.toString());
+			return new Result(false,"no available storekeepers in " + date.toString() + " at " + branch);
+		}
 		if (shift==null) //if shift doesnt exist create new shift with a random available manager and a random available storekeeper
 		{
 			int manager_id=WorkersController.find_available_manager(date,morning,branch);
-			if (manager_id==-1) return new Result(false,"no available manager in " + date.toString() + " at " + branch);
+			if (manager_id==-1)
+			{
+				data.send_message("HRManager" , "attempt to set delivery failed- no available manager at recipient branch(" + branch + ") at " + date.toString());
+				return new Result(false,"no available manager in " + date.toString() + " at " + branch);
+			}
 			List<Integer> workers_in_shift=new LinkedList<>();
 			workers_in_shift.add(storekeeper_id);
 			shift=new Shift(date,morning,manager_id,workers_in_shift,branch);
@@ -157,14 +165,23 @@ public class ShiftController
 			if (shift==null) //if shift doesnt exist create new shift with a random available manager and the driver
 			{
 				int manager_id=WorkersController.find_available_manager(p.getKey(),p.getValue(),driver.getBranchAddress());
-				if (manager_id==-1) return new Result(false,"no manager is available in " + p.getKey().toString() + " at " + driver.getBranchAddress());
+				if (manager_id==-1)
+				{
+					data.send_message("HRManager" , "attempt to set delivery at " + departure_date.toString() + "-" + arrival_day.toString() +
+							" failed - no available manager at " + p.getKey().toString() + " at " + driver.getBranchAddress());
+					return new Result(false,"no manager is available in " + p.getKey().toString() + " at " + driver.getBranchAddress());
+				}
 				List<Integer> workers_in_shift=new LinkedList<>();
 				workers_in_shift.add(driver_id);
 				assigned_shifts.add(new Shift(p.getKey(),p.getValue(),manager_id,workers_in_shift,driver.getBranchAddress()));
 			}
 			else //if shift exist edit it by adding the driver to its workers list
 			{
-				if (shift.getWorkers().contains(driver_id)) return new Result(false,"driver is already assigned to delivery");
+				if (shift.getWorkers().contains(driver_id))
+				{
+					data.send_message("HRManager" , "attempt to set delivery at " + departure_date.toString() + "-" + arrival_day.toString() + " failed - requested driver " + driver_id + " already assigned");
+					return new Result(false,"driver is already assigned to delivery");
+				}
 				shift.getWorkers().add(driver_id);
 				assigned_shifts.add(shift);
 			}

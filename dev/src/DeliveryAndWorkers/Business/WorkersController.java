@@ -145,5 +145,8 @@ public class WorkersController
 		return branches;
 	}
 
-
+	public static List<String> get_HRManager_Messages()
+	{
+		return data.get_Messages("HRManager");
+	}
 }
