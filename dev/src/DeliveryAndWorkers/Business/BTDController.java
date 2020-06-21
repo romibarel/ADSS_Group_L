@@ -152,6 +152,18 @@ public class BTDController {
 
     //-------------------------------------end shifts---------------------------------------------
 
+    //-------------------------------------messages-----------------------------------------------
+    public void send_message(String recipient , String message)
+    {
+        dataTb.insertMessage(recipient,message);
+    }
+
+    public List<String> get_Messages(String recipient)
+    {
+        return dataTb.selectMessages(recipient);
+    }
+    //-------------------------------------end messages-------------------------------------------
+
     public void set()
     {
         dataTb.initialize();
