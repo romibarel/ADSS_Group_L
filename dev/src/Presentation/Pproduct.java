@@ -8,13 +8,15 @@ public class Pproduct {
     private String name;
     private String manufacturer;
     private LocalDateTime expirationDate;
+    private double weight;
 
-    public Pproduct(int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate){
+    public Pproduct(int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate, double weight){
         this.catalogID = catalogID;
         this.price = price;
         this.name = name;
         this.manufacturer = manufacturer;
         this.expirationDate = expirationDate;
+        this.weight = weight;
     }
 
     public int getCatalogID() {
@@ -35,5 +37,9 @@ public class Pproduct {
 
     public LocalDateTime getExpirationDate() {
         return expirationDate;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }

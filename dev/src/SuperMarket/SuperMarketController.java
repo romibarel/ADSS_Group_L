@@ -301,8 +301,8 @@ public class SuperMarketController implements SuperMarket {
     }
 
     @Override
-    public boolean addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products) {
-        return SandSController.addOrder(supplierID, dateIssued, products);
+    public boolean addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products, String src, String dest) {
+        return SandSController.addOrder(supplierID, dateIssued, products, src, dest);
     }
 
     @Override
@@ -316,8 +316,8 @@ public class SuperMarketController implements SuperMarket {
     }
 
     @Override
-    public boolean addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration) {
-        return SandSController.addProduct(supplierID, productID, price, name, manufacturer, expiration);
+    public boolean addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration, double weight) {
+        return SandSController.addProduct(supplierID, productID, price, name, manufacturer, expiration, weight);
     }
 
     @Override
@@ -378,6 +378,16 @@ public class SuperMarketController implements SuperMarket {
     @Override
     public boolean setSupplierPayCond(int supplierID, String payCond) {
         return SandSController.setSupplierPayCond(supplierID, payCond);
+    }
+
+    @Override
+    public boolean setOrderSourceAddress(int orderID, String src){
+        return SandSController.setOrderSourceAddress(orderID, src);
+    }
+
+    @Override
+    public boolean setOrderDestinationAddress(int orderID, String dest){
+        return SandSController.setOrderDestinationAddress(orderID, dest);
     }
 
     @Override

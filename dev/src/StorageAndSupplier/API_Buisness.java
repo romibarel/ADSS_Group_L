@@ -106,13 +106,13 @@ public interface API_Buisness {
 
     void updateStatIDs();
 
-    boolean addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products);
+    boolean addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> products, String src, String dest);
 
     boolean addSupplier(String tag, String name, int id, String bankAccNum, String payCond, String phoneNum, String location);
 
     boolean addAgreement(int supplierID, Pair<Pproduct, Pair<Integer, Integer>> agreementDetails);
 
-    boolean addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration);
+    boolean addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration, double weight);
 
     boolean addNewProductToOrder(int productID, int orderID, int supplierID, int amount);
 
@@ -149,6 +149,10 @@ public interface API_Buisness {
     boolean setAgreementProdAmount(int agreementID, int amount);
 
     boolean setAgreementProdSale(int agreementID, int sale);
+
+    boolean setOrderSourceAddress(int orderID, String src);
+
+    boolean setOrderDestinationAddress(int orderID, String dest);
 
     Supplier getSupplier(int supplierID);
 

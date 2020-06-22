@@ -11,14 +11,16 @@ public class Product {
     private String name;
     private String manufacturer;
     private LocalDateTime expirationDate;
+    private double weight;
 
-    public Product(int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate){
+    public Product(int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate, double weight){
         this.catalogID = catalogID;
         this.price = price;
         finalPrice = price;
         this.name = name;
         this.manufacturer = manufacturer;
         this.expirationDate = expirationDate;
+        this.weight = weight;
     }
 
     public Product(LoanProduct lp){
@@ -27,10 +29,11 @@ public class Product {
         finalPrice = price;
         name = lp.getName();
         manufacturer = lp.getManufacturer();
+        weight = lp.getWeight();
     }
 
     public LoanProduct getLoan(int supplierID){
-        return new LoanProduct(supplierID, catalogID, price, name, manufacturer, expirationDate);
+        return new LoanProduct(supplierID, catalogID, price, name, manufacturer, expirationDate, weight);
     }
 
     public String toString(){
@@ -38,7 +41,7 @@ public class Product {
     }
 
     public Product duplicate(){
-        return new Product(catalogID, price, name, manufacturer, expirationDate);
+        return new Product(catalogID, price, name, manufacturer, expirationDate, weight);
     }
 
     public int getCatalogID(){
@@ -63,5 +66,9 @@ public class Product {
 
     public String getManufacturer(){
         return manufacturer;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }

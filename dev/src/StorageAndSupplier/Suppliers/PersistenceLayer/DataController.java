@@ -185,12 +185,14 @@ public class DataController {
 
     public boolean addSupplierOrder(LoanOrder lo){
         try {
-            p = con.prepareStatement("INSERT INTO SUPPLIER_ORDERS VALUES(?,?,?,?,?)");
+            p = con.prepareStatement("INSERT INTO SUPPLIER_ORDERS VALUES(?,?,?,?,?,?,?)");
             p.setInt(1, lo.getSupplierID());
             p.setInt(2, lo.getOrderID());
             p.setDate(3, Date.valueOf(lo.getETA().toLocalDate()));
             p.setDate(4, Date.valueOf(lo.getDateIssued().toLocalDate()));
             p.setDouble(5, lo.getTotal());
+            p.setString(6, lo.getSrcAddress());
+            p.setString(7, lo.getDestAddress());
             p.executeUpdate();
             for(Map.Entry<LoanProduct, Pair<Integer, Integer>> e : lo.getProducts().entrySet()) {
                 p = con.prepareStatement("INSERT INTO ORDER_PRODUCTS VALUES(?,?,?,?)");
@@ -223,13 +225,14 @@ public class DataController {
 
     public boolean addSupplierProduct(LoanProduct lp, int supplierID){
         try {
-            PreparedStatement p = con.prepareStatement("INSERT INTO SUPPLIER_PRODUCTS VALUES(?,?,?,?,?,?)");
+            PreparedStatement p = con.prepareStatement("INSERT INTO SUPPLIER_PRODUCTS VALUES(?,?,?,?,?,?,?)");
             p.setInt(1, lp.getCatalogID());
             p.setDouble(2, lp.getPrice());
             p.setString(3, lp.getName());
             p.setString(4, lp.getManufacturer());
             p.setDate(5, Date.valueOf(lp.getExpirationDate().toLocalDate()));
             p.setInt(6, supplierID);
+            p.setDouble(7, lp.getWeight());
             p.executeUpdate();
             return true;
         }catch(Exception e){
@@ -428,6 +431,26 @@ public class DataController {
         }
     }
 
+    public boolean updateOrderSourceAddress(int orderID, String src){
+        try {
+            p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET source = " + src + "  WHERE orderID = " + orderID);
+            p.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            return false;
+        }
+    }
+
+    public boolean updateOrderDestinationAddress(int orderID, String dest){
+        try {
+            p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET destination = " + dest + "  WHERE orderID = " + orderID);
+            p.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            return false;
+        }
+    }
+
     public LinkedList<LoanSupplier> pullSupplierData(){
         LinkedList<Pair<Integer, Pair<String, String>>> contacts = new LinkedList<>();
         try {
@@ -440,7 +463,7 @@ public class DataController {
             rs = p.executeQuery();
             while(rs.next())
                 loanProducts.add(new LoanProduct(rs.getInt("supplierID"), rs.getInt("catalogID"), rs.getDouble("Price"),rs.getString("Name"), rs.getString("Manufacturer"),
-                        rs.getDate("expirationDate").toLocalDate().atTime(LocalTime.now())));
+                        rs.getDate("expirationDate").toLocalDate().atTime(LocalTime.now()), rs.getDouble("weight")));
 
             p = con.prepareStatement("SELECT * FROM SUPPLIER_AGREEMENTS");
             rs = p.executeQuery();
@@ -470,7 +493,7 @@ public class DataController {
                 r.close();
                 loanOrders.add(new LoanOrder(rs.getInt("supplierID"), rs.getInt("orderID"), rs.getDouble("total"),
                         rs.getDate("ETA").toLocalDate().atTime(LocalTime.now()), rs.getDate("dateIssued").toLocalDate().atTime(LocalTime.now()),
-                        prod));
+                        prod, rs.getString("source"), rs.getString("destination")));
             }
 
             p = con.prepareStatement("SELECT * FROM SUPPLIERS");
@@ -568,7 +591,7 @@ public class DataController {
             rs = p.executeQuery();
             while(rs.next())
                 loanProducts.add(new LoanProduct(rs.getInt("supplierID"), rs.getInt("catalogID"), rs.getDouble("Price"),rs.getString("Name"), rs.getString("Manufacturer"),
-                        rs.getDate("expirationDate").toLocalDate().atTime(LocalTime.now())));
+                        rs.getDate("expirationDate").toLocalDate().atTime(LocalTime.now()), rs.getDouble("weight")));
 
             p = con.prepareStatement("SELECT * FROM SUPPLIER_AGREEMENTS WHERE supplierID = " + supplierID);
             rs = p.executeQuery();
@@ -598,7 +621,7 @@ public class DataController {
                 r.close();
                 loanOrders.add(new LoanOrder(rs.getInt("supplierID"), rs.getInt("orderID"), rs.getDouble("total"),
                         rs.getDate("ETA").toLocalDate().atTime(LocalTime.now()), rs.getDate("dateIssued").toLocalDate().atTime(LocalTime.now()),
-                        prod));
+                        prod, rs.getString("source"), rs.getString("desination")));
             }
 
             p = con.prepareStatement("SELECT * FROM SUPPLIERS WHERE supplierID = " + supplierID);

@@ -227,7 +227,7 @@ public class SystemController {
         p = sup.getProductByID(barCode);
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         products.put(p, new Pair<>(amount, 0));
-        Order o = new Order(sup.getID(), LocalDateTime.now(), products);
+        Order o = new Order(sup.getID(), LocalDateTime.now(), products, "", "");
         o.setETA(sup.assessOrderETA());
         addOrder(o);
         return o.getETA();
@@ -315,6 +315,26 @@ public class SystemController {
         if(!dc.updateAgreementProdSale(sale, agreementID))
             return false;
         a.setProdSale(sale);
+        return true;
+    }
+
+    public boolean setOrderSourceAddress(int orderID, String src){
+        Order o = getOrder(orderID);
+        if(o == null)
+            return false;
+        if(!dc.updateOrderSourceAddress(orderID, src))
+            return false;
+        o.setSourceAddress(src);
+        return true;
+    }
+
+    public boolean setOrderDestinationAddress(int orderID, String dest){
+        Order o = getOrder(orderID);
+        if(o == null)
+            return false;
+        if(!dc.updateOrderDestinationAddress(orderID, dest))
+            return false;
+        o.setDestinationAddress(dest);
         return true;
     }
 
