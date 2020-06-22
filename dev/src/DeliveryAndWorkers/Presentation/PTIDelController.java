@@ -5,6 +5,7 @@ import DeliveryAndWorkers.Business.BTIController;
 import DeliveryAndWorkers.DataAccess.DALController;
 import DeliveryAndWorkers.Interface.ITBDelController;
 import DeliveryAndWorkers.Interface.ITPDelController;
+import SuperMarket.SuperMarketController;
 import javafx.util.Pair;
 
 import java.text.SimpleDateFormat;
@@ -384,21 +385,22 @@ public class PTIDelController {
         String input;
         System.out.println("Please enter Storekeeper username and password.");
         input = scanner.nextLine();
-        if (!validUser(input)){
+        //todo: check the actual id of store keeper, logistic manager and HR manager
+        if (!validUser(input, 2)){
             System.out.println("Storekeeper username and ID incorrect, cancelation denied.");
             return;
         }
 
         System.out.println("Please enter Logistic Manager username and password.");
         input = scanner.nextLine();
-        if (!validUser(input)){
+        if (!validUser(input, 4)){
             System.out.println("Logistic Manager username and ID incorrect, cancelation denied.");
             return;
         }
 
         System.out.println("Please enter HR Manager user username password.");
         input = scanner.nextLine();
-        if (!validUser(input)){
+        if (!validUser(input, 1)){
             System.out.println("HR Manager username and ID incorrect, cancelation denied.");
             return;
         }
@@ -447,9 +449,9 @@ public class PTIDelController {
         return ret;
     }
 
-    private boolean validUser(String s){
+    private boolean validUser(String s, int id){
         //0=username 1=password
         String[] parse = s.split(" ");
-
+        return SuperMarketController.getInstance().checkPermission(parse[0], parse[1]) == id;
     }
 }
