@@ -1549,13 +1549,24 @@ public class Presentation {
         //    isLoad = true;
         //}
 
+        boolean error;
         while(!isTerminated){
             System.out.println("Choose 1 for suppliers");
             System.out.println("Choose 2 for orders");
             System.out.println("Choose 3 for reports");
             System.out.println("Choose 4 for agreements");
-            System.out.println("Choose anything else to exit");
-            int option = scanner.nextInt();
+            System.out.println("Choose 0 to exit");
+            int option = 0;
+            do {
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                    error = false;
+                }
+                catch (Exception e){
+                    error = true;
+                    System.out.println("Illegal input try again.");
+                }
+            }while (error);
             switch (option){
                 case 1:
                     System.out.println("Choose 1 to view details about a supplier");
@@ -1567,9 +1578,20 @@ public class Presentation {
                     System.out.println("Choose 7 to add a new product to a supplier");
                     System.out.println("Choose 8 to remove a product from a supplier");
                     System.out.println("Choose 9 to view all products a supplier has to offer");
-                    System.out.println("Choose anything else to go back");
-                    option = scanner.nextInt();
-                    switch (option){
+                    System.out.println("Choose 0 to go back");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    switch (option) {
+                        case 0:
+                            break;
                         case 1:
                             System.out.println("Enter the supplierID");
                             int suppid = scanner.nextInt();
@@ -1608,8 +1630,17 @@ public class Presentation {
                             System.out.println("Choose 1 to create fixed days supplier");
                             System.out.println("Choose 2 to create order only supplier");
                             System.out.println("Choose 3 to create self pickup supplier");
-                            System.out.println("Choose anything else to go back");
-                            option = scanner.nextInt();
+                            System.out.println("Choose 0 to go back");
+                            do {
+                                try {
+                                    option = Integer.parseInt(scanner.nextLine());
+                                    error = false;
+                                }
+                                catch (Exception e){
+                                    error = true;
+                                    System.out.println("Illegal input try again.");
+                                }
+                            }while (error);
                             switch (option){
                                 case 1:
                                     if(!superMarket.addSupplier("FixedDays",name, cid,ba,pc,pn,""))
@@ -1636,8 +1667,17 @@ public class Presentation {
                             System.out.println("Choose 2 to edit bank account");
                             System.out.println("Choose 3 to edit pay condition");
                             System.out.println("Choose 4 to edit phone number");
-                            System.out.println("Choose anything else to go back");
-                            option = scanner.nextInt();
+                            System.out.println("Choose 0 to go back");
+                            do {
+                                try {
+                                    option = Integer.parseInt(scanner.nextLine());
+                                    error = false;
+                                }
+                                catch (Exception e){
+                                    error = true;
+                                    System.out.println("Illegal input try again.");
+                                }
+                            }while (error);
                             int id;
                             switch (option){
                                 case 1:
@@ -1737,8 +1777,10 @@ public class Presentation {
                             System.out.println("Enter the minutes");
                             int minutes = scanner.nextInt();
                             LocalDateTime l = LocalDateTime.of(year,month,day,hour,minutes);
+                            System.out.println("Please enter the weight of the product");
+                            double weight = scanner.nextDouble();
                             System.out.println("Enter the id of the supplier that supplies this product");
-                            if(!superMarket.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l))
+                            if(!superMarket.addProduct(scanner.nextInt(), catid, price, pname, manufacturer, l, weight))
                                 System.out.println("Error");
                             else System.out.println("Success!");
                             break;
@@ -1756,8 +1798,6 @@ public class Presentation {
                             for(Product p : superMarket.getSupplier(sid1).getProducts())
                                 System.out.println(p.toString() + "\n");
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case 2:
@@ -1766,9 +1806,20 @@ public class Presentation {
                     System.out.println("Choose 3 to edit an order");
                     System.out.println("Choose 4 to cancel an order");
                     System.out.println("Choose 5 to announce the arrival of an order");
-                    System.out.println("Choose anything else to go back");
-                    option = scanner.nextInt();
-                    switch (option){
+                    System.out.println("Choose 0 to go back");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    switch (option) {
+                        case 0:
+                            break;
                         case 1:
                             System.out.println("Enter the supplierID");
                             int suppid = scanner.nextInt();
@@ -1784,6 +1835,14 @@ public class Presentation {
                             System.out.println("Please enter the supplier ID");
                             int s = scanner.nextInt();
                             HashMap<Pproduct, Pair<Integer, Integer>> hm = new HashMap<>();
+                            System.out.println("Please enter the source address");
+                            String src = scanner.nextLine();
+                            if(!checkValidName(src))
+                                break;
+                            System.out.println("Please enter the destination address");
+                            String dest = scanner.nextLine();
+                            if(!checkValidName(dest))
+                                break;
                             String ans;
                             do{
                                 System.out.println("Please enter the id of the product");
@@ -1800,13 +1859,15 @@ public class Presentation {
                                 double pri = scanner.nextDouble();
                                 System.out.println("Please enter the quantity of the product");
                                 int amo = scanner.nextInt();
-                                Pproduct p = new Pproduct(id, pri,name,manu, LocalDateTime.now().plusDays(7));
+                                System.out.println("Please enter the weight of the product");
+                                double weight = scanner.nextDouble();
+                                Pproduct p = new Pproduct(id, pri,name,manu, LocalDateTime.now().plusDays(7), weight);
                                 Pair<Integer, Integer> pair = new Pair<>(amo,0);
                                 hm.put(p,pair);
                                 System.out.println("Would you like to enter another one? (y/n)");
                                 ans = scanner.next();
                             } while(!ans.equals("n"));
-                            if(!superMarket.addOrder(s,LocalDateTime.now(),hm))
+                            if(!superMarket.addOrder(s,LocalDateTime.now(),hm, src, dest))
                                 System.out.println("Error");
                             else System.out.println("Success!");
                         case 3:
@@ -1814,9 +1875,22 @@ public class Presentation {
                             System.out.println("Choose 2 to edit the amount of a certain product in an order");
                             System.out.println("Choose 3 to remove a product from an order");
                             System.out.println("Choose 4 to add a product to an order");
-                            System.out.println("Choose anything else to go back");
-                            option = scanner.nextInt();
-                            switch (option){
+                            System.out.println("Choose 5 to change the source address");
+                            System.out.println("Choose 6 to change the destination address");
+                            System.out.println("Choose 0 to go back");
+                            do {
+                                try {
+                                    option = Integer.parseInt(scanner.nextLine());
+                                    error = false;
+                                }
+                                catch (Exception e){
+                                    error = true;
+                                    System.out.println("Illegal input try again.");
+                                }
+                            }while (error);
+                            switch (option) {
+                                case 0:
+                                    break;
                                 case 1:
                                     System.out.println("Enter the ID of the order");
                                     int ordid = scanner.nextInt();
@@ -1855,8 +1929,6 @@ public class Presentation {
                                         System.out.println("Success!");
                                     else System.out.println("Error");
                                     break;
-                                default:
-                                    break;
                                 case 4:
                                     System.out.println("Enter the productID");
                                     int pid = scanner.nextInt();
@@ -1867,6 +1939,24 @@ public class Presentation {
                                     System.out.println("Enter the amount you would like to order");
                                     int amount = scanner.nextInt();
                                     if(!superMarket.addNewProductToOrder(pid, orderid, suid, amount))
+                                        System.out.println("Error");
+                                    else System.out.println("Success!");
+                                    break;
+                                case 5:
+                                    System.out.println("Please enter the order's ID");
+                                    int ordeid1 = scanner.nextInt();
+                                    System.out.println("Please enter the new source address");
+                                    String src1 = scanner.nextLine();
+                                    if(!superMarket.setOrderSourceAddress(ordeid1, src1))
+                                        System.out.println("Error");
+                                    else System.out.println("Success!");
+                                    break;
+                                case 6:
+                                    System.out.println("Please enter the order's ID");
+                                    int ordeid2 = scanner.nextInt();
+                                    System.out.println("Please enter the new destination address");
+                                    String dest1 = scanner.nextLine();
+                                    if(!superMarket.setOrderSourceAddress(ordeid2, dest1))
                                         System.out.println("Error");
                                     else System.out.println("Success!");
                                     break;
@@ -1896,17 +1986,26 @@ public class Presentation {
                                 System.out.println("Error");
                             System.out.println("Success!");
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case 3:
                     System.out.println("Choose 1 to view all arrival reports");
                     System.out.println("Choose 2 to view all cancellation reports");
                     System.out.println("Choose 3 to view a certain report");
-                    System.out.println("Choose anything else to go back");
-                    option = scanner.nextInt();
-                    switch (option){
+                    System.out.println("Choose 0 to go back");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    switch (option) {
+                        case 0:
+                            break;
                         case 1:
                             for(Report r : superMarket.getReports()){
                                 if(r instanceof ArrivalReport){
@@ -1937,8 +2036,6 @@ public class Presentation {
                             System.out.println("Date reported: "+r.getDateReported());
                             System.out.println("Order ID: "+ r.getReportedOrder().getID()+"\n");
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case 4:
@@ -1946,9 +2043,20 @@ public class Presentation {
                     System.out.println("Choose 2 to add a new agreement");
                     System.out.println("Choose 3 to edit an agreement");
                     System.out.println("Choose 4 to remove agreement");
-                    System.out.println("Choose anything else to go back");
-                    option = scanner.nextInt();
-                    switch (option){
+                    System.out.println("Choose 0 to go back");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    switch (option) {
+                        case 0:
+                            break;
                         case 1:
                             System.out.println("Enter the supplierID");
                             int sid = scanner.nextInt();
@@ -1959,6 +2067,7 @@ public class Presentation {
                             }
                             for(Agreement a : s.getAgreements())
                                 System.out.println(a.toString() + "\n");
+                            break;
                         case 2:
                             System.out.println("Enter the supplier ID");
                             int su = scanner.nextInt();
@@ -1979,20 +2088,33 @@ public class Presentation {
                             String mm = scanner.next();
                             if(!checkValidName(mm))
                                 break;
+                            System.out.println("Please enter the weight of the product");
+                            double weight = scanner.nextDouble();
                             System.out.println("Enter the amount for the sale to apply");
                             int aa = scanner.nextInt();
                             System.out.println("Enter the sale for it");
                             int hh = scanner.nextInt();
-                            if(superMarket.addAgreement(to.getID(), new Pair<>(new Pproduct(catalogID1,pp,nn,mm, LocalDateTime.now().plusDays(7)),new Pair<>(aa,hh))))
+                            if(superMarket.addAgreement(to.getID(), new Pair<>(new Pproduct(catalogID1,pp,nn,mm, LocalDateTime.now().plusDays(7), weight),new Pair<>(aa,hh))))
                                 System.out.println("Success!");
                             else System.out.println("Error, supplier does not supply this item");
                             break;
                         case 3:
                             System.out.println("Choose 1 to set the product amount");
                             System.out.println("Choose 2 to set the product sale");
-                            System.out.println("Choose anything else to go back");
-                            option = scanner.nextInt();
-                            switch (option){
+                            System.out.println("Choose 0 to go back");
+                            do {
+                                try {
+                                    option = Integer.parseInt(scanner.nextLine());
+                                    error = false;
+                                }
+                                catch (Exception e){
+                                    error = true;
+                                    System.out.println("Illegal input try again.");
+                                }
+                            }while (error);
+                            switch (option) {
+                                case 0:
+                                    break;
                                 case 1:
                                     System.out.println("Enter the agreement ID");
                                     int u = scanner.nextInt();
@@ -2011,8 +2133,6 @@ public class Presentation {
                                         System.out.println("Success!");
                                     else System.out.println("Error, no such agreement");
                                     break;
-                                default:
-                                    break;
                             }
                             break;
                         case 4:
@@ -2024,8 +2144,6 @@ public class Presentation {
                                 System.out.println("Success!");
                             else System.out.println("Error!");
                             break;
-                        default:
-                            break;
                     }
                     break;
                 default:
@@ -2034,6 +2152,195 @@ public class Presentation {
             }
         }
         System.out.println("\nThanks for using our system, looking forward to seeing you again!");
+    }
+
+    public void runManager() {
+        boolean isTerminated = false;
+        Scanner scanner = new Scanner(System.in);
+        //System.out.println("Would you like to load pre-made data? (y/n)");
+        //if(scanner.next().equals("y")) {
+        //    businessManager.loadSystem();
+        //    isLoad = true;
+        //}
+        boolean error;
+        while (!isTerminated) {
+            System.out.println("Choose 1 for suppliers");
+            System.out.println("Choose 2 for orders");
+            System.out.println("Choose 3 for reports");
+            System.out.println("Choose 4 for agreements");
+            System.out.println("Choose 0 to exit");
+            int option = 0;
+            do {
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                    error = false;
+                }
+                catch (Exception e){
+                    error = true;
+                    System.out.println("Illegal input try again.");
+                }
+            }while (error);
+            switch (option) {
+                case 1:
+                    System.out.println("Choose 1 to view details about a supplier");
+                    System.out.println("Choose 9 to view all products a supplier has to offer");
+                    System.out.println("Choose 0 to go back");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    switch (option) {
+                        case 0:
+                            break;
+                        case 1:
+                            System.out.println("Enter the supplierID");
+                            int suppid = scanner.nextInt();
+                            Supplier s = superMarket.getSupplier(suppid);
+                            if(s == null) {
+                                System.out.println("No such supplier");
+                                break;
+                            }
+                            System.out.println("ID: " + s.getID());
+                            System.out.println("Name: " + s.getName());
+                            System.out.println("Company ID: " + s.getCompanyID());
+                            System.out.println("Pay condition: " + s.getPayCond());
+                            System.out.println("Phone number: " + s.getPhoneNum());
+                            System.out.println("Bank account: " + s.getBankAccNum());
+                            if(!s.getContacts().isEmpty()) {
+                                System.out.print("Contacts: ");
+                                for (Pair<String, String> contact : s.getContacts())
+                                    System.out.print("<" + contact.getKey() + ", " + contact.getValue() + "> ");
+                                System.out.println();
+                            }
+                            System.out.println();
+                            break;
+                        case 2:
+                            System.out.println("Enter the supplierID");
+                            int sid1 = scanner.nextInt();
+                            for(Product p : superMarket.getSupplier(sid1).getProducts())
+                                System.out.println(p.toString() + "\n");
+                            break;
+                    }
+                    break;
+                case 2:
+                    System.out.println("Choose 1 to view details about all pending orders of a certain supplier");
+                    System.out.println("Choose 0 to go back");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    switch (option) {
+                        case 0:
+                            break;
+                        case 1:
+                            System.out.println("Enter the supplierID");
+                            int suppid = scanner.nextInt();
+                            Supplier supp = superMarket.getSupplier(suppid);
+                            if (supp == null) {
+                                System.out.println("No such supplier");
+                                break;
+                            }
+                            for (Order o : supp.getOrders())
+                                System.out.println(o.toString() + "\n");
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Choose 1 to view all arrival reports");
+                    System.out.println("Choose 2 to view all cancellation reports");
+                    System.out.println("Choose 3 to view a certain report");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    option = scanner.nextInt();
+                    switch (option) {
+                        case 0:
+                            break;
+                        case 1:
+                            for(Report r : superMarket.getReports()){
+                                if(r instanceof ArrivalReport){
+                                    System.out.println("Report ID: "+r.getID());
+                                    System.out.println("Date reported: "+r.getDateReported().toString());
+                                    System.out.println("Order ID: "+ r.getReportedOrder().getID()+"\n");
+                                }
+                            }
+                            break;
+                        case 2:
+                            for(Report r : superMarket.getReports()){
+                                if(r instanceof CancellationReport){
+                                    System.out.println("Report ID: "+r.getID());
+                                    System.out.println("Date reported: "+r.getDateReported());
+                                    System.out.println("Order ID: "+ r.getReportedOrder().getID()+"\n");
+                                }
+                            }
+                            break;
+                        case 3:
+                            System.out.println("Enter the reportID");
+                            int rid = scanner.nextInt();
+                            Report r = superMarket.getReport(rid);
+                            if(r == null){
+                                System.out.println("No such report");
+                                break;
+                            }
+                            System.out.println("Report ID: "+r.getID());
+                            System.out.println("Date reported: "+r.getDateReported());
+                            System.out.println("Order ID: "+ r.getReportedOrder().getID()+"\n");
+                            break;
+                    }
+                    break;
+                case 4:
+                    System.out.println("Choose 1 to view details about all agreements of a certain supplier");
+                    System.out.println("Choose 0 to go back");
+                    do {
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                            error = false;
+                        }
+                        catch (Exception e){
+                            error = true;
+                            System.out.println("Illegal input try again.");
+                        }
+                    }while (error);
+                    switch (option) {
+                        case 0:
+                            break;
+                        case 1:
+                            System.out.println("Enter the supplierID");
+                            int sid = scanner.nextInt();
+                            Supplier s = superMarket.getSupplier(sid);
+                            if (s == null) {
+                                System.out.println("No such supplier");
+                                break;
+                            }
+                            for (Agreement a : s.getAgreements())
+                                System.out.println(a.toString() + "\n");
+                            break;
+                    }
+                    break;
+                default:
+                    isTerminated = true;
+                    break;
+            }
+        }
     }
 
     private boolean checkValidName(String name){

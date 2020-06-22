@@ -271,12 +271,12 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public boolean addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts){
+    public boolean addOrder(int supplierID, LocalDateTime dateIssued, HashMap<Pproduct, Pair<Integer, Integer>> pproducts, String src, String dest){
         //add order returns LocalDateTime or null if user entered an invalid order
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         for(Map.Entry<Pproduct, Pair<Integer, Integer>> e : pproducts.entrySet())
-            products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate()), e.getValue());
-        LocalDateTime ETA = supplier_management.addOrder(new Order(supplierID, dateIssued, products));
+            products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate(), e.getKey().getWeight()), e.getValue());
+        LocalDateTime ETA = supplier_management.addOrder(new Order(supplierID, dateIssued, products, src, dest));
         if(ETA == null)
             return false;
         for (Pproduct p :pproducts.keySet()){
@@ -299,14 +299,14 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     @Override
     public boolean addAgreement(int supplierID, Pair<Pproduct, Pair<Integer, Integer>> agreementDetails){
         Pproduct pp = agreementDetails.getKey();
-        Product p = new Product(pp.getCatalogID(), pp.getPrice(), pp.getName(), pp.getManufacturer(), pp.getExpirationDate());
+        Product p = new Product(pp.getCatalogID(), pp.getPrice(), pp.getName(), pp.getManufacturer(), pp.getExpirationDate(), pp.getWeight());
         Pair<Product, Pair<Integer, Integer>> details = new Pair<>(p, agreementDetails.getValue());
         return supplier_management.addAgreement(supplierID, new Agreement(details));
     }
 
     @Override
-    public boolean addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration){
-        return supplier_management.addProduct(supplierID, new Product(productID, price, name, manufacturer, expiration));
+    public boolean addProduct(int supplierID, int productID, double price, String name, String manufacturer, LocalDateTime expiration, double weight){
+        return supplier_management.addProduct(supplierID, new Product(productID, price, name, manufacturer, expiration, weight));
     }
 
     @Override
@@ -372,6 +372,16 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     @Override
     public boolean setSupplierPhoneNum(int supplierID, String phoneNum){
         return supplier_management.setSupplierPhoneNum(supplierID, phoneNum);
+    }
+
+    @Override
+    public boolean setOrderSourceAddress(int orderID, String src){
+        return supplier_management.setOrderSourceAddress(orderID, src);
+    }
+
+    @Override
+    public boolean setOrderDestinationAddress(int orderID, String dest){
+        return supplier_management.setOrderDestinationAddress(orderID, dest);
     }
 
     @Override

@@ -12,14 +12,18 @@ public class LoanOrder {
     private LocalDateTime ETA;
     private LocalDateTime dateIssued;
     private HashMap<LoanProduct, Pair<Integer, Integer>> products;
+    private String srcAddress;
+    private String destAddress;
 
-    public LoanOrder(int supplierID, int orderID, double total, LocalDateTime ETA, LocalDateTime dateIssued, HashMap<LoanProduct, Pair<Integer, Integer>> products){
+    public LoanOrder(int supplierID, int orderID, double total, LocalDateTime ETA, LocalDateTime dateIssued, HashMap<LoanProduct, Pair<Integer, Integer>> products, String srcAddress, String destAddress){
         this.orderID = orderID;
         this.supplierID = supplierID;
         this.total = total;
         this.ETA = ETA;
         this.dateIssued = dateIssued;
         this.products = products;
+        this.srcAddress = srcAddress;
+        this.destAddress = destAddress;
     }
 
     public int getSupplierID() {
@@ -44,5 +48,13 @@ public class LoanOrder {
 
     public double getTotal() {
         return total;
+    }
+
+    public String getDestAddress() {
+        return destAddress;
+    }
+
+    public String getSrcAddress() {
+        return srcAddress;
     }
 }

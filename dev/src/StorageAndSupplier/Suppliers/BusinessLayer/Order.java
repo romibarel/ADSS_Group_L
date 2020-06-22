@@ -18,14 +18,18 @@ public class Order {
     private LocalDateTime ETA;
     private LocalDateTime dateIssued;
     private HashMap<Product, Pair<Integer, Integer>> products; // <Product, <Amount ordered, Sale percentage>>
+    private String srcAddress;
+    private String destAddress;
 
-    public Order(int supplierID, LocalDateTime dateIssued, HashMap<Product, Pair<Integer, Integer>> products){
+    public Order(int supplierID, LocalDateTime dateIssued, HashMap<Product, Pair<Integer, Integer>> products, String srcAddress, String destAddress){
         orderID = statID++;
         this.supplierID = supplierID;
         total = 0;
         this.ETA = null;
         this.dateIssued = dateIssued;
         this.products = products;
+        this.srcAddress = srcAddress;
+        this.destAddress = destAddress;
     }
 
     public Order(LoanOrder lo){
@@ -39,6 +43,8 @@ public class Order {
         products = new HashMap<>();
         for(Map.Entry<LoanProduct, Pair<Integer, Integer>> e : loanProducts.entrySet())
             products.put(new Product(e.getKey()), new Pair<>(e.getValue().getKey(), e.getValue().getValue()));
+        srcAddress = lo.getSrcAddress();
+        destAddress = lo.getDestAddress();
     }
 
     public static void setStatID(int ID){
@@ -49,7 +55,7 @@ public class Order {
         HashMap<LoanProduct, Pair<Integer, Integer>> loanProducts = new HashMap<>();
         for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet())
             loanProducts.put(e.getKey().getLoan(supplierID), new Pair<>(e.getValue().getKey(), e.getValue().getValue()));
-        return new LoanOrder(supplierID, orderID, total, ETA, dateIssued, loanProducts);
+        return new LoanOrder(supplierID, orderID, total, ETA, dateIssued, loanProducts, srcAddress, destAddress);
 
     }
 
@@ -73,6 +79,14 @@ public class Order {
         return products;
     }
 
+    public String getDestAddress() {
+        return destAddress;
+    }
+
+    public String getSrcAddress() {
+        return srcAddress;
+    }
+
     public boolean setProductAmount(int productID, int amount) {
         for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()) {
             if (e.getKey().getCatalogID() == productID) {
@@ -85,6 +99,16 @@ public class Order {
 
     public boolean setETA(LocalDateTime ETA) {
         this.ETA = ETA;
+        return true;
+    }
+
+    public boolean setSourceAddress(String src){
+        srcAddress = src;
+        return true;
+    }
+
+    public boolean setDestinationAddress(String dest){
+        destAddress = dest;
         return true;
     }
 
@@ -158,5 +182,12 @@ public class Order {
                 break;
             }
         }
+    }
+
+    public double calcWeight(){
+        double weight = 0;
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet())
+            weight += e.getKey().getWeight() * e.getValue().getKey();
+        return weight;
     }
 }

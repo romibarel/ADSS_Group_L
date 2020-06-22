@@ -9,14 +9,16 @@ public class LoanProduct {
     private String name;
     private String manufacturer;
     private LocalDateTime expirationDate;
+    private double weight;
 
-    public LoanProduct(int supplierID, int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate){
+    public LoanProduct(int supplierID, int catalogID, double price, String name, String manufacturer, LocalDateTime expirationDate, double weight){
         this.supplierID = supplierID;
         this.catalogID = catalogID;
         this.price = price;
         this.name = name;
         this.manufacturer = manufacturer;
         this.expirationDate = expirationDate;
+        this.weight = weight;
     }
 
     public int getCatalogID() {
@@ -41,5 +43,9 @@ public class LoanProduct {
 
     public int getSupplierID() {
         return supplierID;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }
