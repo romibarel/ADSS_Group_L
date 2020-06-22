@@ -198,6 +198,7 @@ public class PTIDelController {
 
         formatter = new SimpleDateFormat("HH:mm");
         Date time = new Date();
+//        todo haim romi is it todays ???
         System.out.println(formatter.format(date));
         itp.checkCurrentTime(date, time);
 //        check current time bti

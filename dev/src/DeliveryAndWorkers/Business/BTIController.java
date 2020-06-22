@@ -5,7 +5,6 @@ import DeliveryAndWorkers.Interface.ITBDelController;
 import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
 import StorageAndSupplier.Suppliers.BusinessLayer.Order;
 import StorageAndSupplier.Suppliers.BusinessLayer.Product;
-import StorageAndSupplier.Suppliers.BusinessLayer.Supplier;
 import javafx.util.Pair;
 
 import java.text.DateFormat;
@@ -25,6 +24,8 @@ public class BTIController {
     private Sections sections;
     private List<Location> locations;
     private List<Truck> trucks;
+    private final String DELIMITER = "^^";
+
 
     private BTIController(){
 
@@ -258,13 +259,67 @@ public class BTIController {
     public void checkCurrentTime(Date date, Date time) {
         List<Delivery> deliveries = archive.getDeliveries();
         for (Delivery deli : deliveries ) {
-            sendDeliveryList(deli);
+            boolean timePassed = deli.getDate().getTime() < date.getTime();     // todo haim check
+            String product = deli.getDocs().get(0).getDeliveryList().get(0).getName();
+            boolean outDeli = product.contains(DELIMITER);
+            if (timePassed & outDeli) {
+                sendDeliveryList(deli);
+            }
         }
     }
 
+//    String newName = order.getSupplierID() + DELIMITER + suppCatalog + DELIMITER + suppName + DELIMITER
+//            + price + DELIMITER + discount + DELIMITER + suppExperationDate.toString();
+
     private void sendDeliveryList(Delivery deli) {
 //        todo haim
-        //todo: avi needs buyProduct(int supplierID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
+        //todo: avi needs buyProduct(int supplyID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
+//            deli.getSource().get
+        List<DeliverDoc> docs = deli.getDocs();
+        for (DeliverDoc doc : docs)
+        {
+            List<Supply> supplies = doc.getDeliveryList();
+            Date date = doc.getEstimatedDayOfArrival(); // not avi's format
+            for (Supply sup : supplies){
+                 String supplyStr = sup.getName();
+                 String[] supDetails = supplyStr.split(DELIMITER);
+                 if (supDetails.length != 6 )
+                 {
+//                     error
+                 }
+                 else
+                 {
+
+                     int supplyID ;
+                     String catalogID;
+                     String productName;
+                     double price;
+                     double discount;
+                     Date expiration;
+                     int amount = sup.getQuant();
+
+                     try {
+                         supplyID = Integer.parseInt(supDetails[0]);
+                         price = Double.parseDouble(supDetails[3]);
+                         discount = Double.parseDouble(supDetails[4]);
+                         DateFormat dateF = new SimpleDateFormat("yyyy-mm-dd");
+                         expiration = dateF.parse(supDetails[5]);//   todo haim this is avi's format. this time convert might not work
+                     }
+                     catch (Exception e)
+                     {
+//                         ERROR
+                         e.printStackTrace();   // todo throw delete after testing haim
+                        continue;
+                     }
+                     catalogID = supDetails[1];
+                     productName = supDetails[2];
+                     Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID,  productName,  price,  discount,  expiration,  amount,  date);
+
+                 }
+            }
+        }
+//         buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
+
 
 
     }
@@ -284,9 +339,8 @@ public class BTIController {
             LocalDateTime suppExperationDate = e.getKey().getExpirationDate();
             double price = order.getPriceOf(e.getKey().getCatalogID());
             double discount = order.getDiscountOf(e.getKey().getCatalogID());
-            String delemiter = "^^";
-            String newName = order.getSupplierID() + delemiter + suppCatalog + delemiter + suppName + delemiter
-                       + price + delemiter + discount + delemiter + suppExperationDate.toString();
+            String newName = order.getSupplierID() + DELIMITER + suppCatalog + DELIMITER + suppName + DELIMITER
+                       + price + DELIMITER + discount + DELIMITER + suppExperationDate.toString();
             Integer quant = e.getValue().getKey();
             supplies.add(new Pair<>(newName, quant));
         }
