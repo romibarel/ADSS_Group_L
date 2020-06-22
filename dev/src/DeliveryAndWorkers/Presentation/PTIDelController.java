@@ -191,26 +191,44 @@ public class PTIDelController {
         }
     }
 
-    public void start(){
-        //docNum is the first available id of a delivery document.
-        boolean finish = false;
-        int docNum = itp.getMaxDocNum() + 1;
-        System.out.println("Welcome to the delivery system!");
-        while(!finish){
+    public void start(boolean isManager){
+        if (!isManager){
+            //docNum is the first available id of a delivery document.
+            boolean finish = false;
+            int docNum = itp.getMaxDocNum() + 1;
+            System.out.println("Welcome to the delivery system!");
+            while(!finish){
+                System.out.println("Please choose your action.\n" +
+                        "1) Create delivery\n" +
+                        "2) Print archive\n" +
+                        "3) Exit delivery system");
+                String input = scanner.nextLine();
+                switch (input){
+                    case "1":
+                        docNum = createDelivery(docNum);
+                        break;
+                    case "2":
+                        printArchive();
+                        break;
+                    case "3":
+                        finish = true;
+                        break;
+                    default:
+                        System.out.println("no such option");
+                        break;
+                }
+            }
+        }
+        else {
             System.out.println("Please choose your action.\n" +
-                    "1) Create delivery\n" +
-                    "2) Print archive\n" +
-                    "3) Exit delivery system");
+                    "1) Print archive\n" +
+                    "2) Exit delivery system");
             String input = scanner.nextLine();
-            switch (input){
+            switch (input) {
                 case "1":
-                    docNum = createDelivery(docNum);
-                    break;
-                case "2":
                     printArchive();
                     break;
-                case "3":
-                    finish = true;
+                case "2":
                     break;
                 default:
                     System.out.println("no such option");
@@ -386,8 +404,8 @@ public class PTIDelController {
         System.out.println("Please enter Storekeeper username and password.");
         input = scanner.nextLine();
         //todo: check the actual id of store keeper, logistic manager and HR manager
-        if (!validUser(input, 2)){
-            System.out.println("Storekeeper username and ID incorrect, cancelation denied.");
+        if (!validUser(input, 1)){
+            System.out.println("Storage Manager username and ID incorrect, cancelation denied.");
             return;
         }
 
@@ -400,7 +418,7 @@ public class PTIDelController {
 
         System.out.println("Please enter HR Manager user username password.");
         input = scanner.nextLine();
-        if (!validUser(input, 1)){
+        if (!validUser(input, 3)){
             System.out.println("HR Manager username and ID incorrect, cancelation denied.");
             return;
         }

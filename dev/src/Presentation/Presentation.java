@@ -125,7 +125,7 @@ public class Presentation {
                 break;
             case 5:
                 initiateOptions = Arrays.asList("Storage system", "Suppliers system",
-                        "Delivery system","Workers system",
+                       "Workers system", "Delivery system",
                         "Exit");
                 printMenu(initiateOptions);
                 select = getIntInput(4);
@@ -136,11 +136,12 @@ public class Presentation {
                     runStorage();
                 }
                 else if (select == 3){
-                    superMarket.start();
-                }
-                else if (select == 4){
                     superMarket.mainFunc();
                 }
+                else if (select == 4){
+                    superMarket.start();
+                }
+
                 break;
 
             default:
