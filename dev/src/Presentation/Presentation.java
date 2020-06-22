@@ -120,7 +120,7 @@ public class Presentation {
                 printMenu(initiateOptions);
                 select = getIntInput(1);
                 if (select == 1) {
-                    superMarket.mainFunc();
+                    superMarket.mainFunc(false);
                 }
                 break;
             case 5:
@@ -136,7 +136,7 @@ public class Presentation {
                     runStorage();
                 }
                 else if (select == 3){
-                    superMarket.mainFunc();
+                    superMarket.mainFunc(true);
                 }
                 else if (select == 4){
                     superMarket.start();

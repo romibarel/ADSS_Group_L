@@ -479,7 +479,11 @@ public class SuperMarketController implements SuperMarket {
     }
 
     @Override
-    public void mainFunc() {
-        WorkerMenu.mainFunc();
+    public void mainFunc(boolean isManager) {
+        if(!isManager)
+            WorkerMenu.mainFunc();
+        else
+            WorkerMenu.mangerMain();
+
     }
 }

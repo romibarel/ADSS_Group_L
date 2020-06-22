@@ -81,6 +81,49 @@ public class WorkerMenu {
            }
         }
     }
+    public static void mangerMain (){
+        int choice;
+        int m=0;
+        List<String> messages;
+        String init;
+        initCalls(calls);
+        initActions(calls);
+        System.out.println("Welcome to Super-Li manager HR System");
+        while(!quit){
+            System.out.println("Please choose from the following menus");
+            System.out.println("1. Search menu");
+            System.out.println("2. Report menu");
+            System.out.println("3. Exit HR system");
+            System.out.println("Please choose a command:");
+            try {
+                choice = Integer.parseInt(input.nextLine());
+            }
+            catch (Exception e){
+                System.out.println("illegal input");
+                continue;
+            }
+            if(choice>3| choice<1){
+                System.out.println("no such menu");
+                continue;
+            }
+            switch (choice)
+            {
+                case 1:
+                    System.out.println("Search menu:");
+                    searchMenu();
+                    break;
+                case 2:
+                    System.out.println("Report menu:");
+                    reportMenu();
+                    break;
+                case 3:
+                    exit();
+                    break;
+                default:
+                    System.out.println("Could not find menu");
+            }
+        }
+    }
 
     private static void exit(){
         quit=true;
