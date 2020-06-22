@@ -3,8 +3,11 @@ package DeliveryAndWorkers.Business;
 import DeliveryAndWorkers.Business.BuisnessObjects.*;
 import DeliveryAndWorkers.Interface.ITBDelController;
 import StorageAndSupplier.Suppliers.BusinessLayer.Order;
+import StorageAndSupplier.Suppliers.BusinessLayer.Product;
 import javafx.util.Pair;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -90,10 +93,28 @@ public class BTIController {
             return "The source doesn't exist.";
 
         Location dest = order.getDestinationAddress();
+
         Date date = convertToDateViaSqlTimestamp(order.getETA());
-        new Date(date.getDate())
-        Date arrival = ;
-        Date depart = 3 hours before arrival;
+        DateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat timeF = new SimpleDateFormat("hh:mm");
+        Date arrival = null;
+        Date depart = null;
+
+        try{
+            String arrivalS = timeF.format(date);
+            arrival = timeF.parse(arrivalS);
+            String[] split = arrivalS.split(":");
+            Integer departInt = Integer.parseInt(split[0]) - 3;
+            String departS = departInt.toString() + ":" + split[1];
+            depart = timeF.parse(departS);
+            date = dateF.parse(dateF.format(date));
+        }catch (Exception e){}
+
+        int docNum = getMaxDocNum() + 1;
+
+        List<Pair<String, Integer>> supplies = milkSuppliesFromOrder(order);
+
+
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
@@ -238,5 +259,16 @@ public class BTIController {
     public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
         if (dateToConvert == null) return null;
         return java.sql.Timestamp.valueOf(dateToConvert);
+    }
+
+    private List<Pair<String, Integer>> milkSuppliesFromOrder(Order order){
+        //supply's name: int supplierID, int catalogID, String productName, double price, double discount, Date expiration
+        HashMap<Product, Pair<Integer, Integer>> a = order.getProducts();
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : order.getProducts().entrySet()){
+            String suppName = e.getKey().getName();
+            int suppCatalog = e.getKey().getCatalogID();
+            LocalDateTime suppExperationDate = e.getKey().getExpirationDate();
+        }
+        order.productsToString()
     }
 }
