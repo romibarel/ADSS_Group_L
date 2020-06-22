@@ -21,6 +21,10 @@ public class ITPDelController {
         return itp;
     }
 
+    public void checkCurrentTime(Date date, Date time) {
+        itb.checkCurrentTime(date, time);
+    }
+
     public void set(){
         pti = PTIDelController.getPTI();
         itb = ITBDelController.getITB();
