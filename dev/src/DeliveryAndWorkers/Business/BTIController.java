@@ -4,6 +4,7 @@ import DeliveryAndWorkers.Business.BuisnessObjects.*;
 import DeliveryAndWorkers.Interface.ITBDelController;
 import StorageAndSupplier.Suppliers.BusinessLayer.Order;
 import StorageAndSupplier.Suppliers.BusinessLayer.Product;
+import StorageAndSupplier.Suppliers.BusinessLayer.Supplier;
 import javafx.util.Pair;
 
 import java.text.DateFormat;
@@ -82,18 +83,22 @@ public class BTIController {
             return "There is no fitting truck for the delivery.";
         trucks.add(truck);
 
-        String driver = WorkersController.get_available_driver(truck.getType(), order.getETA());
-        if (driver == null)
-            return "The driver doesn't exist.";
+        int driver = WorkersController.get_available_driver_id(truck.getType(), order.getETA());
+        if (driver == -1)
+            return "There is no fitting driver.";
 
-        Location source = btd.loadLocation(order.getSourceAddress());
-        if (source instanceof Branch)
-            return "The source must be a supplier.";
+        String source = order.getSrcAddress();
         if (source == null)
             return "The source doesn't exist.";
 
-        Location dest = order.getDestinationAddress();
+        String destS = order.getDestAddress();
+        Location dest = btd.loadLocation(destS);
+        if(dest == null)
+            return "error there is no such location : "+ destS;
 
+        List<Location> destinations = new LinkedList<>();
+        destinations.add(dest);
+//        we didnt use arrival ?? haim todo
         Date date = convertToDateViaSqlTimestamp(order.getETA());
         DateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat timeF = new SimpleDateFormat("hh:mm");
@@ -110,10 +115,13 @@ public class BTIController {
             date = dateF.parse(dateF.format(date));
         }catch (Exception e){}
 
+        List<Pair<String, Integer>> supplies = milkSuppliesFromOrder(order);
         int docNum = getMaxDocNum() + 1;
 
-        List<Pair<String, Integer>> supplies = milkSuppliesFromOrder(order);
+        List<Integer> numToDelivery = new LinkedList<>();
+        numToDelivery.add(docNum);
 
+        return createDelivery(date, depart, truck.getTruckNum(), driver, source, numToDelivery, weight);
 
     }
 
@@ -153,11 +161,11 @@ public class BTIController {
         if (docs.isEmpty())
             return "No delivery documents were added.";
         if (docs.size() != docNums.size())
-            return "Some delivery docs weren't added to the delivery, creation failed.";     //todo check how this was printed
+            return "Some delivery docs weren't added to the delivery, creation failed.";
 
 
         List<Location> destinations = new LinkedList<>();
-        int area = sections.getSection(docs.get(1).getDestination());      //todo check this
+        int area = sections.getSection(docs.get(1).getDestination());
         if (area == 0)
             return "This location doesn't exist. Delivery creation failed.";
         List<DeliverDoc> woSource = new LinkedList<>();
@@ -241,6 +249,8 @@ public class BTIController {
 
     /**
      * check if there are deliveries that arrived
+     * if the given date and time passed call send DeliveryList & the delimitter is in one of the supplies
+     * it is or all of them or none
      * @param date
      * @param time
      */
@@ -252,6 +262,7 @@ public class BTIController {
     }
 
     private void sendDeliveryList(Delivery deli) {
+//        todo haim
         //todo: avi needs buyProduct(int supplierID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
 
     }
@@ -263,19 +274,20 @@ public class BTIController {
 
     private List<Pair<String, Integer>> milkSuppliesFromOrder(Order order){
         //supply's name: int supplierID, int catalogID, String productName, double price, double discount, Date expiration
+        List<Pair<String, Integer>> supplies = new LinkedList<>();
         HashMap<Product, Pair<Integer, Integer>> a = order.getProducts();
         for(Map.Entry<Product, Pair<Integer, Integer>> e : order.getProducts().entrySet()){
             String suppName = e.getKey().getName();
             int suppCatalog = e.getKey().getCatalogID();
             LocalDateTime suppExperationDate = e.getKey().getExpirationDate();
-            //todo: final price or original price?
-            double price = e.getKey().getOriginalPrice();
-            double discount = e.getKey().getFinalPrice();
-//            String
-            String newName = order.getSupplierID() + "^" + suppCatalog + "^" + suppName + "^" + price +"^"+ discount +"^"+ suppExperationDate.toString();
+            double price = order.getPriceOf(e.getKey().getCatalogID());
+            double discount = order.getDiscountOf(e.getKey().getCatalogID());
+            String delemiter = "^^";
+            String newName = order.getSupplierID() + delemiter + suppCatalog + delemiter + suppName + delemiter
+                       + price + delemiter + discount + delemiter + suppExperationDate.toString();
             Integer quant = e.getValue().getKey();
+            supplies.add(new Pair<>(newName, quant));
         }
-        //todo: HAIM
-        order.productsToString()
+        return supplies;
     }
 }

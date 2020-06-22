@@ -172,4 +172,25 @@ public class WorkersController
 		}
 		return null;
 	}
+
+	// todo micheal check me please, haim
+	public static int get_available_driver_id(String truck_type, LocalDateTime eta) {
+		Date date = Date.from(eta.atZone(ZoneId.systemDefault()).toInstant()); // convert LocalDateTime to Date
+		for (String branch : getBranches())
+		{
+			List<Worker> available_drivers = get_available_workers("driver", date, true, branch); //check in morning shift
+			for (Worker driver : available_drivers)
+			{
+				Driver d = (Driver) driver;
+				if (d.getLicenses().contains(truck_type)) return driver.getId();
+			}
+			available_drivers = get_available_workers("driver", date, false, branch); //check in evening shift
+			for (Worker driver : available_drivers)
+			{
+				Driver d = (Driver) driver;
+				if (d.getLicenses().contains(truck_type)) return driver.getId();
+			}
+		}
+		return -1;
+	}
 }
