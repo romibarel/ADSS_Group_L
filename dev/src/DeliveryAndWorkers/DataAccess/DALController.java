@@ -1659,6 +1659,29 @@ public class DALController
         return ret;
     }
 
+    public List<DalTruck> loadTrucks() {
+        List<DalTruck> allTrucks = new LinkedList<>();
+        DalTruck dalTruck = null;
+        openConn();
+        String sql = "SELECT* FROM Trucks";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            ResultSet rs  = pstmt.executeQuery();
+            while (rs.next()) {
+                dalTruck = new DalTruck();
+                dalTruck.setTruckNum(rs.getInt("id"));
+                dalTruck.setPlate(rs.getInt("plate"));
+                dalTruck.setMaxWeight(rs.getInt("maxWeight"));
+                dalTruck.setWeighNeto(rs.getInt("netoWeight"));
+                dalTruck.setType(rs.getString("type"));
+                allTrucks.add(dalTruck);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return allTrucks;
+    }
+
 
     /*public void save(List<DeliveryAndWorkers.Business.DalLocation> bLocations) {
         dalLocations = new LinkedList<>();

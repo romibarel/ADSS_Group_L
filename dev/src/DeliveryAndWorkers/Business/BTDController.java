@@ -5,6 +5,7 @@ import DeliveryAndWorkers.Business.BuisnessObjects.*;
 import DeliveryAndWorkers.DataAccess.*;
 import DeliveryAndWorkers.DataAccess.DALObjects.*;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -276,4 +277,16 @@ public class BTDController {
     {
         return dataTb.load_Branches();
     }
+
+        // returns null if there is no such truck
+    public Truck loadTruckByWeight(int weight) {
+        List<DalTruck> dalTrucks = dataTb.loadTrucks();
+        for (DalTruck dalTruck: dalTrucks) {
+            if (dalTruck.getMaxWeight() >= weight) {
+                return new Truck(dalTruck);
+            }
+        }
+        return null;
+    }
+
 }
