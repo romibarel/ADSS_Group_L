@@ -268,7 +268,14 @@ public class BTIController {
             String suppName = e.getKey().getName();
             int suppCatalog = e.getKey().getCatalogID();
             LocalDateTime suppExperationDate = e.getKey().getExpirationDate();
+            //todo: final price or original price?
+            double price = e.getKey().getOriginalPrice();
+            double discount = e.getKey().getFinalPrice();
+//            String
+            String newName = order.getSupplierID() + "^" + suppCatalog + "^" + suppName + "^" + price +"^"+ discount +"^"+ suppExperationDate.toString();
+            Integer quant = e.getValue().getKey();
         }
+        //todo: HAIM
         order.productsToString()
     }
 }
