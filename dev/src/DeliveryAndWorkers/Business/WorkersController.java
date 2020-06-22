@@ -4,6 +4,8 @@ import DeliveryAndWorkers.Business.BuisnessObjects.Driver;
 import DeliveryAndWorkers.Business.BuisnessObjects.Worker;
 import DeliveryAndWorkers.Interface.InterfaceObjects.InterfaceWorker;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class WorkersController
 			if (worker.getRole().equals("driver"))
 			{
 				new_worker = new Driver(worker, licenses);
+				new_worker.setBranchAddress("drivers_branch"); // all drivers assigned to drivers_branch
 				result=data.insertDriver(new_worker,licenses);
 			}
 			else
@@ -148,5 +151,23 @@ public class WorkersController
 	public static List<String> get_HRManager_Messages()
 	{
 		return data.get_Messages("HRManager");
+	}
+
+	public static String get_available_driver(String truck_type, LocalDateTime eta)
+	{
+		Date date = Date.from(eta.atZone(ZoneId.systemDefault()).toInstant()); // convert LocalDateTime to Date
+		List<Worker> available_drivers = get_available_workers("driver",date,true,"drivers_branch"); //check in morning shift
+		for (Worker driver : available_drivers)
+		{
+			Driver d = (Driver) driver;
+			if (d.getLicenses().contains(truck_type)) return driver.getName();
+		}
+		available_drivers = get_available_workers("driver",date,false,"drivers_branch"); //check in evening shift
+		for (Worker driver : available_drivers)
+		{
+			Driver d = (Driver) driver;
+			if (d.getLicenses().contains(truck_type)) return driver.getName();
+		}
+		return null;
 	}
 }
