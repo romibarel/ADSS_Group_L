@@ -71,7 +71,7 @@ public class SuperMarketController implements SuperMarket {
         try {
             // db parameters
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:storage.db";
+            String url = "jdbc:sqlite:database.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
         }

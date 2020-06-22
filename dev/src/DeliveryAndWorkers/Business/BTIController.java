@@ -2,6 +2,7 @@ package DeliveryAndWorkers.Business;
 
 import DeliveryAndWorkers.Business.BuisnessObjects.*;
 import DeliveryAndWorkers.Interface.ITBDelController;
+import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
 import StorageAndSupplier.Suppliers.BusinessLayer.Order;
 import StorageAndSupplier.Suppliers.BusinessLayer.Product;
 import javafx.util.Pair;
@@ -253,6 +254,7 @@ public class BTIController {
 
     private void sendDeliveryList(Delivery deli) {
         //todo: avi needs buyProduct(int supplierID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
+
 
     }
 
