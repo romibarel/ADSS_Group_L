@@ -946,6 +946,17 @@ public class DALController
                 conn.close();
             } catch (SQLException ignored) {}
         }
+        // if the worker is driver upload his licenses part
+        for (int i=0;i<dalWorkers.size();i++)
+        {
+            if (dalWorkers.get(i).getRole().equals("driver"))
+            {
+                DALWorker temp=dalWorkers.get(i);
+                dalWorkers.remove(i);
+                temp=new DALDriver(temp,selectLicenses(temp.getId()));
+                dalWorkers.add(0,temp);
+            }
+        }
         return dalWorkers;
     }
     //-------------------------------end workers-------------------------------

@@ -248,8 +248,8 @@ public class BTDController {
         List<DALWorker> dalWorkers=dataTb.select_all_workers();
         for (DALWorker dalWorker:dalWorkers)
         {
-            Worker worker=new Worker(dalWorker);
-            workers.add(worker);
+            if (dalWorker.getRole().equals("driver")) workers.add(new Driver((DALDriver) dalWorker));
+            else workers.add(new Worker(dalWorker));
         }
         return workers;
     }
