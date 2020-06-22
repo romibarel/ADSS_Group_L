@@ -48,4 +48,7 @@ public class ITBDelController {
         return bti.getMaxDocNum();
     }
 
+    public void checkCurrentTime(Date date, Date time) {
+        bti.checkCurrentTime(date, time);
+    }
 }

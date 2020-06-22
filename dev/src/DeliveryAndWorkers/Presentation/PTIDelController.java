@@ -192,6 +192,16 @@ public class PTIDelController {
     }
 
     public void start(boolean isManager){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        formatter.format(date);
+
+        formatter = new SimpleDateFormat("HH:mm");
+        Date time = new Date();
+        System.out.println(formatter.format(date));
+        itp.checkCurrentTime(date, time);
+//        check current time bti
+
         if (!isManager){
             //docNum is the first available id of a delivery document.
             boolean finish = false;

@@ -5,9 +5,8 @@ import DeliveryAndWorkers.Interface.ITBDelController;
 import StorageAndSupplier.Suppliers.BusinessLayer.Order;
 import javafx.util.Pair;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static DeliveryAndWorkers.Business.ShiftController.assign_Driver;
 import static DeliveryAndWorkers.Business.ShiftController.assign_storekeeper;
@@ -69,7 +68,7 @@ public class BTIController {
 
         Truck truck = null;
         for (Truck check : trucks){
-            if (check.getWeighNeto() + weight < check.getMaxWeight()) {
+            if (check.getWeighNeto() + weight <= check.getMaxWeight()) {
                 truck = check;
                 break;
             }
@@ -84,7 +83,17 @@ public class BTIController {
         if (driver == null)
             return "The driver doesn't exist.";
 
+        Location source = btd.loadLocation(order.getSourceAddress());
+        if (source instanceof Branch)
+            return "The source must be a supplier.";
+        if (source == null)
+            return "The source doesn't exist.";
 
+        Location dest = order.getDestinationAddress();
+        Date date = convertToDateViaSqlTimestamp(order.getETA());
+        new Date(date.getDate())
+        Date arrival = ;
+        Date depart = 3 hours before arrival;
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
@@ -207,5 +216,27 @@ public class BTIController {
 
     public DeliveryArchive getArchive(){
         return archive;
+    }
+
+    /**
+     * check if there are deliveries that arrived
+     * @param date
+     * @param time
+     */
+    public void checkCurrentTime(Date date, Date time) {
+        List<Delivery> deliveries = archive.getDeliveries();
+        for (Delivery deli : deliveries ) {
+            sendDeliveryList(deli);
+        }
+    }
+
+    private void sendDeliveryList(Delivery deli) {
+        //todo: avi needs buyProduct(int supplierID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
+
+    }
+
+    public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+        if (dateToConvert == null) return null;
+        return java.sql.Timestamp.valueOf(dateToConvert);
     }
 }
