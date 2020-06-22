@@ -35,7 +35,6 @@ public class WorkersController
 			if (worker.getRole().equals("driver"))
 			{
 				new_worker = new Driver(worker, licenses);
-				new_worker.setBranchAddress("drivers_branch"); // all drivers assigned to drivers_branch
 				result=data.insertDriver(new_worker,licenses);
 			}
 			else
@@ -156,17 +155,20 @@ public class WorkersController
 	public static String get_available_driver(String truck_type, LocalDateTime eta)
 	{
 		Date date = Date.from(eta.atZone(ZoneId.systemDefault()).toInstant()); // convert LocalDateTime to Date
-		List<Worker> available_drivers = get_available_workers("driver",date,true,"drivers_branch"); //check in morning shift
-		for (Worker driver : available_drivers)
+		for (String branch : getBranches())
 		{
-			Driver d = (Driver) driver;
-			if (d.getLicenses().contains(truck_type)) return driver.getName();
-		}
-		available_drivers = get_available_workers("driver",date,false,"drivers_branch"); //check in evening shift
-		for (Worker driver : available_drivers)
-		{
-			Driver d = (Driver) driver;
-			if (d.getLicenses().contains(truck_type)) return driver.getName();
+			List<Worker> available_drivers = get_available_workers("driver", date, true, branch); //check in morning shift
+			for (Worker driver : available_drivers)
+			{
+				Driver d = (Driver) driver;
+				if (d.getLicenses().contains(truck_type)) return driver.getName();
+			}
+			available_drivers = get_available_workers("driver", date, false, branch); //check in evening shift
+			for (Worker driver : available_drivers)
+			{
+				Driver d = (Driver) driver;
+				if (d.getLicenses().contains(truck_type)) return driver.getName();
+			}
 		}
 		return null;
 	}
