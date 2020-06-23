@@ -27,6 +27,16 @@ public class SuperMarketController implements SuperMarket {
     private Permissions_Manager permissions;
     private Connection conn;
 
+    /*
+        LoanProduct Milk1 = new LoanProduct(1,1, 5.0, "Milk", "Tara", LocalDateTime.now().plusDays(7),1);
+        LoanProduct Milk2 = new LoanProduct(2,3, 5.0, "Milk", "Tnuva", LocalDateTime.now().plusDays(7),1);
+        LoanProduct Tuna = new LoanProduct(3,2, 18.5, "Tuna", "Starkist", LocalDateTime.now().plusDays(7),0.15);
+        LoanProduct Shampoo = new LoanProduct(1,3, 13.25, "Shampoo", "Dove", LocalDateTime.now().plusDays(7),0.7);
+        LoanProduct Cheese = new LoanProduct(1,4, 24.0, "Cheese", "Emek", LocalDateTime.now().plusDays(7), 0.2);
+        LoanProduct Cheese2 = new LoanProduct(3,1, 21.9, "Cheese", "Tara", LocalDateTime.now().plusDays(7), 0.25);
+        LoanProduct Shocko = new LoanProduct(2,5, 4.0, "Shocko", "Tnuva", LocalDateTime.now().plusDays(7),1);
+     */
+
     public static final int MILK_STORAGE_CODE = 1;
     public static final int TUNA_STORAGE_CODE = 2;
     public static final int SHAMPOO_STORAGE_CODE = 3;
@@ -35,16 +45,14 @@ public class SuperMarketController implements SuperMarket {
 
     public static final int FIRST_SUPPLIER_ID = 1;
     public static final int SECOND_SUPPLIER_ID = 2;
+    public static final int THIRD_SUPPLIER_ID = 3;
 
     public static final int MILK_CATALOG_ID_FIRST_SUPPLIER = 1;
-    public static final int MILK_CATALOG_ID_SECOND_SUPPLIER = 2;
-    public static final int TUNA_CATALOG_ID_FIRST_SUPPLIER = 2;
-    public static final int TUNA_CATALOG_ID_SECOND_SUPPLIER = 1;
+    public static final int MILK_CATALOG_ID_SECOND_SUPPLIER = 3;
+    public static final int TUNA_CATALOG_ID_THIRD_SUPPLIER = 2;
     public static final int SHAMPOO_CATALOG_ID_FIRST_SUPPLIER = 3;
-    public static final int SHAMPOO_CATALOG_ID_SECOND_SUPPLIER = 3;
     public static final int CHEESE_CATALOG_ID_FIRST_SUPPLIER = 4;
-    public static final int CHEESE_CATALOG_ID_SECOND_SUPPLIER = 4;
-    public static final int SHOCKO_CATALOG_ID_FIRST_SUPPLIER = 5;
+    public static final int CHEESE_CATALOG_ID_THIRD_SUPPLIER = 1;
     public static final int SHOCKO_CATALOG_ID_SECOND_SUPPLIER = 5;
     //this map converts between storage: "barcode" to suppliers: "supplierID, catalogID"
     public static Map<Pair<Integer, Integer>, Integer> storage_suppliers_barcode_convertor = new HashMap<Pair<Integer, Integer>, Integer>();
@@ -52,17 +60,16 @@ public class SuperMarketController implements SuperMarket {
     private void initializeConvertor() {
         //init first supplier catalogs
         storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, MILK_CATALOG_ID_FIRST_SUPPLIER), MILK_STORAGE_CODE);
-        storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, TUNA_CATALOG_ID_FIRST_SUPPLIER), TUNA_STORAGE_CODE);
         storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, SHAMPOO_CATALOG_ID_FIRST_SUPPLIER), SHAMPOO_STORAGE_CODE);
         storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, CHEESE_CATALOG_ID_FIRST_SUPPLIER), CHEESE_STORAGE_CODE);
-        storage_suppliers_barcode_convertor.put(new Pair<>(FIRST_SUPPLIER_ID, SHOCKO_CATALOG_ID_FIRST_SUPPLIER), SHOCKO_STORAGE_CODE);
 
         //init second supplier catalog
         storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, MILK_CATALOG_ID_SECOND_SUPPLIER), MILK_STORAGE_CODE);
-        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, TUNA_CATALOG_ID_SECOND_SUPPLIER), TUNA_STORAGE_CODE);
-        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, SHAMPOO_CATALOG_ID_SECOND_SUPPLIER), SHAMPOO_STORAGE_CODE);
-        storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, CHEESE_CATALOG_ID_SECOND_SUPPLIER), CHEESE_STORAGE_CODE);
         storage_suppliers_barcode_convertor.put(new Pair<>(SECOND_SUPPLIER_ID, SHOCKO_CATALOG_ID_SECOND_SUPPLIER), SHOCKO_STORAGE_CODE);
+
+        //init third supplier catalog
+        storage_suppliers_barcode_convertor.put(new Pair<>(THIRD_SUPPLIER_ID, TUNA_CATALOG_ID_THIRD_SUPPLIER), TUNA_STORAGE_CODE);
+        storage_suppliers_barcode_convertor.put(new Pair<>(THIRD_SUPPLIER_ID, CHEESE_CATALOG_ID_THIRD_SUPPLIER), CHEESE_STORAGE_CODE);
     }
 
     private SuperMarketController() {
