@@ -24,6 +24,8 @@ public class BTIController {
     private Sections sections;
     private List<Location> locations;
     private List<Truck> trucks;
+    private final String DELIMITER = "^^";
+
 
     private BTIController(){
 
@@ -83,14 +85,22 @@ public class BTIController {
             return "There is no fitting truck for the delivery.";
         trucks.add(truck);
 
-        String driver = WorkersController.get_available_driver(truck.getType(), order.getETA());
-        if (driver == null)
-            return "The driver doesn't exist.";
+        int driver = WorkersController.get_available_driver_id(truck.getType(), order.getETA());
+        if (driver == -1)
+            return "There is no fitting driver.";
 
         String source = order.getSrcAddress();
+        if (source == null)
+            return "The source doesn't exist.";
 
-        String dest = order.getDestAddress();
+        String destS = order.getDestAddress();
+        Location dest = btd.loadLocation(destS);
+        if(dest == null)
+            return "error there is no such location : "+ destS;
 
+        List<Location> destinations = new LinkedList<>();
+        destinations.add(dest);
+//        we didnt use arrival ?? haim todo
         Date date = convertToDateViaSqlTimestamp(order.getETA());
         DateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat timeF = new SimpleDateFormat("hh:mm");
@@ -107,10 +117,13 @@ public class BTIController {
             date = dateF.parse(dateF.format(date));
         }catch (Exception e){}
 
+        List<Pair<String, Integer>> supplies = milkSuppliesFromOrder(order);
         int docNum = getMaxDocNum() + 1;
 
-        List<Pair<String, Integer>> supplies = milkSuppliesFromOrder(order);
+        List<Integer> numToDelivery = new LinkedList<>();
+        numToDelivery.add(docNum);
 
+        return createDelivery(date, depart, truck.getTruckNum(), driver, source, numToDelivery, weight);
 
     }
 
@@ -150,11 +163,11 @@ public class BTIController {
         if (docs.isEmpty())
             return "No delivery documents were added.";
         if (docs.size() != docNums.size())
-            return "Some delivery docs weren't added to the delivery, creation failed.";     //todo check how this was printed
+            return "Some delivery docs weren't added to the delivery, creation failed.";
 
 
         List<Location> destinations = new LinkedList<>();
-        int area = sections.getSection(docs.get(1).getDestination());      //todo check this
+        int area = sections.getSection(docs.get(1).getDestination());
         if (area == 0)
             return "This location doesn't exist. Delivery creation failed.";
         List<DeliverDoc> woSource = new LinkedList<>();
@@ -238,18 +251,75 @@ public class BTIController {
 
     /**
      * check if there are deliveries that arrived
+     * if the given date and time passed call send DeliveryList & the delimitter is in one of the supplies
+     * it is or all of them or none
      * @param date
      * @param time
      */
     public void checkCurrentTime(Date date, Date time) {
         List<Delivery> deliveries = archive.getDeliveries();
         for (Delivery deli : deliveries ) {
-            sendDeliveryList(deli);
+            boolean timePassed = deli.getDate().getTime() < date.getTime();     // todo haim check
+            String product = deli.getDocs().get(0).getDeliveryList().get(0).getName();
+            boolean outDeli = product.contains(DELIMITER);
+            if (timePassed & outDeli) {
+                sendDeliveryList(deli);
+            }
         }
     }
 
+//    String newName = order.getSupplierID() + DELIMITER + suppCatalog + DELIMITER + suppName + DELIMITER
+//            + price + DELIMITER + discount + DELIMITER + suppExperationDate.toString();
+
     private void sendDeliveryList(Delivery deli) {
-        //todo: avi needs buyProduct(int supplierID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
+//        todo haim
+        //todo: avi needs buyProduct(int supplyID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
+//            deli.getSource().get
+        List<DeliverDoc> docs = deli.getDocs();
+        for (DeliverDoc doc : docs)
+        {
+            List<Supply> supplies = doc.getDeliveryList();
+            Date date = doc.getEstimatedDayOfArrival(); // not avi's format
+            for (Supply sup : supplies){
+                 String supplyStr = sup.getName();
+                 String[] supDetails = supplyStr.split(DELIMITER);
+                 if (supDetails.length != 6 )
+                 {
+//                     error
+                 }
+                 else
+                 {
+
+                     int supplyID ;
+                     String catalogID;
+                     String productName;
+                     double price;
+                     double discount;
+                     Date expiration;
+                     int amount = sup.getQuant();
+
+                     try {
+                         supplyID = Integer.parseInt(supDetails[0]);
+                         price = Double.parseDouble(supDetails[3]);
+                         discount = Double.parseDouble(supDetails[4]);
+                         DateFormat dateF = new SimpleDateFormat("yyyy-mm-dd");
+                         expiration = dateF.parse(supDetails[5]);//   todo haim this is avi's format. this time convert might not work
+                     }
+                     catch (Exception e)
+                     {
+//                         ERROR
+                         e.printStackTrace();   // todo throw delete after testing haim
+                        continue;
+                     }
+                     catalogID = supDetails[1];
+                     productName = supDetails[2];
+                     Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID,  productName,  price,  discount,  expiration,  amount,  date);
+
+                 }
+            }
+        }
+//         buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
+
 
 
     }
@@ -261,19 +331,19 @@ public class BTIController {
 
     private List<Pair<String, Integer>> milkSuppliesFromOrder(Order order){
         //supply's name: int supplierID, int catalogID, String productName, double price, double discount, Date expiration
+        List<Pair<String, Integer>> supplies = new LinkedList<>();
         HashMap<Product, Pair<Integer, Integer>> a = order.getProducts();
         for(Map.Entry<Product, Pair<Integer, Integer>> e : order.getProducts().entrySet()){
             String suppName = e.getKey().getName();
             int suppCatalog = e.getKey().getCatalogID();
             LocalDateTime suppExperationDate = e.getKey().getExpirationDate();
-            //todo: final price or original price?
-            double price = e.getKey().getOriginalPrice();
-            double discount = e.getKey().getFinalPrice();
-//            String
-            String newName = order.getSupplierID() + "^" + suppCatalog + "^" + suppName + "^" + price +"^"+ discount +"^"+ suppExperationDate.toString();
+            double price = order.getPriceOf(e.getKey().getCatalogID());
+            double discount = order.getDiscountOf(e.getKey().getCatalogID());
+            String newName = order.getSupplierID() + DELIMITER + suppCatalog + DELIMITER + suppName + DELIMITER
+                       + price + DELIMITER + discount + DELIMITER + suppExperationDate.toString();
             Integer quant = e.getValue().getKey();
+            supplies.add(new Pair<>(newName, quant));
         }
-        //todo: HAIM
-        order.productsToString()
+        return supplies;
     }
 }
