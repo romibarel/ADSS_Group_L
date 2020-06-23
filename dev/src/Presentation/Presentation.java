@@ -103,17 +103,17 @@ public class Presentation {
                 printMenu(initiateOptions);
                 select = getIntInput(1);
                 if (select == 1) {
-                    runSuppliers();
+                    runStorage();
                 }
                 break;
 
             case 3:
-                initiateOptions = Arrays.asList("Storage system",
+                initiateOptions = Arrays.asList("Suppliers system",
                         "Exit");
                 printMenu(initiateOptions);
                 select = getIntInput(1);
                 if (select == 1) {
-                    runStorage();
+                    runSuppliers();
                 }
                 break;
             case 4:
