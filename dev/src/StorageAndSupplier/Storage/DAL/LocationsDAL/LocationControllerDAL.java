@@ -1,8 +1,6 @@
 package StorageAndSupplier.Storage.DAL.LocationsDAL;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,6 +16,18 @@ public class LocationControllerDAL {
     }
 
     public Map<Integer, Map<Date, Map<Integer, Integer>>> getProductsLocationDAL(Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         //return productsLocationDAL;
         Map <Integer, Map<Date, Map<Integer, Integer>>> ret = new HashMap<>();
         try {
@@ -59,9 +69,15 @@ public class LocationControllerDAL {
         catch (Exception e){
             //System.out.println("failed");
         }
-        return ret;
 
-        //return null;
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 
@@ -70,6 +86,18 @@ public class LocationControllerDAL {
     }
 
     public Map<Integer, String> getLocationsDAL(Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         //return locationsDAL;
         Map <Integer, String> ret= new HashMap<>();
         try {
@@ -83,6 +111,13 @@ public class LocationControllerDAL {
         catch (Exception e){
             //System.out.println("failed");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
@@ -106,6 +141,18 @@ public class LocationControllerDAL {
         //else{
         //    this.productsLocationDAL.get(barCode).get(expirationDate).replace(location, quantity);
         //}
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         boolean updateOrInsert = false; //update = true, insert = false
         //TODO: The date isn't good.
         try {
@@ -139,6 +186,12 @@ public class LocationControllerDAL {
         }
         catch (Exception e){
             //System.out.println("failed");
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

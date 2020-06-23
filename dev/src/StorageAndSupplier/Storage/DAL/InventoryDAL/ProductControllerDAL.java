@@ -1,10 +1,9 @@
 package StorageAndSupplier.Storage.DAL.InventoryDAL;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class ProductControllerDAL {
     private List<CategoryDAL> categoryDALS;
@@ -16,6 +15,18 @@ public class ProductControllerDAL {
     }
 
     public List<CategoryDAL> getCategoryDALS(Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         //return categoryDALS;
         List<CategoryDAL> ret = new ArrayList<>();
         try {
@@ -28,11 +39,30 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
 
     }
 
     private CategoryDAL createCategoryDALByName(String categoryName, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         List<ProductDAL> p = new ArrayList<>();
         List<CategoryDAL> c = new ArrayList<>();
         CategoryDAL ret = new CategoryDAL(categoryName, c, p);
@@ -67,6 +97,13 @@ public class ProductControllerDAL {
         }
         ret.setSubCategoriesDAL(c);
         ret.setProductListDAL(p);
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
 
     }
@@ -76,6 +113,18 @@ public class ProductControllerDAL {
     }
 
     public Map<Integer, DataSaleProductDAL> getSaleData(Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         //return saleData;
         Map <Integer, DataSaleProductDAL> ret = new HashMap<>();
         try {
@@ -90,6 +139,13 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
@@ -98,6 +154,18 @@ public class ProductControllerDAL {
     }
 
     public void addCategory(CategoryDAL dal, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         //this.categoryDALS.add(dal);
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO CATEGORIES VALUES (?)");
@@ -107,6 +175,13 @@ public class ProductControllerDAL {
         catch (Exception e){    /*try to insert, if its exists reach also here*/
             //System.out.println("failed");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public CategoryDAL getCategoryDALByName(String name){
@@ -122,6 +197,17 @@ public class ProductControllerDAL {
     public void appendSubCategory(String main, String sub, Connection conn) {
 
         try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
+        try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO SUB_CATEGORIES VALUES (?,?)");
             stmt.setString(1, main);
             stmt.setString(2, sub);
@@ -130,9 +216,27 @@ public class ProductControllerDAL {
         catch (Exception e){    /*try to insert, if its exists reach also here*/
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void appendProductToCategoryDAL(String name, ProductDAL productDAL, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
 
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO CATEGORIES_OF_PRODUCTS VALUES (?,?)");
@@ -143,9 +247,27 @@ public class ProductControllerDAL {
         catch (Exception e){    /*try to insert, if its exists reach also here*/
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void addNewDataSaleProduct(int barcode, DataSaleProductDAL dal, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
 
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO DATA_SALE_PRODUCTS VALUES (?,?,?,?)");
@@ -158,9 +280,26 @@ public class ProductControllerDAL {
         catch (Exception e){    /*try to insert, if its exists reach also here*/
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateDataSaleProduct(int barcode, DataSaleProductDAL dataSaleProductDAL, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
         //this.saleData.replace(barcode, dataSaleProductDAL);
         try {
             PreparedStatement stmt = conn.prepareStatement("UPDATE DATA_SALE_PRODUCTS SET" +
@@ -171,6 +310,13 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void deleteProductFromCategory (ProductDAL productDAL, CategoryDAL categoryDAL, Connection conn){
@@ -178,6 +324,18 @@ public class ProductControllerDAL {
     }
 
     public void addNewProduct (ProductDAL productDAL, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO PRODUCTS VALUES (?,?,?,?,?,?)");
             stmt.setInt(1, productDAL.getBarCode());
@@ -194,9 +352,27 @@ public class ProductControllerDAL {
         catch (Exception e){    /*try to insert, if its exists reach also here*/
             //System.out.println("failed");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }//in this case we don't ave to do something, but whenever we'll add database so we use this function
 
     public void updateProduct(ProductDAL productDAL, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
 
         try {
             PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUCTS " +
@@ -223,8 +399,26 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
     public ProductDAL searchProduct (int barCode, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
 
         ProductDAL ret = null;
         try {
@@ -239,10 +433,28 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
     public void updateCategory (String categoryName, String newName, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
 
         try {
             PreparedStatement stmt = conn.prepareStatement("UPDATE CATEGORIES SET" +
@@ -265,9 +477,27 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void deleteCategory(String cName, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
 
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM CATEGORIES WHERE " +
@@ -283,9 +513,28 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public List<CategoryDAL> getMySubCategoriesDAL(String name, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         List <CategoryDAL> ret = new ArrayList<>();
         List <String> cNames = new ArrayList<>();
         try {
@@ -304,10 +553,29 @@ public class ProductControllerDAL {
             CategoryDAL cat = createCategoryDALByName(n, conn);
             ret.add(cat);
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
     public List<ProductDAL> getProductListDAL(String name, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         List<ProductDAL> ret = new ArrayList<>();
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT PRODUCTS.* " +
@@ -326,6 +594,13 @@ public class ProductControllerDAL {
         catch (Exception e){
 
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
 
     }

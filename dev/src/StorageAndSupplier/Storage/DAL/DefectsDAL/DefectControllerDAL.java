@@ -1,6 +1,8 @@
 package StorageAndSupplier.Storage.DAL.DefectsDAL;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +32,18 @@ public class DefectControllerDAL {
     }
 
     public void addDefect (DefectDAL defectDAL, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             String expiration = sdf.format(new java.sql.Timestamp(defectDAL.getExpiration().getTime()));
@@ -48,6 +62,12 @@ public class DefectControllerDAL {
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
             //System.out.println("failed");
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

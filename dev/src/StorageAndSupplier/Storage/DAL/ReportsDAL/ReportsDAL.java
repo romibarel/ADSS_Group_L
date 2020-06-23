@@ -3,12 +3,11 @@ package StorageAndSupplier.Storage.DAL.ReportsDAL;
 
 import StorageAndSupplier.Storage.DAL.DefectsDAL.DefectDAL;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class ReportsDAL {
     private List <DefectReportDAL> defectReportDALList;
@@ -20,7 +19,16 @@ public class ReportsDAL {
     }
 
     public void addNewProductReport (ProductReportDAL productReportDAL, Connection conn){
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
 
+        }
         for (List<ProductRepDataDAL> productRepDataDALList :productReportDAL.getReportData().values()) {
             for (ProductRepDataDAL p : productRepDataDALList ) {
                 try {
@@ -38,6 +46,11 @@ public class ReportsDAL {
                 }
             }
         }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addNewDefectReport (DefectReportDAL defectReportDAL){
@@ -45,6 +58,16 @@ public class ReportsDAL {
     }
 
     public List <DefectReportDAL> restoreDefectsReportsList (Connection conn){
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
         //return this.defectReportDALList;
 
         List <DefectReportDAL> ret = new ArrayList<>();
@@ -85,10 +108,28 @@ public class ReportsDAL {
         catch (Exception e){
             //System.out.println("failed");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
     public List <ProductReportDAL> restoreProductsReportList(Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
 
         List<ProductReportDAL> ret= new ArrayList<>();
         Map<String, List<String>> hir = new HashMap<>();
@@ -116,10 +157,29 @@ public class ReportsDAL {
         catch (Exception e){
             //System.out.println("failed");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
     private Map<String, List<ProductRepDataDAL>> createMapByCategories(List<ProductRepDataDAL> l, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         Map<String, List<ProductRepDataDAL>> ret = new HashMap<>();
         for (ProductRepDataDAL p : l) {
             int barcode = p.getBarCode();
@@ -140,10 +200,29 @@ public class ReportsDAL {
                 //System.out.println("failed");
             }
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
     private Map<String, List<String>> restoreHierarchy(Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         List<String> allCategoryNames = new ArrayList<>();
         Map<String, List<String>> ret = new HashMap<>();
         try {
@@ -168,10 +247,29 @@ public class ReportsDAL {
         catch (Exception e){
             //System.out.println("failed");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return ret;
     }
 
     public void addDefectReport(DefectReportDAL defectReportDAL, Connection conn) {
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String startDateOfReport = sdf.format(new java.sql.Timestamp(defectReportDAL.getDateStart().getTime()));
@@ -188,6 +286,12 @@ public class ReportsDAL {
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
             //System.out.println("failed");
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

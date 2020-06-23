@@ -1,7 +1,9 @@
 package StorageAndSupplier.Storage.DAL.InventoryDAL;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryDAL {
@@ -47,6 +49,18 @@ public class CategoryDAL {
     }
 
     public void deleteProduct(ProductDAL productDAL, Connection conn){
+
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+
         //this.productListDAL.remove(productDAL);
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM CATEGORIES_OF_PRODUCTS WHERE Barcode = "+productDAL.getBarCode()+";");
@@ -55,6 +69,13 @@ public class CategoryDAL {
         catch (Exception e){
             //System.out.println("failed");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public boolean hasProduct(int barCode) {
