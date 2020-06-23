@@ -102,7 +102,7 @@ public class LocationControllerDAL {
         Map <Integer, String> ret= new HashMap<>();
         try {
             PreparedStatement stmt2 = conn.prepareStatement("SELECT * " +
-                    "FROM Locations ");
+                    "FROM STORAGE_LOCATIONS ");
             ResultSet rs2 = stmt2.executeQuery();
             while (rs2.next()) {
                 ret.put(rs2.getInt(1), rs2.getString(2));
@@ -154,7 +154,6 @@ public class LocationControllerDAL {
         }
 
         boolean updateOrInsert = false; //update = true, insert = false
-        //TODO: The date isn't good.
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             String ts = sdf.format(new java.sql.Timestamp(expirationDate.getTime()));

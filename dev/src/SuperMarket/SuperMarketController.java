@@ -1,6 +1,5 @@
 package SuperMarket;
 
-import DeliveryAndWorkers.Business.BTIController;
 import DeliveryAndWorkers.Presentation.PTIDelController;
 import DeliveryAndWorkers.Presentation.WorkerMenu;
 import Permissions.Permissions_Manager;
@@ -127,8 +126,8 @@ public class SuperMarketController implements SuperMarket {
     }
 
     @Override
-    public void buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
-        SandSController.buyProduct(barCode, productName, supplierID, price, discount, expirationDate, amount, date, location);
+    public void buyProduct(int SupplierID, int CatalogID, String productName, double price, double discount,Date expirationDate, int amount, Date date, int location){
+        this.SandSController.buyProduct(SupplierID, CatalogID, productName, price, discount, expirationDate, amount, date, location);
     }
 
     @Override

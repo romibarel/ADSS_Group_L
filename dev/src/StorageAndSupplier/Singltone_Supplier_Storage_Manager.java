@@ -2,13 +2,14 @@ package StorageAndSupplier;
 
 import DeliveryAndWorkers.Business.BTIController;
 import Permissions.Permissions_API;
-import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
-import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
-import StorageAndSupplier.Storage.Buisness.Singletone_Storage_Management;
 import Presentation.PdataInventoryReport;
 import Presentation.Pdefect;
 import Presentation.Pproduct;
+import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
+import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
+import StorageAndSupplier.Storage.Buisness.Singletone_Storage_Management;
 import StorageAndSupplier.Suppliers.BusinessLayer.*;
+import SuperMarket.SuperMarketController;
 import javafx.util.Pair;
 
 import java.sql.Connection;
@@ -81,8 +82,16 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     }
 
     @Override
-    public void buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
-        this.storage_management.buyProduct(barCode, productName, supplierID, price, discount, expirationDate, amount, date, location);
+    public void buyProduct(int SupplierID, int CatalogID, String productName, double price, double discount, Date expirationDate, int amount, Date date, int location) {
+        int barCode = 0;
+        while (SuperMarketController.storage_suppliers_barcode_convertor.keySet().iterator().hasNext()){
+            Pair it = SuperMarketController.storage_suppliers_barcode_convertor.keySet().iterator().next();
+            if ((Integer)it.getKey() == SupplierID && (Integer)it.getValue() == CatalogID){
+                barCode = SuperMarketController.storage_suppliers_barcode_convertor.get(it);
+                break;
+            }
+        }
+        this.storage_management.buyProduct(barCode, productName, SupplierID, price, discount, expirationDate, amount, date, location);
     }
 
     @Override

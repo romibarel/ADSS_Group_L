@@ -793,7 +793,7 @@ public class Presentation {
 
     private void purchaseProducts() {
 
-        /*int barCode, String productName, String supplier, int price,
+        /*int SupplierID, int catalogID, String productName, int price,
         int discount,Date expirationDate, int amount, Date date,int location -> parameters needed for each product*/
         boolean error = false;
         System.out.print("  Purchase products:\n");
@@ -812,9 +812,9 @@ public class Presentation {
         for (int i = 1; i <= numberOfItems; i++) {
             try {
                 System.out.print("  Type supplier ID (number): ");
-                int manufactor = Integer.parseInt(in.nextLine());
-                System.out.print("  Type barcode number of the " + i + " item: ");
-                int barcode = Integer.parseInt(in.nextLine());
+                int supplierID = Integer.parseInt(in.nextLine());
+                System.out.print("  Type catalogID number of the " + i + " item: ");
+                int catalogID = Integer.parseInt(in.nextLine());
                 System.out.print("  Type product name of the " + i + " item: ");
                 String productName = in.nextLine();
                 System.out.print("  Type price of the " + i + " item: ");
@@ -831,7 +831,7 @@ public class Presentation {
                 int amount = Integer.parseInt(in.nextLine());
                 System.out.print("  Type the number of location to allocate the " + i + " item: ");
                 int location = Integer.parseInt(in.nextLine());
-                superMarket.buyProduct(barcode, productName, manufactor,
+                superMarket.buyProduct(supplierID, catalogID, productName,
                         price, discount, expirationDate,
                         amount, today, location);
             } catch (Exception e) {

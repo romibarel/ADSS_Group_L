@@ -16,6 +16,8 @@ import static DeliveryAndWorkers.Business.ShiftController.assign_Driver;
 import static DeliveryAndWorkers.Business.ShiftController.assign_storekeeper;
 
 public class BTIController {
+    public static final int STORAGE = 1;
+
     private static BTIController bti = null;
     private static ITBDelController itb;
     private static BTDController btd;
@@ -324,7 +326,7 @@ public class BTIController {
                         e.printStackTrace();   // todo throw delete after testing haim
                         continue;
                     }
-                    Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID, productName, price, discount, expiration, amount, date);
+                    Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID, productName, price, discount, expiration, amount, date, STORAGE);
                 }
             }
         }

@@ -29,7 +29,7 @@ public interface API_Buisness {
 
     List<String> getListOfCategoriesNames ();
 
-    void buyProduct(int barCode, String productName, int supplierID,
+    void buyProduct(int SupplierID, int CatalogID, String productName,
                     double price,double discount,Date expirationDate,
                     int amount, Date date, int location);
 
