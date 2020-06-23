@@ -1,6 +1,7 @@
 package DeliveryAndWorkers.Business;
 
 import DeliveryAndWorkers.Business.BuisnessObjects.Driver;
+import DeliveryAndWorkers.Business.BuisnessObjects.Shift;
 import DeliveryAndWorkers.Business.BuisnessObjects.Worker;
 import DeliveryAndWorkers.Interface.InterfaceObjects.InterfaceWorker;
 
@@ -152,43 +153,31 @@ public class WorkersController
 		return data.get_Messages("HRManager");
 	}
 
-	public static String get_available_driver(String truck_type, LocalDateTime eta)
+	// @PRE departure time is 3 hours before arrival time - (Deliveries module decision)
+	public static int get_available_driver_id(String truck_type, LocalDateTime eta )
 	{
-		Date date = Date.from(eta.atZone(ZoneId.systemDefault()).toInstant()); // convert LocalDateTime to Date
+		LocalDateTime dep_date = eta.plusHours(-3);
+		Date departure_date = Date.from(dep_date.atZone(ZoneId.systemDefault()).toInstant()); // convert LocalDateTime to Date
+		boolean departure_morning = Shift.is_morning_shift(departure_date);					  // true if departure_date is in morning shift and false otherwise
+		Date arrival_date = Date.from(eta.atZone(ZoneId.systemDefault()).toInstant());        // convert LocalDateTime to Date
+		boolean arrival_morning = Shift.is_morning_shift(arrival_date);						 // true if arrival_date is in morning shift and false otherwise
 		for (String branch : getBranches())
 		{
-			List<Worker> available_drivers = get_available_workers("driver", date, true, branch); //check in morning shift
+			List<Worker> available_drivers = get_available_workers("driver", departure_date, departure_morning, branch); //return drivers with no constraints at departure_date
 			for (Worker driver : available_drivers)
 			{
 				Driver d = (Driver) driver;
-				if (d.getLicenses().contains(truck_type)) return driver.getName();
-			}
-			available_drivers = get_available_workers("driver", date, false, branch); //check in evening shift
-			for (Worker driver : available_drivers)
-			{
-				Driver d = (Driver) driver;
-				if (d.getLicenses().contains(truck_type)) return driver.getName();
-			}
-		}
-		return null;
-	}
-
-	// todo micheal check me please, haim
-	public static int get_available_driver_id(String truck_type, LocalDateTime eta) {
-		Date date = Date.from(eta.atZone(ZoneId.systemDefault()).toInstant()); // convert LocalDateTime to Date
-		for (String branch : getBranches())
-		{
-			List<Worker> available_drivers = get_available_workers("driver", date, true, branch); //check in morning shift
-			for (Worker driver : available_drivers)
-			{
-				Driver d = (Driver) driver;
-				if (d.getLicenses().contains(truck_type)) return driver.getId();
-			}
-			available_drivers = get_available_workers("driver", date, false, branch); //check in evening shift
-			for (Worker driver : available_drivers)
-			{
-				Driver d = (Driver) driver;
-				if (d.getLicenses().contains(truck_type)) return driver.getId();
+				if (ConstrainsController.is_available(driver.getId(),arrival_date,arrival_morning)) 	//check the driver has no constraints in arrival_date
+				{
+					Shift departure_shift = ShiftController.get_shift(departure_date , departure_morning ,branch);
+					if ( (departure_shift==null) ||   (!departure_shift.getWorkers().contains(driver.getId()))) // check driver isnt already assigned to delivery in dept shift
+					{
+						Shift arrival_shift =ShiftController.get_shift(arrival_date,arrival_morning,branch);
+						if ( (arrival_shift==null) ||  (!arrival_shift.getWorkers().contains(driver.getId())))  // check driver isnt already assigned to delivery in arrival shift
+							if (d.getLicenses().contains(truck_type))
+								return driver.getId();
+					}
+				}
 			}
 		}
 		return -1;
