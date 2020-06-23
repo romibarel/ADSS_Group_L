@@ -148,7 +148,7 @@ public class ShiftController
 	}
 
 	// assigns driver to all shifts between shift departure time to shift arrival time
-	//if there is a missing shift in this interval the functions creates shift automatically and assigns the driver and an available manager
+	//if there is a missing shift in this interval the function creates shift automatically and assigns the driver and an available manager
 	public static Result assign_Driver(int driver_id,Date departure_date,Date departure_hours,Date arrival_day,Date arrival_hour)
 	{
 		List<Shift> assigned_shifts=new LinkedList<>();

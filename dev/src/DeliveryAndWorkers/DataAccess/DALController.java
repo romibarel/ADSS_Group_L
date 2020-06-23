@@ -853,7 +853,7 @@ public class DALController
         openConn();
         String sql;
         sql = "SELECT * from Workers Where id not in" +
-                "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where start_date=? and morning=? and branchAddress=?)" +
+                "(Select id From Workers join Constraints on Workers.id=Constraints.wid Where Constraints.date=? and morning=? and branchAddress=?)" +
                 "and branchAddress=? and role=?";
         ResultSet resultSet = null;
         try
@@ -1297,9 +1297,6 @@ public class DALController
         }
         catch (Exception e)
         {
-            try {
-                conn.rollback();
-            } catch (SQLException ex) { ex.printStackTrace(); }
             result= new Result(false,"insert message failed");
         }
         finally
@@ -1336,8 +1333,30 @@ public class DALController
                 conn.close();
             } catch (SQLException ignored) {}
         }
+        deleteMessages(recipient);
         return messages;
     }
+
+    public void deleteMessages(String recipient)
+    {
+        String sql = "DELETE From Messages Where recipient=?" ;
+        openConn();
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,recipient);
+            statement.executeUpdate();
+        }
+        catch (SQLException ignored){}
+        finally
+        {
+            try {
+                conn.close();
+            } catch (SQLException ignored) {}
+        }
+
+    }
+
 
     //-----------------------------end messages----------------------------------
     public DalTruck loadTruck(int id) {
