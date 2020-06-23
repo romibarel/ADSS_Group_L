@@ -24,7 +24,7 @@ public class BTIController {
     private Sections sections;
     private List<Location> locations;
     private List<Truck> trucks;
-    private final String DELIMITER = "^^";
+    private final String DELIMITER = "^";
 
 
     private BTIController(){
@@ -68,7 +68,7 @@ public class BTIController {
 
     public String createDelivery(Order order){
         for (Delivery del: archive.getDeliveries()){
-            if (del.getSource().equals(order))
+            if (del.getSource().equals(order.getSrcAddress()))
                 return "Delivery already in place.";
         }
 
@@ -291,8 +291,7 @@ public class BTIController {
 //            + price + DELIMITER + discount + DELIMITER + suppExperationDate.toString();
 
     private void sendDeliveryList(Delivery deli) {
-//        todo haim
-        //todo: avi needs buyProduct(int supplyID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
+        //avi needs buyProduct(int supplyID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
 //            deli.getSource().get
         if (!deli.isDelivered())
             return;
