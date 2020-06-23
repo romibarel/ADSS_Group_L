@@ -475,8 +475,8 @@ public class SuperMarketController implements SuperMarket {
     }
 
     @Override
-    public void start() {
-        deliveryController.start();
+    public void start(boolean isManager) {
+        deliveryController.start(isManager);
     }
 
     @Override

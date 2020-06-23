@@ -179,7 +179,7 @@ public interface SuperMarket {
 
     void setup();
 
-    void start();
+    void start(boolean isManager);
 
     void mainFunc(boolean isManager);
 }

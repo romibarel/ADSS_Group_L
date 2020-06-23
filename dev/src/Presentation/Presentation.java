@@ -87,14 +87,16 @@ public class Presentation {
         int select = 0;
         switch (permission){
             case 1:
-                initiateOptions = Arrays.asList("Storage system",
+                initiateOptions = Arrays.asList("Workers system",
                         "Exit");
                 printMenu(initiateOptions);
                 select = getIntInput(1);
                 if (select == 1) {
-                    runStorage();
+                    superMarket.mainFunc(false);
                 }
                 break;
+
+
             case 2:
                 initiateOptions = Arrays.asList("Storage system",
                         "Exit");
@@ -106,21 +108,21 @@ public class Presentation {
                 break;
 
             case 3:
+                initiateOptions = Arrays.asList("Storage system",
+                        "Exit");
+                printMenu(initiateOptions);
+                select = getIntInput(1);
+                if (select == 1) {
+                    runStorage();
+                }
+                break;
+            case 4:
                 initiateOptions = Arrays.asList("Delivery system",
                         "Exit");
                 printMenu(initiateOptions);
                 select = getIntInput(1);
                 if (select == 1) {
-                    superMarket.start();
-                }
-                break;
-            case 4:
-                initiateOptions = Arrays.asList("Workers system",
-                        "Exit");
-                printMenu(initiateOptions);
-                select = getIntInput(1);
-                if (select == 1) {
-                    superMarket.mainFunc(false);
+                    superMarket.start(false);
                 }
                 break;
             case 5:
@@ -139,7 +141,7 @@ public class Presentation {
                     superMarket.mainFunc(true);
                 }
                 else if (select == 4){
-                    superMarket.start();
+                    superMarket.start(true);
                 }
 
                 break;
