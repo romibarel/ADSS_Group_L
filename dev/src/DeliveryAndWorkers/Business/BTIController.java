@@ -66,11 +66,13 @@ public class BTIController {
         return "Delivery list to "+ deliverDoc.getDestination().getAddress() +" created successfully.";
     }
 
-    public String createDelivery(Order order, int weight){
+    public String createDelivery(Order order){
         for (Delivery del: archive.getDeliveries()){
             if (del.getSource().equals(order))
                 return "Delivery already in place.";
         }
+
+        int weight = (int)(Math.round(order.calcWeight()));
 
         Truck truck = null;
         for (Truck check : trucks){
