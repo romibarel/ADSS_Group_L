@@ -23,7 +23,6 @@ public class WorkerMenu {
         initCalls(calls);
         initActions(calls);
         System.out.println("Welcome to Super-Li HR System");
-
         messages=Interface.getMessages();
         if(!messages.isEmpty())
             System.out.println("you have new messages:");

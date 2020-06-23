@@ -37,9 +37,9 @@ public class DALController
     }
 
     public void initialize() {
+        createTables();
         if (check_if_database_empty())
         {
-            createTables();
             initLocations();
             initSections();
             initTrucks();
