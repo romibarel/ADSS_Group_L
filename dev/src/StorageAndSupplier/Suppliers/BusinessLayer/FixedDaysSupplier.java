@@ -34,7 +34,7 @@ public class FixedDaysSupplier extends Supplier {
     public Order removeOrder(int orderID){
         for(Order o : orders){
             if(o.getID() == orderID){
-                Order nextOrder = new Order(o.getSupplierID(), o.getDateIssued(), o.getProducts());
+                Order nextOrder = new Order(o.getSupplierID(), o.getDateIssued(), o.getProducts(), o.getSrcAddress(), o.getDestAddress());
                 nextOrder.setETA(assessOrderETA());
                 orders.remove(o);
                 orders.add(nextOrder);
