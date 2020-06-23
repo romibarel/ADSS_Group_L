@@ -16,6 +16,7 @@ public class Delivery {
     private Location source;
     private HashMap<DeliverDoc, Location> docLoc;
     private boolean approved;
+    private boolean delivered;
 
 
     public Delivery(int id, Date date, Date departureTime, Truck truck, String driver, boolean goodLicenses, Location source, List<DeliverDoc> docs, int truckWeight) {
@@ -35,6 +36,7 @@ public class Delivery {
     }
 
     public Delivery(DalDelivery dalDelivery, List<DALDeliveryDoc> docs) {
+        this.id = dalDelivery.getId();
         this.date = dalDelivery.getDate();
         this.departureTime = dalDelivery.getDepartureTime();
         this.truckNum = dalDelivery.getTruckNum();
@@ -44,7 +46,8 @@ public class Delivery {
             source = new Branch(dalDelivery.getSource());
         else source= new Supplier(dalDelivery.getSource());
         this.truckWeight = dalDelivery.getTruckWeight();
-        this.approved = true;
+        this.approved = dalDelivery.getApproved();
+        this.delivered = dalDelivery.getDelivered();
         docLoc = new HashMap<>();
         for (DALDeliveryDoc daldoc : docs)
         {
@@ -116,6 +119,10 @@ public class Delivery {
         return docs;
     }
 
+    public void cancel(){
+        this.approved = false;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -148,6 +155,10 @@ public class Delivery {
         return approved;
     }
 
+    public boolean isDelivered(){
+        return delivered;
+    }
+
     public int getTruckWeight() {
         return truckWeight;
     }
@@ -158,5 +169,9 @@ public class Delivery {
 
     public int getID() {
         return id;
+    }
+
+    public void setDelivered(boolean delivered){
+        this.delivered = delivered;
     }
 }

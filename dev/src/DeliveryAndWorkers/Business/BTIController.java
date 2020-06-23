@@ -93,14 +93,10 @@ public class BTIController {
         if (source == null)
             return "The source doesn't exist.";
 
-        String destS = order.getDestAddress();
-        Location dest = btd.loadLocation(destS);
+        String dest = order.getDestAddress();
         if(dest == null)
-            return "error there is no such location : "+ destS;
+            return "The destination doesn't exist.";
 
-        List<Location> destinations = new LinkedList<>();
-        destinations.add(dest);
-//        we didnt use arrival ?? haim todo
         Date date = convertToDateViaSqlTimestamp(order.getETA());
         DateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat timeF = new SimpleDateFormat("hh:mm");
@@ -123,8 +119,9 @@ public class BTIController {
         List<Integer> numToDelivery = new LinkedList<>();
         numToDelivery.add(docNum);
 
+        if (createDoc(arrival, date, docNum, dest, supplies).equals("The destination doesn't exist."))
+            return "The destination doesn't exist.";
         return createDelivery(date, depart, truck.getTruckNum(), driver, source, numToDelivery, weight);
-
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
@@ -184,7 +181,10 @@ public class BTIController {
         }
         if (destinations.size() != woSource.size())
             return "Some of the destinations weren't added...";
-        Delivery delivery = new Delivery(date, time, truck, driver, goodLicenses, source, docs, truckWeight);
+
+        int id = btd.getMaxDeliveryID() +1;
+
+        Delivery delivery = new Delivery(id, date, time, truck, driver, goodLicenses, source, docs, truckWeight);
 
 
         /*driverHours[0] = day of departure,
@@ -219,14 +219,16 @@ public class BTIController {
     public String cancelDelivery(int delID){
         Delivery delivery = null;
         for (Delivery del : archive.getDeliveries()){
-            if (del.getID == delID){
+            if (del.getID() == delID){
                 delivery = del;
+                del.cancel();
                 break;
             }
         }
         if (delivery == null)
             return "There was no delivery with this ID.";
-
+        btd.updateDeliveryApproved(delivery.getID(), false);
+        return "Delivery was cancelled successfully.";
     }
 
     public String printArchive(){
@@ -259,7 +261,22 @@ public class BTIController {
     public void checkCurrentTime(Date date, Date time) {
         List<Delivery> deliveries = archive.getDeliveries();
         for (Delivery deli : deliveries ) {
-            boolean timePassed = deli.getDate().getTime() < date.getTime();     // todo haim check
+            //departure date is today or has passed
+            boolean timePassed = deli.getDate().before(date) || deli.getDate().compareTo(date) == 0;
+            if (timePassed){
+                for (DeliverDoc doc: deli.getDocs()){
+                    //delivery to this location is today or has passed
+                    timePassed = doc.getEstimatedDayOfArrival().before(date) || doc.getEstimatedDayOfArrival().compareTo(date) == 0;
+                    if (!timePassed)
+                        break;
+                    timePassed = doc.getEstimatedTimeOfArrival().before(time) || doc.getEstimatedTimeOfArrival().compareTo(time)==0;
+                    if (!timePassed)
+                        break;
+                }
+            }
+            //if the time has passed or is now for every single destination the delivery is complete
+            if (timePassed)
+                delivered(deli, true);
             String product = deli.getDocs().get(0).getDeliveryList().get(0).getName();
             boolean outDeli = product.contains(DELIMITER);
             if (timePassed & outDeli) {
@@ -275,53 +292,50 @@ public class BTIController {
 //        todo haim
         //todo: avi needs buyProduct(int supplyID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
 //            deli.getSource().get
+        if (!deli.isDelivered())
+            return;
         List<DeliverDoc> docs = deli.getDocs();
         for (DeliverDoc doc : docs)
         {
             List<Supply> supplies = doc.getDeliveryList();
             Date date = doc.getEstimatedDayOfArrival(); // not avi's format
-            for (Supply sup : supplies){
-                 String supplyStr = sup.getName();
-                 String[] supDetails = supplyStr.split(DELIMITER);
-                 if (supDetails.length != 6 )
-                 {
-//                     error
-                 }
-                 else
-                 {
+            for (Supply sup : supplies) {
+                String supplyStr = sup.getName();
+                String[] supDetails = supplyStr.split(DELIMITER);
+                if (supDetails.length == 6) {
+                    int supplyID;
+                    int catalogID;
+                    String productName = supDetails[2];
+                    double price;
+                    double discount;
+                    Date expiration;
+                    int amount = sup.getQuant();
 
-                     int supplyID ;
-                     String catalogID;
-                     String productName;
-                     double price;
-                     double discount;
-                     Date expiration;
-                     int amount = sup.getQuant();
-
-                     try {
-                         supplyID = Integer.parseInt(supDetails[0]);
-                         price = Double.parseDouble(supDetails[3]);
-                         discount = Double.parseDouble(supDetails[4]);
-                         DateFormat dateF = new SimpleDateFormat("yyyy-mm-dd");
-                         expiration = dateF.parse(supDetails[5]);//   todo haim this is avi's format. this time convert might not work
-                     }
-                     catch (Exception e)
-                     {
+                    try {
+                        supplyID = Integer.parseInt(supDetails[0]);
+                        catalogID = Integer.parseInt(supDetails[1]);
+                        price = Double.parseDouble(supDetails[3]);
+                        discount = Double.parseDouble(supDetails[4]);
+                        DateFormat dateF = new SimpleDateFormat("yyyy-mm-dd");
+                        expiration = dateF.parse(supDetails[5]);//   todo haim this is avi's format. this time convert might not work
+                    } catch (Exception e) {
 //                         ERROR
-                         e.printStackTrace();   // todo throw delete after testing haim
+                        e.printStackTrace();   // todo throw delete after testing haim
                         continue;
-                     }
-                     catalogID = supDetails[1];
-                     productName = supDetails[2];
-                     Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID,  productName,  price,  discount,  expiration,  amount,  date);
-
-                 }
+                    }
+                    Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID, productName, price, discount, expiration, amount, date);
+                }
             }
         }
 //         buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
 
 
 
+    }
+
+    public void delivered(Delivery delivery, boolean delivered){
+        delivery.setDelivered(delivered);
+        btd.updateDelivered(delivery.getID(), delivered);
     }
 
     public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {

@@ -302,7 +302,7 @@ public class DALController
 
     public void createTables(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("CREATE TABLE IF NOT EXISTS \"Deliveries\" (\n" +
+        sqls.add("CREATE TABLE \"Deliveries\" (\n" +
                 "\t\"id\"\tINTEGER,\n" +
                 "\t\"departureDate\"\tDATE,\n" +
                 "\t\"departureTime\"\tTIME,\n" +
@@ -310,6 +310,8 @@ public class DALController
                 "\t\"driver\"\tTEXT,\n" +
                 "\t\"source\"\tTEXT,\n" +
                 "\t\"truckWeight\"\tINTEGER,\n" +
+                "\t\"approved\"\tINTEGER,\n" +
+                "\t\"delivered\"\tINTEGER,\n" +
                 "\tPRIMARY KEY(\"id\"),\n" +
                 "\tFOREIGN KEY(\"truckNum\") REFERENCES \"Trucks\"(\"id\")\n" +
                 ");");
@@ -604,6 +606,28 @@ public class DALController
         openConn();
         String sql = "SELECT MAX(docID) AS max_cid" +
                 " FROM DeliveryDocs";
+        try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            ResultSet rs  = pstmt.executeQuery();
+            if (rs.next()) {
+                ret=rs.getInt("max_cid");
+            }
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return -1;
+        }
+        return ret;
+    }
+
+    public int getMaxDeliveryID()  {
+        int ret=-1;
+        openConn();
+        String sql = "SELECT MAX(id) AS max_cid" +
+                " FROM Deliveries";
         try (PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             ResultSet rs  = pstmt.executeQuery();
             if (rs.next()) {
@@ -1482,11 +1506,13 @@ public class DALController
         delivery.setDriver(rs.getString("driver"));
         DalLocation source = loadLocation(rs.getString("source"));
         delivery.setSource(source);
+        delivery.setApproved(rs.getInt("approved"));
+        delivery.setDelivered(rs.getInt("delivered"));
     }
 
     public boolean saveDelivery(DalDelivery delivery ) {
         openConn();
-        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, truckWeight, driver, source) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, truckWeight, driver, source, approved, delivered) VALUES(?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, delivery.getId());
             pstmt.setDate(2, new java.sql.Date(delivery.getDate().getTime()));
@@ -1497,6 +1523,12 @@ public class DALController
             pstmt.setInt(5 , delivery.getTruckWeight());
             pstmt.setString(6, delivery.getDriver());
             pstmt.setString(7, delivery.getSource().getAddress());
+            if (delivery.getApproved())
+                pstmt.setInt(8, 1);
+            else pstmt.setInt(8, 0);
+            if (delivery.getDelivered())
+                pstmt.setInt(9, 1);
+            else pstmt.setInt(9, 0);
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -1506,6 +1538,47 @@ public class DALController
             saveDoc(delivery.getId(), dalDoc);
         }
         return true;
+    }
+
+    public void updateDelivered(int delID, boolean delivered)
+    {
+        Result result;
+        openConn();
+        String sql = "UPDATE Deliveries SET delivered=? Where id=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql))
+        {
+            if (delivered)
+                statement.setInt(1, 1);
+            else statement.setInt(1, 0);
+            statement.setInt(2,delID);
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {}
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException ignored) { }
+        }
+    }
+
+    public void updateDeliveryApproved(int delID, boolean approved)
+    {
+        openConn();
+        String sql = "UPDATE Deliveries SET approved=? Where id=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql))
+        {
+            if (approved)
+                statement.setInt(1, 1);
+            else statement.setInt(1, 0);
+            statement.setInt(2,delID);
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {}
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException ignored) { }
+        }
     }
 
 //    public DalDelivery loadDelivery(int id) {

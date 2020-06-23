@@ -211,17 +211,21 @@ public class PTIDelController {
             while(!finish){
                 System.out.println("Please choose your action.\n" +
                         "1) Create delivery\n" +
-                        "2) Print archive\n" +
-                        "3) Exit delivery system");
+                        "2) Cancel delivery\n" +
+                        "3) Print archive\n" +
+                        "4) Exit delivery system");
                 String input = scanner.nextLine();
                 switch (input){
                     case "1":
                         docNum = createDelivery(docNum);
                         break;
-                    case "2":
-                        printArchive();
+                    case  "2":
+                        cancelDelivery();
                         break;
                     case "3":
+                        printArchive();
+                        break;
+                    case "4":
                         finish = true;
                         break;
                     default:
@@ -410,7 +414,7 @@ public class PTIDelController {
         return docNums;
     }
 
-    private void cancelDelivery(int delID){
+    private void cancelDelivery(){
         String input;
         System.out.println("Please enter Storekeeper username and password.");
         input = scanner.nextLine();
@@ -431,6 +435,16 @@ public class PTIDelController {
         input = scanner.nextLine();
         if (!validUser(input, 3)){
             System.out.println("HR Manager username and ID incorrect, cancelation denied.");
+            return;
+        }
+
+        System.out.println("Please enter the id of the delivery you'd like to cancel.");
+        input = scanner.nextLine();
+        int delID = -1;
+        try {
+            delID = Integer.parseInt(input);
+        } catch (Exception e){
+            System.out.println("Invalid number.");
             return;
         }
 

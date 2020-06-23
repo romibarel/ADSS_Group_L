@@ -47,7 +47,7 @@ public class DeliveryArchive {
     public String toString(){
         String s = "";
         for (Delivery delivery : deliveries){
-            s += "Delivery from " + delivery.getSource().getAddress() +" at "+ delivery.getDate().toString()+".\n";
+            s += "Delivery with ID "+delivery.getID()+" from " + delivery.getSource().getAddress() +" at "+ delivery.getDate().toString()+".\n";
             for (DeliverDoc doc : delivery.getDocsWOSource()){
                 s += "Delivery List #" +doc.getNum()+ " Arrives to " + doc.getDestination().getAddress() +".\n";
                 s += "Deliver/pickup: \n";

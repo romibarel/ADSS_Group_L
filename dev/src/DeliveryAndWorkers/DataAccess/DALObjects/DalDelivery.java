@@ -16,9 +16,11 @@ public class DalDelivery {
     private String driver;
     private DalLocation source;
     private List<DALDeliveryDoc> docs;
+    private boolean approved;
+    private boolean delivered;
 
 
-    public DalDelivery(int id, Date date, Date departureTime, int truckNum, int truckWeight, String driver, DalLocation source) {
+    public DalDelivery(int id, Date date, Date departureTime, int truckNum, int truckWeight, String driver, DalLocation source, int approved, int delivered) {
         this.id = id;
         this.date = date;
         this.departureTime = departureTime;
@@ -27,6 +29,12 @@ public class DalDelivery {
         this.driver = driver;
         this.source = source;
         docs = new LinkedList<>();
+        if (approved == 1)
+            this.approved = true;
+        else this.approved = false;
+        if (delivered == 1)
+            this.delivered = true;
+        else this.delivered = false;
     }
 
     public DalDelivery(){
@@ -41,12 +49,13 @@ public class DalDelivery {
         this.truckWeight = delivery.getTruckWeight();
         this.driver = delivery.getDriver();
         this.source = new DalLocation(delivery.getSource(), false);
+        this.approved = delivery.isApproved();
+        this.delivered = delivery.isDelivered();
         docs = new LinkedList<>();
         Set<DeliverDoc> realDocs =  delivery.getDocLoc().keySet();
         for (DeliverDoc document :realDocs) {
             docs.add(new DALDeliveryDoc(document));
         }
-
     }
 
     public boolean addDeliveryDoc(DALDeliveryDoc docNumber)
@@ -107,6 +116,18 @@ public class DalDelivery {
         this.source = source;
     }
 
+    public void setApproved(int approved){
+        if (approved==1)
+            this.approved = true;
+        else this.approved = false;
+    }
+
+    public void setDelivered(int delivered){
+        if (delivered==1)
+            this.delivered = true;
+        else this.delivered = false;
+    }
+
     public List<DALDeliveryDoc> getDocs() {
         return docs;
     }
@@ -117,5 +138,13 @@ public class DalDelivery {
 
     public void setTruckWeight(int truckWeight) {
         this.truckWeight = truckWeight;
+    }
+
+    public boolean getApproved() {
+        return this.approved;
+    }
+
+    public boolean getDelivered() {
+        return this.delivered;
     }
 }

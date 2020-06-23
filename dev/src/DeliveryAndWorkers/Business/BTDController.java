@@ -214,6 +214,13 @@ public class BTDController {
         return dataTb.saveDelivery(new DalDelivery(delivery , curId));
     }
 
+    public void updateDelivered(int delID, boolean delivered){
+        dataTb.updateDelivered(delID, delivered);
+    }
+
+    public void updateDeliveryApproved(int delID, boolean approved){
+        dataTb.updateDeliveryApproved(delID, approved);
+    }
 
     public Sections loadSections(){
 
@@ -271,6 +278,10 @@ public class BTDController {
 
     public int getMaxDocNum(){
         return dataTb.getMaxDocNum();
+    }
+
+    public int getMaxDeliveryID(){
+        return dataTb.getMaxDeliveryID();
     }
 
     public List<String> load_all_branches()
