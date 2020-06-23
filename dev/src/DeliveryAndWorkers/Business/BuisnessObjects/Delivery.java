@@ -7,6 +7,7 @@ import javafx.util.Pair;
 import java.util.*;
 
 public class Delivery {
+    private int id;
     private Date date;
     private Date departureTime;
     private int truckNum;
@@ -17,7 +18,8 @@ public class Delivery {
     private boolean approved;
 
 
-    public Delivery(Date date, Date departureTime, Truck truck, String driver, boolean goodLicenses, Location source, List<DeliverDoc> docs, int truckWeight) {
+    public Delivery(int id, Date date, Date departureTime, Truck truck, String driver, boolean goodLicenses, Location source, List<DeliverDoc> docs, int truckWeight) {
+        this.id = id;
         this.date = date;
         this.departureTime = departureTime;
         this.truckNum = truck.getTruckNum();
@@ -152,5 +154,9 @@ public class Delivery {
 
     public void setTruckWeight(int truckWeight) {
         this.truckWeight = truckWeight;
+    }
+
+    public int getID() {
+        return id;
     }
 }

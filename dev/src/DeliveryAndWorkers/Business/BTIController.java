@@ -87,13 +87,9 @@ public class BTIController {
         if (driver == null)
             return "The driver doesn't exist.";
 
-        Location source = btd.loadLocation(order.getSourceAddress());
-        if (source instanceof Branch)
-            return "The source must be a supplier.";
-        if (source == null)
-            return "The source doesn't exist.";
+        String source = order.getSrcAddress();
 
-        Location dest = order.getDestinationAddress();
+        String dest = order.getDestAddress();
 
         Date date = convertToDateViaSqlTimestamp(order.getETA());
         DateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
