@@ -144,6 +144,19 @@ public class DataController {
 //        removeSupplier(3);
 //    }
 
+    public void openCon(){
+        try {
+            // db parameters
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:database.db";
+            // create a connection to the database
+            con = DriverManager.getConnection(url);
+        }
+        catch (Exception e){
+
+        }
+    }
+
     public void close(){
         try {
             if (con != null)
@@ -155,6 +168,7 @@ public class DataController {
 
     public boolean addSupplier(LoanSupplier ls){
         try {
+            openCon();
             p = con.prepareStatement("INSERT INTO SUPPLIERS VALUES(?,?,?,?,?,?,?)");
             p.setInt(1, ls.getID());
             p.setInt(2, ls.getCompanyID());
@@ -164,6 +178,7 @@ public class DataController {
             p.setString(6, ls.getTag());
             p.setString(7, ls.getName());
             p.executeUpdate();
+            close();
             return true;
         }catch(SQLException e){
             return false;
@@ -172,11 +187,13 @@ public class DataController {
 
     public boolean addSupplierContact(String fullName, String phoneNum, int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("INSERT INTO SUPPLIER_CONTACTS VALUES(?,?,?)");
             p.setString(1, fullName);
             p.setString(2, phoneNum);
             p.setInt(3, supplierID);
             p.executeUpdate();
+            close();
             return true;
         }catch(SQLException e){
             return false;
@@ -185,6 +202,7 @@ public class DataController {
 
     public boolean addSupplierOrder(LoanOrder lo){
         try {
+            openCon();
             p = con.prepareStatement("INSERT INTO SUPPLIER_ORDERS VALUES(?,?,?,?,?,?,?)");
             p.setInt(1, lo.getSupplierID());
             p.setInt(2, lo.getOrderID());
@@ -202,6 +220,7 @@ public class DataController {
                 p.setInt(4, e.getValue().getValue());
                 p.executeUpdate();
             }
+            close();
             return true;
         }catch(SQLException e){
             return false;
@@ -210,6 +229,7 @@ public class DataController {
 
     public boolean addSupplierAgreement(LoanAgreement la, int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("INSERT INTO SUPPLIER_AGREEMENTS VALUES(?,?,?,?,?)");
             p.setInt(1, supplierID);
             p.setInt(2, la.getAgreementID());
@@ -217,6 +237,7 @@ public class DataController {
             p.setInt(4, la.getAgreementDetails().getValue().getKey());
             p.setInt(5, la.getAgreementDetails().getValue().getValue());
             p.executeUpdate();
+            close();
             return true;
         }catch(SQLException e){
             return false;
@@ -225,6 +246,7 @@ public class DataController {
 
     public boolean addSupplierProduct(LoanProduct lp, int supplierID){
         try {
+            openCon();
             PreparedStatement p = con.prepareStatement("INSERT INTO SUPPLIER_PRODUCTS VALUES(?,?,?,?,?,?,?)");
             p.setInt(1, lp.getCatalogID());
             p.setDouble(2, lp.getPrice());
@@ -234,6 +256,7 @@ public class DataController {
             p.setInt(6, supplierID);
             p.setDouble(7, lp.getWeight());
             p.executeUpdate();
+            close();
             return true;
         }catch(Exception e){
             return false;
@@ -242,6 +265,7 @@ public class DataController {
 
     public boolean addProductToOrder(int orderID, int productID, int amount, double total, int sale){
         try {
+            openCon();
             p = con.prepareStatement("INSERT INTO ORDER_PRODUCTS VALUES(?,?,?,?)");
             p.setInt(1, orderID);
             p.setInt(2, productID);
@@ -250,6 +274,7 @@ public class DataController {
             p.executeUpdate();
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET total = " + total + "  WHERE orderID = " + orderID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -258,12 +283,14 @@ public class DataController {
 
     public boolean addReport(LoanReport lr){
         try {
+            openCon();
             p = con.prepareStatement("INSERT INTO REPORTS VALUES(?,?,?,?)");
             p.setInt(1, lr.getReportID());
             p.setInt(2, lr.getReportedOrder().getOrderID());
             p.setDate(3, Date.valueOf(lr.getDateReported().toLocalDate()));
             p.setString(4, lr.getTag());
             p.executeUpdate();
+            close();
             return true;
         }catch(SQLException e){
             return false;
@@ -272,6 +299,7 @@ public class DataController {
 
     public boolean removeSupplier(int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("DELETE FROM SUPPLIERS WHERE supplierID = " + supplierID);
             p.executeUpdate();
             p = con.prepareStatement("DELETE FROM SUPPLIER_AGREEMENTS WHERE supplierID = " + supplierID);
@@ -288,6 +316,7 @@ public class DataController {
             p.executeUpdate();
             p = con.prepareStatement("DELETE FROM SUPPLIER_CONTACTS WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -296,8 +325,10 @@ public class DataController {
 
     public boolean removeSupplierContact(int supplierID, String phoneNum){
         try {
+            openCon();
             p = con.prepareStatement("DELETE FROM SUPPLIER_CONTACTS WHERE supplierID = " + supplierID + " AND phoneNum = " + phoneNum);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -306,10 +337,12 @@ public class DataController {
 
     public boolean removeSupplierOrder(int orderID){
         try {
+            openCon();
             p = con.prepareStatement("DELETE FROM SUPPLIER_ORDERS WHERE orderID = " + orderID);
             p.executeUpdate();
             p = con.prepareStatement("DELETE FROM ORDER_PRODUCTS WHERE orderID = " + orderID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -318,8 +351,10 @@ public class DataController {
 
     public boolean removeSupplierProduct(int productID, int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("DELETE FROM SUPPLIER_PRODUCTS WHERE catalogID = " + productID + " AND supplierID = " + supplierID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -328,8 +363,10 @@ public class DataController {
 
     public boolean removeSupplierAgreement(int agreementID){
         try {
+            openCon();
             p = con.prepareStatement("DELETE FROM SUPPLIER_AGREEMENTS WHERE agreementID = " + agreementID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -338,10 +375,12 @@ public class DataController {
 
     public boolean removeProductFromOrder(int orderID, int productID, double total){
         try {
+            openCon();
             p = con.prepareStatement("DELETE FROM ORDER_PRODUCTS WHERE catalogID = " + productID + " AND orderID = " + orderID);
             p.executeUpdate();
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET total = " + total + "  WHERE orderID = " + orderID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -350,8 +389,10 @@ public class DataController {
 
     public boolean updateSupplierCompanyID(int companyID, int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIERS SET companyID = " + companyID + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -360,8 +401,10 @@ public class DataController {
 
     public boolean updateSupplierBankAccNum(String bankAccNum, int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIERS SET bankAccNum = " + bankAccNum + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -370,8 +413,10 @@ public class DataController {
 
     public boolean updateSupplierPayCond(String payCond, int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIERS SET payCond = " + payCond + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -380,8 +425,10 @@ public class DataController {
 
     public boolean updateSupplierPhoneNum(String phoneNum, int supplierID){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIERS SET phoneNum = " + phoneNum + " WHERE supplierID = " + supplierID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -390,8 +437,10 @@ public class DataController {
 
     public boolean updateAgreementProdAmount(int amount, int agreementID){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIER_AGREEMENTS SET Amount = " + amount + " WHERE agreementID = " + agreementID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -400,8 +449,10 @@ public class DataController {
 
     public boolean updateAgreementProdSale(int sale, int agreementID){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIER_AGREEMENTS SET Sale = " + sale + " WHERE agreementID = " + agreementID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -410,9 +461,11 @@ public class DataController {
 
     public boolean updateOrderETA(LocalDateTime ETA, int orderID){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET ETA = (?)  WHERE orderID = " + orderID);
             p.setDate(1, Date.valueOf(ETA.toLocalDate()));
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -421,10 +474,12 @@ public class DataController {
 
     public boolean updateAmountOfProductInOrder(int orderID, int productID, int amount, double total){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE ORDER_PRODUCTS SET amountOrdered = " + amount + "  WHERE orderID = " + orderID + " AND catalogID = " + productID);
             p.executeUpdate();
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET total = " + total + "  WHERE orderID = " + orderID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -433,8 +488,10 @@ public class DataController {
 
     public boolean updateOrderSourceAddress(int orderID, String src){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET source = " + src + "  WHERE orderID = " + orderID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -443,8 +500,10 @@ public class DataController {
 
     public boolean updateOrderDestinationAddress(int orderID, String dest){
         try {
+            openCon();
             p = con.prepareStatement("UPDATE SUPPLIER_ORDERS SET destination = " + dest + "  WHERE orderID = " + orderID);
             p.executeUpdate();
+            close();
             return true;
         }catch (SQLException e){
             return false;
@@ -454,6 +513,7 @@ public class DataController {
     public LinkedList<LoanSupplier> pullSupplierData(){
         LinkedList<Pair<Integer, Pair<String, String>>> contacts = new LinkedList<>();
         try {
+            openCon();
             p = con.prepareStatement("SELECT * FROM SUPPLIER_CONTACTS");
             ResultSet rs = p.executeQuery();
             while(rs.next())
@@ -505,6 +565,7 @@ public class DataController {
                         rs.getInt("companyID"), rs.getString("bankAccNum"), rs.getString("payCond"), rs.getString("phoneNum"),
                         getContactsOfSupplier(supplierID, contacts), getLoanAgreementsOfSupplier(supplierID), getLoanOrdersOfSupplier(supplierID), getLoanProductsOfSupplier(supplierID)));
             }
+            close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -514,6 +575,7 @@ public class DataController {
     public LinkedList<LoanReport> pullReports(){
         LinkedList<LoanReport> reports = new LinkedList<>();
         try{
+            openCon();
             p = con.prepareStatement("SELECT * FROM REPORTS");
             ResultSet rs = p.executeQuery();
             while(rs.next()){
@@ -522,6 +584,7 @@ public class DataController {
                         loanReports.add(new LoanReport(rs.getString("tag"), rs.getInt("reportID"), rs.getDate("dateReported").toLocalDate().atTime(LocalTime.now()), lo));
                 }
             }
+            close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -570,8 +633,10 @@ public class DataController {
 
     public LoanSupplier getSupplierByOrder(int orderID){
         try {
+            openCon();
             p = con.prepareStatement("SELECT S.supplierID FROM SUPPLIERS AS S JOIN SUPPLIER_ORDERS AS SO ON S.supplierID = SO.supplierID AND orderID = " + orderID);
             ResultSet rs = p.executeQuery();
+            close();
             return getLoanSupplier(rs.getInt("supplierID"));
         }catch (SQLException e){
             return null;
@@ -582,6 +647,7 @@ public class DataController {
         LoanSupplier ls = null;
         LinkedList<Pair<Integer, Pair<String, String>>> contacts = new LinkedList<>();
         try {
+            openCon();
             p = con.prepareStatement("SELECT * FROM SUPPLIER_CONTACTS WHERE supplierID = " + supplierID);
             ResultSet rs = p.executeQuery();
             while(rs.next())
@@ -631,6 +697,7 @@ public class DataController {
                     rs.getInt("companyID"), rs.getString("bankAccNum"), rs.getString("payCond"), rs.getString("phoneNum"),
                     getContactsOfSupplier(supplierID, contacts), getLoanAgreementsOfSupplier(supplierID), getLoanOrdersOfSupplier(supplierID), getLoanProductsOfSupplier(supplierID));
             loanSuppliers.add(ls);
+            close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -640,6 +707,7 @@ public class DataController {
     public LoanReport getReport(int reportID){
         LoanReport lr = null;
         try{
+            openCon();
             p = con.prepareStatement("SELECT * FROM REPORTS WHERE reportID = " + reportID);
             ResultSet rs = p.executeQuery();
             if(!rs.next()) return null;
@@ -649,6 +717,7 @@ public class DataController {
                     loanReports.add(lr);
                 }
             }
+            close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -658,6 +727,7 @@ public class DataController {
     public HashMap<String, Integer> updateStaticIDs(){
         HashMap<String, Integer> statIDs = new HashMap<>();
         try {
+            openCon();
             p = con.prepareStatement("SELECT COUNT(*) AS num FROM SUPPLIERS");
             ResultSet r = p.executeQuery();
             statIDs.put("StorageAndSupplier/Suppliers", r.getInt("num"));
@@ -670,6 +740,7 @@ public class DataController {
             p = con.prepareStatement("SELECT COUNT(*) AS num FROM REPORTS");
             r = p.executeQuery();
             statIDs.put("Reports", r.getInt("num"));
+            close();
         }catch (SQLException e){
             return null;
         }

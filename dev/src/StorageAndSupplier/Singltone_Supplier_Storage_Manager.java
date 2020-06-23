@@ -1,5 +1,6 @@
 package StorageAndSupplier;
 
+import DeliveryAndWorkers.Business.BTIController;
 import Permissions.Permissions_API;
 import StorageAndSupplier.Storage.Buisness.Reports.DefectReport;
 import StorageAndSupplier.Storage.Buisness.Reports.ProductReport;
@@ -276,9 +277,11 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         HashMap<Product, Pair<Integer, Integer>> products = new HashMap<>();
         for(Map.Entry<Pproduct, Pair<Integer, Integer>> e : pproducts.entrySet())
             products.put(new Product(e.getKey().getCatalogID(), e.getKey().getPrice(), e.getKey().getName(), e.getKey().getManufacturer(), e.getKey().getExpirationDate(), e.getKey().getWeight()), e.getValue());
-        LocalDateTime ETA = supplier_management.addOrder(new Order(supplierID, dateIssued, products, src, dest));
+        Order o = new Order(supplierID, dateIssued, products, src, dest);
+        LocalDateTime ETA = supplier_management.addOrder(o);
         if(ETA == null)
             return false;
+        BTIController.getBTI().createDelivery(o);
         for (Pproduct p :pproducts.keySet()){
             storage_management.setNextSupply(p.getCatalogID(), convertToDateViaSqlTimestamp(ETA));
         }
