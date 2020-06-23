@@ -126,8 +126,8 @@ public class Presentation {
                 }
                 break;
             case 5:
-                initiateOptions = Arrays.asList("Storage system", "Suppliers system",
-                       "Workers system", "Delivery system",
+                initiateOptions = Arrays.asList("Storage system",
+                       "Workers system", "Suppliers system", "Delivery system",
                         "Exit");
                 printMenu(initiateOptions);
                 select = getIntInput(4);
@@ -135,10 +135,10 @@ public class Presentation {
                     runStorage();
                 }
                 else if (select == 2){
-                    runStorage();
+                    superMarket.mainFunc(true);
                 }
                 else if (select == 3){
-                    superMarket.mainFunc(true);
+                    runManager();
                 }
                 else if (select == 4){
                     superMarket.start(true);
@@ -2185,7 +2185,7 @@ public class Presentation {
             switch (option) {
                 case 1:
                     System.out.println("Choose 1 to view details about a supplier");
-                    System.out.println("Choose 9 to view all products a supplier has to offer");
+                    System.out.println("Choose 2 to view all products a supplier has to offer");
                     System.out.println("Choose 0 to go back");
                     do {
                         try {
