@@ -44,16 +44,6 @@ public class ConstraintTest {
         assertFalse(ConstrainsController.addConstraint(c).success);
     }
 
-    //check if a constraint with an already scheduled shift isn't added.
-    @Test
-    public void addConstraint3() throws ParseException {
-        Date date=new SimpleDateFormat("dd/MM/yyyy").parse("20/5/2020");
-        InterfaceShift s=new InterfaceShift(date, true, 209473891, new LinkedList<>(), "Costco");
-        ShiftController.add_shift(s);
-        InterfaceConstraint c=new InterfaceConstraint(date, true, 209473891, "wedding");
-        assertFalse(ConstrainsController.addConstraint(c).success);
-    }
-
     //check if constraint is edited successfully
     @Test
     public void editConstraint1() throws ParseException {
@@ -76,18 +66,6 @@ public class ConstraintTest {
         assertFalse(ConstrainsController.editConstraint(c).success);
     }
 
-    //check if a constraint with an already scheduled shift isn't added.
-    @Test
-    public void editConstraint3() throws ParseException {
-        Date date=new SimpleDateFormat("dd/MM/yyyy").parse("20/5/2020");
-        Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("20/6/2020");
-        InterfaceShift s=new InterfaceShift(date2, true, 209473891, new LinkedList<>(), "Costco");
-        ShiftController.add_shift(s);
-        InterfaceConstraint c=new InterfaceConstraint(date, true, 209473891, "wedding");
-        ConstrainsController.addConstraint(c);
-        c.setCid(ConstrainsController.getConstraints().get(0).getCid());
-        c.setDate(date2);
-        assertFalse(ConstrainsController.editConstraint(c).success);
-    }
+
 
 }
