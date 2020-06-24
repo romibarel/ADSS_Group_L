@@ -127,6 +127,7 @@ public class SuperMarketController implements SuperMarket {
         SandSController.appendProductToCategory(barCode, categoryName);
     }
 
+
     @Override
     public List<String> getListOfCategoriesNames() {
         return SandSController.getListOfCategoriesNames();

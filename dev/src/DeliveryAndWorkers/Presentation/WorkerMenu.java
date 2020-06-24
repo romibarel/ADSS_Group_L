@@ -10,35 +10,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static DeliveryAndWorkers.tests.TestsMain.testFunc;
-
 public class WorkerMenu {
     private static boolean  quit=false;
     private static Scanner input = new Scanner(System.in);
     private static List<Callback> calls=new LinkedList<>();
 
     public static void mainFunc (){
-        System.out.println("Please choose to run HR tests or system:");
-        System.out.println("1. run HR system");
-        System.out.println("2. run HR tests");
         int choice;
-        try {
-            choice = Integer.parseInt(input.nextLine());
-        }
-        catch (Exception e){
-            System.out.println("illegal input");
-            return;
-        }
-        if(choice==2) {
-            testFunc();
-            return;
-        }
-        if(choice!=1)
-        {
-            System.out.println("illegal input");
-            return;
-        }
-
         int m=0;
         List<String> messages;
         String init;

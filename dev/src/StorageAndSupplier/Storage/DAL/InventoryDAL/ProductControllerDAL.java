@@ -8,6 +8,7 @@ import java.util.Date;
 public class ProductControllerDAL {
     private List<CategoryDAL> categoryDALS;
     private Map<Integer , DataSaleProductDAL> saleData; //<barCode, DataSaleProduct>
+    private Connection conn1;
 
     public ProductControllerDAL(){
         this.categoryDALS = new ArrayList<>();
@@ -16,15 +17,25 @@ public class ProductControllerDAL {
 
     public List<CategoryDAL> getCategoryDALS(Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         //return categoryDALS;
@@ -52,15 +63,25 @@ public class ProductControllerDAL {
 
     private CategoryDAL createCategoryDALByName(String categoryName, Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         List<ProductDAL> p = new ArrayList<>();
@@ -114,15 +135,25 @@ public class ProductControllerDAL {
 
     public Map<Integer, DataSaleProductDAL> getSaleData(Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         //return saleData;
@@ -155,15 +186,25 @@ public class ProductControllerDAL {
 
     public void addCategory(CategoryDAL dal, Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                    Class.forName("org.sqlite.JDBC");
+                    String url = "jdbc:sqlite:Database.db";
+                 conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         //this.categoryDALS.add(dal);
@@ -171,14 +212,16 @@ public class ProductControllerDAL {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO CATEGORIES VALUES (?)");
             stmt.setString(1, dal.getName());
             stmt.executeUpdate();
+
         }
         catch (Exception e){    /*try to insert, if its exists reach also here*/
             //System.out.println("failed");
         }
 
-        try {
+        try{
             conn.close();
-        } catch (SQLException e) {
+        }
+         catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -196,15 +239,25 @@ public class ProductControllerDAL {
 
     public void appendSubCategory(String main, String sub, Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -227,15 +280,25 @@ public class ProductControllerDAL {
 
     public void appendProductToCategoryDAL(String name, ProductDAL productDAL, Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -258,15 +321,25 @@ public class ProductControllerDAL {
 
     public void addNewDataSaleProduct(int barcode, DataSaleProductDAL dal, Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -290,15 +363,25 @@ public class ProductControllerDAL {
 
     public void updateDataSaleProduct(int barcode, DataSaleProductDAL dataSaleProductDAL, Connection conn){
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
         //this.saleData.replace(barcode, dataSaleProductDAL);
         try {
@@ -325,15 +408,25 @@ public class ProductControllerDAL {
 
     public void addNewProduct (ProductDAL productDAL, Connection conn){
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -363,15 +456,25 @@ public class ProductControllerDAL {
 
     public void updateProduct(ProductDAL productDAL, Connection conn){
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -409,15 +512,25 @@ public class ProductControllerDAL {
     }
     public ProductDAL searchProduct (int barCode, Connection conn){
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         ProductDAL ret = null;
@@ -445,15 +558,25 @@ public class ProductControllerDAL {
 
     public void updateCategory (String categoryName, String newName, Connection conn){
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -488,15 +611,25 @@ public class ProductControllerDAL {
 
     public void deleteCategory(String cName, Connection conn){
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -524,15 +657,25 @@ public class ProductControllerDAL {
 
     public List<CategoryDAL> getMySubCategoriesDAL(String name, Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         List <CategoryDAL> ret = new ArrayList<>();
@@ -565,15 +708,25 @@ public class ProductControllerDAL {
 
     public List<ProductDAL> getProductListDAL(String name, Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         List<ProductDAL> ret = new ArrayList<>();
