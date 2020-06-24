@@ -1,10 +1,12 @@
 package StorageAndSupplier.Suppliers.PersistenceLayer;
 
+import StorageAndSupplier.Singltone_Supplier_Storage_Manager;
 import javafx.util.Pair;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -81,9 +83,9 @@ public class DataController {
         o2Products.put(Shocko, new Pair<>(15, 0));
         o2Products.put(Milk2, new Pair<>(30, 3));
         o3Products.put(Tuna, new Pair<>(50, 7));
-        LoanOrder o1 = new LoanOrder(1, 1, 463.75, LocalDateTime.now().plusDays(1), LocalDateTime.now(), o1Products, "Ashkelon", "Shufersal");
-        LoanOrder o2 = new LoanOrder(2, 2, 205.5, LocalDateTime.now().plusDays(2), LocalDateTime.now(), o2Products, "Ashdod", "Rami Levi");
-        LoanOrder o3 = new LoanOrder(3, 3, 860.25, LocalDateTime.now().plusDays(3), LocalDateTime.now(), o3Products, "Rishon LeZion", "Keshet Teamim");
+        LoanOrder o1 = new LoanOrder(1, 1, 463.75, LocalDateTime.now().plusDays(7), LocalDateTime.now(), o1Products, "Ashkelon", "Shufersal");
+        LoanOrder o2 = new LoanOrder(2, 2, 205.5, LocalDateTime.now().plusDays(3), LocalDateTime.now(), o2Products, "Ashdod", "Rami Levi");
+        LoanOrder o3 = new LoanOrder(3, 3, 860.25, LocalDateTime.now().plusDays(1), LocalDateTime.now(), o3Products, "Rishon LeZion", "Keshet Teamim");
         addSupplierOrder(o1);
         addSupplierOrder(o2);
         addSupplierOrder(o3);
@@ -347,6 +349,7 @@ public class DataController {
             close();
             return true;
         }catch (SQLException e){
+            e.printStackTrace();
             return false;
         }
     }
@@ -554,7 +557,7 @@ public class DataController {
                 }
                 r.close();
                 loanOrders.add(new LoanOrder(rs.getInt("supplierID"), rs.getInt("orderID"), rs.getDouble("total"),
-                        rs.getDate("ETA").toLocalDate().atTime(LocalTime.now()), rs.getDate("dateIssued").toLocalDate().atTime(LocalTime.now()),
+                        convertToLocalDateTimeViaSqlTimestamp(rs.getDate("ETA")), convertToLocalDateTimeViaSqlTimestamp(rs.getDate("dateIssued")),
                         prod, rs.getString("source"), rs.getString("destination")));
             }
 
@@ -639,6 +642,7 @@ public class DataController {
             p = con.prepareStatement("SELECT S.supplierID FROM SUPPLIERS AS S JOIN SUPPLIER_ORDERS AS SO ON S.supplierID = SO.supplierID AND orderID = " + orderID);
             ResultSet rs = p.executeQuery();
             close();
+            System.out.println(rs.getInt("supplierID"));
             return getLoanSupplier(rs.getInt("supplierID"));
         }catch (SQLException e){
             return null;
@@ -751,5 +755,10 @@ public class DataController {
 
     public void setConnection(Connection conn) {
         this.con = conn;
+    }
+
+    private LocalDateTime convertToLocalDateTimeViaSqlTimestamp(Date dateToConvert) {
+        return new java.sql.Timestamp(
+                dateToConvert.getTime()).toLocalDateTime();
     }
 }
