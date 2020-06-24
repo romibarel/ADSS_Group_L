@@ -47,7 +47,13 @@ public class DeliveryArchive {
     public String toString(){
         String s = "";
         for (Delivery delivery : deliveries){
-            s += "Delivery with ID "+delivery.getID()+" from " + delivery.getSource().getAddress() +" at "+ delivery.getDate().toString()+".\n";
+            String approved = "approved";
+            if (!delivery.isApproved())
+                approved = "unapproved";
+            String delivered = "delivered";
+            if (!delivery.isDelivered())
+                delivered = "in process";
+            s += "Delivery with ID "+delivery.getID()+" from " + delivery.getSource().getAddress() +" at "+ delivery.getDate().toString()+" is "+approved+" and "+delivered+".\n";
             for (DeliverDoc doc : delivery.getDocsWOSource()){
                 s += "Delivery List #" +doc.getNum()+ " Arrives to " + doc.getDestination().getAddress() +".\n";
                 s += "Deliver/pickup: \n";

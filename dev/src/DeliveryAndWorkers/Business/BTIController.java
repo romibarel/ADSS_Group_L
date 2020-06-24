@@ -120,14 +120,20 @@ public class BTIController {
         }catch (Exception e){}
 
         List<Pair<String, Integer>> supplies = milkSuppliesFromOrder(order);
+
+        List<Integer> numsToDelivery = new LinkedList<>();
+        //make the source doc
         int docNum = getMaxDocNum() + 1;
-
-        List<Integer> numToDelivery = new LinkedList<>();
-        numToDelivery.add(docNum);
-
+        numsToDelivery.add(docNum);
+        if (createDoc(depart, date, docNum, dest, supplies).equals("The destination doesn't exist."))
+            return "The source doesn't exist.";
+        //make the dest doc
+        docNum = getMaxDocNum() + 1;
+        numsToDelivery.add(docNum);
         if (createDoc(arrival, date, docNum, dest, supplies).equals("The destination doesn't exist."))
             return "The destination doesn't exist.";
-        return createDelivery(date, depart, truck.getTruckNum(), driver, source, numToDelivery, weight);
+
+        return createDelivery(date, depart, truck.getTruckNum(), driver, source, numsToDelivery, weight);
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){

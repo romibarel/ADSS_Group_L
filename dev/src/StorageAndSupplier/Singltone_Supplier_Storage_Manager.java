@@ -466,14 +466,14 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         for (Order o : arrivedOrders){
             int supplierID = o.getSupplierID();
             for (Map.Entry<Product, Pair<Integer, Integer>> e : o.getProducts().entrySet()){
-                int barcode = e.getKey().getCatalogID();
+                int catalogID = e.getKey().getCatalogID();
                 String productName = e.getKey().getName();
                 double price = e.getKey().getOriginalPrice();
-                Date expiration = convertToDateViaSqlTimestamp(e.getKey().getExpirationDate());
+                Date exp = convertToDateViaSqlTimestamp(e.getKey().getExpirationDate());
                 Date today = convertToDateViaSqlTimestamp(LocalDateTime.now());
                 int amount = e.getValue().getKey();
                 double discount = e.getValue().getValue();
-                this.storage_management.buyProduct(barcode, productName, supplierID, price, discount, expiration, amount, today, STORAGE);
+                buyProduct(supplierID, catalogID, productName, price, discount, exp, amount, today, STORAGE);
             }
         }
     }
