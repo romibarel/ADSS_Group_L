@@ -494,7 +494,11 @@ public class PTIDelController {
 
     private boolean validUser(String s, int id){
         //0=username 1=password
+        if(s == null)
+            return false;
         String[] parse = s.split(" ");
+        if (parse.length != 2)
+            return false;
         return SuperMarketController.getInstance().checkPermission(parse[0], parse[1]) == id;
     }
 }
