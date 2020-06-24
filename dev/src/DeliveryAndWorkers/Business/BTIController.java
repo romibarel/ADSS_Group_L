@@ -89,6 +89,8 @@ public class BTIController {
             return "There is no fitting truck for the delivery.";
         trucks.add(truck);
 
+        weight = weight+truck.getWeighNeto();
+
         int driver = WorkersController.get_available_driver_id(truck.getType(), order.getETA());
         if (driver == -1)
             return "There is no fitting driver.";
