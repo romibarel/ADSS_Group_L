@@ -1835,7 +1835,11 @@ public class Presentation {
                             break;
                         case 2:
                             System.out.println("Please enter the supplier ID");
-                            int s = scanner.nextInt();
+                            String s = scanner.nextLine();
+                            int parsed = -1;
+                            try {
+                                parsed = Integer.parseInt(s);
+                            }catch (Exception e){System.out.println("Invalid integer.");}
                             HashMap<Pproduct, Pair<Integer, Integer>> hm = new HashMap<>();
                             System.out.println("Please enter the source address");
                             String src = scanner.nextLine();
@@ -1869,7 +1873,7 @@ public class Presentation {
                                 System.out.println("Would you like to enter another one? (y/n)");
                                 ans = scanner.next();
                             } while(!ans.equals("n"));
-                            if(!superMarket.addOrder(s,LocalDateTime.now(),hm, src, dest))
+                            if(!superMarket.addOrder(parsed,LocalDateTime.now(),hm, src, dest))
                                 System.out.println("Error");
                             else System.out.println("Success!");
                         case 3:
