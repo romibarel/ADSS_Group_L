@@ -1355,7 +1355,9 @@ public class DALController
             try {
                 resultSet.close();
                 conn.close();
-            } catch (SQLException ignored) {}
+            } catch (SQLException ignored) {
+                System.out.println(ignored);
+            }
         }
         deleteMessages(recipient);
         return messages;
@@ -1371,7 +1373,7 @@ public class DALController
             statement.setString(1,recipient);
             statement.executeUpdate();
         }
-        catch (SQLException ignored){}
+        catch (SQLException ignored){ }
         finally
         {
             try {
