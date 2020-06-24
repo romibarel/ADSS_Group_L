@@ -20,10 +20,10 @@ public class TestsMain
 //			System.out.println(failure.toString());
 //		System.out.println("WorkersTest: Successful: " + result.wasSuccessful() + " run of " + result.getRunCount() + " tests");
 
-		result = jUnitCore.run(ConstraintTest.class);
-		for (Failure failure:result.getFailures())
-			System.out.println(failure.toString());
-		System.out.println("ConstraintTest: Successful: " + result.wasSuccessful() + " run of " + result.getRunCount() + " tests");
+//from here		result = jUnitCore.run(ConstraintTest.class);
+//		for (Failure failure:result.getFailures())
+//			System.out.println(failure.toString());
+//to here		System.out.println("ConstraintTest: Successful: " + result.wasSuccessful() + " run of " + result.getRunCount() + " tests");
 
 	}
 
