@@ -14,11 +14,8 @@ public class BTDController {
     private static BTDController thisOne;
     private static DALController dataTb;
     private static BTIController bti;
-    private List<Integer> currDeliveryIDs;
-    private int deliveryIdCounter;      // todo change to be good
 
     private BTDController(){
-        currDeliveryIDs = new LinkedList<>();
     }
 
     public static BTDController getBTD(){
@@ -28,10 +25,6 @@ public class BTDController {
             BTDController.bti = BTIController.getBTI();
         }
         return thisOne;
-    }
-
-    public List<Integer> getCurrDeliveryIDs(){
-        return currDeliveryIDs;
     }
 
     public List<Constraint> loadConstraint(int id, java.util.Date date, boolean morning)  {
@@ -207,11 +200,8 @@ public class BTDController {
         dataTb.saveDoc(delId , new DALDeliveryDoc(deliveryDoc));
     }
 
-    public boolean saveDelivery(Delivery delivery) {    //todo finish
-        int curId = deliveryIdCounter;
-        currDeliveryIDs.add(curId);
-        deliveryIdCounter++;
-        return dataTb.saveDelivery(new DalDelivery(delivery , curId));
+    public boolean saveDelivery(Delivery delivery) {
+        return dataTb.saveDelivery(new DalDelivery(delivery));
     }
 
     public void updateDelivered(int delID, boolean delivered){
@@ -266,7 +256,6 @@ public class BTDController {
         DalArchive arc = dataTb.loadArchive();
         if (arc == null)
             return new DeliveryArchive();
-        deliveryIdCounter += arc.getDeliveries().size();
         List<DALDeliveryDoc> docs = new LinkedList<>();
         for (Integer docNum : arc.getDocuments()){
             DALDeliveryDoc daldoc = dataTb.loadDoc(docNum);
