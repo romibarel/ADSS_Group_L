@@ -17,7 +17,7 @@ public class InterfaceWorker {
     private String role;
     private String branchAddress;
 
-    public InterfaceWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, Date start_date, String role,String branch) {
+    public InterfaceWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, Date start_date, String role) {
         this.name = name;
         this.id = id;
         this.bank_account_number = bank_account_number;
@@ -27,7 +27,6 @@ public class InterfaceWorker {
         this.sick_days = sick_days;
         this.start_date = start_date;
         this.role = role;
-        this.branchAddress = branch;
     }
 
     public InterfaceWorker() {

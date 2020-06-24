@@ -305,11 +305,11 @@ public class WorkerMenu {
         List<InterfaceWorker> workers=new LinkedList<>();
         try
         {
-            InterfaceWorker w1 = new InterfaceWorker("avi levy", 1, 202, 2000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2015"), "manager","Mega");
-            InterfaceWorker w2 = new InterfaceWorker("shimon cohen", 2, 311, 1000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2018"), "manager","Mega");
-            InterfaceWorker w3 = new InterfaceWorker("dan panorama", 3, 157, 1700, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("12/01/2019"), "cashier","Mega");
-            InterfaceWorker w4 = new InterfaceWorker("ben biton", 4, 802, 900, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/01/2020"), "cashier","Mega");
-            InterfaceWorker w5 = new InterfaceWorker("avi bitter", 5, 171, 1300, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("18/03/2020"), "driver","Mega");
+            InterfaceWorker w1 = new InterfaceWorker("avi levy", 1, 202, 2000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/02/2015"), "manager");
+            InterfaceWorker w2 = new InterfaceWorker("shimon cohen", 2, 311, 1000, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2018"), "manager");
+            InterfaceWorker w3 = new InterfaceWorker("dan panorama", 3, 157, 1700, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("12/01/2019"), "cashier");
+            InterfaceWorker w4 = new InterfaceWorker("ben biton", 4, 802, 900, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("14/01/2020"), "cashier");
+            InterfaceWorker w5 = new InterfaceWorker("avi bitter", 5, 171, 1300, 10, 10, 10, new SimpleDateFormat("dd/MM/yyyy").parse("18/03/2020"), "driver");
             workers.add(w1);
             workers.add(w2);
             workers.add(w3);

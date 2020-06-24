@@ -18,11 +18,13 @@ public class LocationControllerDAL {
     public Map<Integer, Map<Date, Map<Integer, Integer>>> getProductsLocationDAL(Connection conn) {
 
         try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
+            if(conn.isClosed()){
+                // db parameters
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:database.db";
+                // create a connection to the database
+                conn = DriverManager.getConnection(url);
+            }
         }
         catch (Exception e){
 
@@ -87,15 +89,25 @@ public class LocationControllerDAL {
 
     public Map<Integer, String> getLocationsDAL(Connection conn) {
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         //return locationsDAL;
@@ -142,15 +154,25 @@ public class LocationControllerDAL {
         //    this.productsLocationDAL.get(barCode).get(expirationDate).replace(location, quantity);
         //}
 
-        try {
-            // db parameters
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:database.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-        }
-        catch (Exception e){
+        if(conn == null){
+            try {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            if (conn.isClosed() ){
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:Database.db";
+                conn = DriverManager.getConnection(url);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         boolean updateOrInsert = false; //update = true, insert = false
