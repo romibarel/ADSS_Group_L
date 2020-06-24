@@ -31,6 +31,7 @@ public class SystemController {
     }
 
     public void loadSystem(){
+        //dc.loadSystem();
         for(LoanSupplier ls : dc.pullSupplierData())
             addSupplierFromLoan(ls);
         for(LoanReport lr : dc.pullReports()){
@@ -135,8 +136,8 @@ public class SystemController {
                 if(!dc.removeSupplierOrder(orderID))
                     return false;
                 Order o = s.removeOrder(orderID);
-                if (o != null)
-                    dc.addSupplierOrder(o.getLoan());
+                //if (o != null)
+                  //  dc.addSupplierOrder(o.getLoan());
                 return true;
             }
         }

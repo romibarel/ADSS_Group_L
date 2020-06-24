@@ -1543,6 +1543,7 @@ public class Presentation {
     * */
 
     public void run(){
+        superMarket.checkOrdersArrivalStatus();
         boolean isTerminated = false;
         Scanner scanner = new Scanner(System.in);
         //System.out.println("Would you like to load pre-made data? (y/n)");
@@ -1550,7 +1551,7 @@ public class Presentation {
         //    businessManager.loadSystem();
         //    isLoad = true;
         //}
-
+        //superMarket.loadSystem();
         boolean error;
         while(!isTerminated){
             System.out.println("Choose 1 for suppliers");
@@ -2161,6 +2162,7 @@ public class Presentation {
     }
 
     public void runManager() {
+        superMarket.checkOrdersArrivalStatus();
         boolean isTerminated = false;
         Scanner scanner = new Scanner(System.in);
         //System.out.println("Would you like to load pre-made data? (y/n)");

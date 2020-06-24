@@ -415,6 +415,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
             for (Product p :order.getProducts().keySet()){
                 storage_management.setNextSupply(p.getCatalogID(), convertToDateViaSqlTimestamp(ETA));
             }
+            return true;
         }
         return false;
     }
@@ -464,6 +465,7 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         //returned a list of all arrived orders with all the details you will ever need, and update the storage
         LinkedList<Order> arrivedOrders = supplier_management.checkOrdersArrivalStatus();
         for (Order o : arrivedOrders){
+            System.out.println(o.toString());
             int supplierID = o.getSupplierID();
             for (Map.Entry<Product, Pair<Integer, Integer>> e : o.getProducts().entrySet()){
                 int catalogID = e.getKey().getCatalogID();
