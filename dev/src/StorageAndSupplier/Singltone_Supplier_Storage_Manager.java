@@ -84,10 +84,11 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
     @Override
     public void buyProduct(int SupplierID, int CatalogID, String productName, double price, double discount, Date expirationDate, int amount, Date date, int location) {
         int barCode = 0;
-        while (SuperMarketController.storage_suppliers_barcode_convertor.keySet().iterator().hasNext()){
-            Pair it = SuperMarketController.storage_suppliers_barcode_convertor.keySet().iterator().next();
-            if ((Integer)it.getKey() == SupplierID && (Integer)it.getValue() == CatalogID){
-                barCode = SuperMarketController.storage_suppliers_barcode_convertor.get(it);
+        Iterator <Pair<Integer, Integer>> it = SuperMarketController.storage_suppliers_barcode_convertor.keySet().iterator();
+        while (it.hasNext()){
+            Pair itPair = it.next();
+            if ((Integer)itPair.getKey() == SupplierID && (Integer)itPair.getValue() == CatalogID){
+                barCode = SuperMarketController.storage_suppliers_barcode_convertor.get(itPair);
                 break;
             }
         }

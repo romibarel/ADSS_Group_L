@@ -87,6 +87,7 @@ public class SuperMarketController implements SuperMarket {
         }
         initializeConvertor();
         SandSController.setConnection(conn);
+        SandSController.initialize();
         this.permissions = new Permissions_Manager();
         this.permissions.connectToDB(conn);
     }
