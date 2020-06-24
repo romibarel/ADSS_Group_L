@@ -342,10 +342,10 @@ public class BTIController {
                         price = Double.parseDouble(supDetails[3]);
                         discount = Double.parseDouble(supDetails[4]);
                         DateFormat dateF = new SimpleDateFormat("yyyy-mm-dd");
-                        expiration = dateF.parse(supDetails[5]);//   todo haim this is avi's format. this time convert might not work
+                        expiration = dateF.parse(supDetails[5]);
                     } catch (Exception e) {
 //                         ERROR
-                        e.printStackTrace();   // todo throw delete after testing haim
+                        e.printStackTrace();   
                         continue;
                     }
                     Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID, productName, price, discount, expiration, amount, date, STORAGE);
