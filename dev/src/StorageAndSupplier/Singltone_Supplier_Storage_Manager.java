@@ -136,6 +136,10 @@ public class Singltone_Supplier_Storage_Manager implements API_Buisness{
         this.storage_management.setSaleInfoOfNewProduct(barcode, productName, price, discount);
     }
 
+    public void printAllExistingCategories(){
+
+    }
+
     @Override
     public void setPriceOfExistingProduct(int barcode, double newPrice) {
         this.storage_management.setPriceOfExistingProduct(barcode, newPrice);

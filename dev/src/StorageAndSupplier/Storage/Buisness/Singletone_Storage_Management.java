@@ -148,6 +148,8 @@ public class Singletone_Storage_Management {
     }
 
 
+
+
     public void setMinimumAmount(int barcode, int minimumAmount) {
         this.getInventory().setMinimumAmount(barcode, minimumAmount);
     }
