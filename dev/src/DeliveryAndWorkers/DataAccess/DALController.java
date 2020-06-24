@@ -1533,7 +1533,7 @@ public class DALController
 
     public boolean saveDelivery(DalDelivery delivery ) {
         openConn();
-        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, truckWeight, driver, source, approved, delivered) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Deliveries(id, departureDate, departureTime, truckNum, truckWeight, driver, source, approved, delivered) VALUES(?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, delivery.getId());
             pstmt.setDate(2, new java.sql.Date(delivery.getDate().getTime()));

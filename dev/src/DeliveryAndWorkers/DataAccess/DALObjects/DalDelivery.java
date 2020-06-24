@@ -41,8 +41,8 @@ public class DalDelivery {
 
     }
 
-    public DalDelivery(Delivery delivery, int id) {
-        this.id = id;
+    public DalDelivery(Delivery delivery) {
+        this.id = delivery.getID();
         this.date = delivery.getDate();
         this.departureTime = delivery.getDepartureTime();
         this.truckNum = delivery.getTruckNum();

@@ -416,10 +416,10 @@ public class PTIDelController {
 
     private void cancelDelivery(){
         String input;
-        System.out.println("Please enter Storekeeper username and password.");
+        System.out.println("Please enter Storage Manager username and password.");
         input = scanner.nextLine();
         //todo: check the actual id of store keeper, logistic manager and HR manager
-        if (!validUser(input, 1)){
+        if (!validUser(input, 2)){
             System.out.println("Storage Manager username and ID incorrect, cancelation denied.");
             return;
         }
@@ -433,7 +433,7 @@ public class PTIDelController {
 
         System.out.println("Please enter HR Manager user username password.");
         input = scanner.nextLine();
-        if (!validUser(input, 3)){
+        if (!validUser(input, 1)){
             System.out.println("HR Manager username and ID incorrect, cancelation denied.");
             return;
         }
@@ -494,7 +494,11 @@ public class PTIDelController {
 
     private boolean validUser(String s, int id){
         //0=username 1=password
+        if(s == null)
+            return false;
         String[] parse = s.split(" ");
+        if (parse.length != 2)
+            return false;
         return SuperMarketController.getInstance().checkPermission(parse[0], parse[1]) == id;
     }
 }

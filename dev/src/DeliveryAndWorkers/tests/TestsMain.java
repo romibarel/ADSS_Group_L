@@ -6,7 +6,7 @@ import org.junit.runner.notification.Failure;
 
 public class TestsMain
 {
-	public static void main(String[] args)
+	public static void testFunc()
 	{
 		JUnitCore jUnitCore = new JUnitCore();
 		Result result;
