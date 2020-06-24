@@ -23,7 +23,7 @@ public class ConstraintTest {
         ShiftController.get_shifts().clear();
         WorkersController.getWorkers().clear();
         Date date=new SimpleDateFormat("dd/MM/yyyy").parse("20/5/2019");
-        InterfaceWorker w=new InterfaceWorker("worker worker", 209473891,1515,30,3, 30,30,date,"manager" );
+        InterfaceWorker w=new InterfaceWorker("worker worker", 209473891,1515,30,3, 30,30,date,"manager","Mega" );
         w.setBranchAddress("Costco");
         WorkersController.add_worker(w, null);
     }
