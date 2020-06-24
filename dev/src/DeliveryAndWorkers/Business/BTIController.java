@@ -68,10 +68,10 @@ public class BTIController {
         return "Delivery list to "+ deliverDoc.getDestination().getAddress() +" created successfully.";
     }
 
-    public String createDelivery(Order order){
+    public void createDelivery(Order order){
         for (Delivery del: archive.getDeliveries()){
             if (del.getSource().equals(order.getSrcAddress()))
-                return "Delivery already in place.";
+                return;
         }
 
         int weight = (int)(Math.round(order.calcWeight()));
@@ -86,22 +86,22 @@ public class BTIController {
         if (truck == null)
             truck = btd.loadTruckByWeight(weight);
         if (truck == null)
-            return "There is no fitting truck for the delivery.";
+            return;
         trucks.add(truck);
 
         weight = weight+truck.getWeighNeto();
 
         int driver = WorkersController.get_available_driver_id(truck.getType(), order.getETA());
         if (driver == -1)
-            return "There is no fitting driver.";
+            return;
 
         String source = order.getSrcAddress();
         if (source == null)
-            return "The source doesn't exist.";
+            return;
 
         String dest = order.getDestAddress();
         if(dest == null)
-            return "The destination doesn't exist.";
+            return;
 
         Date date = convertToDateViaSqlTimestamp(order.getETA());
         DateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
@@ -125,22 +125,24 @@ public class BTIController {
         //make the source doc
         int docNum = getMaxDocNum() + 1;
         numsToDelivery.add(docNum);
-        if (createDoc(depart, date, docNum, dest, supplies).equals("The destination doesn't exist."))
-            return "The source doesn't exist.";
+        if (createDoc(depart, date, docNum, source, supplies).equals("The destination doesn't exist."))
+            return;
         //make the dest doc
-        docNum = getMaxDocNum() + 1;
+        docNum = getMaxDocNum() + 2;
         numsToDelivery.add(docNum);
         if (createDoc(arrival, date, docNum, dest, supplies).equals("The destination doesn't exist."))
-            return "The destination doesn't exist.";
+            return;
 
-        return createDelivery(date, depart, truck.getTruckNum(), driver, source, numsToDelivery, weight);
+        createDelivery(date, depart, truck.getTruckNum(), driver, source, numsToDelivery, weight);
     }
 
     public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
         Truck truck = null;
         for (Truck check : trucks){
-            if (check.getTruckNum() == truckID)
+            if (check.getTruckNum() == truckID){
                 truck = check;
+                break;
+            }
         }
         if (truck == null)
             truck = btd.loadTruck(truckID);
