@@ -45,6 +45,19 @@ public class InterfaceWorker {
         this.branchAddress=worker.getBranchAddress();
     }
 
+    public InterfaceWorker(String name, int id, int bank_account_number, int salary, int pension, int vacation_days, int sick_days, Date start_date, String role, String branchAddress) {
+        this.name = name;
+        this.id = id;
+        this.bank_account_number = bank_account_number;
+        this.salary = salary;
+        this.pension = pension;
+        this.vacation_days = vacation_days;
+        this.sick_days = sick_days;
+        this.start_date = start_date;
+        this.role = role;
+        this.branchAddress = branchAddress;
+    }
+
     public String getName() {
         return name;
     }
