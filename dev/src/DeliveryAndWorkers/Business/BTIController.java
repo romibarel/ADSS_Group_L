@@ -26,7 +26,7 @@ public class BTIController {
     private Sections sections;
     private List<Location> locations;
     private List<Truck> trucks;
-    private final String DELIMITER = "^";
+    private final String DELIMITER = "#";
 
 
     private BTIController(){
@@ -276,25 +276,37 @@ public class BTIController {
         List<Delivery> deliveries = archive.getDeliveries();
         for (Delivery deli : deliveries ) {
             //departure date is today or has passed
-            boolean timePassed = deli.getDate().before(date) || deli.getDate().compareTo(date) == 0;
+            boolean timePassed = deli.getDate().before(date);
             if (timePassed){
-                for (DeliverDoc doc: deli.getDocs()){
-                    //delivery to this location is today or has passed
-                    timePassed = doc.getEstimatedDayOfArrival().before(date) || doc.getEstimatedDayOfArrival().compareTo(date) == 0;
-                    if (!timePassed)
-                        break;
-                    timePassed = doc.getEstimatedTimeOfArrival().before(time) || doc.getEstimatedTimeOfArrival().compareTo(time)==0;
-                    if (!timePassed)
-                        break;
+                String product = deli.getDocs().get(0).getDeliveryList().get(0).getName();
+                boolean outDeli = product.contains(DELIMITER);
+                if (timePassed & outDeli) {
+                    sendDeliveryList(deli);
                 }
             }
-            //if the time has passed or is now for every single destination the delivery is complete
-            if (timePassed)
-                delivered(deli, true);
-            String product = deli.getDocs().get(0).getDeliveryList().get(0).getName();
-            boolean outDeli = product.contains(DELIMITER);
-            if (timePassed & outDeli) {
-                sendDeliveryList(deli);
+
+            else{
+                timePassed = deli.getDate().compareTo(date) == 0;
+                if (timePassed){
+                    for (DeliverDoc doc: deli.getDocs()){
+                        //delivery to this location is today or has passed
+                        timePassed = doc.getEstimatedDayOfArrival().before(date);
+                        if (!timePassed){
+                            timePassed = doc.getEstimatedDayOfArrival().compareTo(date) == 0;
+                            if (!timePassed)
+                                break;
+                            timePassed = doc.getEstimatedTimeOfArrival().before(time) || doc.getEstimatedTimeOfArrival().compareTo(time)==0;
+                            if (!timePassed)
+                                break;
+                        }
+                    }
+                }
+                //if the time has passed or is now for every single destination the delivery is complete
+                String product = deli.getDocs().get(0).getDeliveryList().get(0).getName();
+                boolean outDeli = product.contains(DELIMITER);
+                if (timePassed & outDeli) {
+                    sendDeliveryList(deli);
+                }
             }
         }
     }
@@ -305,7 +317,7 @@ public class BTIController {
     private void sendDeliveryList(Delivery deli) {
         //avi needs buyProduct(int supplyID, int catalogID, String productName, double price, double discount, Date expiration, int amount, Date date)
 //            deli.getSource().get
-        if (!deli.isDelivered())
+        if (deli.isDelivered() || !deli.isApproved())
             return;
         List<DeliverDoc> docs = deli.getDocs();
         for (DeliverDoc doc : docs)
@@ -339,6 +351,7 @@ public class BTIController {
                     Singltone_Supplier_Storage_Manager.getInstance().buyProduct(supplyID, catalogID, productName, price, discount, expiration, amount, date, STORAGE);
                 }
             }
+            delivered(deli, true);
         }
 //         buyProduct(int barCode, String productName, int supplierID, double price, double discount, Date expirationDate, int amount, Date date, int location) {
 
