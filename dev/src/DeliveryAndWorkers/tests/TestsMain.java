@@ -6,7 +6,7 @@ import org.junit.runner.notification.Failure;
 
 public class TestsMain
 {
-	public static void main(String[] args)
+	public static void mainFunc()
 	{
 		JUnitCore jUnitCore = new JUnitCore();
 		Result result;
@@ -20,10 +20,10 @@ public class TestsMain
 //			System.out.println(failure.toString());
 //		System.out.println("WorkersTest: Successful: " + result.wasSuccessful() + " run of " + result.getRunCount() + " tests");
 
-//		result = jUnitCore.run(ConstraintTest.class);
-//		for (Failure failure:result.getFailures())
-//			System.out.println(failure.toString());
-//		System.out.println("ConstraintTest: Successful: " + result.wasSuccessful() + " run of " + result.getRunCount() + " tests");
+		result = jUnitCore.run(ConstraintTest.class);
+		for (Failure failure:result.getFailures())
+			System.out.println(failure.toString());
+		System.out.println("ConstraintTest: Successful: " + result.wasSuccessful() + " run of " + result.getRunCount() + " tests");
 
 	}
 
