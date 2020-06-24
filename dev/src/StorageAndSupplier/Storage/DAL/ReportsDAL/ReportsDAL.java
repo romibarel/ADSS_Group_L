@@ -241,11 +241,11 @@ public class ReportsDAL {
             }
         }
 
-        try {
+        /*try {
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return ret;
     }
@@ -298,11 +298,11 @@ public class ReportsDAL {
             //System.out.println("failed");
         }
 
-        try {
+        /*try {
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return ret;
     }

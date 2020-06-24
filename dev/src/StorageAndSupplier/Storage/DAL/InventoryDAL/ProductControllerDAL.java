@@ -119,11 +119,11 @@ public class ProductControllerDAL {
         ret.setSubCategoriesDAL(c);
         ret.setProductListDAL(p);
 
-        try {
+        /*try {
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return ret;
 
