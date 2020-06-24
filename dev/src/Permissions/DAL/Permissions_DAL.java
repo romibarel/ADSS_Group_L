@@ -21,6 +21,7 @@ public class Permissions_DAL {
             if (rs.next()) {
                 ret = rs.getInt(1);
             }
+            conn.close();
         }
         catch (Exception e){
             System.out.println(e.toString());

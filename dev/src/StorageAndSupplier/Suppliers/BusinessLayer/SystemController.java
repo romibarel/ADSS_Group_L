@@ -69,6 +69,7 @@ public class SystemController {
         if(s == null)
             return null;
         order.calcTotal(s.getAgreements());
+        order.setETA(s.assessOrderETA());
         if(!dc.addSupplierOrder(order.getLoan()))
             return null;
         return s.addOrder(order);
