@@ -72,7 +72,6 @@ public class DeliveryTest
 		int truckID = 18;
 
 		String sourceAddress = "Super Lee";
-		List<Pair<String , Integer>> supplies = new LinkedList<>();
 
 		List<Integer> docNums = new LinkedList<>();
 		int truckWeight = 100;
@@ -95,7 +94,6 @@ public class DeliveryTest
 		int truckID = 967678197;	// truck doesn't exists
 
 		String sourceAddress = "Super Lee";
-		List<Pair<String , Integer>> supplies = new LinkedList<>();
 
 		List<Integer> docNums = new LinkedList<>();
 		int truckWeight = 100;
@@ -117,7 +115,6 @@ public class DeliveryTest
 		int truckID = 18;	// truck doesn't exists
 
 		String sourceAddress = "Super Lee";
-		List<Pair<String , Integer>> supplies = new LinkedList<>();
 
 		List<Integer> docNums = new LinkedList<>();
 		int truckWeight = 817056978;	// too heavy
