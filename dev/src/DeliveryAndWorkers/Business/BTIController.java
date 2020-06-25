@@ -386,4 +386,24 @@ public class BTIController {
         }
         return supplies;
     }
+
+    public void deleteDoc(int docNum){
+        for (DeliverDoc doc : documents){
+            if (doc.getNum() == docNum){
+                documents.remove(doc);
+                break;
+            }
+        }
+    }
+
+    public void deleteDelivery(){
+        Delivery delivery = archive.removeLastDel();
+        if (delivery == null)
+            return;
+        btd.removeDelivery(delivery.getID());
+        btd.removeDeliveryDocs(delivery.getID());
+        for (DeliverDoc doc : delivery.getDocs()){
+            btd.removeSup(doc.getNum());
+        }
+    }
 }

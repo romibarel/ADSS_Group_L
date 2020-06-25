@@ -68,4 +68,25 @@ public class DeliveryArchive {
         return s;
     }
 
+    public Delivery removeLastDel(){
+        if (deliveries.size() == 0)
+            return null;
+        Delivery delivery = deliveries.get(0);
+        for (Delivery del : deliveries){
+            if (del.getID() > delivery.getID())
+                delivery = del;
+        }
+        deliveries.remove(delivery);
+        removeDocs(delivery.getDocs());
+        return delivery;
+    }
+
+    public void removeDocs(List<DeliverDoc> docs){
+        for (DeliverDoc doc : docs){
+            if (documents.contains(doc.getNum())){
+                Integer integer = doc.getNum();
+                documents.remove(integer);
+            }
+        }
+    }
 }

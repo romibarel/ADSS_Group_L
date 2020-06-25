@@ -117,12 +117,15 @@ public class Presentation {
                 }
                 break;
             case 4:
-                initiateOptions = Arrays.asList("Delivery system",
+                initiateOptions = Arrays.asList("Delivery system", "Deliveries Tests",
                         "Exit");
                 printMenu(initiateOptions);
-                select = getIntInput(1);
+                select = getIntInput(2);
                 if (select == 1) {
                     superMarket.start(false);
+                }
+                else if (select == 2){
+                    superMarket.deliverTests();
                 }
                 break;
             case 5:

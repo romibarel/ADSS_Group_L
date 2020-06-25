@@ -487,6 +487,11 @@ public class SuperMarketController implements SuperMarket {
     }
 
     @Override
+    public void deliverTests() {
+        deliveryController.deliverTests();
+    }
+
+    @Override
     public void mainFunc(boolean isManager) {
         if(!isManager)
             WorkerMenu.mainFunc();

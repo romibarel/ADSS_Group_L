@@ -5,6 +5,7 @@ import DeliveryAndWorkers.Business.BTIController;
 import DeliveryAndWorkers.DataAccess.DALController;
 import DeliveryAndWorkers.Interface.ITBDelController;
 import DeliveryAndWorkers.Interface.ITPDelController;
+import DeliveryAndWorkers.tests.TestsMainDeliveries;
 import SuperMarket.SuperMarketController;
 import javafx.util.Pair;
 
@@ -500,5 +501,9 @@ public class PTIDelController {
         if (parse.length != 2)
             return false;
         return SuperMarketController.getInstance().checkPermission(parse[0], parse[1]) == id;
+    }
+
+    public void deliverTests(){
+        TestsMainDeliveries.testFunc();
     }
 }
