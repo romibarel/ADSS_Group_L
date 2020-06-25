@@ -67,11 +67,13 @@ public class DataController {
         addSupplierProduct(Milk2, 2);
         addSupplierProduct(Shocko, 2);
         addSupplierProduct(Tuna, 3);
+        addSupplierProduct(Cheese2, 3);
         loanProducts.add(Milk1);
         loanProducts.add(Milk2);
         loanProducts.add(Tuna);
         loanProducts.add(Shampoo);
         loanProducts.add(Cheese);
+        loanProducts.add(Cheese2);
         loanProducts.add(Shocko);
 
         HashMap<LoanProduct, Pair<Integer, Integer>> o1Products = new HashMap<>();
@@ -83,9 +85,10 @@ public class DataController {
         o2Products.put(Shocko, new Pair<>(15, 0));
         o2Products.put(Milk2, new Pair<>(30, 3));
         o3Products.put(Tuna, new Pair<>(50, 7));
-        LoanOrder o1 = new LoanOrder(1, 1, 463.75, LocalDateTime.now().plusDays(7), LocalDateTime.now(), o1Products, "Ashkelon", "Shufersal");
-        LoanOrder o2 = new LoanOrder(2, 2, 205.5, LocalDateTime.now().plusDays(3), LocalDateTime.now(), o2Products, "Ashdod", "Rami Levi");
-        LoanOrder o3 = new LoanOrder(3, 3, 860.25, LocalDateTime.now().plusDays(1), LocalDateTime.now(), o3Products, "Rishon LeZion", "Keshet Teamim");
+        o3Products.put(Cheese2, new Pair<>(10, 0));
+        LoanOrder o1 = new LoanOrder(1, 1, 463.75, LocalDateTime.now().plusDays(7), LocalDateTime.now(), o1Products, "Asos", "Mega");
+        LoanOrder o2 = new LoanOrder(2, 2, 205.5, LocalDateTime.now().plusDays(3), LocalDateTime.now(), o2Products, "Super Lee", "Lee Office");
+        LoanOrder o3 = new LoanOrder(3, 3, 1079.25, LocalDateTime.now().plusDays(1), LocalDateTime.now(), o3Products, "Shufersal", "Best Buy");
         addSupplierOrder(o1);
         addSupplierOrder(o2);
         addSupplierOrder(o3);
@@ -227,6 +230,7 @@ public class DataController {
             close();
             return true;
         }catch(SQLException e){
+            e.printStackTrace();
             return false;
         }
     }
@@ -528,7 +532,7 @@ public class DataController {
             rs = p.executeQuery();
             while(rs.next())
                 loanProducts.add(new LoanProduct(rs.getInt("supplierID"), rs.getInt("catalogID"), rs.getDouble("Price"),rs.getString("Name"), rs.getString("Manufacturer"),
-                        rs.getDate("expirationDate").toLocalDate().atTime(LocalTime.now()), rs.getDouble("weight")));
+                        convertToLocalDateTimeViaSqlTimestamp(rs.getDate("expirationDate")), rs.getDouble("weight")));
 
             p = con.prepareStatement("SELECT * FROM SUPPLIER_AGREEMENTS");
             rs = p.executeQuery();
@@ -637,12 +641,12 @@ public class DataController {
     }
 
     public LoanSupplier getSupplierByOrder(int orderID){
+
         try {
             openCon();
             p = con.prepareStatement("SELECT S.supplierID FROM SUPPLIERS AS S JOIN SUPPLIER_ORDERS AS SO ON S.supplierID = SO.supplierID AND orderID = " + orderID);
             ResultSet rs = p.executeQuery();
             close();
-            System.out.println(rs.getInt("supplierID"));
             return getLoanSupplier(rs.getInt("supplierID"));
         }catch (SQLException e){
             return null;
@@ -693,7 +697,7 @@ public class DataController {
                 r.close();
                 loanOrders.add(new LoanOrder(rs.getInt("supplierID"), rs.getInt("orderID"), rs.getDouble("total"),
                         rs.getDate("ETA").toLocalDate().atTime(LocalTime.now()), rs.getDate("dateIssued").toLocalDate().atTime(LocalTime.now()),
-                        prod, rs.getString("source"), rs.getString("desination")));
+                        prod, rs.getString("source"), rs.getString("destination")));
             }
 
             p = con.prepareStatement("SELECT * FROM SUPPLIERS WHERE supplierID = " + supplierID);
@@ -755,6 +759,20 @@ public class DataController {
 
     public void setConnection(Connection conn) {
         this.con = conn;
+    }
+
+    public int countSuppliers(){
+        int ans = 0;
+        try {
+            openCon();
+            p = con.prepareStatement("SELECT COUNT(*) AS a FROM SUPPLIERS");
+            ResultSet r = p.executeQuery();
+            ans = r.getInt("a");
+            close();
+        }catch (SQLException e){
+            return 0;
+        }
+        return ans;
     }
 
     private LocalDateTime convertToLocalDateTimeViaSqlTimestamp(Date dateToConvert) {

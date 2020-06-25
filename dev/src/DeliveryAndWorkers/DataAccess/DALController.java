@@ -1784,4 +1784,59 @@ public class DALController
         }
     }*/
 
+    public void removeDelivery(int delID) {
+        openConn();
+        String sql = "DELETE FROM Deliveries WHERE id=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, delID);
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                System.out.println("NO");
+                ex.printStackTrace();
+            }
+            return;
+        }
+        return;
+    }
+
+    public void removeDeliveryDocs(int delID) {
+        openConn();
+        String sql = "DELETE FROM DeliveryDocs WHERE deliveryID=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, delID);
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return;
+        }
+        return;
+    }
+
+    public void removeSup(int docID) {
+        openConn();
+        String sql = "DELETE FROM Supply WHERE docNum=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, docID);
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return;
+        }
+        return;
+    }
+
 }

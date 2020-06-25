@@ -345,7 +345,7 @@ public class SystemController {
             if (s.getID() == supplierID)
                 return s;
         }
-        LoanSupplier ls =  dc.getLoanSupplier(supplierID);
+        LoanSupplier ls = dc.getLoanSupplier(supplierID);
         if(ls == null) return null;
         return addSupplierFromLoan(ls);
     }
@@ -446,5 +446,9 @@ public class SystemController {
                 break;
         }
         return s;
+    }
+
+    public void init(){
+        dc.loadSystem();
     }
 }

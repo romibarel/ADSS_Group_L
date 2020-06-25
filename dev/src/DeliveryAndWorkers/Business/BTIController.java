@@ -136,7 +136,7 @@ public class BTIController {
         createDelivery(date, depart, truck.getTruckNum(), driver, source, numsToDelivery, weight);
     }
 
-    public String createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
+    public String  createDelivery(Date date, Date time, int truckID, int driverID, String sourceAddress, List<Integer> docNums, int truckWeight){
         Truck truck = null;
         for (Truck check : trucks){
             if (check.getTruckNum() == truckID){
@@ -385,5 +385,25 @@ public class BTIController {
             supplies.add(new Pair<>(newName, quant));
         }
         return supplies;
+    }
+
+    public void deleteDoc(int docNum){
+        for (DeliverDoc doc : documents){
+            if (doc.getNum() == docNum){
+                documents.remove(doc);
+                break;
+            }
+        }
+    }
+
+    public void deleteDelivery(){
+        Delivery delivery = archive.removeLastDel();
+        if (delivery == null)
+            return;
+        btd.removeDelivery(delivery.getID());
+        btd.removeDeliveryDocs(delivery.getID());
+        for (DeliverDoc doc : delivery.getDocs()){
+            btd.removeSup(doc.getNum());
+        }
     }
 }

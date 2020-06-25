@@ -181,5 +181,7 @@ public interface SuperMarket {
 
     void start(boolean isManager);
 
+    void deliverTests();
+
     void mainFunc(boolean isManager);
 }

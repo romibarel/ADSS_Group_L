@@ -289,4 +289,15 @@ public class BTDController {
         return null;
     }
 
+    public void removeDelivery(int delID){
+        dataTb.removeDelivery(delID);
+    }
+
+    public void removeDeliveryDocs(int delID){
+        dataTb.removeDeliveryDocs(delID);
+    }
+
+    public void removeSup(int docID){
+        dataTb.removeSup(docID);
+    }
 }
