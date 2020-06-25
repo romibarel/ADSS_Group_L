@@ -7,6 +7,7 @@ import StorageAndSupplier.Storage.Tests.PurchaseTransactionTest;
 import StorageAndSupplier.API_Buisness;
 import StorageAndSupplier.*;
 import StorageAndSupplier.Suppliers.BusinessLayer.*;
+import StorageAndSupplier.Suppliers.Tests.TestClass;
 import SuperMarket.SuperMarket;
 import javafx.util.Pair;
 import org.junit.runner.JUnitCore;
@@ -231,14 +232,42 @@ public class Presentation {
     }
 
     private void runSuppliers(){
-        //SystemController sc = SystemController.getInstance();
-        //System.out.println("Would you like to load pre-made data? (y/n)");
-        //if(scanner.next().equals("y"))
-        //sc.loadSystem();
-        run();
-        //System.out.println("NO");
-        //sc.unloadSystem();
-        //sc.closeConnection();
+        while(true){
+            System.out.println("1) Run Suppliers' System");
+            System.out.println("2) Run Suppliers' Tests");
+            System.out.println("3) Exit");
+            int initialized = 0;
+            boolean error = false;
+            do {
+                try {
+                    initialized = Integer.parseInt(in.nextLine());
+                    error = false;
+                }
+                catch (Exception e){
+                    error = true;
+                    System.out.println("Illegal input try again.");
+                }
+            }while (error);
+            if(initialized == 1){
+                run();
+                break;
+            }
+            else if(initialized ==2){
+                Result result1 = JUnitCore.runClasses(TestClass.class);
+                System.out.println("Successful Tests: " + result1.getRunCount());
+                for(Failure failure : result1.getFailures()){
+                    System.out.println(failure.toString());
+                }
+                superMarket.removeSupplier(1);
+                superMarket.removeSupplier(2);
+                superMarket.removeSupplier(3);
+                SystemController.getInstance().init();
+                System.exit(0);
+            }
+            else if(initialized ==3){
+                System.exit(0);
+            }
+        }
     }
 
     private static void initialize(){

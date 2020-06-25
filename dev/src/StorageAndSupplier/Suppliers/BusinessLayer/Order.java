@@ -190,4 +190,12 @@ public class Order {
             weight += e.getKey().getWeight() * e.getValue().getKey();
         return weight;
     }
+
+    public int getAmountOf(int barCode){
+        for(Map.Entry<Product, Pair<Integer, Integer>> e : products.entrySet()){
+            if(e.getKey().getCatalogID() == barCode)
+                return e.getValue().getKey();
+        }
+        return -1;
+    }
 }

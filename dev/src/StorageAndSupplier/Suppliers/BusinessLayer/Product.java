@@ -29,6 +29,7 @@ public class Product {
         finalPrice = price;
         name = lp.getName();
         manufacturer = lp.getManufacturer();
+        expirationDate = lp.getExpirationDate();
         weight = lp.getWeight();
     }
 
