@@ -1578,6 +1578,7 @@ public class Presentation {
         superMarket.checkOrdersArrivalStatus();
         boolean isTerminated = false;
         Scanner scanner = new Scanner(System.in);
+        updateStatIDs();
         //System.out.println("Would you like to load pre-made data? (y/n)");
         //if(scanner.next().equals("y")) {
         //    businessManager.loadSystem();
@@ -1651,17 +1652,17 @@ public class Presentation {
                             break;
                         case 2:
                             System.out.println("Please type the name:");
-                            String name = scanner.next();
+                            String name = scanner.nextLine();
                             if(!checkValidName(name))
                                 break;
                             System.out.println("Please type the company ID:");
                             int cid = checkNum(scanner);
                             System.out.println("Please type the phone number:");
-                            String pn = scanner.next();
+                            String pn = scanner.nextLine();
                             System.out.println("Please type the bank account:");
-                            String ba = scanner.next();
+                            String ba = scanner.nextLine();
                             System.out.println("Please type the pay condition:");
-                            String pc = scanner.next();
+                            String pc = scanner.nextLine();
                             System.out.println("Choose 1 to create fixed days supplier");
                             System.out.println("Choose 2 to create order only supplier");
                             System.out.println("Choose 3 to create self pickup supplier");
@@ -1739,7 +1740,7 @@ public class Presentation {
                                     System.out.println("Please enter the supplier ID");
                                     id = checkNum(scanner);
                                     System.out.println("Please enter new bank account");
-                                    String ba1 = scanner.next();
+                                    String ba1 = scanner.nextLine();
                                     if(superMarket.setSupplierBankAccNum(id,ba1))
                                         System.out.println("Success!");
                                     else
@@ -1749,7 +1750,7 @@ public class Presentation {
                                     System.out.println("Please enter the supplier ID");
                                     id = checkNum(scanner);
                                     System.out.println("Please enter new pay condition");
-                                    String pc1 = scanner.next();
+                                    String pc1 = scanner.nextLine();
                                     if(superMarket.setSupplierPayCond(id,pc1))
                                         System.out.println("Success!");
                                     else
@@ -1759,7 +1760,7 @@ public class Presentation {
                                     System.out.println("Please enter the supplier ID");
                                     id = checkNum(scanner);
                                     System.out.println("Please enter new phone number");
-                                    String pn1 = scanner.next();
+                                    String pn1 = scanner.nextLine();
                                     if(superMarket.setSupplierPhoneNum(id,pn1))
                                         System.out.println("Success!");
                                     else
