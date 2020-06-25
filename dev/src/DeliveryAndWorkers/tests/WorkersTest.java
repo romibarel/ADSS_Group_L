@@ -79,20 +79,7 @@ public class WorkersTest
 		assertEquals("avi bitter", WorkersController.get_by_id(0).getName());
 	}
 
-	@Test
-	public void test_fail_delete_worker2() throws ParseException
-	{
-		Date date=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2021");
-		InterfaceWorker w=new InterfaceWorker("avi cohen",0,12,1234,11,5,5,date,"manager","Mega");
 
-		Date date2=new SimpleDateFormat("dd/MM/yyyy").parse("15/05/2021");
-		InterfaceShift s=new InterfaceShift(date2,true,0,null,"Mega");
-
-		WorkersController.add_worker(w,null);
-		s.setManager_id(0); //assign w to be the manager in s
-		ShiftController.add_shift(s);
-		assertFalse(WorkersController.delete_worker(0).success); // worker is scheduled for shift so no delete
-	}
 
 	@Test
 	public void test_fail_delete_worker1() throws ParseException
