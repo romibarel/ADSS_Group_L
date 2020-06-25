@@ -222,9 +222,9 @@ public class DALController
 
     public void initShifts(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1579557600000,1,\"Super Lee\",13);");
-        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1579557600000,0,\"Costco\",14);");
-        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1579557600000,1,\"Costco\",14);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1594771200000,1,\"Super Lee\",13);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1594771200000,0,\"Costco\",14);");
+        sqls.add("Insert Into Shifts (date,morning,branch,manager_id) Values (1593475200000,1,\"Costco\",14);");
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
@@ -245,9 +245,9 @@ public class DALController
 
     public void initShiftsWorkers(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1579557600000,1,15,\"Super Lee\");");
-        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1579557600000,1,17,\"Super Lee\");");
-        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1579557600000,0,16,\"Costco\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1594771200000,1,15,\"Super Lee\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1593475200000,1,17,\"Super Lee\");");
+        sqls.add("Insert Into WorkersInShift (date,morning,worker_id,branch) Values (1593475200000,0,16,\"Costco\");");
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
@@ -268,19 +268,19 @@ public class DALController
 
     public void initConstraints(){
         List<String> sqls = new LinkedList<>();
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(1,13,1590613200000,\"false\",\"wedding\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(2,13,1590699600000,\"true\",\"wedding\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(1,13,1623283200000,\"false\",\"wedding\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(2,13,1623283200000,\"true\",\"wedding\");");
         sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(3,14,1593378000000,\"false\",\"doctor\");");
         sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(4,15,1599598800000,\"false\",\"vacation\");");
         sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(5,15,1599598800000,\"true\",\"vacation\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(6,16,1590008400000,\"false\",\"vacation\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(7,17,1590094800000,\"true\",\"doctor\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(8,18,1590181200000,\"false\",\"doctor\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(9,19,1590354000000,\"true\",\"i dont want to work\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(10,36,1590440400000,\"false\",\"bar mitzva\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(11,30,1590613200000,\"true\",\"vacation\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(12,19,1599598800000,\"false\",\"vacation\");");
-        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(13,19,1590872400000,\"true\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(6,16,1594166400000,\"false\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(7,17,1591833600000,\"true\",\"doctor\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(8,18,1602547200000,\"false\",\"doctor\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(9,19,1604361600000,\"true\",\"i dont want to work\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(10,36,1607472000000,\"false\",\"bar mitzva\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(11,30,1595376000000,\"true\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(12,19,1595376000000,\"false\",\"vacation\");");
+        sqls.add("INSERT INTO Constraints(cid, wid, date, morning, reason) VALUES(13,19,1595462400000,\"true\",\"vacation\");");
         openConn();
         for (String sqlCommand : sqls){
             try (PreparedStatement statement = conn.prepareStatement(sqlCommand)) {
